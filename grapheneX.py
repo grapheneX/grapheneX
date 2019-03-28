@@ -3,11 +3,10 @@
 
 from core.logcl import GraphenexLogger
 
-def main():
-    logger = GraphenexLogger("graphenex.main", level='DEBUG')
-    logger.debug("debug message")
-    logger.error("Error message")
+logger = GraphenexLogger("graphenex.main", level="DEBUG")
 
+def main():
+    logger.debug("Graphenex started")
     print("GrapheneX")
 
 if __name__ == "__main__":

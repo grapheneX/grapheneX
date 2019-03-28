@@ -1,14 +1,24 @@
 import logging, sys, coloredlogs
 
 class GraphenexLogger(logging.Logger):
+    """
+    Logger for Graphenex Project
+
+    Usage:
+        ```
+        logger = GraphenexLogger("myApp", level="DEBUG")
+        logger.debug("This is a debug message")
+        logger.info("Cool information message")
+        ```
+    `GraphenexLogger(name, level, format)`
+    """
     LEVELS = {
         'DEBUG': logging.DEBUG,
         'ERROR': logging.ERROR,
         'INFO': logging.INFO,
-        'WARNING': logging.WARNING,
-        'CRITICAL': logging.CRITICAL
+        'WARNING': logging.WARNING
     }
-    def __init__(self, name, level='INFO', format="%(asctime)s | %(levelname)s | %(message)s"):
+    def __init__(self, name, level='INFO', format="%(asctime)s > %(name)s > %(levelname)s > %(message)s"):
         # Initial construct.
         self.format = format
         self.level = level
@@ -19,12 +29,20 @@ class GraphenexLogger(logging.Logger):
         self.console_logger = logging.StreamHandler(sys.stdout)
         self.console_logger.setFormatter(self.console_formatter)
  
-        self.logger = logging.getLogger("Graphenex")
+        self.logger = logging.getLogger(self.name)
         self.logger.setLevel(GraphenexLogger.LEVELS[self.level])
         self.logger.addHandler(self.console_logger)
 
         # Color support
-        coloredlogs.install(level=self.level, fmt=self.format, datefmt="%H:%M:%S", logger=self.logger)
+        FIELD_STYLES = dict(
+            asctime=dict(color='green'),
+            hostname=dict(color='magenta'),
+            levelname=dict(color='cyan', bold=coloredlogs.CAN_USE_BOLD_FONT),
+            filename=dict(color='magenta'),
+            name=dict(color='blue'),
+            threadName=dict(color='green')
+        )
+        coloredlogs.install(level=self.level, fmt=self.format, datefmt="%H:%M:%S", logger=self.logger,field_styles=FIELD_STYLES)
 
     def info(self, msg, extra=None):
         self.logger.info(msg, extra=extra)
@@ -37,3 +55,8 @@ class GraphenexLogger(logging.Logger):
 
     def warn(self, msg, extra=None):
         self.logger.warn(msg, extra=extra)
+
+class test(logging.Logger):
+    def __init__(self, name, level):
+        return super().__init__(name, level)
+
