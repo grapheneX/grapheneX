@@ -56,7 +56,4 @@ class GraphenexLogger(logging.Logger):
     def warn(self, msg, extra=None):
         self.logger.warn(msg, extra=extra)
 
-class test(logging.Logger):
-    def __init__(self, name, level):
-        return super().__init__(name, level)
 
