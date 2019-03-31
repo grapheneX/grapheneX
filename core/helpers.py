@@ -17,13 +17,13 @@ def print_header():
             sys.exit()
     import_colorlibs()
 
-    project_desc = """                          
+    project_desc = Style.BRIGHT + """                          
            `:sdydmy/.           
         .+hNNNNNhyNNNdo:        | grapheneX |
-     :sdNNNNNNNNNmsmNNNdys/`    """+Style.NORMAL+"Automated System Hardening Framework"+"""
-     dNNNNNNNNNNNNNydmydNNN-    Created for Linux & Windows.
-     dNNNNNNNNNNNNNmohNNNNN-    https://github.com/grapheneX
-     dNNNNNNNNNNNmyhNNNNNNN-    Copyright (C) 2019
+     :sdNNNNNNNNNmsmNNNdys/`    """+Style.NORMAL+"Automated System Hardening Framework"+Style.BRIGHT+"""
+     dNNNNNNNNNNNNNydmydNNN-    """+Style.NORMAL+"Created for Linux & Windows."+Style.BRIGHT+"""
+     dNNNNNNNNNNNNNmohNNNNN-    """+Style.NORMAL+"https://github.com/grapheneX"+Style.BRIGHT+"""
+     dNNNNNNNNNNNmyhNNNNNNN-    """+Style.NORMAL+"Copyright (C) 2019"+Style.BRIGHT+"""
      dNNNNNNNNNNyhNNNNNNNNN-        
      -odNNNNNNNNmhhhhhhhhs/     
         ./ymNNNNNNNNNho-        
