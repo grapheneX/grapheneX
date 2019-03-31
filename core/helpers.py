@@ -1,6 +1,8 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+from core.logcl import GraphenexLogger
+
 def print_header():
     project_desc = """                          
            `:sdydmy/.           
@@ -15,6 +17,7 @@ def print_header():
             :odNNmy/`                     
         """
     print(project_desc)
+    GraphenexLogger("graphenex.main").info("grapheneX started.")
 
 def check_os():
     return 1 if __import__('os').name == 'nt' else 0
