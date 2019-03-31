@@ -23,8 +23,8 @@ class GraphenexLogger(logging.Logger):
     }
     def __init__(self, name, level='INFO', \
                 format="%(asctime)s > %(name)s > %(levelname)s > %(message)s"):
-        # Imports
-        self.import_colorlib()
+        # Import coloredlogs
+        self.import_clogs()
 
         # Initial construct.
         self.format = format
@@ -52,7 +52,7 @@ class GraphenexLogger(logging.Logger):
         coloredlogs.install(level=self.level, fmt=self.format, \
         datefmt="%H:%M:%S", logger=self.logger, field_styles=FIELD_STYLES)
     
-    def import_colorlib(self):
+    def import_clogs(self):
         try:
             global coloredlogs
             import coloredlogs
