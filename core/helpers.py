@@ -1,9 +1,20 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+import sys
 from core.logcl import GraphenexLogger
 
 def print_header():
+    def import_colorlibs():
+        try:
+            global init, colored
+            from colorama import init
+            from termcolor import colored
+        except:
+            print("[colorama/termcolor] module not found.\n"+
+            "Install requirements.txt with pip.")
+            sys.exit()
+    import_colorlibs()
     project_desc = """                          
            `:sdydmy/.           
         .+hNNNNNhyNNNdo:        | grapheneX |
