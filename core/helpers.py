@@ -6,7 +6,7 @@ from core.logcl import GraphenexLogger
 
 def print_header():
     # Import colorama
-    def import_colorlibs():
+    def import_colorama():
         try:
             global init, Fore, Style, colored
             from colorama import init, Fore, Style
@@ -15,7 +15,7 @@ def print_header():
             print("colorama module not found.\n"+
             "Install requirements.txt with pip.")
             sys.exit()
-    import_colorlibs()
+    import_colorama()
 
     project_desc = Style.BRIGHT + """                          
            `:sdydmy/.           
