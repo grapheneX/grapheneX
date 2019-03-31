@@ -1,6 +1,9 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+def check_os():
+    return 1 if __import__('os').name == 'nt' else 0
+
 def print_header():
     project_desc = """                          
            `:sdydmy/.           
