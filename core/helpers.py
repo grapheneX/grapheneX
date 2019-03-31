@@ -17,7 +17,7 @@ def print_header():
             sys.exit()
     import_colorama()
 
-    project_desc = Style.BRIGHT + """                          
+    project_desc = Style.BRIGHT + Fore.WHITE + """                          
            `:sdydmy/.           
         .+hNNNNNhyNNNdo:        | grapheneX |
      :sdNNNNNNNNNmsmNNNdys/`    """+Style.NORMAL+"Automated System Hardening Framework"+Style.BRIGHT+"""
