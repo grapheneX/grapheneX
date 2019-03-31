@@ -21,7 +21,8 @@ class GraphenexLogger(logging.Logger):
         'INFO': logging.INFO,
         'WARNING': logging.WARNING
     }
-    def __init__(self, name, level='INFO', format="%(asctime)s > %(name)s > %(levelname)s > %(message)s"):
+    def __init__(self, name, level='INFO', \
+                format="%(asctime)s > %(name)s > %(levelname)s > %(message)s"):
         # Imports
         self.import_colorlib()
 
@@ -48,14 +49,16 @@ class GraphenexLogger(logging.Logger):
             name=dict(color='blue'),
             threadName=dict(color='green')
         )
-        coloredlogs.install(level=self.level, fmt=self.format, datefmt="%H:%M:%S", logger=self.logger,field_styles=FIELD_STYLES)
+        coloredlogs.install(level=self.level, fmt=self.format, \
+        datefmt="%H:%M:%S", logger=self.logger, field_styles=FIELD_STYLES)
     
     def import_colorlib(self):
         try:
             global coloredlogs
             import coloredlogs
         except:
-            print("coloredlogs module not found.\nInstall requirements.txt with pip.")
+            print("coloredlogs module not found.\n"+
+            "Install requirements.txt with pip.")
             sys.exit()
 
     def info(self, msg, extra=None):
