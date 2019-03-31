@@ -8,21 +8,19 @@ def print_header():
     # Import colorama and termcolor
     def import_colorlibs():
         try:
-            global init, colored
-            from colorama import init
-            from termcolor import colored
-            # use colorama to make termcolor work on Windows
+            global init, Fore, Style, colored
+            from colorama import init, Fore, Style
             init()
         except:
-            print("[colorama/termcolor] module not found.\n"+
+            print("colorama module not found.\n"+
             "Install requirements.txt with pip.")
             sys.exit()
     import_colorlibs()
 
     project_desc = """                          
            `:sdydmy/.           
-        .+hNNNNNhyNNNdo:        """+colored('| grapheneX |', 'white', attrs=['bold'])+"""
-     :sdNNNNNNNNNmsmNNNdys/`    Automated System Hardening Framework
+        .+hNNNNNhyNNNdo:        | grapheneX |
+     :sdNNNNNNNNNmsmNNNdys/`    """+Style.NORMAL+"Automated System Hardening Framework"+"""
      dNNNNNNNNNNNNNydmydNNN-    Created for Linux & Windows.
      dNNNNNNNNNNNNNmohNNNNN-    https://github.com/grapheneX
      dNNNNNNNNNNNmyhNNNNNNN-    Copyright (C) 2019
