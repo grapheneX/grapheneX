@@ -5,7 +5,7 @@ import sys
 from core.logcl import GraphenexLogger
 
 def print_header():
-    # Import colorama and termcolor
+    # Import colorama
     def import_colorlibs():
         try:
             global init, Fore, Style, colored
