@@ -1,0 +1,4 @@
+colorama==0.4.1
+coloredlogs==10.0
+humanfriendly==4.18
+pyreadline==2.1
