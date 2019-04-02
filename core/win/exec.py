@@ -1,6 +1,6 @@
-import os
+import shlex
+import subprocess
 
-#Returns 0 if the code runs successfully.Otherwise 1
-def run_cmd(cmd):
-	result = os.system(cmd)
-	return result
+def run_cmd(cmd, shell=True):
+    result = subprocess.run(shlex.split(cmd), stdout=subprocess.PIPE, shell=shell)
+    return result.stdout.decode('utf-8','replace')
