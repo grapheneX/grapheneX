@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from core.logcl import GraphenexLogger
+from core.utils.logcl import GraphenexLogger
 
 def print_header():
     # Import colorama
