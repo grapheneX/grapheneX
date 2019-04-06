@@ -1,3 +1,6 @@
+#!/usr/bin/python3.7
+# -*- coding: utf-8 -*-
+
 import shlex
 import subprocess
 
