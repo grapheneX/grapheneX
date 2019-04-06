@@ -1,3 +1,6 @@
+#!/usr/bin/python3.7
+# -*- coding: utf-8 -*-
+
 from winreg import *
 
 def change_or_create_reg(valuepath,valuename,subvalue):
