@@ -1,5 +1,6 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
+
 import argparse
 
 def cli_arg_parser():
@@ -8,4 +9,3 @@ def cli_arg_parser():
                     '--web', 
                     help='For Web Interface')
   args= parser.parse_args()
-
