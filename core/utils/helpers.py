@@ -5,6 +5,11 @@ import sys
 from core.utils.logcl import GraphenexLogger
 
 def print_header():
+    """ 
+    Shows project logo in ASCII format,
+    project description and repository.
+    Checks dependencies for colored output.
+    """
     # Import colorama
     def import_colorama():
         try:
@@ -37,4 +42,9 @@ def print_header():
     GraphenexLogger("graphenex.main").info("grapheneX started.")
 
 def check_os():
+    """
+    Returns operating system information.
+    [0] -> Windows
+    [1] -> Linux (else)
+    """
     return 1 if __import__('os').name == 'nt' else 0
