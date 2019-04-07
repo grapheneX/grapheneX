@@ -9,5 +9,6 @@ def parse_cli_args():
   parser.add_argument('-w',
                     '--web', 
                     help='Run grapheneX web server')
-  args = parser.parse_args()
+  args = vars(parser.parse_args())
+  return args
   
