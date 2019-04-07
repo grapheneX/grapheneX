@@ -11,10 +11,10 @@ def parse_cli_args():
   [-w, --web]: Runs web server if given.
   """
   parser = argparse.ArgumentParser(description= \
-          'grapheneX | Automated Hardening Framework')
+          'grapheneX | Automated System Hardening Framework')
   parser.add_argument('-w',
                     '--web', 
-                    help='Run grapheneX web server')
+                    help='run grapheneX web server')
   args = vars(parser.parse_args())
   return args
   
