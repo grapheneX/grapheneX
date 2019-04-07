@@ -8,5 +8,6 @@ def parse_cli_args():
           'grapheneX | Automated Hardening Framework')
   parser.add_argument('-w',
                     '--web', 
-                    help='For Web Interface')
-  args= parser.parse_args()
+                    help='Run grapheneX web server')
+  args = parser.parse_args()
+  
