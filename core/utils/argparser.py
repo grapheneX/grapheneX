@@ -4,7 +4,8 @@
 import argparse
 
 def cli_arg_parser():
-  parser = argparse.ArgumentParser(description='GrapheneX Hardening')
+  parser = argparse.ArgumentParser(description= \
+          'grapheneX | Automated Hardening Framework')
   parser.add_argument('-w',
                     '--web', 
                     help='For Web Interface')
