@@ -5,6 +5,8 @@ import logging, sys
 
 class GraphenexLogger(logging.Logger):
     """
+    Logger class for printing logs to command-line.
+
     Usage:
         ```
         logger = GraphenexLogger("app", level="DEBUG")
