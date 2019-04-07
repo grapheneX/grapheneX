@@ -5,11 +5,11 @@ import logging, sys
 
 class GraphenexLogger(logging.Logger):
     """
-    Logger for Graphenex Project
+    Logger class for printing logs to command-line.
 
     Usage:
         ```
-        logger = GraphenexLogger("myApp", level="DEBUG")
+        logger = GraphenexLogger("app", level="DEBUG")
         logger.debug("This is a debug message")
         logger.info("Cool information message")
         ```
@@ -72,5 +72,3 @@ class GraphenexLogger(logging.Logger):
 
     def warn(self, msg, extra=None):
         self.logger.warn(msg, extra=extra)
-
-
