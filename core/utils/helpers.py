@@ -16,19 +16,24 @@ def print_header():
             "Install requirements.txt with pip.")
             sys.exit()
     import_colorama()
-
-    project_desc = Style.BRIGHT + Fore.WHITE + """                          
-           `:sdydmy/.           
-        .+hNNNNNhyNNNdo:        | grapheneX |
-     :sdNNNNNNNNNmsmNNNdys/`    """+Style.NORMAL+"Automated System Hardening Framework"+Style.BRIGHT+"""
-     dNNNNNNNNNNNNNydmydNNN-    """+Style.NORMAL+"Created for Linux & Windows."+Style.BRIGHT+"""
-     dNNNNNNNNNNNNNmohNNNNN-    """+Style.NORMAL+"https://github.com/grapheneX"+Style.BRIGHT+"""
-     dNNNNNNNNNNNmyhNNNNNNN-    """+Style.NORMAL+"Copyright (C) 2019"+Style.BRIGHT+"""
-     dNNNNNNNNNNyhNNNNNNNNN-        
-     -odNNNNNNNNmhhhhhhhhs/     
-        ./ymNNNNNNNNNho-        
-            :odNNmy/`                     
-        """
+    project_desc = Style.BRIGHT + Fore.WHITE + """             
+                 +ho:`                
+           `:ohh. /dddy/.             
+        ./ydddddd/ -hddddho:          | grapheneX |
+    `:ohdddddddddds``sddddds- :.      """+Style.NORMAL+"~ Automated System Hardening Framework"+Style.BRIGHT+"""
+    +ddddddddddddddh. /dds- /hdd      """+Style.NORMAL+"+ Created for Linux & Windows."+Style.BRIGHT+"""
+    +dddddddddddddddd/ .. /hdddd      """+Style.NORMAL+"> https://github.com/grapheneX"+Style.BRIGHT+"""
+    +ddddddddddddddddo``/hdddddd      """+Style.NORMAL+"- Copyright (C) 2019"+Style.BRIGHT+"""
+    +ddddddddddddddo.`+ddddddddd       
+    +ddddddddddddo``+ddddddddddd      
+    `-/+oyhdddd+``+ddddddddddddd      
+    :o+/-.` `-` .syddddddddddddd      
+    +dddddddyso+:-. `.-/+oyhdddd      
+     -+yddddddddddddhyso/:-` `-`      
+        `/sddddddddddddddy+-          
+            -+hddddddds:`             
+               `/sy+-
+    """
     print(project_desc)
     GraphenexLogger("graphenex.main").info("grapheneX started.")
 
