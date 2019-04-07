@@ -3,7 +3,7 @@
 
 import argparse
 
-def cli_arg_parser():
+def parse_cli_args():
   parser = argparse.ArgumentParser(description= \
           'grapheneX | Automated Hardening Framework')
   parser.add_argument('-w',
