@@ -4,6 +4,7 @@
 import sys
 from core.utils.logcl import GraphenexLogger
 
+
 def print_header():
     """ 
     Shows project logo in ASCII format,
@@ -17,8 +18,8 @@ def print_header():
             from colorama import init, Fore, Style
             init()
         except:
-            print("colorama module not found.\n"+
-            "Install requirements.txt with pip.")
+            print("colorama module not found.\n" +
+                  "Install requirements.txt with pip.")
             sys.exit()
     import_colorama()
     project_desc = Style.BRIGHT + Fore.WHITE + """             
@@ -40,6 +41,7 @@ def print_header():
     """
     print(project_desc)
     GraphenexLogger("graphenex.main").info("grapheneX started.")
+
 
 def check_os():
     """
