@@ -1,7 +1,9 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-import logging, sys
+import logging
+import sys
+
 
 class GraphenexLogger(logging.Logger):
     """
@@ -21,8 +23,9 @@ class GraphenexLogger(logging.Logger):
         'INFO': logging.INFO,
         'WARNING': logging.WARNING
     }
-    def __init__(self, name, level='INFO', \
-                format="%(asctime)s > %(name)s > %(levelname)s > %(message)s"):
+
+    def __init__(self, name, level='INFO',
+                 format="%(asctime)s > %(name)s > %(levelname)s > %(message)s"):
         # Import coloredlogs
         self.import_clogs()
 
@@ -30,12 +33,13 @@ class GraphenexLogger(logging.Logger):
         self.format = format
         self.level = level
         self.name = name
-        
+
         # Logging conf
-        self.console_formatter = logging.Formatter(self.format, datefmt="%H:%M:%S")
+        self.console_formatter = logging.Formatter(
+            self.format, datefmt="%H:%M:%S")
         self.console_logger = logging.StreamHandler(sys.stdout)
         self.console_logger.setFormatter(self.console_formatter)
- 
+
         self.logger = logging.getLogger(self.name)
         self.logger.setLevel(GraphenexLogger.LEVELS[self.level])
         self.logger.addHandler(self.console_logger)
@@ -49,16 +53,16 @@ class GraphenexLogger(logging.Logger):
             name=dict(color='blue'),
             threadName=dict(color='green')
         )
-        coloredlogs.install(level=self.level, fmt=self.format, \
-        datefmt="%H:%M:%S", logger=self.logger, field_styles=FIELD_STYLES)
-    
+        coloredlogs.install(level=self.level, fmt=self.format,
+                            datefmt="%H:%M:%S", logger=self.logger, field_styles=FIELD_STYLES)
+
     def import_clogs(self):
         try:
             global coloredlogs
             import coloredlogs
         except:
-            print("coloredlogs module not found.\n"+
-            "Install requirements.txt with pip.")
+            print("coloredlogs module not found.\n" +
+                  "Install requirements.txt with pip.")
             sys.exit()
 
     def info(self, msg, extra=None):
