@@ -3,7 +3,7 @@
 
 from core.utils.argparser import parse_cli_args
 from core.utils.helpers import print_header
-from core.shell import Shell
+from core.cli.shell import Shell
 
 
 def main():
