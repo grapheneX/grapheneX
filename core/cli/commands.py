@@ -6,7 +6,7 @@ logger = GraphenexLogger(__name__)
 class ShellCommands:
     def do_switch(self, arg):
         "Change module"
-
+ 
         # TODO: Check control
         self.harden_str = arg
 
