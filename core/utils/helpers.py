@@ -4,6 +4,7 @@
 import sys
 from core.utils.logcl import GraphenexLogger
 
+logger = GraphenexLogger(__name__)
 
 def print_header():
     """ 
@@ -40,13 +41,13 @@ def print_header():
                `/sy+-
     """
     print(project_desc)
-    GraphenexLogger("graphenex.main").info("grapheneX started.")
+    logger.info("grapheneX started.")
 
 
 def check_os():
     """
     Returns operating system information.
-    [0] -> Windows
-    [1] -> Linux (else)
+    [1] -> Windows
+    [0] -> Linux (else)
     """
     return 1 if __import__('os').name == 'nt' else 0
