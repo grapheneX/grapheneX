@@ -10,7 +10,10 @@ def main():
     parse_cli_args()
     print_header()
     shell = Shell()
-    shell.cmdloop()
+    try:
+        shell.cmdloop()
+    except KeyboardInterrupt:
+        shell.do_exit(None)
 
 if __name__ == "__main__":
     main()

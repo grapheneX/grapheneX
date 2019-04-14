@@ -1,19 +1,11 @@
 from cmd import Cmd
 
+from core.cli.commands import ShellCommands
 
-class Shell(Cmd):
+class Shell(Cmd, ShellCommands):
     harden_str = ""  # this attribute is current harden module string
     intro = "Welcome Graphenex interactive shell. Type help or ? to list commands."
     prompt = f"[gX]> "
-
-    def do_switch(self, arg):
-        """Change module"""
-
-        # TODO: Check control
-        self.harden_str = arg
-
-    def default(self, line):
-        print("Command not found !")
 
     @property
     def prompt(self):
