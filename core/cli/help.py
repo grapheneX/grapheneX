@@ -39,5 +39,9 @@ class Help:
             table = AsciiTable(table_data)
             print(table.table)
 
+    def message(self, syntax, content):
+        print(f"\n\tSyntax: {syntax}\n\t{content}\n")
+
     def help_switch(self):
-        print("""Change module command\n\tSyntax: switch [module]""")
+        self.message(syntax="switch [module]",
+                     content="Switch between modules")
