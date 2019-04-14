@@ -1,17 +1,15 @@
 from core.utils.logcl import GraphenexLogger
+from core.cli.help import Help
 
 logger = GraphenexLogger(__name__)
 
 
-class ShellCommands:
+class ShellCommands(Help):
     def do_switch(self, arg):
-        "Change module"
- 
+        """Change module"""
+
         # TODO: Check control
         self.harden_str = arg
-
-    def default(self, line):
-        print("Command not found!")
 
     def do_exit(self, arg):
         "Exit interactive shell"
@@ -19,3 +17,6 @@ class ShellCommands:
         logger.info('Exit shell')
         print("Bye")
         return True
+
+    def default(self, line):
+        print("Command not found!")
