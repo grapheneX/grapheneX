@@ -7,6 +7,7 @@ class Help:
     """
 
     def do_help(self, arg):
+        'List available commands with "help" or detailed help with "help cmd".'
         if arg:
             try:
                 func = getattr(self, f"do_{arg}")
