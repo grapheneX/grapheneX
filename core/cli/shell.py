@@ -1,6 +1,6 @@
 from cmd import Cmd
-from core.cli.help import Help
-from core.cli.override import Override
+
+from core.cli.commands import ShellCommands
 
 
 class Shell(ShellCommands, Cmd):
