@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-class Logs_Restrict_Access():
+class Logs_Restrict_Access:
     def command(self):
         """Restricting access to kernel logs."""
 
