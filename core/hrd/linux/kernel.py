@@ -3,6 +3,6 @@
 
 class Logs_Restrict_Access():
     def command():
-        """Restricting access to kernel logs.""""
-        
+        """Restricting access to kernel logs."""
+
         return """echo "kernel.dmesg_restrict = 1" > /etc/sysctl.d/50-dmesg-restrict.conf"""
