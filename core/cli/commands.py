@@ -23,7 +23,7 @@ class ShellCommands(Help):
     def do_clear(self, arg):
         """Clear terminal"""
 
-        os.system("cls" if check_os else "clear")
+        os.system("cls" if check_os() else "clear")
 
     def default(self, line):
         print("Command not found!")
