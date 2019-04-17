@@ -7,7 +7,6 @@ class Shell(ShellCommands, Cmd):
     harden_str = ""  # this attribute is current harden module string
     intro = "Welcome Graphenex interactive shell. Type help or ? to list commands."
     prompt = f"[gX]> "
-    doc_header = "grapheneX commands (type help <command>):"
 
     @property
     def prompt(self):
