@@ -25,12 +25,12 @@ class ShellCommands(Help):
             "Take care!",
             "I am not going to miss you!",
             "Gonna miss you!",
-            "Thank God, you're going. What a relief!",
+            "Thank God, you're leaving. What a relief!",
             "Fare thee well!",
             "Farewell, boss.", 
             "Daha karpuz kesecektik.",
             "Bon voyage!",
-            "Regards."
+            "Regards.",
             "Exiting..."]
         logger.info(random.choice(exit_msgs))
         return True
