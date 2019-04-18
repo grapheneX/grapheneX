@@ -16,12 +16,10 @@ class Help:
                     help_func = getattr(self, f"help_{arg}")
                     # Run help function
                     help_func()
-                    return
                 except AttributeError:  # Help method not written, use docsting
                     doc = func.__doc__ if func.__doc__ else "No description"
                     print(
                         f"\n{func.__name__[3:]} description:\n{30*'='}\n{doc}\n")
-
             except AttributeError:
                 print('Command not found!')
 
