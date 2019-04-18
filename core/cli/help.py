@@ -43,5 +43,9 @@ class Help:
         print(f"\n\tSyntax: {syntax}\n\t{content}\n")
 
     def help_switch(self):
-        self.message(syntax="switch [module]",
-                     content="Switch between modules")
+        self.message(syntax="switch [module?>]",
+                     content="Switch between modules\n\n\tEg: \n\tswitch linux\n\tswitch linux > firewall\n\n\tif you want jump to submodule, use > separator")
+
+    def help_search(self):
+        self.message('search [module] | [command]',
+                     "Search available submodules\n\n\tEg: \n\tsearch linux\n\tsearch  linux > firewall\n\n\tCommands:\n\t/all -> Show all modules")
