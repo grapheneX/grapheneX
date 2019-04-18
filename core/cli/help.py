@@ -1,3 +1,6 @@
+#!/usr/bin/python3.7
+# -*- coding: utf-8 -*-
+
 from terminaltables import AsciiTable
 from core.utils.logcl import GraphenexLogger
 
