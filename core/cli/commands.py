@@ -10,13 +10,23 @@ import os
 
 from pprint import pprint
 
-logger = GraphenexLogger(__name__)
+logger = GraphenexLogger(__name__, 'DEBUG')
 
 
 class ShellCommands(Help):
-    def __init__(self):
-        pass
-        
+    def __init__(self, *arg, **kwargs):
+        super().__init__(*arg, **kwargs)
+        # Create ascii tree
+        self.base_tree = {'MODULES': dict(linux={}, windows={})}
+        self.harden_tree = self.base_tree['MODULES']
+        for k in linux_harden_module.MODULES.keys():
+            self.harden_tree['linux'].update({k: dict((j.__name__, dict()) for j in linux_harden_module.MODULES[k])})
+
+        for k in win_harden_module.MODULES.keys():
+            self.harden_tree['windows'].update({k: dict((j.__name__, dict()) for j in win_harden_module.MODULES[k])})
+
+        self.tree = LeftAligned()
+
     def do_switch(self, arg):
         """Change module"""
 
@@ -25,18 +35,14 @@ class ShellCommands(Help):
 
     def do_search(self, arg):
         if arg:
-            pass
+            try:
+                md = {arg: self.harden_tree[arg]}
+                print(self.tree(md))
+            except KeyError:
+                print(f"Module not found '{arg}'")
+                logger.debug(f"Module not found '{arg}'. Check __init__.py")
         else:
-            base_tree = {'MODULES': dict(linux={}, windows={})}
-            harden_tree = base_tree['MODULES']
-            for k in linux_harden_module.MODULES.keys():
-                harden_tree['linux'].update({k: dict((j.__name__, dict()) for j in linux_harden_module.MODULES[k])})
-
-            for k in win_harden_module.MODULES.keys():
-                harden_tree['windows'].update({k: dict((j.__name__, dict()) for j in win_harden_module.MODULES[k])})
-
-            tree = LeftAligned()
-            print(tree(base_tree))
+            print(self.tree(self.base_tree))
 
     def do_exit(self, arg):
         "Exit interactive shell"
