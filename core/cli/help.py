@@ -27,7 +27,7 @@ class Help:
         else:   
             # Create table for all commands
             table_data = [['Command', 'Description']]
-            # In all methods and attr
+            # In all methods and attributes
             for name in self.get_names():
                 # Get do_* function
                 if name[:3] == "do_":  
