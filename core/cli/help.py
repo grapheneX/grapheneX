@@ -16,19 +16,20 @@ class Help:
                     help_func = getattr(self, f"help_{arg}")
                     # Run help function
                     help_func()
-                except AttributeError:  # Help method not written, use docsting
+                except AttributeError:  
+                    # Help method not available, use docstring instead
                     doc = func.__doc__ if func.__doc__ else "No description"
-                    print(
-                        f"\n{func.__name__[3:]} description:\n{30*'='}\n{doc}\n")
+                    print(f"\n{func.__name__[3:]} description:\n{30*'='}\n{doc}\n")
             except AttributeError:
                 print('Command not found!')
 
-        else:   # Create table all commands
-            table_data = [
-                ['Command', 'Description']
-            ]
-            for name in self.get_names():   # All class methods and attr
-                if name[:3] == "do_":   # do_* handle function
+        else:   
+            # Create table for all commands
+            table_data = [['Command', 'Description']]
+            # In all methods and attr
+            for name in self.get_names():
+                # Get do_* function
+                if name[:3] == "do_":  
                     func = getattr(self, name)
                     doc = func.__doc__
                     if not doc:
