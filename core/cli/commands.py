@@ -12,6 +12,14 @@ import re
 logger = GraphenexLogger(__name__)
 
 
+"""
+Note
+-----
+How to add harden module:
+    Move hardenmodule file to `core/hrd/[linux|win]`. Eg: `core/hrd/linux/network.py`
+    then register all classes that you write in the `__init__.py` like I did. 
+"""
+
 class ShellCommands(Help):
     def __init__(self, *arg, **kwargs):
         super().__init__(*arg, **kwargs)
