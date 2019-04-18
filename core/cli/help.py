@@ -3,7 +3,7 @@ from terminaltables import AsciiTable
 
 class Help:
     """
-    Help class. We must write all help commands to this class
+    Help class that will contain help methods for every command.
     """
 
     def do_help(self, arg):
