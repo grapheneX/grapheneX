@@ -9,7 +9,6 @@ import os
 
 logger = GraphenexLogger(__name__)
 
-
 class ShellCommands(Help):
     def do_switch(self, arg):
         """Change module"""
