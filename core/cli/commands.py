@@ -26,4 +26,4 @@ class ShellCommands(Help):
         os.system("cls" if check_os() else "clear")
 
     def default(self, line):
-        print("Command not found!")
+        logger.error("Command not found.")

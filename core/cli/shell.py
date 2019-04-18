@@ -1,7 +1,6 @@
 from cmd import Cmd
 from core.cli.commands import ShellCommands
 
-
 class Shell(ShellCommands, Cmd):
     # Current harden module string
     harden_str = ""
