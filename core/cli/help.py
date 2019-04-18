@@ -16,13 +16,9 @@ class Help:
         if arg:
             try:
                 func = getattr(self, f"do_{arg}")
-                # Check help method for command
-                try:
-                    help_func = getattr(self, f"help_{arg}")
-                    # Run help function
-                    help_func()
-                except AttributeError:  
-                    # Help method not available, use docstring instead
+                if (f"help_{arg}") in dir(self):
+                    getattr(self, f"help_{arg}")()
+                else:  
                     doc = func.__doc__ if func.__doc__ else "No description"
                     print(f"\n{func.__name__[3:]} description:\n{30*'='}\n{doc}\n")
             except AttributeError:
@@ -33,12 +29,10 @@ class Help:
             # In all methods and attributes
             for name in self.get_names():
                 # Get do_* function
-                if name[:3] == "do_":  
-                    func = getattr(self, name)
-                    doc = func.__doc__
-                    if not doc:
-                        doc = "No description"
-                    table_data.append([func.__name__[3:], doc])
+                if name[:3] == "do_":
+                    docstr = getattr(self, name).__doc__ 
+                    doc = docstr if docstr else "No description"
+                    table_data.append([getattr(self, name).__name__[3:], doc])
             table = AsciiTable(table_data)
             print(table.table)
 
