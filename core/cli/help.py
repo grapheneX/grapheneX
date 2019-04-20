@@ -1,41 +1,38 @@
-from terminaltables import AsciiTable
+#!/usr/bin/python3.7
+# -*- coding: utf-8 -*-
 
+from terminaltables import AsciiTable
+from core.utils.logcl import GraphenexLogger
+
+logger = GraphenexLogger(__name__)
 
 class Help:
     """
-    Help class. We must write all help commands to this class
+    Help class that will contain help methods for every command.
     """
 
     def do_help(self, arg):
-        'List available commands with "help" or detailed help with "help cmd".'
+        'List available commands with "help" or show detailed help with "help <cmd>"'
         if arg:
             try:
                 func = getattr(self, f"do_{arg}")
-                # Check help method for command
-                try:
-                    help_func = getattr(self, f"help_{arg}")
-                    # Run help function
-                    help_func()
-                    return
-                except AttributeError:  # Help method not written, use docsting
+                if (f"help_{arg}") in dir(self):
+                    getattr(self, f"help_{arg}")()
+                else:  
                     doc = func.__doc__ if func.__doc__ else "No description"
-                    print(
-                        f"\n{func.__name__[3:]} description:\n{30*'='}\n{doc}\n")
-
+                    print(f"\n{func.__name__[3:]} description:\n{30*'='}\n{doc}\n")
             except AttributeError:
-                print('Command not found!')
-
-        else:   # Create table all commands
-            table_data = [
-                ['Command', 'Description']
-            ]
-            for name in self.get_names():   # All class methods and attr
-                if name[:3] == "do_":   # do_* handle function
-                    func = getattr(self, name)
-                    doc = func.__doc__
-                    if not doc:
-                        doc = "No description"
-                    table_data.append([func.__name__[3:], doc])
+                logger.error(f"Cannot find help method for \"{arg}\".")
+        else:   
+            # Create table for all commands
+            table_data = [['Command', 'Description']]
+            # In all methods and attributes
+            for name in self.get_names():
+                # Get do_* function
+                if name[:3] == "do_":
+                    docstr = getattr(self, name).__doc__ 
+                    doc = docstr if docstr else "No description"
+                    table_data.append([getattr(self, name).__name__[3:], doc])
             table = AsciiTable(table_data)
             print(table.table)
 
