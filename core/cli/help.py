@@ -29,7 +29,7 @@ class Help:
             # In all methods and attributes
             for name in self.get_names():
                 # Get do_* function
-                if name[:3] == "do_":
+                if name[:3] == "do_" and name != "do_EOF":
                     docstr = getattr(self, name).__doc__ 
                     doc = docstr if docstr else "No description"
                     table_data.append([getattr(self, name).__name__[3:], doc])
