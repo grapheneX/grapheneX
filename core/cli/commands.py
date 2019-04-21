@@ -35,6 +35,10 @@ class ShellCommands(Help):
         logger.info(random.choice(exit_msgs))
         return True
 
+    def do_EOF(self, arg):
+        self.do_exit(arg)
+        return True
+
     def do_clear(self, arg):
         """Clear terminal"""
 
