@@ -15,9 +15,19 @@ class ShellCommands(Help):
     def do_switch(self, arg):
         """Switch between modules or namespaces"""
 
-        # TODO: Check control
-        self.harden_str = arg
+        if arg:
+            modules = get_modules()
+            if arg in modules.keys():
+                logger.info(f"Switched to \"{arg}\" namespace."+ \
+                    " Use 'list' to see available modules.")
+                self.namespace = arg
+                self.module = ""
 
+            else:
+                pass
+                # TODO: use command
+        else:
+            logger.warn("'switch' command takes 1 argument.")
     def do_exit(self, arg):
         "Exit interactive shell"
 
