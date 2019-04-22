@@ -29,11 +29,19 @@ class ShellCommands(Help):
     def do_use(self, arg):
         """Use hardening module"""
 
-        if self.namespace:
-            for name, module in self.modules[self.namespace].items():
-                if arg.lower() in name.lower():
-                    self.module = arg 
-
+        if arg:
+            if self.namespace:
+                for name, module in self.modules[self.namespace].items():
+                    if arg.lower() in name.lower():
+                        self.module = arg
+            else:
+                for k, v in self.modules.items():
+                        for name, module in v.items():
+                            if arg.lower() in name.lower():
+                                self.namespace = ""
+                                self.module = arg
+        else:
+            logger.warn("'use' command takes 1 argument.")
 
     def do_exit(self, arg):
         "Exit interactive shell"
