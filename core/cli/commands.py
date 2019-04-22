@@ -60,15 +60,22 @@ class ShellCommands(Help):
                     for name, module in v.items():
                         if arg.lower() in name.lower():
                             search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])        
+            if len(search_table) > 1:
+                print(AsciiTable(search_table).table)
+            else:
+                logger.error(f"Nothing found for \"{arg}\".")
         else:
-            for k, v in modules.items():
+            self.do_ls(None)
+        
+    def do_ls(self, arg):
+        """List hardening modules"""
+        
+        modules = get_modules()
+        modules_table = [['Module', 'Description']]
+        for k, v in modules.items():
                 for name, module in v.items():
-                    search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
-        if len(search_table) > 1:
-            table = AsciiTable(search_table)
-            print(table.table)
-        else:
-            logger.error(f"Nothing found for \"{arg}\".")
+                    modules_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
+        print(AsciiTable(modules_table).table)
 
     def default(self, line):
         logger.error("Command not found.")
