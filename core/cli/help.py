@@ -21,7 +21,7 @@ class Help:
                     getattr(self, f"help_{arg}")()
                 else:  
                     doc = func.__doc__ if func.__doc__ else "No description"
-                    print(f"\n{func.__name__[3:]} description:\n{30*'='}\n{doc}\n")
+                    print(f"\n\tSyntax: {func.__name__[3:]}\n\t{doc}\n")
             except AttributeError:
                 logger.error(f"Cannot find help method for \"{arg}\".")
         else:   
