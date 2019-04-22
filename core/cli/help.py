@@ -34,8 +34,7 @@ class Help:
                     docstr = getattr(self, name).__doc__ 
                     doc = docstr if docstr else "No description"
                     help_table.append([getattr(self, name).__name__[3:], doc])
-            table = AsciiTable(help_table)
-            print(table.table)
+            print(AsciiTable(help_table).table)
 
     def message(self, syntax, content):
         print(f"\n\tSyntax: {syntax}\n\t{content}\n")
