@@ -80,12 +80,16 @@ class ShellCommands(Help):
         
     def do_list(self, arg):
         """List available hardening modules"""
-
+        
         modules = get_modules()
         modules_table = [['Module', 'Description']]
-        for k, v in modules.items():
-                for name, module in v.items():
-                    modules_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
+        if self.namespace:
+            for name, module in modules[self.namespace].items():
+              modules_table.append([name, inspect.getdoc(module.command)])
+        else:
+            for k, v in modules.items():
+                    for name, module in v.items():
+                        modules_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
         print(AsciiTable(modules_table).table)
 
     def default(self, line):
