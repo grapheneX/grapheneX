@@ -3,10 +3,12 @@
 
 from cmd import Cmd
 from core.cli.commands import ShellCommands
+from core.utils.helpers import get_modules
 
 class Shell(ShellCommands, Cmd):
     namespace = ""
     module = ""
+    modules = get_modules()
     intro = "Welcome to the grapheneX interactive shell. Type \"help\" or \"?\" to list commands."
 
     @property

@@ -3,7 +3,7 @@
 
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
-from core.utils.helpers import check_os, get_modules
+from core.utils.helpers import check_os
 from terminaltables import AsciiTable
 import inspect
 import random
@@ -16,23 +16,23 @@ class ShellCommands(Help):
         """Switch between modules or namespaces"""
 
         if arg:
-            modules = get_modules()
-            if arg in modules.keys():
+            if arg in self.modules.keys():
                 logger.info(f"Switched to \"{arg}\" namespace."+ \
                     " Use 'list' to see available modules.")
                 self.namespace = arg
                 self.module = ""
-
             else:
-                pass
-                # TODO: use command
+                self.do_use(arg)
         else:
             logger.warn("'switch' command takes 1 argument.")
     
     def do_use(self, arg):
         """Use hardening module"""
 
-        
+        if self.namespace:
+            for name, module in self.modules[self.namespace].items():
+                if arg.lower() in name.lower():
+                    self.module = arg 
 
 
     def do_exit(self, arg):
@@ -67,14 +67,13 @@ class ShellCommands(Help):
     def do_search(self, arg):
         """Search for modules"""
 
-        modules = get_modules()
         search_table = [['Module', 'Description']]
         if arg:
-            if arg in modules.keys():
-                for name, module in modules[arg].items():
+            if arg in self.modules.keys():
+                for name, module in self.modules[arg].items():
                     search_table.append([arg.upper() + "." + name, inspect.getdoc(module.command)])
             else:
-                for k, v in modules.items():
+                for k, v in self.modules.items():
                     for name, module in v.items():
                         if arg.lower() in name.lower():
                             search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])        
@@ -88,13 +87,12 @@ class ShellCommands(Help):
     def do_list(self, arg):
         """List available hardening modules"""
         
-        modules = get_modules()
         modules_table = [['Module', 'Description']]
         if self.namespace:
-            for name, module in modules[self.namespace].items():
+            for name, module in self.modules[self.namespace].items():
               modules_table.append([name, inspect.getdoc(module.command)])
         else:
-            for k, v in modules.items():
+            for k, v in self.modules.items():
                     for name, module in v.items():
                         modules_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
         print(AsciiTable(modules_table).table)
