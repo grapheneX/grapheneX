@@ -65,24 +65,26 @@ class ShellCommands(Help):
             for name, obj in inspect.getmembers(hrd, inspect.isclass):
                 modules[module_name][name] = obj
 
-        table_data = [['Module', 'Description']]
+        search_table = [['Module', 'Description']]
         if not arg:
             for k, v in modules.items():
                 for name, module in v.items():
-                    table_data.append([k.upper() + "." + name, inspect.getdoc(module.command)])
+                    search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
         
         else:
             if arg in modules.keys():
                 for name, module in modules[arg].items():
-                    table_data.append([arg.upper() + "." + name, inspect.getdoc(module.command)])
+                    search_table.append([arg.upper() + "." + name, inspect.getdoc(module.command)])
             else:
                 for k, v in modules.items():
                     for name, module in v.items():
                         if arg.lower() in name.lower():
-                            table_data.append([k.upper() + "." + name, inspect.getdoc(module.command)])
-
-        table = AsciiTable(table_data)
-        print(table.table)
+                            search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
+        if len(search_table) > 1:
+            table = AsciiTable(search_table)
+            print(table.table)
+        else:
+            logger.error(f"Nothing found for \"{arg}\".")
 
     def default(self, line):
         logger.error("Command not found.")

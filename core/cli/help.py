@@ -13,6 +13,7 @@ class Help:
 
     def do_help(self, arg):
         'List available commands with "help" or show detailed help with "help <cmd>"'
+
         if arg:
             try:
                 func = getattr(self, f"do_{arg}")
@@ -25,15 +26,15 @@ class Help:
                 logger.error(f"Cannot find help method for \"{arg}\".")
         else:   
             # Create table for all commands
-            table_data = [['Command', 'Description']]
+            help_table = [['Command', 'Description']]
             # In all methods and attributes
             for name in self.get_names():
                 # Get do_* function
                 if name[:3] == "do_" and name != "do_EOF":
                     docstr = getattr(self, name).__doc__ 
                     doc = docstr if docstr else "No description"
-                    table_data.append([getattr(self, name).__name__[3:], doc])
-            table = AsciiTable(table_data)
+                    help_table.append([getattr(self, name).__name__[3:], doc])
+            table = AsciiTable(help_table)
             print(table.table)
 
     def message(self, syntax, content):
