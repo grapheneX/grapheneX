@@ -3,9 +3,8 @@
 
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
-from core.utils.helpers import check_os
+from core.utils.helpers import check_os, get_modules
 from terminaltables import AsciiTable
-import importlib.util
 import inspect
 import random
 import os
@@ -50,28 +49,9 @@ class ShellCommands(Help):
     def do_search(self, arg):
         """Search for modules"""
 
-        hrd_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                '..', 'hrd')
-
-        hrd_os = 'win' if check_os() else 'linux'
-        files = [os.path.join(hrd_dir, hrd_os, f) for f in os.listdir(os.path.join(hrd_dir, hrd_os)) if f.endswith('.py')]
-        modules = dict()
-        for path in files:
-            module_name = os.path.basename(path)[:-3]
-            spec = importlib.util.spec_from_file_location(module_name, path)
-            hrd = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(hrd)
-            modules[module_name] = {}
-            for name, obj in inspect.getmembers(hrd, inspect.isclass):
-                modules[module_name][name] = obj
-
+        modules = get_modules()
         search_table = [['Module', 'Description']]
-        if not arg:
-            for k, v in modules.items():
-                for name, module in v.items():
-                    search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
-        
-        else:
+        if arg:
             if arg in modules.keys():
                 for name, module in modules[arg].items():
                     search_table.append([arg.upper() + "." + name, inspect.getdoc(module.command)])
@@ -79,7 +59,11 @@ class ShellCommands(Help):
                 for k, v in modules.items():
                     for name, module in v.items():
                         if arg.lower() in name.lower():
-                            search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
+                            search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])        
+        else:
+            for k, v in modules.items():
+                for name, module in v.items():
+                    search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
         if len(search_table) > 1:
             table = AsciiTable(search_table)
             print(table.table)
