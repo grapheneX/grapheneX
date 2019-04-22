@@ -22,7 +22,7 @@ class ShellCommands(Help):
                     " Use 'list' to see available modules.")
                 self.namespace = arg
                 self.module = ""
-
+                
             else:
                 pass
                 # TODO: use command

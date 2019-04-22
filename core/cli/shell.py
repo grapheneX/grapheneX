@@ -8,7 +8,6 @@ class Shell(ShellCommands, Cmd):
     namespace = ""
     module = ""
     intro = "Welcome to the grapheneX interactive shell. Type \"help\" or \"?\" to list commands."
-    prompt = f"[gX]> "
 
     @property
     def prompt(self):
