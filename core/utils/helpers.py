@@ -46,7 +46,6 @@ def print_header():
     print(project_desc)
     logger.info("grapheneX started.")
 
-
 def check_os():
     """
     Returns operating system information.
