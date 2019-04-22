@@ -22,7 +22,7 @@ class ShellCommands(Help):
                     " Use 'list' to see available modules.")
                 self.namespace = arg
                 self.module = ""
-                
+
             else:
                 pass
                 # TODO: use command
@@ -48,6 +48,7 @@ class ShellCommands(Help):
         return True
 
     def do_EOF(self, arg):
+        print()
         self.do_exit(arg)
         return True
 
