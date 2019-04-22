@@ -14,7 +14,7 @@ logger = GraphenexLogger(__name__)
 class ShellCommands(Help):
     def do_switch(self, arg):
         """Switch between modules or namespaces"""
-
+        
         if arg:
             if arg in self.modules.keys():
                 logger.info(f"Switched to \"{arg}\" namespace."+ \
@@ -29,17 +29,26 @@ class ShellCommands(Help):
     def do_use(self, arg):
         """Use hardening module"""
 
+        def select_module(module):
+            self.module = module
+            logger.info(f"\"{module}\" module selected. Use 'harden' command " + \
+                "for hardening or use 'info' for more information.")
         if arg:
+            module_found = False
             if self.namespace:
                 for name, module in self.modules[self.namespace].items():
                     if arg.lower() in name.lower():
-                        self.module = arg
+                        module_found = True
+                        select_module(arg)
             else:
                 for k, v in self.modules.items():
                         for name, module in v.items():
                             if arg.lower() in name.lower():
+                                module_found = True
                                 self.namespace = ""
-                                self.module = arg
+                                select_module(arg)            
+            if not module_found:
+                logger.error(f"No module/namespace named \"{arg}\".")
         else:
             logger.warn("'use' command takes 1 argument.")
 
