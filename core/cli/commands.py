@@ -68,8 +68,8 @@ class ShellCommands(Help):
             self.do_ls(None)
         
     def do_ls(self, arg):
-        """List hardening modules"""
-        
+        """List available hardening modules"""
+
         modules = get_modules()
         modules_table = [['Module', 'Description']]
         for k, v in modules.items():
