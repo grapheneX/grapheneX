@@ -28,7 +28,11 @@ class ShellCommands(Help):
     
     def do_use(self, arg):
         """Use hardening module"""
-
+    
+        if "/" in arg and arg.split("/")[0] in self.modules.keys():
+            self.namespace = arg.split("/")[0]
+            arg = arg.split("/")[1]
+        
         def select_module(module):
             self.module = module
             logger.info(f"\"{module}\" module selected. Use 'harden' command " + \
@@ -37,13 +41,13 @@ class ShellCommands(Help):
             module_found = False
             if self.namespace:
                 for name, module in self.modules[self.namespace].items():
-                    if arg.lower() in name.lower():
+                    if arg.lower() == name.lower():
                         module_found = True
                         select_module(arg)
             else:
                 for k, v in self.modules.items():
                         for name, module in v.items():
-                            if arg.lower() in name.lower():
+                            if arg.lower() == name.lower():
                                 module_found = True
                                 self.namespace = ""
                                 select_module(arg)            
