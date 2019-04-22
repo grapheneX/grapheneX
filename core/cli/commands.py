@@ -13,7 +13,7 @@ logger = GraphenexLogger(__name__)
 
 class ShellCommands(Help):
     def do_switch(self, arg):
-        """Change module"""
+        """Switch between modules or namespaces"""
 
         # TODO: Check control
         self.harden_str = arg
@@ -65,9 +65,9 @@ class ShellCommands(Help):
             else:
                 logger.error(f"Nothing found for \"{arg}\".")
         else:
-            self.do_ls(None)
+            self.do_list(None)
         
-    def do_ls(self, arg):
+    def do_list(self, arg):
         """List available hardening modules"""
 
         modules = get_modules()
