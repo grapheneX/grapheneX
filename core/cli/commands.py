@@ -28,6 +28,13 @@ class ShellCommands(Help):
                 # TODO: use command
         else:
             logger.warn("'switch' command takes 1 argument.")
+    
+    def do_use(self, arg):
+        """Use hardening module"""
+
+        
+
+
     def do_exit(self, arg):
         "Exit interactive shell"
 

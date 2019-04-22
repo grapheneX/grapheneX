@@ -47,3 +47,7 @@ class Help:
     def help_search(self):
         self.message(syntax="search [module]",
             content="Search for module or namespace")
+
+    def help_use(self):
+        self.message(syntax="use [module]",
+            content="Use hardening module")
