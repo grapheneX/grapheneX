@@ -121,7 +121,7 @@ class ShellCommands(Help):
     def do_back(self, arg):
         """Go back if namespace (hardening method) selected or switched"""
 
-        if(self.modules):
+        if(self.module):
         	self.module = ""
         else:
         	self.namespace = ""
