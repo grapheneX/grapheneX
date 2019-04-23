@@ -123,6 +123,9 @@ class ShellCommands(Help):
 
         namespaces = self.namespace.split()
         modules = self.module.split()
+        if(namespaces):
+            if(modules):
+                modules.pop()
 
     def default(self, line):
         logger.error("Command not found.")
