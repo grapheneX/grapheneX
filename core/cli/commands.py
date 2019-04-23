@@ -118,5 +118,13 @@ class ShellCommands(Help):
                         modules_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
         print(AsciiTable(modules_table).table)
 
+    def do_back(self, arg):
+        """Go back if namespace (hardening method) selected or switched"""
+
+        if(self.module):
+        	self.module = ""
+        else:
+        	self.namespace = ""
+
     def default(self, line):
         logger.error("Command not found.")
