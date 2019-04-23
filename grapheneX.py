@@ -13,7 +13,7 @@ def main():
     try:
         shell.cmdloop()
     except KeyboardInterrupt:
-        shell.do_exit(None)
+        shell.do_EOF(None)
 
 if __name__ == "__main__":
     main()
