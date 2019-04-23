@@ -13,6 +13,7 @@ class Help:
 
     def do_help(self, arg):
         'List available commands with "help" or show detailed help with "help <cmd>"'
+
         if arg:
             try:
                 func = getattr(self, f"do_{arg}")
@@ -20,25 +21,32 @@ class Help:
                     getattr(self, f"help_{arg}")()
                 else:  
                     doc = func.__doc__ if func.__doc__ else "No description"
-                    print(f"\n{func.__name__[3:]} description:\n{30*'='}\n{doc}\n")
+                    print(f"\n\tSyntax: {func.__name__[3:]}\n\t{doc}\n")
             except AttributeError:
                 logger.error(f"Cannot find help method for \"{arg}\".")
         else:   
             # Create table for all commands
-            table_data = [['Command', 'Description']]
+            help_table = [['Command', 'Description']]
             # In all methods and attributes
             for name in self.get_names():
                 # Get do_* function
                 if name[:3] == "do_" and name != "do_EOF":
                     docstr = getattr(self, name).__doc__ 
                     doc = docstr if docstr else "No description"
-                    table_data.append([getattr(self, name).__name__[3:], doc])
-            table = AsciiTable(table_data)
-            print(table.table)
+                    help_table.append([getattr(self, name).__name__[3:], doc])
+            print(AsciiTable(help_table).table)
 
     def message(self, syntax, content):
         print(f"\n\tSyntax: {syntax}\n\t{content}\n")
 
     def help_switch(self):
         self.message(syntax="switch [module]",
-                     content="Switch between modules")
+            content="Switch between modules")
+
+    def help_search(self):
+        self.message(syntax="search [module]",
+            content="Search for module or namespace")
+
+    def help_use(self):
+        self.message(syntax="use [module]",
+            content="Use hardening module")
