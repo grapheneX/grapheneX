@@ -11,22 +11,23 @@ import os
 
 logger = GraphenexLogger(__name__)
 
+
 class ShellCommands(Help):
     def do_switch(self, arg):
         """Switch between modules or namespaces"""
-        
+
         if arg:
             if arg in self.modules.keys():
-                logger.info(f"Switched to \"{arg}\" namespace."+ \
-                    " Use 'list' to see available modules.")
+                logger.info(f"Switched to \"{arg}\" namespace." +
+                            " Use 'list' to see available modules.")
                 self.namespace = arg
                 self.module = ""
             else:
                 self.do_use(arg)
         else:
             logger.warn("'switch' command takes 1 argument.")
-    
-    def complete_switch(self, text, line, begidx, endidx):    
+
+    def complete_switch(self, text, line, begidx, endidx):
         AVAILABLE_NAMESPACES = get_modules().keys()
         mline = line.partition(' ')[2]
         offs = len(mline) - len(text)
@@ -34,15 +35,15 @@ class ShellCommands(Help):
 
     def do_use(self, arg):
         """Use hardening module"""
-    
+
         if "/" in arg and arg.split("/")[0] in self.modules.keys():
             self.namespace = arg.split("/")[0]
             arg = arg.split("/")[1]
-        
+
         def select_module(module):
             self.module = module
-            logger.info(f"\"{module}\" module selected. Use 'harden' command " + \
-                "for hardening or use 'info' for more information.")
+            logger.info(f"\"{module}\" module selected. Use 'harden' command " +
+                        "for hardening or use 'info' for more information.")
         if arg:
             module_found = False
             if self.namespace:
@@ -52,11 +53,11 @@ class ShellCommands(Help):
                         select_module(arg)
             else:
                 for k, v in self.modules.items():
-                        for name, module in v.items():
-                            if arg.lower() == name.lower():
-                                module_found = True
-                                self.namespace = ""
-                                select_module(arg)            
+                    for name, module in v.items():
+                        if arg.lower() == name.lower():
+                            module_found = True
+                            self.namespace = ""
+                            select_module(arg)
             if not module_found:
                 logger.error(f"No module/namespace named \"{arg}\".")
         else:
@@ -69,7 +70,7 @@ class ShellCommands(Help):
             AVAILABLE_MODULES = modules.get(list(modules.keys())[0])
         mline = line.partition(' ')[2]
         offs = len(mline) - len(text)
-        return [s[offs:] for s in AVAILABLE_MODULES if s.startswith(mline)] 
+        return [s[offs:] for s in AVAILABLE_MODULES if s.startswith(mline)]
 
     def do_exit(self, arg):
         "Exit interactive shell"
@@ -82,7 +83,7 @@ class ShellCommands(Help):
             "Gonna miss you!",
             "Thank God, you're leaving. What a relief!",
             "Fare thee well!",
-            "Farewell, boss.", 
+            "Farewell, boss.",
             "Daha karpuz kesecektik.",
             "Bon voyage!",
             "Regards.",
@@ -107,39 +108,42 @@ class ShellCommands(Help):
         if arg:
             if arg in self.modules.keys():
                 for name, module in self.modules[arg].items():
-                    search_table.append([arg.upper() + "." + name, inspect.getdoc(module.command)])
+                    search_table.append(
+                        [arg.upper() + "." + name, inspect.getdoc(module.command)])
             else:
                 for k, v in self.modules.items():
                     for name, module in v.items():
                         if arg.lower() in name.lower():
-                            search_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])        
+                            search_table.append(
+                                [k.upper() + "." + name, inspect.getdoc(module.command)])
             if len(search_table) > 1:
                 print(AsciiTable(search_table).table)
             else:
                 logger.error(f"Nothing found for \"{arg}\".")
         else:
             self.do_list(None)
-        
+
     def do_list(self, arg):
         """List available hardening modules"""
-        
+
         modules_table = [['Module', 'Description']]
         if self.namespace:
             for name, module in self.modules[self.namespace].items():
-              modules_table.append([name, inspect.getdoc(module.command)])
+                modules_table.append([name, inspect.getdoc(module.command)])
         else:
             for k, v in self.modules.items():
-                    for name, module in v.items():
-                        modules_table.append([k.upper() + "." + name, inspect.getdoc(module.command)])
+                for name, module in v.items():
+                    modules_table.append(
+                        [k.upper() + "." + name, inspect.getdoc(module.command)])
         print(AsciiTable(modules_table).table)
 
     def do_back(self, arg):
         """Go back if namespace (hardening method) selected or switched"""
 
         if(self.module):
-        	self.module = ""
+            self.module = ""
         else:
-        	self.namespace = ""
+            self.namespace = ""
 
     def default(self, line):
         logger.error("Command not found.")
