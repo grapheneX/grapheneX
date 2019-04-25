@@ -3,7 +3,7 @@
 
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
-from core.utils.helpers import check_os, get_modules
+from core.utils.helpers import check_os
 from terminaltables import AsciiTable
 import inspect
 import random
@@ -28,7 +28,7 @@ class ShellCommands(Help):
             logger.warn("'switch' command takes 1 argument.")
 
     def complete_switch(self, text, line, begidx, endidx):
-        AVAILABLE_NAMESPACES = get_modules().keys()
+        AVAILABLE_NAMESPACES = self.modules.keys()
         mline = line.partition(' ')[2]
         offs = len(mline) - len(text)
         return [s[offs:] for s in AVAILABLE_NAMESPACES if s.startswith(mline)]
@@ -64,10 +64,9 @@ class ShellCommands(Help):
             logger.warn("'use' command takes 1 argument.")
 
     def complete_use(self, text, line, begidx, endidx):
-        AVAILABLE_MODULES = get_modules().get(self.namespace)
+        AVAILABLE_MODULES = self.modules.get(self.namespace)
         if AVAILABLE_MODULES is None:
-            modules = get_modules()
-            AVAILABLE_MODULES = modules.get(list(modules.keys())[0])
+            AVAILABLE_MODULES = self.modules.get(list(self.modules.keys())[0])
         mline = line.partition(' ')[2]
         offs = len(mline) - len(text)
         return [s[offs:] for s in AVAILABLE_MODULES if s.startswith(mline)]
