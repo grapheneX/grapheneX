@@ -4,6 +4,11 @@
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from core.utils.helpers import check_os
+if check_os():
+    from core.win.exec import run_cmd
+else:
+    from core.linux.exec import run_cmd
+
 from terminaltables import AsciiTable
 import inspect
 import random
@@ -125,6 +130,18 @@ class ShellCommands(Help):
         	self.module = ""
         else:
         	self.namespace = ""
+
+    def do_harden(self, arg):
+        """Execute the hardening method"""
+
+        if not (self.module and self.namespace):
+            logger.error('Select a module/namespace')
+
+        hrd = self.modules[self.namespace][self.module]()
+        cmd = hrd.command()
+
+        logger.info(run_cmd(cmd))
+
 
     def default(self, line):
         logger.error("Command not found.")
