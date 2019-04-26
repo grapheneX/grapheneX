@@ -95,7 +95,6 @@ class ShellCommands(Help):
     def do_search(self, arg):
         """Search for modules"""
 
-        arg = arg.capitalize()
         search_table = [['Module', 'Description']]
         if arg:
             if arg in self.modules.keys():
