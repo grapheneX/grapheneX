@@ -19,7 +19,8 @@ logger = GraphenexLogger(__name__)
 class ShellCommands(Help):
     def do_switch(self, arg):
         """Switch between modules or namespaces"""
-        
+
+        arg = arg.capitalize()
         if arg:
             if arg in self.modules.keys():
                 logger.info(f"Switched to \"{arg}\" namespace."+ \
@@ -33,7 +34,8 @@ class ShellCommands(Help):
     
     def do_use(self, arg):
         """Use hardening module"""
-    
+
+        arg = arg.capitalize()
         if "/" in arg and arg.split("/")[0] in self.modules.keys():
             self.namespace = arg.split("/")[0]
             arg = arg.split("/")[1]
@@ -54,7 +56,7 @@ class ShellCommands(Help):
                         for name, module in v.items():
                             if arg.lower() == name.lower():
                                 module_found = True
-                                self.namespace = ""
+                                self.namespace = k
                                 select_module(arg)            
             if not module_found:
                 logger.error(f"No module/namespace named \"{arg}\".")
@@ -93,6 +95,7 @@ class ShellCommands(Help):
     def do_search(self, arg):
         """Search for modules"""
 
+        arg = arg.capitalize()
         search_table = [['Module', 'Description']]
         if arg:
             if arg in self.modules.keys():
@@ -112,7 +115,7 @@ class ShellCommands(Help):
         
     def do_list(self, arg):
         """List available hardening modules"""
-        
+
         modules_table = [['Module', 'Description']]
         if self.namespace:
             for name, module in self.modules[self.namespace].items():
@@ -140,7 +143,7 @@ class ShellCommands(Help):
         hrd = self.modules[self.namespace][self.module]()
         cmd = hrd.command()
 
-        logger.info(run_cmd(cmd))
+        print(run_cmd(cmd))
 
 
     def default(self, line):
