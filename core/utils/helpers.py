@@ -68,8 +68,8 @@ def get_modules():
         spec = importlib.util.spec_from_file_location(module_name, path)
         hrd = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(hrd)
-        modules[module_name.capitalize()] = {}
+        modules[module_name] = {}
         for name, obj in inspect.getmembers(hrd, inspect.isclass):
-            modules[module_name.capitalize()][name.capitalize()] = obj
+            modules[module_name][name] = obj
     return modules
 
