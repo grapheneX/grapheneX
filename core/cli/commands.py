@@ -20,7 +20,6 @@ class ShellCommands(Help):
     def do_switch(self, arg):
         """Switch between modules or namespaces"""
 
-        arg = arg.capitalize()
         if arg:
             if arg in self.modules.keys():
                 logger.info(f"Switched to \"{arg}\" namespace."+ \
@@ -35,13 +34,11 @@ class ShellCommands(Help):
     def do_use(self, arg):
         """Use hardening module"""
 
-        arg = arg.capitalize()
         if "/" in arg and arg.split("/")[0] in self.modules.keys():
             self.namespace = arg.split("/")[0]
             arg = arg.split("/")[1]
         
-        def select_module(module):
-            self.module = module
+        def select_module_msg(module):
             logger.info(f"\"{module}\" module selected. Use 'harden' command " + \
                 "for hardening or use 'info' for more information.")
         if arg:
@@ -50,14 +47,16 @@ class ShellCommands(Help):
                 for name, module in self.modules[self.namespace].items():
                     if arg.lower() == name.lower():
                         module_found = True
-                        select_module(arg)
+                        self.module = name
+                        select_module_msg(self.module)
             else:
                 for k, v in self.modules.items():
                         for name, module in v.items():
                             if arg.lower() == name.lower():
                                 module_found = True
+                                self.module = name
                                 self.namespace = k
-                                select_module(arg)            
+                                select_module_msg(self.module)            
             if not module_found:
                 logger.error(f"No module/namespace named \"{arg}\".")
         else:
@@ -137,13 +136,11 @@ class ShellCommands(Help):
         """Execute the hardening method"""
 
         if not (self.module and self.namespace):
-            logger.error('Select a module/namespace')
-
-        hrd = self.modules[self.namespace][self.module]()
-        cmd = hrd.command()
-
-        print(run_cmd(cmd))
-
+            logger.error('Select a module/namespace.')
+        else:
+            hrd = self.modules[self.namespace][self.module]()
+            cmd = hrd.command()
+            print(run_cmd(cmd))
 
     def default(self, line):
         logger.error("Command not found.")
