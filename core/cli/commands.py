@@ -140,7 +140,7 @@ class ShellCommands(Help):
         hrd = self.modules[self.namespace][self.module]()
         cmd = hrd.command()
 
-        logger.info(run_cmd(cmd))
+        print(run_cmd(cmd))
 
 
     def default(self, line):
