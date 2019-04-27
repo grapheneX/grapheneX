@@ -4,10 +4,6 @@
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from core.utils.helpers import check_os
-if check_os():
-    from core.win.exec import run_cmd
-else:
-    from core.linux.exec import run_cmd
 
 from terminaltables import AsciiTable
 import inspect
@@ -139,8 +135,8 @@ class ShellCommands(Help):
             logger.error('Select a module/namespace.')
         else:
             hrd = self.modules[self.namespace][self.module]()
-            cmd = hrd.command()
-            print(run_cmd(cmd))
+            out = hrd.command()
+            print(out)
 
     def default(self, line):
         logger.error("Command not found.")
