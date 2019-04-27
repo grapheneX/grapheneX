@@ -55,6 +55,14 @@ class ShellCommands(Help):
                 logger.error(f"No module/namespace named \"{arg}\".")
         else:
             logger.warn("'use' command takes 1 argument.")
+            
+    def do_info(self, arg):
+        """Information about the desired module"""
+        
+        if self.module:
+            print(self.modules[self.namespace][self.module]().command.__doc__)
+        else:
+            print("No desc given")
 
     def do_exit(self, arg):
         "Exit interactive shell"
