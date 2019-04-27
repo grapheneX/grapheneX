@@ -29,8 +29,8 @@ class ShellCommands(Help):
             logger.warn("'switch' command takes 1 argument.")
 
     def complete_switch(self, text, line, begidx, endidx):
-        AVAILABLE_NAMESPACES = self.modules.keys()
-        mline = line.partition(' ')[2]
+        AVAILABLE_NAMESPACES = [i.lower() for i in self.modules.keys()]
+        mline = line.lower().partition(' ')[2]
         offs = len(mline) - len(text)
         return [s[offs:] for s in AVAILABLE_NAMESPACES if s.startswith(mline)]
 
@@ -40,10 +40,10 @@ class ShellCommands(Help):
         if "/" in arg and arg.split("/")[0] in self.modules.keys():
             self.namespace = arg.split("/")[0]
             arg = arg.split("/")[1]
-        
+
         def select_module_msg(module):
-            logger.info(f"\"{module}\" module selected. Use 'harden' command " + \
-                "for hardening or use 'info' for more information.")
+            logger.info(f"\"{module}\" module selected. Use 'harden' command " +
+                        "for hardening or use 'info' for more information.")
         if arg:
             module_found = False
             if self.namespace:
@@ -54,12 +54,12 @@ class ShellCommands(Help):
                         select_module_msg(self.module)
             else:
                 for k, v in self.modules.items():
-                        for name, module in v.items():
-                            if arg.lower() == name.lower():
-                                module_found = True
-                                self.module = name
-                                self.namespace = k
-                                select_module_msg(self.module)            
+                    for name, module in v.items():
+                        if arg.lower() == name.lower():
+                            module_found = True
+                            self.module = name
+                            self.namespace = k
+                            select_module_msg(self.module)
             if not module_found:
                 logger.error(f"No module/namespace named \"{arg}\".")
         else:
@@ -67,8 +67,11 @@ class ShellCommands(Help):
 
     def complete_use(self, text, line, begidx, endidx):
         AVAILABLE_MODULES = self.modules.get(self.namespace)
-        if AVAILABLE_MODULES is None:
-            AVAILABLE_MODULES = self.modules.get(list(self.modules.keys())[0])
+        if AVAILABLE_MODULES is None:  # if self.namespace == ''
+            AVAILABLE_MODULES = list()
+            for key, value in self.modules.items():
+                for name, module in value.items():
+                    AVAILABLE_MODULES.append(f"{key.upper()}.{name}")
         mline = line.partition(' ')[2]
         offs = len(mline) - len(text)
         return [s[offs:] for s in AVAILABLE_MODULES if s.startswith(mline)]
