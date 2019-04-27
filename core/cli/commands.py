@@ -4,6 +4,7 @@
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from core.utils.helpers import check_os
+
 from terminaltables import AsciiTable
 import inspect
 import random
@@ -39,25 +40,26 @@ class ShellCommands(Help):
         if "/" in arg and arg.split("/")[0] in self.modules.keys():
             self.namespace = arg.split("/")[0]
             arg = arg.split("/")[1]
-
-        def select_module(module):
-            self.module = module
-            logger.info(f"\"{module}\" module selected. Use 'harden' command " +
-                        "for hardening or use 'info' for more information.")
+        
+        def select_module_msg(module):
+            logger.info(f"\"{module}\" module selected. Use 'harden' command " + \
+                "for hardening or use 'info' for more information.")
         if arg:
             module_found = False
             if self.namespace:
                 for name, module in self.modules[self.namespace].items():
                     if arg.lower() == name.lower():
                         module_found = True
-                        select_module(arg)
+                        self.module = name
+                        select_module_msg(self.module)
             else:
                 for k, v in self.modules.items():
-                    for name, module in v.items():
-                        if arg.lower() == name.lower():
-                            module_found = True
-                            self.namespace = ""
-                            select_module(arg)
+                        for name, module in v.items():
+                            if arg.lower() == name.lower():
+                                module_found = True
+                                self.module = name
+                                self.namespace = k
+                                select_module_msg(self.module)            
             if not module_found:
                 logger.error(f"No module/namespace named \"{arg}\".")
         else:
@@ -143,6 +145,16 @@ class ShellCommands(Help):
             self.module = ""
         else:
             self.namespace = ""
+
+    def do_harden(self, arg):
+        """Execute the hardening method"""
+
+        if not (self.module and self.namespace):
+            logger.error('Select a module/namespace.')
+        else:
+            hrd = self.modules[self.namespace][self.module]()
+            out = hrd.command()
+            print(out)
 
     def default(self, line):
         logger.error("Command not found.")
