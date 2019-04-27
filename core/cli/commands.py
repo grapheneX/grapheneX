@@ -62,7 +62,7 @@ class ShellCommands(Help):
         if self.module:
             print(self.modules[self.namespace][self.module]().command.__doc__)
         else:
-            print("No desc given")
+            print("Please select module.")
 
     def do_exit(self, arg):
         "Exit interactive shell"
