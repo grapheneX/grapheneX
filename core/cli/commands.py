@@ -18,7 +18,7 @@ class ShellCommands(Help):
         """Switch between modules or namespaces"""
 
         if arg:
-            if arg in self.modules.keys():
+            if arg.lower() in self.modules.keys():
                 logger.info(f"Switched to \"{arg}\" namespace." +
                             " Use 'list' to see available modules.")
                 self.namespace = arg
