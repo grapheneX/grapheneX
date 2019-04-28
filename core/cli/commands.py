@@ -72,7 +72,7 @@ class ShellCommands(Help):
             for key, value in self.modules.items():
                 for name, module in value.items():
                     avb_modules.append(f"{key}/{name}")
-        mline = line.partition(' ')[2]
+        mline = line.lower().partition(' ')[2]
         # If namespace selected
         if '/' in mline:
             # title() given module string for getting rid of case sensitivity
