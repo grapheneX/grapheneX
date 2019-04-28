@@ -40,7 +40,6 @@ class ShellCommands(Help):
 
         if "/" in arg and arg.split("/")[0].lower() in self.modules.keys():
             self.namespace = arg.split("/")[0].lower()
-            print(self.namespace)
             arg = arg.split("/")[1]
 
         def select_module_msg(module):
