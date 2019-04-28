@@ -29,10 +29,10 @@ class ShellCommands(Help):
             logger.warn("'switch' command takes 1 argument.")
 
     def complete_switch(self, text, line, begidx, endidx):
-        abv_namespaces = [i.lower() for i in self.modules.keys()]
+        avb_namespaces = [i.lower() for i in self.modules.keys()]
         mline = line.lower().partition(' ')[2]
         offs = len(mline) - len(text)
-        return [s[offs:] for s in abv_namespaces if s.startswith(mline)]
+        return [s[offs:] for s in avb_namespaces if s.startswith(mline)]
 
     def do_use(self, arg):
         """Use hardening module"""
