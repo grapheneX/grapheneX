@@ -29,10 +29,10 @@ class ShellCommands(Help):
             logger.warn("'switch' command takes 1 argument.")
 
     def complete_switch(self, text, line, begidx, endidx):
-        AVAILABLE_NAMESPACES = [i.lower() for i in self.modules.keys()]
+        abv_namespaces = [i.lower() for i in self.modules.keys()]
         mline = line.lower().partition(' ')[2]
         offs = len(mline) - len(text)
-        return [s[offs:] for s in AVAILABLE_NAMESPACES if s.startswith(mline)]
+        return [s[offs:] for s in abv_namespaces if s.startswith(mline)]
 
     def do_use(self, arg):
         """Use hardening module"""
@@ -66,15 +66,30 @@ class ShellCommands(Help):
             logger.warn("'use' command takes 1 argument.")
 
     def complete_use(self, text, line, begidx, endidx):
-        AVAILABLE_MODULES = self.modules.get(self.namespace)
-        if AVAILABLE_MODULES is None:  # if self.namespace == ''
-            AVAILABLE_MODULES = list()
+        avb_modules = self.modules.get(self.namespace)
+        if avb_modules is None:
+            avb_modules = list()
             for key, value in self.modules.items():
                 for name, module in value.items():
-                    AVAILABLE_MODULES.append(f"{key}/{name}")
-        mline = line.partition(' ')[2].lower()
+                    avb_modules.append(f"{key}/{name}")
+        mline = line.partition(' ')[2]
+        # If namespace selected
+        if '/' in mline:
+            # title() given module string for getting rid of case sensitivity
+            mline = mline.split('/')[0].lower() + "/" + \
+                mline.split('/')[1].title()
         offs = len(mline) - len(text)
-        return [s[offs:] for s in AVAILABLE_MODULES if s.startswith(mline)]
+        # Get completed text with namespace
+        comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
+        # If no namespace found
+        if len(comp_text) == 0:
+            # Try to complete with module names
+            avb_modules = self.modules.get(list(self.modules.keys())[0])
+            mline = mline.title()
+            comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
+        # Return
+        # print(comp_text)
+        return comp_text
 
     def do_exit(self, arg):
         "Exit interactive shell"
