@@ -84,7 +84,10 @@ class ShellCommands(Help):
         # If no namespace found
         if len(comp_text) == 0:
             # Try to complete with module names
-            avb_modules = self.modules.get(list(self.modules.keys())[0])
+            avb_modules = list()
+            for key, value in self.modules.items():
+                for name, module in value.items():
+                    avb_modules.append(name)
             mline = mline.title()
             comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
         return comp_text
