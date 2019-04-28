@@ -87,8 +87,6 @@ class ShellCommands(Help):
             avb_modules = self.modules.get(list(self.modules.keys())[0])
             mline = mline.title()
             comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
-        # Return
-        # print(comp_text)
         return comp_text
 
     def do_exit(self, arg):
