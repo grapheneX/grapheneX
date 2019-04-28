@@ -72,7 +72,7 @@ class ShellCommands(Help):
             for key, value in self.modules.items():
                 for name, module in value.items():
                     AVAILABLE_MODULES.append(f"{key}/{name}")
-        mline = line.partition(' ')[2]
+        mline = line.partition(' ')[2].lower()
         offs = len(mline) - len(text)
         return [s[offs:] for s in AVAILABLE_MODULES if s.startswith(mline)]
 
