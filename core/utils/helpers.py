@@ -76,19 +76,9 @@ def get_modules():
 
 def check_admin_win():
     """
-    This method Administrative access check control
+    This method administrative access check control
     """
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
     except:
         return False
-
-def takeAccess__win():
-    if check_admin_win():
-    # Code of your program here
-        logger.info("You have'a Administrator Access")
-    else:
-    # Re-run the program with admin rights
-        logger.info("You have'a Administrator Access")
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
-         
