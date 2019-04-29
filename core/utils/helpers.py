@@ -79,6 +79,10 @@ def check_admin_win():
     This method administrative access check control
     """
     try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
+        result = ctypes.windll.shell32.IsUserAnAdmin()
+        if result==False:
+            return logger.info("Do not have a administrative access please get administrative access and re-run ")  
     except:
-        return False
+        return logger.info("Do not have a administrative access please get administrative access and re-run ")
+
+        
