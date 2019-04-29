@@ -18,6 +18,7 @@ class ShellCommands(Help):
         """Switch between modules or namespaces"""
 
         if arg:
+            arg = arg.lower()
             if arg in self.modules.keys():
                 logger.info(f"Switched to \"{arg}\" namespace." +
                             " Use 'list' to see available modules.")
@@ -37,8 +38,8 @@ class ShellCommands(Help):
     def do_use(self, arg):
         """Use hardening module"""
 
-        if "/" in arg and arg.split("/")[0] in self.modules.keys():
-            self.namespace = arg.split("/")[0]
+        if "/" in arg and arg.split("/")[0].lower() in self.modules.keys():
+            self.namespace = arg.split("/")[0].lower()
             arg = arg.split("/")[1]
 
         def select_module_msg(module):
