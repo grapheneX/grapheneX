@@ -54,6 +54,10 @@ def check_os():
     """
     return 1 if __import__('os').name == 'nt' else 0
 
+def is_root():
+    """Returns if the app is run with sudo"""
+    return os.geteuid() == 0
+
 def get_modules():
     """
     Returns hardening modules as dict
