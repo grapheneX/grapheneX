@@ -41,8 +41,8 @@ class ShellCommands(Help):
             self.namespace = arg.split("/")[0].lower()
             arg = arg.split("/")[1]
 
-        def select_module_msg(module):
-            logger.info(f"\"{module}\" module selected. Use 'harden' command " +
+        def select_module_msg():
+            logger.info(f"\"{self.module}\" module selected. Use 'harden' command " +
                         "for hardening or use 'info' for more information.")
         if arg:
             module_found = False
@@ -51,7 +51,7 @@ class ShellCommands(Help):
                     if arg.lower() == name.lower():
                         module_found = True
                         self.module = name
-                        select_module_msg(self.module)
+                        select_module_msg()
             else:
                 for k, v in self.modules.items():
                     for name, module in v.items():
@@ -59,7 +59,7 @@ class ShellCommands(Help):
                             module_found = True
                             self.module = name
                             self.namespace = k
-                            select_module_msg(self.module)
+                            select_module_msg()
             if not module_found:
                 logger.error(f"No module/namespace named \"{arg}\".")
         else:
