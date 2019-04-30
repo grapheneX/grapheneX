@@ -183,6 +183,6 @@ class ShellCommands(Help):
             hrd = self.modules[self.namespace][self.module]()
             out = hrd.command()
             print(out)
-
+            
     def default(self, line):
         logger.error("Command not found.")
