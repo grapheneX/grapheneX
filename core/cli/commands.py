@@ -117,13 +117,13 @@ class ShellCommands(Help):
             if arg in self.modules.keys():
                 for name, module in self.modules[arg].items():
                     search_table.append(
-                        [arg.upper() + "." + name, inspect.getdoc(module.command)])
+                        [arg + "/" + name, inspect.getdoc(module.command)])
             else:
                 for k, v in self.modules.items():
                     for name, module in v.items():
                         if arg.lower() in name.lower():
                             search_table.append(
-                                [k.upper() + "." + name, inspect.getdoc(module.command)])
+                                [k + "/" + name, inspect.getdoc(module.command)])
             if len(search_table) > 1:
                 print(AsciiTable(search_table).table)
             else:
@@ -142,7 +142,7 @@ class ShellCommands(Help):
             for k, v in self.modules.items():
                 for name, module in v.items():
                     modules_table.append(
-                        [k.upper() + "." + name, inspect.getdoc(module.command)])
+                        [k + "/" + name, inspect.getdoc(module.command)])
         print(AsciiTable(modules_table).table)
 
     def do_back(self, arg):
