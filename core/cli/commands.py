@@ -12,7 +12,6 @@ import os
 
 logger = GraphenexLogger(__name__)
 
-
 class ShellCommands(Help):
     def do_switch(self, arg):
         """Switch between modules or namespaces"""
@@ -65,14 +64,6 @@ class ShellCommands(Help):
                 logger.error(f"No module/namespace named \"{arg}\".")
         else:
             logger.warn("'use' command takes 1 argument.")
-            
-    def do_info(self, arg):
-        """Information about the desired module"""
-        
-        if self.module:
-            print(self.modules[self.namespace][self.module]().command.__doc__)
-        else:
-            print("Please select module.")
 
     def complete_use(self, text, line, begidx, endidx):
         avb_modules = self.modules.get(self.namespace)
@@ -100,35 +91,14 @@ class ShellCommands(Help):
             mline = mline.title()
             comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
         return comp_text
-
-    def do_exit(self, arg):
-        "Exit interactive shell"
-
-        exit_msgs = [
-            "Bye!",
-            "Hope to see you soon!",
-            "Take care!",
-            "I am not going to miss you!",
-            "Gonna miss you!",
-            "Thank God, you're leaving. What a relief!",
-            "Fare thee well!",
-            "Farewell, boss.",
-            "Daha karpuz kesecektik.",
-            "Bon voyage!",
-            "Regards.",
-            "Exiting..."]
-        logger.info(random.choice(exit_msgs))
-        return True
-
-    def do_EOF(self, arg):
-        print()
-        self.do_exit(arg)
-        return True
-
-    def do_clear(self, arg):
-        """Clear terminal"""
-
-        os.system("cls" if check_os() else "clear")
+            
+    def do_info(self, arg):
+        """Information about the desired module"""
+        
+        if self.module:
+            print(self.modules[self.namespace][self.module]().command.__doc__)
+        else:
+            print("Please select module.")
 
     def do_search(self, arg):
         """Search for modules"""
@@ -183,6 +153,34 @@ class ShellCommands(Help):
             hrd = self.modules[self.namespace][self.module]()
             out = hrd.command()
             print(out)
+
+    def do_exit(self, arg):
+        "Exit interactive shell"
+
+        exit_msgs = [
+            "Bye!",
+            "Hope to see you soon!",
+            "Take care!",
+            "I am not going to miss you!",
+            "Gonna miss you!",
+            "Thank God, you're leaving. What a relief!",
+            "Fare thee well!",
+            "Farewell, boss.",
+            "Daha karpuz kesecektik.",
+            "Bon voyage!",
+            "Regards.",
+            "Exiting..."]
+        logger.info(random.choice(exit_msgs))
+        return True
+
+    def do_EOF(self, arg):
+        print()
+        self.do_exit(arg)
+
+    def do_clear(self, arg):
+        """Clear terminal"""
+
+        os.system("cls" if check_os() else "clear")
 
     def default(self, line):
         logger.error("Command not found.")
