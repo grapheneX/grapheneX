@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.utils.argparser import parse_cli_args
-from core.utils.helpers import print_header, check_admin_win
+from core.utils.helpers import print_header, check_privileges
 from core.cli.shell import Shell
 
 def main():
@@ -10,7 +10,6 @@ def main():
     print_header()
     check_privileges()
     shell = Shell()
-    check_admin_win()
     try:
         shell.cmdloop()
     except KeyboardInterrupt:
