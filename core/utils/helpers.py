@@ -54,6 +54,18 @@ def check_os():
     """
     return 1 if __import__('os').name == 'nt' else 0
 
+def check_privileges():
+    """Checks privileges and warns if they aren't sufficient"""
+    if check_os():
+        pass
+    else:
+        if not is_root():
+            logger.warn('Some functions won\'t work without root access, try running the script with sudo.')
+
+def is_root():
+    """Returns if the app is run with sudo"""
+    return os.geteuid() == 0
+
 def get_modules():
     """
     Returns hardening modules as dict
