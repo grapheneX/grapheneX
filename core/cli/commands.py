@@ -29,6 +29,8 @@ class ShellCommands(Help):
             logger.warn("'switch' command takes 1 argument.")
 
     def complete_switch(self, text, line, begidx, endidx):
+        """Complete switch command"""
+
         avb_namespaces = [i.lower() for i in self.modules.keys()]
         mline = line.lower().partition(' ')[2]
         offs = len(mline) - len(text)
@@ -66,6 +68,8 @@ class ShellCommands(Help):
             logger.warn("'use' command takes 1 argument.")
 
     def complete_use(self, text, line, begidx, endidx):
+        """Complete use command"""
+
         avb_modules = self.modules.get(self.namespace)
         if avb_modules is None:
             avb_modules = list()
@@ -155,10 +159,21 @@ class ShellCommands(Help):
         if not (self.module and self.namespace):
             logger.error('Select a module/namespace.')
         else:
-            hrd = self.modules[self.namespace][self.module]()
-            out = hrd.command()
-            print(out)
-
+            try:
+                hrd = self.modules[self.namespace][self.module]()
+                out = hrd.command()
+                print(out)
+                logger.info("Hardening command executed successfully.")
+            except PermissionError:
+                err_msg = "Insufficient permissions for hardening."
+                if check_os():
+                    err_msg += " Get admin rights and rerun the grapheneX."                    
+                else:
+                    err_msg += " Try running the grapheneX with sudo."
+                logger.error(err_msg)
+            except Exception as e:
+                logger.error("Failed to execute hardening command. " + str(e))
+                
     def do_exit(self, arg):
         "Exit interactive shell"
 
@@ -179,6 +194,8 @@ class ShellCommands(Help):
         return True
 
     def do_EOF(self, arg):
+        """EOF exit"""
+
         print()
         self.do_exit(arg)
 
@@ -188,4 +205,6 @@ class ShellCommands(Help):
         os.system("cls" if check_os() else "clear")
 
     def default(self, line):
+        """Default command"""
+
         logger.error("Command not found.")
