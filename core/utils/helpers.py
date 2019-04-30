@@ -6,7 +6,7 @@ import os
 import importlib.util
 import inspect
 from core.utils.logcl import GraphenexLogger
-
+import ctypes
 logger = GraphenexLogger(__name__)
 
 def print_header():
@@ -83,3 +83,16 @@ def get_modules():
             modules[module_name][name] = obj
     return modules
 
+
+def check_admin_win():
+    """
+    This method administrative access check control
+    """
+    try:
+        result = ctypes.windll.shell32.IsUserAnAdmin()
+        if result==False:
+            return logger.info("Do not have a administrative access please get administrative access and re-run ")  
+    except:
+        return logger.info("Do not have a administrative access please get administrative access and re-run ")
+
+        
