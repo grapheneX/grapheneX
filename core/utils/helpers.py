@@ -15,7 +15,6 @@ def print_header():
     project description and repository.
     Checks dependencies for colored output.
     """
-    # Import colorama
     def import_colorama():
         try:
             global init, Fore, Style, colored
@@ -60,16 +59,15 @@ def check_privileges():
         pass
     else:
         if not is_root():
-            logger.warn('Some functions won\'t work without root access, try running the script with sudo.')
+            logger.warn("Some functions won't work without root access, " + \
+                        "try running the grapheneX with sudo.")
 
 def is_root():
     """Returns if the app is run with sudo"""
     return os.geteuid() == 0
 
 def get_modules():
-    """
-    Returns hardening modules as dict
-    """
+    """Returns hardening modules as dict"""
     hrd_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             '..', 'hrd')
     hrd_os = 'win' if check_os() else 'linux'
