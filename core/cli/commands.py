@@ -97,9 +97,11 @@ class ShellCommands(Help):
         """Information about the desired module"""
         
         if self.module:
-            print(self.modules[self.namespace][self.module]().command.__doc__)
+            mod_desc = self.modules[self.namespace][self.module]().command.__doc__
+            print(f"\n\tNamespace: {self.namespace}\n\tModule: {self.module}\n\t" + 
+                f"Description: {mod_desc}\n")
         else:
-            print("Please select module.")
+            logger.error('No module selected.')
 
     def do_search(self, arg):
         """Search for modules"""
