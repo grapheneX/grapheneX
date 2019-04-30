@@ -41,7 +41,7 @@ def print_header():
         `/sddddddddddddddy+-          
             -+hddddddds:`             
                `/sy+-
-    """
+    """+Style.NORMAL
     print(project_desc)
     logger.info("grapheneX started.")
 
