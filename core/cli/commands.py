@@ -75,7 +75,8 @@ class ShellCommands(Help):
         mline = line.lower().partition(' ')[2]
         # If namespace selected
         if '/' in mline:
-            # title() given module string for getting rid of case sensitivity
+            # title() -> given module string for getting rid of 
+            # case sensitivity
             mline = mline.split('/')[0].lower() + "/" + \
                 mline.split('/')[1].title()
         offs = len(mline) - len(text)
