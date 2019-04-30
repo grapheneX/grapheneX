@@ -97,9 +97,11 @@ class ShellCommands(Help):
         """Information about the desired module"""
         
         if self.module:
-            mod_desc = self.modules[self.namespace][self.module]().command.__doc__
+            mod_func = self.modules[self.namespace][self.module]().command
+            mod_desc = inspect.getdoc(mod_func)
+            mod_cmd = inspect.getsource(mod_func).split("\"\"\"")[-2]
             print(f"\n\tNamespace: {self.namespace}\n\tModule: {self.module}\n\t" + 
-                f"Description: {mod_desc}\n")
+                f"Description: {mod_desc}\n" + f"\tCommand: {mod_cmd}\n")
         else:
             logger.error('No module selected.')
 
