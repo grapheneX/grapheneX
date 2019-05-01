@@ -92,7 +92,8 @@ def get_modules():
         modules[module_name] = {}
         for name, obj in inspect.getmembers(hrd, inspect.isclass):
             modules[module_name][name] = obj
-        modules[module_name].pop('HardenMethod')   # Remove super class to module dict
+        # Remove super class from modules
+        modules[module_name].pop('HardenMethod')
     return modules
 
 
