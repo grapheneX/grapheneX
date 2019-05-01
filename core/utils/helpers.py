@@ -7,6 +7,7 @@ import importlib.util
 import inspect
 from core.utils.logcl import GraphenexLogger
 import ctypes
+
 logger = GraphenexLogger(__name__)
 
 def print_header():
@@ -15,7 +16,6 @@ def print_header():
     project description and repository.
     Checks dependencies for colored output.
     """
-    # Import colorama
     def import_colorama():
         try:
             global init, Fore, Style, colored
@@ -42,7 +42,7 @@ def print_header():
         `/sddddddddddddddy+-          
             -+hddddddds:`             
                `/sy+-
-    """
+    """+Style.NORMAL
     print(project_desc)
     logger.info("grapheneX started.")
 
@@ -57,19 +57,28 @@ def check_os():
 def check_privileges():
     """Checks privileges and warns if they aren't sufficient"""
     if check_os():
-        pass
+        if not is_admin():
+            logger.warn("Some functions won't work without admin rights, " + \
+                        "try running the graphenex with admin access.")
     else:
         if not is_root():
-            logger.warn('Some functions won\'t work without root access, try running the script with sudo.')
+            logger.warn("Some functions won't work without root access, " + \
+                        "try running the grapheneX with sudo.")
 
 def is_root():
     """Returns if the app is run with sudo"""
     return os.geteuid() == 0
 
+def is_admin():
+    """Returns if the app is run with administrative access"""
+    try:
+        result = ctypes.windll.shell32.IsUserAnAdmin()
+        return result
+    except:
+        return False
+
 def get_modules():
-    """
-    Returns hardening modules as dict
-    """
+    """Returns hardening modules as dict"""
     hrd_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             '..', 'hrd')
     hrd_os = 'win' if check_os() else 'linux'
@@ -83,19 +92,9 @@ def get_modules():
         modules[module_name] = {}
         for name, obj in inspect.getmembers(hrd, inspect.isclass):
             modules[module_name][name] = obj
-        modules[module_name].pop('HardenMethod')   # Remove super class to module dict
+        # Remove super class from modules
+        modules[module_name].pop('HardenMethod')
     return modules
 
-
-def check_admin_win():
-    """
-    This method administrative access check control
-    """
-    try:
-        result = ctypes.windll.shell32.IsUserAnAdmin()
-        if result==False:
-            return logger.info("Do not have a administrative access please get administrative access and re-run ")  
-    except:
-        return logger.info("Do not have a administrative access please get administrative access and re-run ")
 
         

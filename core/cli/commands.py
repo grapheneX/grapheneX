@@ -4,14 +4,12 @@
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from core.utils.helpers import check_os
-
 from terminaltables import AsciiTable
 import inspect
 import random
 import os
 
 logger = GraphenexLogger(__name__)
-
 
 class ShellCommands(Help):
     def do_switch(self, arg):
@@ -30,6 +28,8 @@ class ShellCommands(Help):
             logger.warn("'switch' command takes 1 argument.")
 
     def complete_switch(self, text, line, begidx, endidx):
+        """Complete switch command"""
+
         avb_namespaces = [i.lower() for i in self.modules.keys()]
         mline = line.lower().partition(' ')[2]
         offs = len(mline) - len(text)
@@ -42,8 +42,8 @@ class ShellCommands(Help):
             self.namespace = arg.split("/")[0].lower()
             arg = arg.split("/")[1]
 
-        def select_module_msg(module):
-            logger.info(f"\"{module}\" module selected. Use 'harden' command " +
+        def select_module_msg():
+            logger.info(f"\"{self.module}\" module selected. Use 'harden' command " +
                         "for hardening or use 'info' for more information.")
         if arg:
             module_found = False
@@ -52,7 +52,7 @@ class ShellCommands(Help):
                     if arg.lower() == name.lower():
                         module_found = True
                         self.module = name
-                        select_module_msg(self.module)
+                        select_module_msg()
             else:
                 for k, v in self.modules.items():
                     for name, module in v.items():
@@ -60,21 +60,15 @@ class ShellCommands(Help):
                             module_found = True
                             self.module = name
                             self.namespace = k
-                            select_module_msg(self.module)
+                            select_module_msg()
             if not module_found:
                 logger.error(f"No module/namespace named \"{arg}\".")
         else:
             logger.warn("'use' command takes 1 argument.")
-            
-    def do_info(self, arg):
-        """Information about the desired module"""
-        
-        if self.module:
-            print(self.modules[self.namespace][self.module]().command.__doc__)
-        else:
-            print("Please select module.")
 
     def complete_use(self, text, line, begidx, endidx):
+        """Complete use command"""
+
         avb_modules = self.modules.get(self.namespace)
         if avb_modules is None:
             avb_modules = list()
@@ -84,7 +78,8 @@ class ShellCommands(Help):
         mline = line.lower().partition(' ')[2]
         # If namespace selected
         if '/' in mline:
-            # title() given module string for getting rid of case sensitivity
+            # title() -> given module string for getting rid of 
+            # case sensitivity
             mline = mline.split('/')[0].lower() + "/" + \
                 mline.split('/')[1].title()
         offs = len(mline) - len(text)
@@ -100,7 +95,84 @@ class ShellCommands(Help):
             mline = mline.title()
             comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
         return comp_text
+            
+    def do_info(self, arg):
+        """Information about the desired module"""
+        
+        if self.module:
+            mod_func = self.modules[self.namespace][self.module]().command
+            mod_desc = inspect.getdoc(mod_func)
+            mod_cmd = inspect.getsource(mod_func).split("\"\"\"")[-2]
+            print(f"\n\tNamespace: {self.namespace}\n\tModule: {self.module}\n\t" + 
+                f"Description: {mod_desc}\n" + f"\tCommand: {mod_cmd}\n")
+        else:
+            logger.error('No module selected.')
 
+    def do_search(self, arg):
+        """Search for modules"""
+
+        search_table = [['Module', 'Description']]
+        if arg:
+            if arg in self.modules.keys():
+                for name, module in self.modules[arg].items():
+                    search_table.append(
+                        [arg + "/" + name, inspect.getdoc(module.command)])
+            else:
+                for k, v in self.modules.items():
+                    for name, module in v.items():
+                        if arg.lower() in name.lower():
+                            search_table.append(
+                                [k + "/" + name, inspect.getdoc(module.command)])
+            if len(search_table) > 1:
+                print(AsciiTable(search_table).table)
+            else:
+                logger.error(f"Nothing found for \"{arg}\".")
+        else:
+            self.do_list(None)
+
+    def do_list(self, arg):
+        """List available hardening modules"""
+
+        modules_table = [['Module', 'Description']]
+        if self.namespace:
+            for name, module in self.modules[self.namespace].items():
+                modules_table.append([name, inspect.getdoc(module.command)])
+        else:
+            for k, v in self.modules.items():
+                for name, module in v.items():
+                    modules_table.append(
+                        [k + "/" + name, inspect.getdoc(module.command)])
+        print(AsciiTable(modules_table).table)
+
+    def do_back(self, arg):
+        """Go back if namespace (hardening method) selected or switched"""
+
+        if self.module:
+            self.module = ""
+        else:
+            self.namespace = ""
+
+    def do_harden(self, arg):
+        """Execute the hardening method"""
+
+        if not (self.module and self.namespace):
+            logger.error('Select a module/namespace.')
+        else:
+            try:
+                hrd = self.modules[self.namespace][self.module]()
+                out = hrd.command()
+                print(out)
+                logger.info("Hardening command executed successfully.")
+            except PermissionError:
+                err_msg = "Insufficient permissions for hardening."
+                if check_os():
+                    err_msg += " Get admin rights and rerun the grapheneX."                    
+                else:
+                    err_msg += " Try running the grapheneX with sudo."
+                logger.error(err_msg)
+            except Exception as e:
+                logger.error("Failed to execute hardening command. " + str(e))
+                
     def do_exit(self, arg):
         "Exit interactive shell"
 
@@ -121,6 +193,8 @@ class ShellCommands(Help):
         return True
 
     def do_EOF(self, arg):
+        """EOF exit"""
+
         print()
         self.do_exit(arg)
         return True
@@ -130,59 +204,7 @@ class ShellCommands(Help):
 
         os.system("cls" if check_os() else "clear")
 
-    def do_search(self, arg):
-        """Search for modules"""
-
-        search_table = [['Module', 'Description']]
-        if arg:
-            if arg in self.modules.keys():
-                for name, module in self.modules[arg].items():
-                    search_table.append(
-                        [arg.upper() + "." + name, inspect.getdoc(module.command)])
-            else:
-                for k, v in self.modules.items():
-                    for name, module in v.items():
-                        if arg.lower() in name.lower():
-                            search_table.append(
-                                [k.upper() + "." + name, inspect.getdoc(module.command)])
-            if len(search_table) > 1:
-                print(AsciiTable(search_table).table)
-            else:
-                logger.error(f"Nothing found for \"{arg}\".")
-        else:
-            self.do_list(None)
-
-    def do_list(self, arg):
-        """List available hardening modules"""
-
-        modules_table = [['Module', 'Description']]
-        if self.namespace:
-            for name, module in self.modules[self.namespace].items():
-                modules_table.append([name, inspect.getdoc(module.command)])
-        else:
-            for k, v in self.modules.items():
-                for name, module in v.items():
-                    modules_table.append(
-                        [k.upper() + "." + name, inspect.getdoc(module.command)])
-        print(AsciiTable(modules_table).table)
-
-    def do_back(self, arg):
-        """Go back if namespace (hardening method) selected or switched"""
-
-        if(self.module):
-            self.module = ""
-        else:
-            self.namespace = ""
-
-    def do_harden(self, arg):
-        """Execute the hardening method"""
-
-        if not (self.module and self.namespace):
-            logger.error('Select a module/namespace.')
-        else:
-            hrd = self.modules[self.namespace][self.module]()
-            out = hrd.command()
-            print(out)
-            
     def default(self, line):
+        """Default command"""
+
         logger.error("Command not found.")

@@ -7,7 +7,7 @@ from core.utils.logcl import GraphenexLogger
 
 def change_or_create_reg(valuepath, valuename, subvalue):
     """
-        Changes / creates registry values using given parameters.
+    Changes / creates registry values using given parameters.
 
     valuepath: Regedit Path
     valuename: Regedit Value Name
@@ -27,7 +27,7 @@ def change_or_create_reg(valuepath, valuename, subvalue):
 
 def delete_reg(valuepath, valuename):
     """
-        Removes value from registry.
+    Removes value from registry.
 
     valuepath: Regedit Path
     valuename: Regedit Value Name

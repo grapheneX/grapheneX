@@ -54,7 +54,8 @@ class GraphenexLogger(logging.Logger):
             threadName=dict(color='green')
         )
         coloredlogs.install(level=self.level, fmt=self.format,
-                            datefmt="%H:%M:%S", logger=self.logger, field_styles=FIELD_STYLES)
+                            datefmt="%H:%M:%S", logger=self.logger, 
+                            field_styles=FIELD_STYLES)
 
     def import_clogs(self):
         try:
