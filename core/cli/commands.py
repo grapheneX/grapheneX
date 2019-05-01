@@ -198,6 +198,7 @@ class ShellCommands(Help):
 
         print()
         self.do_exit(arg)
+        return True
 
     def do_clear(self, arg):
         """Clear terminal"""
