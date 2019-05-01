@@ -4,7 +4,6 @@
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from core.utils.helpers import check_os
-
 from terminaltables import AsciiTable
 import inspect
 import random
