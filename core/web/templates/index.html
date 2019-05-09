@@ -14,7 +14,7 @@
 <body>
     <div class="container text-center mt-4 mb-4">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4" data-aos="fade-up">
                 <!--Left side (logo, info etc.)-->
                 <div class="box deep">
                     <div class="row">
@@ -44,7 +44,7 @@
                 </div>
                 <!--Left side end-->
             </div>
-            <div class="col-md-8 mt-3 mt-sm-0">
+            <div class="col-md-8 mt-3 mt-sm-0" data-aos="fade-up">
                 <!--Content-->
                 <!--Search bar etc..-->
                 <div class="container-fluid">
@@ -80,7 +80,7 @@
                 <!--
                     Module divs
                 -->
-                <div class="module-box deep" style="margin-top: 80px;" id="Disable_File_Sharing_div">
+                <div class="module-box deep" style="margin-top: 80px;" id="Disable_File_Sharing_div" data-aos="fade-up">
                     <div class="row">
                         <div class="col-8 d-flex justify-content-between">
                             <div class="mr-auto p-2 text-left">
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <!-- ================================================== -->
-                <div class="module-box deep mt-3" id="Disable_RDP_div">
+                <div class="module-box deep mt-3" id="Disable_RDP_div" data-aos="fade-up">
                     <div class="row">
                         <div class="col-8 d-flex justify-content-between">
                             <div class="mr-auto p-2 text-left">
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <!-- ================================================== -->
-                <div class="module-box deep mt-3" id="Other_Harden_Method_div">
+                <div class="module-box deep mt-3" id="Other_Harden_Method_div" data-aos="fade-up">
                     <div class="row">
                         <div class="col-8 d-flex justify-content-between">
                             <div class="mr-auto p-2 text-left">
@@ -158,6 +158,7 @@
     <script src="{{ url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
     <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/aos.js') }}"></script>
     <script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>

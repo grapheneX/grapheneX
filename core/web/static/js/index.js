@@ -25,6 +25,7 @@ toggleDiv = (obj) => {
 
 //Page is ready
 $(function () {
+    AOS.init();
     module_names.forEach(elem => {
         $("#" + elem.name + "_btn").click(() => {
             $("#" + elem.name + "_ico").toggleClass('rotated');
