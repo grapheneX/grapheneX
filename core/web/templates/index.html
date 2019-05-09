@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aos.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fa_all.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>{{ title }}</title>
@@ -80,71 +81,74 @@
                 <!--
                     Module divs
                 -->
-                <div class="module-box deep" style="margin-top: 80px;" id="Disable_File_Sharing_div" data-aos="fade-up">
-                    <div class="row">
-                        <div class="col-8 d-flex justify-content-between">
-                            <div class="mr-auto p-2 text-left">
-                                <h6>Disable_File_Sharing</h6>
-                                <p class="text-muted" style="font-size: 12px; margin-bottom:0">Disable File and Printer
-                                    Sharing.</p>
+                <div data-aos="fade-up">
+                    <div class="module-box deep" style="margin-top: 80px;" id="Disable_File_Sharing_div">
+                        <div class="row">
+                            <div class="col-8 d-flex justify-content-between">
+                                <div class="mr-auto p-2 text-left">
+                                    <h6>Disable_File_Sharing</h6>
+                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Disable File and Printer
+                                        Sharing.</p>
+                                </div>
+                            </div>
+                            <div class="col-4 text-right mt-1">
+                                <a id="Disable_File_Sharing_btn"><i style="font-size: 52px" id="Disable_File_Sharing_ico"
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                            <div class="container-fluid mt-1">
+                                <div class="drawer-content" id="Disable_File_Sharing_drawer">
+                                    <textarea class="logs consolas text-muted" name="logs" id="Disable_File_Sharing_logs"
+                                        cols="30" rows="5" disabled></textarea>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-4 text-right mt-1">
-                            <a id="Disable_File_Sharing_btn"><i style="font-size: 52px" id="Disable_File_Sharing_ico"
-                                    class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                    <!-- ================================================== -->
+                    <div class="module-box deep mt-3" id="Disable_RDP_div">
+                        <div class="row">
+                            <div class="col-8 d-flex justify-content-between">
+                                <div class="mr-auto p-2 text-left">
+                                    <h6>Disable_RDP</h6>
+                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Disable Remote Desktop
+                                        Protocol..</p>
+                                </div>
+                            </div>
+                            <div class="col-4 text-right mt-1">
+                                <a id="Disable_RDP_btn"><i style="font-size: 52px" id="Disable_RDP_ico"
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                            <div class="container-fluid mt-1">
+                                <div class="drawer-content" id="Disable_RDP_drawer">
+                                    <textarea class="logs consolas text-muted" name="logs" id="Disable_RDP_logs" cols="30"
+                                        rows="5" disabled></textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div class="container-fluid mt-1">
-                            <div class="drawer-content" id="Disable_File_Sharing_drawer">
-                                <textarea class="logs consolas text-muted" name="logs" id="Disable_File_Sharing_logs"
-                                    cols="30" rows="5" disabled></textarea>
+                    </div>
+                    <!-- ================================================== -->
+                    <div class="module-box deep mt-3" id="Other_Harden_Method_div">
+                        <div class="row">
+                            <div class="col-8 d-flex justify-content-between">
+                                <div class="mr-auto p-2 text-left">
+                                    <h6>Other_Harden_Method</h6>
+                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Other_Harden_Method info
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-4 text-right mt-1">
+                                <a id="Other_Harden_Method_btn"><i style="font-size: 52px" id="Other_Harden_Method_ico"
+                                        class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                            <div class="container-fluid mt-1">
+                                <div class="drawer-content" id="Other_Harden_Method_drawer">
+                                    <textarea class="logs consolas text-muted" name="logs" id="Other_Harden_Method_logs"
+                                        cols="30" rows="5" disabled></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- ================================================== -->
-                <div class="module-box deep mt-3" id="Disable_RDP_div" data-aos="fade-up">
-                    <div class="row">
-                        <div class="col-8 d-flex justify-content-between">
-                            <div class="mr-auto p-2 text-left">
-                                <h6>Disable_RDP</h6>
-                                <p class="text-muted" style="font-size: 12px; margin-bottom:0">Disable Remote Desktop
-                                    Protocol..</p>
-                            </div>
-                        </div>
-                        <div class="col-4 text-right mt-1">
-                            <a id="Disable_RDP_btn"><i style="font-size: 52px" id="Disable_RDP_ico"
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                        <div class="container-fluid mt-1">
-                            <div class="drawer-content" id="Disable_RDP_drawer">
-                                <textarea class="logs consolas text-muted" name="logs" id="Disable_RDP_logs" cols="30"
-                                    rows="5" disabled></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ================================================== -->
-                <div class="module-box deep mt-3" id="Other_Harden_Method_div" data-aos="fade-up">
-                    <div class="row">
-                        <div class="col-8 d-flex justify-content-between">
-                            <div class="mr-auto p-2 text-left">
-                                <h6>Other_Harden_Method</h6>
-                                <p class="text-muted" style="font-size: 12px; margin-bottom:0">Other_Harden_Method info
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-4 text-right mt-1">
-                            <a id="Other_Harden_Method_btn"><i style="font-size: 52px" id="Other_Harden_Method_ico"
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                        <div class="container-fluid mt-1">
-                            <div class="drawer-content" id="Other_Harden_Method_drawer">
-                                <textarea class="logs consolas text-muted" name="logs" id="Other_Harden_Method_logs"
-                                    cols="30" rows="5" disabled></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <!--
                     End module divs
