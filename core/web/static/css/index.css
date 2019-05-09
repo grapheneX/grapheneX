@@ -25,7 +25,7 @@ a {
     font-family: monospace;
 }
 
-.deep{
+.deep {
     -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
@@ -36,6 +36,12 @@ a {
     padding-bottom: 10px;
     border: 2px solid #1DA1F2;
     border-radius: 32px;
+}
+
+.module-box {
+    padding: 10px;
+    border: 1px solid #1DA1F2;
+    border-radius: 16px;
 }
 
 .sr-bar {
@@ -74,4 +80,32 @@ a {
     -moz-border-radius-bottomright: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.drawer-content {
+    width: 100%;
+    display: none;
+}
+
+.logs {
+    background-color: #111111;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.fa-arrow-circle-right {
+    transition: all .4s ease;
+}
+
+.rotated {
+    -webkit-transform: rotate(45deg);
+    /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(45deg);
+    /* Firefox 3.5-15 */
+    -ms-transform: rotate(45deg);
+    /* IE 9 */
+    -o-transform: rotate(45deg);
+    /* Opera 10.50-12.00 */
+    transform: rotate(90deg);
+    /* Firefox 16+, IE 10+, Opera 12.10+ */
 }
