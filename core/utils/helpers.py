@@ -103,3 +103,18 @@ def parser_host_port(host_port):
         host = host_port
         port = 8080
     return host, port
+
+def run_shell(shell):
+    try:
+        shell.cmdloop()
+    except KeyboardInterrupt:
+        shell.do_EOF(None)
+
+def run_server(app,host,port):
+    try:
+        logger.info(f'Starting Server {host}:{port}')
+        app.run(host=host,port=port)
+    except:
+        logger.error(f'Invalid host & port info')
+        logger.info(f'Using default 0.0.0.0:8080')
+        app.run('0.0.0.0',8080)
