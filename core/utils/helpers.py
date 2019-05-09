@@ -96,5 +96,10 @@ def get_modules():
         modules[module_name].pop('HardenMethod')
     return modules
 
-
-        
+def parser_host_port(host_port):
+    try:
+        host, port = host_port.split(':')
+    except:
+        host = host_port.split(':')[0]
+        port = 8080
+    return host, port
