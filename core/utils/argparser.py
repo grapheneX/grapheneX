@@ -17,7 +17,7 @@ def parse_cli_args():
                         '--web',
                         help='run grapheneX web server',
                         action="store_true")
-    parser.add_argument('host_port',metavar='host:port',type=str,nargs='?',default='0.0.0.0:8000',
+    parser.add_argument('host_port',metavar='host:port',type=str,nargs='?',default='0.0.0.0:8080',
                         help="host and port to run the web interface")
     args = vars(parser.parse_args())
     return args
