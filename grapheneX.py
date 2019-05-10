@@ -2,25 +2,30 @@
 # -*- coding: utf-8 -*-
 
 from core.utils.argparser import parse_cli_args
-from core.utils.helpers import print_header, check_privileges, parser_host_port, run_shell, run_server
+from core.utils.helpers import print_header, check_privileges, parser_host_port, logger
 from core.cli.shell import Shell
 from core.web.server import *
-import threading
 
 def main():
     args = parse_cli_args()
     print_header()
     check_privileges()
-    shell = Shell()
     if(args['web']):
         host, port = parser_host_port(args['host_port'])
-        shell_thread = threading.Thread(target=run_shell,args=(shell,))
-        web_thread = threading.Thread(target=run_server, args=(app,host,port))
-        shell_thread.start()
-        web_thread.start()
+        try:
+            logger.info(f'Starting Server {host}:{port}')
+            app.run(host=host, port=port)
+        except:
+            logger.error('Invalid host & port address')
+            logger.info('Using default (host: 0.0.0.0, port: 8080)')
+            logger.info('Starting Server 0.0.0.0:8080')
+            app.run(host='0.0.0.0', port=8080)
     else:
-        run_shell(shell)
-
+        shell = Shell()
+        try:
+            shell.cmdloop()
+        except KeyboardInterrupt:
+            shell.do_EOF(None)
 
 if __name__ == "__main__":
     main()
