@@ -41,7 +41,7 @@
                         <li><b>Processor: </b><span class="text-muted">Intel64 Family 6</span></li>
                     </ul>
                     <!-- End System information -->
-                    <p class="mt-4 text-left text-muted" style="font-size: 12px">Found <strong>3</strong> module.</p>
+                    <p class="mt-4 text-left text-muted" style="font-size: 12px">Found <strong id="modulecount">3</strong> module.</p>
                 </div>
                 <!--Left side end-->
             </div>
@@ -80,6 +80,13 @@
 
                 <!--
                     Module divs
+
+                    Javascript will use;
+                        - module_name_div
+                            - module_name_btn (Button trigger)
+                                - module_name_ico (for animation)
+                            - module_name_drawer
+                                - module_name_logs (logs text area)
                 -->
                 <div data-aos="fade-up">
                     <div class="module-box deep" style="margin-top: 80px;" id="Disable_File_Sharing_div">

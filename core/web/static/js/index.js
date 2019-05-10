@@ -1,35 +1,43 @@
+function Module(moduleName) {
+    this.name = moduleName
+    this.div = $("#" + moduleName + "_div")
+    this.drawer = $("#" + moduleName + "_drawer")
+    this.logs = $("#" + moduleName + "_logs")
+    this.button = $("#" + moduleName + "_btn")
+    this.icon = $("#" + moduleName + "_ico")
 
+    this.openDrawer = (animationSpeed) => {
+        this.icon.toggleClass("rotated");
+        this.drawer.slideToggle({
+            duration: animationSpeed
+        });
+    }
 
-// test code
-var module_names = [
-    Object.create({ name: "Disable_File_Sharing", state: "open" }),
-    Object.create({ name: "Disable_RDP", state: "open" }),
-    Object.create({ name: "Other_Harden_Method", state: "open" })
-]
-// test code 
+    this.runSocketio = () => {
+        // Todo: Add socket io query or connetion stuff
+        return null;
+    }
 
-toggleDiv = (obj) => {
-    $("#" + obj.name + "_drawer").slideToggle({
-        duration: 250
-    });
-    
-    // Todo: Add ajax query
-
-    // test code
-    var logs = $("#" + obj.name + "_logs");
-    logs.val("22:29:34 > core.utils.commnads > INFO > Executing...\n"); 
-    logs.val(logs.val() + " > netsh advfirewall firewall set rule group=\"File and Printer Sharing\" new enable=No \n")
-    logs.val(logs.val() + "22:29:35 > core.utils.commnads > INFO > Done.\n")
-    // test code
+    this.logWrite = (message) => {
+        this.logs.val(this.logs.val() + message + "\n");
+    }
 }
+
+// <-- Test code
+module_names = [
+    new Module("Disable_File_Sharing"),
+    new Module("Disable_RDP"),
+    new Module("Other_Harden_Method")
+]
+// Test code -->
 
 //Page is ready
 $(function () {
     AOS.init();
-    module_names.forEach(elem => {
-        $("#" + elem.name + "_btn").click(() => {
-            $("#" + elem.name + "_ico").toggleClass('rotated');
-            toggleDiv(elem);
+    $("#modulecount").text(module_names.length);
+    module_names.forEach(elem => {  // Listen click events
+        elem.button.click(() => {
+            elem.openDrawer(250);
         })
     })
 })
