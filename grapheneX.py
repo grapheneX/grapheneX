@@ -11,10 +11,9 @@ def main():
     print_header()
     check_privileges()
     if(args['web']):
-        if ':' in args['host_port']:
-            run_server(args['host_port'].split(':'))
-        else:
-            run_server((args['host_port'], '8080'))
+        run_server(args['host_port'].split(':') \
+            if ':' in args['host_port'] \
+            else (args['host_port'], '8080'))
     else:
         shell = Shell()
         try:
