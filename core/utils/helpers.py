@@ -95,11 +95,3 @@ def get_modules():
         # Remove super class from modules
         modules[module_name].pop('HardenMethod')
     return modules
-
-def parser_host_port(host_port):
-    try:
-        host, port = host_port.split(':')
-    except:
-        host = host_port
-        port = 8080
-    return host, port

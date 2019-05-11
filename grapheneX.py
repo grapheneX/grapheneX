@@ -2,24 +2,19 @@
 # -*- coding: utf-8 -*-
 
 from core.utils.argparser import parse_cli_args
-from core.utils.helpers import print_header, check_privileges, parser_host_port, logger
+from core.utils.helpers import print_header, check_privileges
 from core.cli.shell import Shell
-from core.web.server import *
+from core.web.server import run_server
 
 def main():
     args = parse_cli_args()
     print_header()
     check_privileges()
     if(args['web']):
-        host, port = parser_host_port(args['host_port'])
-        try:
-            logger.info(f'Starting Server {host}:{port}')
-            app.run(host=host, port=port)
-        except:
-            logger.error('Invalid host & port address')
-            logger.info('Using default (host: 0.0.0.0, port: 8080)')
-            logger.info('Starting Server 0.0.0.0:8080')
-            app.run(host='0.0.0.0', port=8080)
+        if ':' in args['host_port']:
+            run_server(args['host_port'].split(':'))
+        else:
+            run_server((args['host_port'], '8080'))
     else:
         shell = Shell()
         try:
