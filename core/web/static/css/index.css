@@ -1,0 +1,111 @@
+/*
+    Graphenex web main css file
+*/
+
+body {
+    margin: 0;
+    background-color: #1E1E1E;
+    color: white;
+}
+
+a {
+    color: #1DA1F2;
+}
+
+.btn {
+    border: 1px solid #1DA1F2;
+    color: white
+}
+
+.btn:hover {
+    color: #1DA1F2;
+}
+
+.consolas {
+    font-family: monospace;
+}
+
+.deep {
+    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.box {
+    padding: 30px;
+    padding-bottom: 10px;
+    border: 2px solid #1DA1F2;
+    border-radius: 32px;
+}
+
+.module-box {
+    padding: 10px;
+    border: 1px solid #1DA1F2;
+    border-radius: 16px;
+}
+
+.sr-bar {
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid #1DA1F2;
+    border-right: none;
+    float: left;
+    width: 90%;
+    background: #1E1E1E;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.sr-bar:hover {
+    border-right: none !important;
+}
+
+.sr-btn {
+    float: left;
+    width: 10%;
+    padding: 10px;
+    background: #1E1E1E;
+    color: white;
+    font-size: 12px;
+    border: 1px solid #1DA1F2;
+    border-left: none;
+    cursor: pointer;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.drawer-content {
+    width: 100%;
+    display: none;
+}
+
+.logs {
+    background-color: #111111;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.fa-arrow-circle-right {
+    transition: all .4s ease;
+}
+
+.rotated {
+    -webkit-transform: rotate(45deg);
+    /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(45deg);
+    /* Firefox 3.5-15 */
+    -ms-transform: rotate(45deg);
+    /* IE 9 */
+    -o-transform: rotate(45deg);
+    /* Opera 10.50-12.00 */
+    transform: rotate(90deg);
+    /* Firefox 16+, IE 10+, Opera 12.10+ */
+}
