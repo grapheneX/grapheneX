@@ -194,7 +194,7 @@ class ShellCommands(Help):
 
     def do_EOF(self, arg):
         """EOF exit"""
-
+        
         print()
         self.do_exit(arg)
         return True

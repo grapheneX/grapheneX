@@ -1,5 +1,6 @@
-from flask import Flask, render_template
 from core.utils.logcl import GraphenexLogger
+from core.cli.shell import Shell
+from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 
 logger = GraphenexLogger(__name__)
@@ -24,6 +25,8 @@ def run_server(args=None):
     except (PermissionError, ValueError):
         logger.error('Invalid host & port address. Restarting with default host and port.')
         run_server()
+    except KeyboardInterrupt:
+        Shell().do_exit(None)
     except Exception as e:
         logger.error('Unable to start server: ' + str(e))
         
