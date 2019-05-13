@@ -11,7 +11,6 @@ def main():
     print_header()
     if(args['web']):
         run_server(args)
-        
     else:
         start_cli()
 
