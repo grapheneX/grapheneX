@@ -10,9 +10,8 @@ def main():
     args = parse_cli_args()
     print_header()
     if(args['web']):
-        run_server(args['host_port'].split(':') \
-            if ':' in args['host_port'] \
-            else (args['host_port'], '8080'))
+        run_server(args)
+        
     else:
         start_cli()
 
