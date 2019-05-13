@@ -26,9 +26,10 @@ def run_server(args=None):
         logger.error('Invalid host & port address. Restarting with default host and port.')
         run_server()
     except KeyboardInterrupt:
+        socketio.stop()
         Shell().do_exit(None)
     except Exception as e:
-        logger.error('Unable to start server: ' + str(e))
+        logger.error('An error occurred: ' + str(e))
         
 @socketio.on('my_event')
 def handle_my_event(json):
