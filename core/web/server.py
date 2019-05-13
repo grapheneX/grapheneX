@@ -17,6 +17,3 @@ def run_server(server_params=('0.0.0.0', '8080')):
         run_server()
     except Exception as e:
         logger.error('Unable to start server: ' + str(e))
-
-if __name__ == '__main__':
-    run_server()
