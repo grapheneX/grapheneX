@@ -45,6 +45,7 @@ def print_header():
     """+Style.NORMAL
     print(project_desc)
     logger.info("grapheneX started.")
+    check_privileges()
 
 def check_os():
     """

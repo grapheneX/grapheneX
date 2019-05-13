@@ -22,3 +22,9 @@ class Shell(ShellCommands, Cmd):
         if self.module:
             prompt_str = prompt_str + ":" + self.module
         return f"[gX{prompt_str}]> "
+
+def start_cli():
+    try:
+        Shell().cmdloop()
+    except KeyboardInterrupt:
+        Shell().do_EOF(None)
