@@ -31,6 +31,6 @@ def run_server(args=None):
     except Exception as e:
         logger.error('An error occurred: ' + str(e))
         
-@socketio.on('my_event')
-def handle_my_event(json):
-    emit('Test Response', json)
+@socketio.on('connected')
+def connected_event(msg):
+    print(msg)
