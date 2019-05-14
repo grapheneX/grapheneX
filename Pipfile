@@ -1,0 +1,28 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+autopep8 = "*"
+click = "*"
+colorama = "*"
+coloredlogs = "*"
+flask = "*"
+flask-socketio = "*"
+humanfriendly = "*"
+itsdangerous = "*"
+jinja2 = "*"
+pycodestyle = "*"
+pyreadline = "*"
+python-engineio = "*"
+python-socketio = "*"
+six = "*"
+terminaltables = "*"
+werkzeug = "*"
+MarkupSafe = "*"
+
+[requires]
+python_version = "3.8"
