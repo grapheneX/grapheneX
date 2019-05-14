@@ -37,11 +37,12 @@
                     <ul class="text-left" style="list-style-type: none;
                             padding: 0;
                             margin: 0;">
-                        <li><b>OS: </b><span class="text-muted">Windows 10 x64</span></li>
-                        <li><b>Processor: </b><span class="text-muted">Intel64 Family 6</span></li>
+                        <li id="os"><b>OS: </b><span class="text-muted">{{ sys_info.system }}</span></li>
+                        <li id="proc"><b>Processor: </b><span class="text-muted">{{ sys_info.processor }}</span></li>
                     </ul>
                     <!-- End System information -->
-                    <p class="mt-4 text-left text-muted" style="font-size: 12px">Found <strong id="modulecount">3</strong> module.</p>
+                    <p class="mt-4 text-left text-muted" style="font-size: 12px">Found <strong
+                            id="modulecount">3</strong> module.</p>
                 </div>
                 <!--Left side end-->
             </div>
@@ -94,18 +95,19 @@
                             <div class="col-8 d-flex justify-content-between">
                                 <div class="mr-auto p-2 text-left">
                                     <h6>Disable_File_Sharing</h6>
-                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Disable File and Printer
+                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Disable File and
+                                        Printer
                                         Sharing.</p>
                                 </div>
                             </div>
                             <div class="col-4 text-right mt-1">
-                                <a id="Disable_File_Sharing_btn"><i style="font-size: 52px" id="Disable_File_Sharing_ico"
-                                        class="fas fa-arrow-circle-right"></i></a>
+                                <a id="Disable_File_Sharing_btn"><i style="font-size: 52px"
+                                        id="Disable_File_Sharing_ico" class="fas fa-arrow-circle-right"></i></a>
                             </div>
                             <div class="container-fluid mt-1">
                                 <div class="drawer-content" id="Disable_File_Sharing_drawer">
-                                    <textarea class="logs consolas text-muted" name="logs" id="Disable_File_Sharing_logs"
-                                        cols="30" rows="5" disabled></textarea>
+                                    <textarea class="logs consolas text-muted" name="logs"
+                                        id="Disable_File_Sharing_logs" cols="30" rows="5" disabled></textarea>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +118,8 @@
                             <div class="col-8 d-flex justify-content-between">
                                 <div class="mr-auto p-2 text-left">
                                     <h6>Disable_RDP</h6>
-                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Disable Remote Desktop
+                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Disable Remote
+                                        Desktop
                                         Protocol..</p>
                                 </div>
                             </div>
@@ -126,8 +129,8 @@
                             </div>
                             <div class="container-fluid mt-1">
                                 <div class="drawer-content" id="Disable_RDP_drawer">
-                                    <textarea class="logs consolas text-muted" name="logs" id="Disable_RDP_logs" cols="30"
-                                        rows="5" disabled></textarea>
+                                    <textarea class="logs consolas text-muted" name="logs" id="Disable_RDP_logs"
+                                        cols="30" rows="5" disabled></textarea>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +141,8 @@
                             <div class="col-8 d-flex justify-content-between">
                                 <div class="mr-auto p-2 text-left">
                                     <h6>Other_Harden_Method</h6>
-                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Other_Harden_Method info
+                                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">Other_Harden_Method
+                                        info
                                     </p>
                                 </div>
                             </div>
