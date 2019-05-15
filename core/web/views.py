@@ -8,15 +8,12 @@ logger = GraphenexLogger(__name__)
 
 @app.route('/')
 def main():
-    return render_template('index.html', title="grapheneX [Web]", sys_info=get_os_info())
+    return render_template(
+        'index.html', 
+        title="grapheneX [Web]", 
+        sys_info=get_os_info())
 
-# Don't use this method
-# We will sending system information in render_template
-@socketio.on('request system info')
-def request_system_info(data):
-    logger.info("Sending system info")
-    emit("response system info", get_os_info())
-
+# Example receive of emit
 @socketio.on('connected')
 def connected_event(msg):
     print(msg)
