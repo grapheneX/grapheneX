@@ -102,6 +102,6 @@ def get_modules():
 def get_os_info():
     uname = platform.uname()
     return {
-        'system': f"{uname.system} {uname.version}",
-        'processor': uname.processor
+        'system': f"{uname.system} | {uname.version}",
+        'processor': f"{uname.processor} - ({uname.machine})"
     }
