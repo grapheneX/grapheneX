@@ -31,8 +31,6 @@ module_names = [
 ]
 // Test code -->
 
-
-//Page is ready
 $(function () {
     AOS.init();
 

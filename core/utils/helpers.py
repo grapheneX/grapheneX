@@ -1,18 +1,15 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from core.utils.logcl import GraphenexLogger
-
 import sys
 import os
 import importlib.util
 import inspect
 import ctypes
 import platform
-
+from core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
-
 
 def print_header():
     """ 
@@ -51,7 +48,6 @@ def print_header():
     logger.info("grapheneX started.")
     check_privileges()
 
-
 def check_os():
     """
     Returns operating system information.
@@ -59,7 +55,6 @@ def check_os():
     [0] -> Linux (else)
     """
     return 1 if __import__('os').name == 'nt' else 0
-
 
 def check_privileges():
     """Checks privileges and warns if they aren't sufficient"""
@@ -72,11 +67,9 @@ def check_privileges():
             logger.warn("Some functions won't work without root access, " +
                         "try running the grapheneX with sudo.")
 
-
 def is_root():
     """Returns if the app is run with sudo"""
     return os.geteuid() == 0
-
 
 def is_admin():
     """Returns if the app is run with administrative access"""
@@ -85,7 +78,6 @@ def is_admin():
         return result
     except:
         return False
-
 
 def get_modules():
     """Returns hardening modules as dict"""
@@ -106,19 +98,9 @@ def get_modules():
         # Remove super class from modules
         modules[module_name].pop('HardenMethod')
     return modules
-    
-def parser_host_port(host_port):
-    try:
-        host, port = host_port.split(':')
-    except:
-        host = host_port
-        port = 8080
-    return host, port
-
 
 def get_os_info():
     uname = platform.uname()
-
     return {
         'system': f"{uname.system} {uname.version}",
         'processor': uname.processor
