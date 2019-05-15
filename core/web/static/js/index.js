@@ -1,30 +1,3 @@
-$(document).ready(initializePage);
-
-// <-- Test code
-module_names = [
-    new Module("Disable_File_Sharing"),
-    new Module("Disable_RDP"),
-    new Module("Other_Harden_Method")
-]
-// Test code -->
-
-var socket;
-
-function initializePage() {
-    AOS.init();
-    $("#modulecount").text(module_names.length);
-    module_names.forEach(elem => {  // Listen click events
-        elem.button.click(() => {
-            elem.openDrawer(250);
-        })
-    })
-    socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-    socket.on('connect', function() {
-        // Example emit
-        socket.emit("connected", document.domain);
-    });    
-}
-
 function Module(moduleName) {
     this.name = moduleName
     this.div = $("#" + moduleName + "_div")
@@ -40,9 +13,9 @@ function Module(moduleName) {
         });
     }
 
-    this.runSocketio = () => {
+    this.harden = (socket) => {
         // Todo: Add socket io query or connetion stuff
-        return null;
+        return null
     }
 
     this.logWrite = (message) => {
@@ -50,19 +23,30 @@ function Module(moduleName) {
     }
 }
 
-function getNsList() {
-    return null;
-}
+// <-- Test code
+module_names = [
+    new Module("Disable_File_Sharing"),
+    new Module("Disable_RDP"),
+    new Module("Other_Harden_Method")
+]
+// Test code -->
 
-function getModList(ns) {
-    return null;
-}
 
-function getModInfo(mod) {
-    return null;
-}
+//Page is ready
+$(function () {
+    AOS.init();
 
-function harden(mod) {
-    return null;
-}
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    socket.on('connect', () => {
+        console.log("Connected to server");
+    })
+
+    $("#modulecount").text(module_names.length);
+    module_names.forEach(elem => {  // Listen click events
+        elem.button.click(() => {
+            elem.openDrawer(250);
+        })
+        elem.harden(socket)
+    })
+})
 
