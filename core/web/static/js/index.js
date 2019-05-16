@@ -1,3 +1,5 @@
+$(document).ready(initializePage);
+
 function Module(moduleName) {
     this.name = moduleName
     this.div = $("#" + moduleName + "_div")
@@ -31,14 +33,13 @@ module_names = [
 ]
 // Test code -->
 
-
-//Page is ready
-$(function () {
+function initializePage() {
     AOS.init();
 
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.on('connect', () => {
-        console.log("Connected to server");
+        // example emit call
+        socket.emit("connected", document.domain);
     })
 
     $("#modulecount").text(module_names.length);
@@ -48,5 +49,5 @@ $(function () {
         })
         elem.harden(socket)
     })
-})
+}
 
