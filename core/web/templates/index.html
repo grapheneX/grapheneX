@@ -58,12 +58,12 @@
                             <div class="dropdown">
                                 <button class="btn dropdown-toggle deep" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Firewall
+                                    Namespace
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Network</a>
-                                    <a class="dropdown-item" href="#">Firewall</a>
-                                    <a class="dropdown-item" href="#">Kernel</a>
+                                    {% for namespace in namespaces %}
+                                    <a class="dropdown-item" href="#">{{ namespace }}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
