@@ -1,5 +1,4 @@
 $(document).ready(initializePage);
-$(document).ready(onNamespaceSelected);
 
 function Module(moduleName) {
     this.name = moduleName
@@ -42,7 +41,7 @@ function initializePage() {
         // example emit call
         socket.emit("connected", document.domain);
     })
-
+    onNamespaceSelected();
     $("#modulecount").text(module_names.length);
     module_names.forEach(elem => {  // Listen click events
         elem.button.click(() => {
@@ -53,8 +52,6 @@ function initializePage() {
 }
 
 function onNamespaceSelected() {
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-
     $('.dropdown-item').click(function(){
         socket.emit("namespace",$(this).text());
     });
