@@ -1,4 +1,5 @@
 $(document).ready(initializePage);
+$(document).ready(onNamespaceSelected);
 
 function Module(moduleName) {
     this.name = moduleName
