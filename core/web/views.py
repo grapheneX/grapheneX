@@ -24,3 +24,9 @@ def main():
 def connected_event(msg):
     print(msg)
 
+@socketio.on('namespace')
+def namespace_changed(namespace):
+	data = {}
+	for name, module in modules[namespace].items():
+		data[name] = inspect.getdoc(module.command)
+	emit("modules", {'modules' : data})
