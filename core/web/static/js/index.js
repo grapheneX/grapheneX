@@ -57,4 +57,8 @@ function onNamespaceSelected() {
     $('.dropdown-item').click(function(){
         socket.emit("namespace",$(this).text());
     });
+
+    socket.on('modules', function(modules){
+        console.log(modules);
+    });
 }
