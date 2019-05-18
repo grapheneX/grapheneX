@@ -51,3 +51,10 @@ function initializePage() {
     })
 }
 
+function onNamespaceSelected() {
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+    $('.dropdown-item').click(function(){
+        socket.emit("namespace",$(this).text());
+    });
+}
