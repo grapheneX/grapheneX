@@ -6,8 +6,10 @@ from core.utils.helpers import get_os_info, get_modules
 from core.utils.logcl import GraphenexLogger
 from flask import render_template
 from flask_socketio import emit
+import inspect
 
 logger = GraphenexLogger(__name__)
+modules = get_modules()
 
 @app.route('/')
 def main():
@@ -15,9 +17,10 @@ def main():
         'index.html', 
         title="grapheneX [Web]", 
         sys_info=get_os_info(),
-        namespaces=get_modules())
+        namespaces=modules)
 
 # Example receive of emit
 @socketio.on('connected')
 def connected_event(msg):
     print(msg)
+
