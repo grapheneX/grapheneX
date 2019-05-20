@@ -13,18 +13,19 @@ logger = GraphenexLogger(__name__)
 @app.route('/')
 def main():
     modules = {}
-    mod_desc={}
+    mod_desc = {}
     for i in get_modules().values():
         for k, v in i.items():
             modules[k] = inspect.getdoc(v().command)
-            mod_desc[k] = inspect.getsource(v().command).split("\"\"\"")[-2]
+            mod_desc[k] = inspect.getsource(v().command) \
+                .split("\"\"\"")[-2]
 
     return render_template(
         'index.html', 
         title="grapheneX [Web]", 
         sys_info=get_os_info(),
-        mod_desc=mod_desc,
-        modules=modules)
+        modules=modules,
+        mod_desc=mod_desc)
 
 # Example receive of emit
 @socketio.on('connected')
