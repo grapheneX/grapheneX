@@ -103,12 +103,19 @@
                                     <a id="{{ key }}_btn"><i style="font-size: 52px"
                                             id="{{ key }}_ico" class="fas fa-arrow-circle-right"></i></a>
                                 </div>
+                                {% for module, mod_desc in mod_desc.items() %}
+                                {% if module==key %}
                                 <div class="container-fluid mt-1">
                                     <div class="drawer-content" id="{{ key }}_drawer">
-                                        <textarea class="logs consolas text-muted" name="logs"
-                                            id="{{ key }}_logs" cols="30" rows="5" disabled></textarea>
+                                    <textarea class="logs consolas text-muted" name="logs"
+                                        id="{{ key }}_logs" cols="30" rows="5" disabled>Module: {{module}}                                
+Description:{{ value }}  
+Command: {{mod_desc}}
+                                    </textarea>
                                     </div>
                                 </div>
+                                {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     {% endfor %}
@@ -119,7 +126,6 @@
             </div>
         </div>
     </div>
-
     <!--Javascript includes-->
     <script src="{{ url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
     <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
