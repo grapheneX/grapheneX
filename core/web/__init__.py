@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_socketio import SocketIO
 from core.cli.shell import Shell
+from core.utils.logcl import GraphenexLogger
 
+logger = GraphenexLogger(__name__)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '77a98d7971ec94c8aae6dd2d'
 socketio = SocketIO(app)
