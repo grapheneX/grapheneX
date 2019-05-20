@@ -26,15 +26,15 @@ function Module(moduleName) {
 }
 
 // <-- Test code
-module_names = [
-    new Module("Disable_File_Sharing"),
-    new Module("Disable_RDP"),
-    new Module("Other_Harden_Method")
-]
+module_names = []
 // Test code -->
 
 function initializePage() {
     AOS.init();
+
+    Array.from(document.getElementsByClassName("module-box deep")).forEach(elem => {
+        module_names.push(new Module(elem.id.slice(0, -4)));
+    });
 
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.on('connect', () => {
