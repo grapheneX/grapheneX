@@ -24,7 +24,8 @@ class Shell(ShellCommands, Cmd):
         return f"[gX{prompt_str}]> "
 
 def start_cli():
+    shell = Shell()
     try:
-        Shell().cmdloop()
+        shell.cmdloop()
     except KeyboardInterrupt:
-        Shell().do_EOF(None)
+        shell.do_EOF(None)
