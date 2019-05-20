@@ -1,7 +1,6 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-import inspect
 from core.web import app, socketio
 from core.utils.helpers import get_os_info, get_modules
 from core.utils.logcl import GraphenexLogger
