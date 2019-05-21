@@ -56,15 +56,11 @@
                         </div>
                         <div class="col-4 text-right">
                             <div class="dropdown">
-                                <button class="btn dropdown-toggle deep" type="button" id="dropdownMenuButton"
+                                <button class="btn dropdown-toggle deep" type="button" id="current_namespace"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Firewall
+                                    <!-- Javascript render -->
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Network</a>
-                                    <a class="dropdown-item" href="#">Firewall</a>
-                                    <a class="dropdown-item" href="#">Kernel</a>
-                                </div>
+                                <div class="dropdown-menu" aria-labelledby="current_namespace" id="namespaces"></div>
                             </div>
                         </div>
                     </div>
@@ -89,50 +85,16 @@
                             - module_name_drawer
                                 - module_name_logs (logs text area)
                 -->
-                <div data-aos="fade-up">
-                    {% for key, value in modules.items() %}
-                        <div class="module-box deep" style="margin-top: 80px;" id="{{ key }}_div">
-                            <div class="row">
-                                <div class="col-8 d-flex justify-content-between">
-                                    <div class="mr-auto p-2 text-left">
-                                        <h6>{{ key }}</h6>
-                                        <p class="text-muted" style="font-size: 12px; margin-bottom:0">{{ value }}</p>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-right mt-1">
-                                    <a id="{{ key }}_btn"><i style="font-size: 52px"
-                                            id="{{ key }}_ico" class="fas fa-arrow-circle-right"></i></a>
-                                </div>
-                                {% for module, mod_desc in mod_desc.items() %}
-                                {% if module==key %}
-                                <div class="container-fluid mt-1">
-                                    <div class="drawer-content" id="{{ key }}_drawer">
-                                    <textarea class="logs consolas text-muted" name="logs"
-                                        id="{{ key }}_logs" cols="30" rows="5" disabled>Module: {{module}}                                
-Description:{{ value }}  
-Command: {{mod_desc}}
-                                    </textarea>
-                                    </div>
-                                </div>
-                                {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                <!--
-                    End module divs
-                -->
-                <!--Content end-->
+
             </div>
         </div>
-    </div>
-    <!--Javascript includes-->
-    <script src="{{ url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/aos.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+        <!--Javascript includes-->
+        <script src="{{ url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/aos.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 
 </html>
