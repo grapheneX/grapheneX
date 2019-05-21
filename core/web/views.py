@@ -4,7 +4,6 @@
 import inspect
 from core.web import app, logger, socketio
 from core.utils.helpers import get_os_info, get_modules
-from core.utils.logcl import GraphenexLogger
 from flask import render_template
 from flask_socketio import emit
 
