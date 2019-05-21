@@ -12,10 +12,12 @@ current_namespace = list(module_dict.keys())[0]
 
 @app.route('/')
 def main():
+    length_list = [len(value) for key, value in module_dict.items()]
     return render_template(
         'index.html',
         title="grapheneX [Web]",
-        sys_info=get_os_info())
+        sys_info=get_os_info(),
+        mod_count=sum(length_list))
 
 @socketio.on('get_namespaces')
 def send_namespaces(data):
