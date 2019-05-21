@@ -1,9 +1,8 @@
 $(document).ready(initializePage);
 
-
 function Module(moduleName, moduleDesc, moduleSource, socket) {
     /*
-    This is a Module object.
+    Module object.
     */
     this.name = moduleName;
     this.socket = socket;
@@ -59,7 +58,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
 
         this.logWrite(this.source);
         this.button.click(() => {  // Listening click event
-            this.openDrawer(250);  // open textbox
+            this.openDrawer(250);  // Open textbox
         })
     }
 }
@@ -79,14 +78,11 @@ search = function (socket) {
     })
 }
 
-
 function initializePage() {
-    AOS.init(); // AOS scroll lib
-
-
+    AOS.init(); // AOS scroll library
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.emit('get_namespaces', {})  // Request namespace list
-    socket.on('get_namespaces', (data) => {  // Added namespace string to html
+    socket.on('get_namespaces', (data) => {  // Add namespace string to html
         var { namespaces } = data;
         namespaces.forEach(namespace => {
             $("#namespaces").append('<li class="dropdown-item">' + namespace + '</li>');
@@ -99,16 +95,14 @@ function initializePage() {
             socket.emit('send_current_namespace', data.current_namespace);
         })
 
-        // Namespcae selection
+        // Namespace selection
         $("#namespaces li").click(function (e) {
-            e.preventDefault()  // no reload page 
+            // Don't reload page
+            e.preventDefault()   
             $("#current_namespace").text($(this).text());
-
-            // 'send_current_namespace' event, will trigger 'get_module'. See server side            
+            // 'send_current_namespace' event, will trigger 'get_module'            
             socket.emit('send_current_namespace', $(this).text());
         })
-
-        /* Namespace stuff finished */
 
         // Getting modules
         socket.on('get_module', (data) => {
@@ -119,12 +113,10 @@ function initializePage() {
                 var mod = new Module(name, desc, source, socket);
                 mod.render();
             })
-            console.log("Page is ready");
-            $(".overlay").fadeOut("slow");  // remove loading screen
+            // Remove loading screen when page is ready
+            $(".overlay").fadeOut("slow");
             search(socket);
 
         })
     })
-
 }
-
