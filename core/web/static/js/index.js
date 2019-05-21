@@ -39,7 +39,7 @@ function initializePage() {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.on('connect', () => {
         // example emit call
-        socket.emit("connected", document.domain);
+        socket.emit("connected");
     })
 
     $("#modulecount").text(module_names.length);

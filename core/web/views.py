@@ -26,6 +26,6 @@ def main():
 
 # Example receive of emit
 @socketio.on('connected')
-def connected_event(msg):
-    print(msg)
+def connected_event():
+    print("Connected.")
 
