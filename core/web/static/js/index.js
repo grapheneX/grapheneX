@@ -119,7 +119,7 @@ function initializePage() {
                 var mod = new Module(name, desc, source, socket);
                 mod.render();
             })
-            console.log("Ready is ready");
+            console.log("Page is ready");
             $(".overlay").fadeOut("slow");  // remove loading screen
             search(socket);
 
