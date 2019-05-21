@@ -52,6 +52,7 @@ a {
     float: left;
     width: 90%;
     background: #1E1E1E;
+    color: #D8D8D8;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     -moz-border-radius-topleft: 5px;
@@ -108,4 +109,31 @@ a {
     /* Opera 10.50-12.00 */
     transform: rotate(90deg);
     /* Firefox 16+, IE 10+, Opera 12.10+ */
+}
+
+/* Loading stuff */
+.overlay{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1E1E1E;
+    z-index: 100;
+}
+
+.loading-img{
+    margin-top: 200px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin{
+    0% {
+        -webkit-transform: rotateY(0);
+    }
+    50% {
+        -webkit-transform: rotateY(0.5turn);
+    }
+    100%{
+        -webkit-transform: rotateY(1turn);
+    }
 }

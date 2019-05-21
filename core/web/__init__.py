@@ -9,7 +9,12 @@ default_addr = ('0.0.0.0', '8080')
 
 from core.web.views import *
 
+def disable_flask_logs():
+    import logging
+    log = logging.getLogger('werkzeug').setLevel(logging.ERROR)
+
 def run_server(args=None):
+    disable_flask_logs()
     try:
         if args:
             server_params = args['host_port'].split(':') \

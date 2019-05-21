@@ -1,13 +1,15 @@
 $(document).ready(initializePage);
 
 
-function Module(moduleName) {
-    this.name = moduleName
-    this.div = $("#" + moduleName + "_div")
-    this.drawer = $("#" + moduleName + "_drawer")
-    this.logs = $("#" + moduleName + "_logs")
-    this.button = $("#" + moduleName + "_btn")
-    this.icon = $("#" + moduleName + "_ico")
+function Module(moduleName, moduleDesc, moduleSource, socket) {
+    /*
+    This is a Module object.
+    */
+    this.name = moduleName;
+    this.socket = socket;
+    this.desc = moduleDesc;
+    this.source = moduleSource;
+    this.socket = socket;
 
     this.openDrawer = (animationSpeed) => {
         this.icon.toggleClass("rotated");
@@ -16,86 +18,113 @@ function Module(moduleName) {
         });
     }
 
-    this.harden = (socket) => {
+    this.logWrite = (message) => {
+        this.logs.val(this.logs.val() + message + "\n");
+    }
+
+    this.harden = () => {
         // Todo: Add socket io query or connetion stuff
         return null
     }
 
-    this.logWrite = (message) => {
-        this.logs.val(this.logs.val() + message + "\n");
+    this.render = function () {
+        var modules = $("#modules");
+        modules.append('<div class="module-box deep" style="margin-bottom: 20px" id="' + this.name + '_div">\
+            <div class="row">\
+                <div class="col-8 d-flex justify-content-between">\
+                    <div class="mr-auto p-2 text-left">\
+                        <h6>' + this.name + '</h6>\
+                        <p class="text-muted" style="font-size: 12px; margin-bottom:0">' + this.desc + '</p>\
+                    </div>\
+                </div>\
+                <div class="col-4 text-right mt-1">\
+                    <a id="' + this.name + '_btn"><i style="font-size: 52px"\
+                            id="' + this.name + '_ico" class="fas fa-arrow-circle-right"></i></a>\
+                </div>\
+                <div class="container-fluid mt-1">\
+                    <div class="drawer-content" id="' + this.name + '_drawer">\
+                        <textarea class="logs consolas text-muted" name="logs"\
+                            id="' + this.name + '_logs" cols="30" rows="5" disabled></textarea>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>')
+
+        // Access DOM
+        this.div = $("#" + this.name + "_div")
+        this.drawer = $("#" + this.name + "_drawer")
+        this.logs = $("#" + this.name + "_logs")
+        this.button = $("#" + this.name + "_btn")
+        this.icon = $("#" + this.name + "_ico")
+
+        this.logWrite(this.source);
+        this.button.click(() => {  // Listening click event
+            this.openDrawer(250);  // open textbox
+        })
     }
 }
 
-
-addModule = (option) => {
-/* 
-    This function, create new module div end other props in index.html
-    option will be:
-    
-        addModule({
-            name: 'Harden_Method',
-            desc: 'Harden_Method information,
-            socket: socketobj
-        });
-
-        Note: socket variable will be sockett io conection object
-
-        remember this function return type is Module object
-*/
-    var {name, desc, socket} = option;
-    var modules = $("#modules");
-    modules.append('<div class="module-box deep" style="margin-top: 80px;" id="' + name +'_div">\
-        <div class="row">\
-            <div class="col-8 d-flex justify-content-between">\
-                <div class="mr-auto p-2 text-left">\
-                    <h6>' + name + '</h6>\
-                    <p class="text-muted" style="font-size: 12px; margin-bottom:0">' + desc + '</p>\
-                </div>\
-            </div>\
-            <div class="col-4 text-right mt-1">\
-                <a id="' + name + '_btn"><i style="font-size: 52px"\
-                        id="' + name + '_ico" class="fas fa-arrow-circle-right"></i></a>\
-            </div>\
-            <div class="container-fluid mt-1">\
-                <div class="drawer-content" id="' + name + '_drawer">\
-                    <textarea class="logs consolas text-muted" name="logs"\
-                        id="' + name + '_logs" cols="30" rows="5" disabled></textarea>\
-                </div>\
-            </div>\
-        </div>\
-    </div>')
-    var mod= new Module(name);
-    mod.button.click(()=> {
-        mod.openDrawer(250);
+search = function (socket) {
+    $("#module_search").on("keyup", function () {
+        query = $(this).val();
+        socket.emit('search_module', { query: query });
+        socket.on('search_module', (data) => {
+            $("#modules").empty();
+            data.result.forEach(elem => {
+                var { name, desc, source } = elem
+                var mod = new Module(name, desc, source, socket);
+                mod.render();
+            })
+        })
     })
-    mod.harden(socket);
-
-    return mod;
 }
 
 
-
 function initializePage() {
-    AOS.init();
+    AOS.init(); // AOS scroll lib
 
 
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-    socket.on('connect', () => {
-        // example emit call
-        socket.emit("connected", document.domain);
-    })
     socket.emit('get_namespaces', {})  // Request namespace list
     socket.on('get_namespaces', (data) => {  // Added namespace string to html
         var { namespaces } = data;
         namespaces.forEach(namespace => {
-            $("#namespaces").append('<a class="dropdown-item" href="#">' + namespace + '</a>');
+            $("#namespaces").append('<li class="dropdown-item">' + namespace + '</li>');
         })
 
         // Getting current namespace from server
         socket.emit('get_current_namespace', {});
         socket.on('get_current_namespace', (data) => {
             $("#current_namespace").text(data.current_namespace);
+            socket.emit('send_current_namespace', data.current_namespace);
+        })
+
+        // Namespcae selection
+        $("#namespaces li").click(function (e) {
+            e.preventDefault()  // no reload page 
+            $("#current_namespace").text($(this).text());
+
+            // 'send_current_namespace' event, will trigger 'get_module'. See server side            
+            socket.emit('send_current_namespace', $(this).text());
+        })
+
+        /* Namespace stuff finished */
+
+        // Getting modules
+        socket.on('get_module', (data) => {
+            $("#modules").empty();
+            data.forEach(elem => {
+                // Render modules
+                var { name, desc, source } = elem
+                var mod = new Module(name, desc, source, socket);
+                mod.render();
+            })
+            console.log("Ready is ready");
+            $(".overlay").fadeOut("slow");  // remove loading screen
+            search(socket);
+
         })
     })
+
 }
 

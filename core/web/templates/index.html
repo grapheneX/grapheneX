@@ -13,6 +13,13 @@
 </head>
 
 <body>
+    <!-- Loading screen -->
+    <div class="overlay text-center">
+        <img class="img-responsive align-middle loading-img"
+            src="{{ url_for('static', filename='images/graphenex_logo_white.png') }}" alt="logo"
+            height="200" width="200">
+    </div>
+    <!-- Loading screen end-->
     <div class="container text-center mt-4 mb-4">
         <div class="row">
             <div class="col-md-4" data-aos="fade-up">
@@ -60,21 +67,21 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <!-- Javascript render -->
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="current_namespace" id="namespaces"></div>
+                                <ul class="dropdown-menu" aria-labelledby="current_namespace" id="namespaces"></ul>
                             </div>
                         </div>
                     </div>
                     <!--Search input-->
                     <div class="mt-3">
                         <form action="">
-                            <input class="sr-bar" type="text" placeholder="Search Module..." name="modulesearch">
+                            <input class="sr-bar" type="text" placeholder="Search Module..." name="modulesearch", id="module_search">
                             <button class="sr-btn" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <!--End Search input-->
                 </div>
                 <!--End Search bar etc..-->
-
+                
                 <!--
                     Module divs
 
@@ -85,6 +92,8 @@
                             - module_name_drawer
                                 - module_name_logs (logs text area)
                 -->
+                <div id="modules" style="margin-top: 80px;"></div>
+
 
             </div>
         </div>
