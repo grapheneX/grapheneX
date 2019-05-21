@@ -11,7 +11,12 @@ default_addr = ('0.0.0.0', '8080')
 
 from core.web.views import *
 
+def disable_flask_logs():
+    import logging
+    log = logging.getLogger('werkzeug').setLevel(logging.ERROR)
+
 def run_server(args=None):
+    disable_flask_logs()
     try:
         if args:
             server_params = args['host_port'].split(':') \
@@ -22,7 +27,7 @@ def run_server(args=None):
         starting_msg = "Starting server: [http://" + server_params[0] + ":" + server_params[1] + "]"
         if server_params[0] == "0.0.0.0": starting_msg += " (localhost:" + server_params[1] + ")"
         logger.info(starting_msg)
-        socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=False)
+        socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=True)
     except (PermissionError, ValueError):
         logger.error('Invalid host & port address. Restarting with default host and port.')
         run_server()
