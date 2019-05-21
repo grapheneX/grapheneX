@@ -9,10 +9,10 @@ from flask_socketio import emit
 
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
+length_list = [len(value) for key, value in module_dict.items()]
 
 @app.route('/')
 def main():
-    length_list = [len(value) for key, value in module_dict.items()]
     return render_template(
         'index.html',
         title="grapheneX [Web]",
