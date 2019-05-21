@@ -48,8 +48,8 @@
                         <li id="proc"><b>Processor: </b><span class="text-muted">{{ sys_info.processor }}</span></li>
                     </ul>
                     <!-- End System information -->
-                    <p class="mt-4 text-left text-muted" style="font-size: 12px">Found <strong
-                            id="modulecount">3</strong> module.</p>
+                    <p class="mt-4 text-left text-muted" style="font-size: 12px"><strong id="modulecount">0</strong> 
+                        modules found.</p>
                 </div>
                 <!--Left side end-->
             </div>
@@ -93,8 +93,6 @@
                                 - module_name_logs (logs text area)
                 -->
                 <div id="modules" style="margin-top: 80px;"></div>
-
-
             </div>
         </div>
         <!--Javascript includes-->
@@ -105,5 +103,4 @@
         <script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
-
 </html>

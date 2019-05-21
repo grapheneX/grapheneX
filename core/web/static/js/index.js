@@ -113,6 +113,7 @@ function initializePage() {
                 var mod = new Module(name, desc, source, socket);
                 mod.render();
             })
+            $("#modulecount").html(data.length);
             // Remove loading screen when page is ready
             $(".overlay").fadeOut("slow");
             search(socket);
