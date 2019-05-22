@@ -43,7 +43,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
                 <div class="container-fluid mt-1">\
                     <div class="drawer-content" id="' + this.name + '_drawer">\
                         <textarea class="logs consolas font-small text-muted" name="logs"\
-                            id="' + this.name + '_logs" cols="30" rows="5" disabled></textarea>\
+                            id="' + this.name + '_logs" cols="30" rows="5" readonly></textarea>\
                     </div>\
                 </div>\
             </div>\
