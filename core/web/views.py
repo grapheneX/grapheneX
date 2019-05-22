@@ -47,7 +47,7 @@ def get_current_namespace(data):
 @socketio.on('search_module')
 def search_module(data):
     result = {name: mod for name, mod in module_dict.get(
-        current_namespace).items() if data["query"] in name}
+        current_namespace).items() if data["query"].lower() in name.lower()}
     payload = list()
     for name, mod in result.items():
         payload.append({
