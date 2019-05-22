@@ -22,15 +22,14 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
     }
 
     this.harden = () => {
-        // Todo: Add socket io query or connetion stuff
-        return null
+        this.openDrawer(150); 
     }
 
     this.render = function () {
         var modules = $("#modules");
         modules.append('<div class="module-box deep" style="margin-bottom: 20px" id="' + this.name + '_div">\
             <div class="row">\
-                <div class="col-8 d-flex justify-content-between">\
+                <div class="col-8 d-flex justify-content-between" id="' + this.name + '_area">\
                     <div class="mr-auto p-2 text-left">\
                         <h6>' + this.name + '</h6>\
                         <p class="text-muted" style="font-size: 13px; margin-bottom:0">' + this.desc + '</p>\
@@ -51,6 +50,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
 
         // Access DOM
         this.div = $("#" + this.name + "_div")
+        this.area = $("#" + this.name + "_area")
         this.drawer = $("#" + this.name + "_drawer")
         this.logs = $("#" + this.name + "_logs")
         this.button = $("#" + this.name + "_btn")
@@ -59,6 +59,9 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.writeLog(this.source);
         this.button.click(() => {
             this.openDrawer(200); 
+        });
+        this.area.click(()=>{
+            this.harden();
         });
     }
 }
