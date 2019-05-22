@@ -23,6 +23,9 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
     }
 
     this.harden = () => {
+        if (!this.drawer.is(":visible"))
+            this.icon.toggleClass("rotated");
+            this.drawer.slideDown({duration: 150});
         this.socket.emit("harden", this.name);
     }
 
@@ -57,7 +60,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.button = $("#" + this.name + "_btn")
         this.icon = $("#" + this.name + "_ico")
 
-        this.logs.val(this.source + "\n");
+        this.logs.val("[#]: " + this.source + "\n");
         this.button.click(() => {
             this.openDrawer(200); 
         });
