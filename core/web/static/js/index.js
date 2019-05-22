@@ -17,7 +17,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         });
     }
 
-    this.logWrite = (message) => {
+    this.writeLog = (message) => {
         this.logs.val(this.logs.val() + message + "\n");
     }
 
@@ -33,7 +33,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
                 <div class="col-8 d-flex justify-content-between">\
                     <div class="mr-auto p-2 text-left">\
                         <h6>' + this.name + '</h6>\
-                        <p class="text-muted" style="font-size: 12px; margin-bottom:0">' + this.desc + '</p>\
+                        <p class="text-muted" style="font-size: 13px; margin-bottom:0">' + this.desc + '</p>\
                     </div>\
                 </div>\
                 <div class="col-4 text-right mt-1">\
@@ -42,7 +42,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
                 </div>\
                 <div class="container-fluid mt-1">\
                     <div class="drawer-content" id="' + this.name + '_drawer">\
-                        <textarea class="logs consolas text-muted" name="logs"\
+                        <textarea class="logs consolas font-small text-muted" name="logs"\
                             id="' + this.name + '_logs" cols="30" rows="5" disabled></textarea>\
                     </div>\
                 </div>\
@@ -56,7 +56,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.button = $("#" + this.name + "_btn")
         this.icon = $("#" + this.name + "_ico")
 
-        this.logWrite(this.source);
+        this.writeLog(this.source);
         this.button.click(() => {  // Listening click event
             this.openDrawer(250);  // Open textbox
         })

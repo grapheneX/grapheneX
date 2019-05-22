@@ -25,6 +25,10 @@ a {
     font-family: monospace;
 }
 
+.font-small {
+    font-size: 12px;
+}
+
 .deep {
     -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
@@ -92,6 +96,8 @@ a {
     background-color: #111111;
     width: 100%;
     border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
 }
 
 .fa-arrow-circle-right {
