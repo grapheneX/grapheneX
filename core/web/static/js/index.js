@@ -22,7 +22,8 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
     }
 
     this.harden = () => {
-        this.openDrawer(150); 
+        this.openDrawer(150);
+        this.socket.emit("harden", this.name);
     }
 
     this.render = function () {

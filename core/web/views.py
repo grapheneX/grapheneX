@@ -3,7 +3,7 @@
 
 import inspect
 from core.web import app, logger, socketio
-from core.utils.helpers import get_os_info, get_modules
+from core.utils.helpers import check_os, get_os_info, get_modules
 from flask import render_template
 from flask_socketio import emit
 
@@ -56,3 +56,21 @@ def search_module(data):
             'source': inspect.getsource(mod().command).split("\"\"\"")[-2]
         })
     emit('search_module', {'result': payload})
+
+@socketio.on('harden')
+def hardening_exec(data):
+    try:
+        logger.info("Executing the hardening command of " + current_namespace + "/" + data)
+        hrd = module_dict[current_namespace][data]()
+        out = hrd.command()
+        print(out)
+        logger.info("Hardening command executed successfully.")
+    except PermissionError:
+        err_msg = "Insufficient permissions for hardening."
+        if check_os():
+            err_msg += " Get admin rights and rerun the grapheneX."                    
+        else:
+            err_msg += " Try running the grapheneX with sudo."
+        logger.error(err_msg)
+    except Exception as e:
+        logger.error("Failed to execute hardening command. " + str(e))
