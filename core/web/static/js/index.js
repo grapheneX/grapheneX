@@ -57,9 +57,9 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.icon = $("#" + this.name + "_ico")
 
         this.writeLog(this.source);
-        this.button.click(() => {  // Listening click event
-            this.openDrawer(250);  // Open textbox
-        })
+        this.button.click(() => {
+            this.openDrawer(200); 
+        });
     }
 }
 
@@ -73,27 +73,27 @@ search = function (socket) {
                 var { name, desc, source } = elem
                 var mod = new Module(name, desc, source, socket);
                 mod.render();
-            })
-        })
-    })
+            });
+        });
+    });
 }
 
 function initializePage() {
     AOS.init(); // AOS scroll library
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-    socket.emit('get_namespaces', {})  // Request namespace list
+    socket.emit('get_namespaces', {});  // Request namespace list
     socket.on('get_namespaces', (data) => {  // Add namespace string to html
         var { namespaces } = data;
         namespaces.forEach(namespace => {
             $("#namespaces").append('<li class="dropdown-item">' + namespace + '</li>');
-        })
+        });
 
         // Getting current namespace from server
         socket.emit('get_current_namespace', {});
         socket.on('get_current_namespace', (data) => {
             $("#current_namespace").text(data.current_namespace);
             socket.emit('send_current_namespace', data.current_namespace);
-        })
+        });
 
         // Namespace selection
         $("#namespaces li").click(function (e) {
@@ -102,7 +102,7 @@ function initializePage() {
             $("#current_namespace").text($(this).text());
             // 'send_current_namespace' event, will trigger 'get_module'            
             socket.emit('send_current_namespace', $(this).text());
-        })
+        });
 
         // Getting modules
         socket.on('get_module', (data) => {
@@ -112,11 +112,10 @@ function initializePage() {
                 var { name, desc, source } = elem
                 var mod = new Module(name, desc, source, socket);
                 mod.render();
-            })
+            });
             // Remove loading screen when page is ready
             $(".overlay").fadeOut("slow");
             search(socket);
-
-        })
-    })
+        });
+    });
 }
