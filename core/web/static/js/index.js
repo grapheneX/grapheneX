@@ -18,11 +18,11 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
     }
 
     this.writeLog = (message) => {
-        this.logs.val(this.logs.val() + message + "\n");
+        var currentTime = new Date().toLocaleTimeString().split(' ')[0];
+        this.logs.val(this.logs.val() + currentTime + " > " + message + "\n");
     }
 
     this.harden = () => {
-        this.openDrawer(150);
         this.socket.emit("harden", this.name);
     }
 
@@ -57,12 +57,15 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.button = $("#" + this.name + "_btn")
         this.icon = $("#" + this.name + "_ico")
 
-        this.writeLog(this.source);
+        this.logs.val(this.source + "\n");
         this.button.click(() => {
             this.openDrawer(200); 
         });
         this.area.click(()=>{
             this.harden();
+        });
+        this.socket.on(this.name + "_log", (data) => {
+            this.writeLog(data);
         });
     }
 }

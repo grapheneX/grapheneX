@@ -64,13 +64,19 @@ def hardening_exec(data):
         hrd = module_dict[current_namespace][data]()
         out = hrd.command()
         print(out)
-        logger.info("Hardening command executed successfully.")
+        emit(data + "_log", out)
+        success_msg = "Hardening command executed successfully."
+        emit(data + "_log", success_msg)
+        logger.info(success_msg)
     except PermissionError:
         err_msg = "Insufficient permissions for hardening."
         if check_os():
             err_msg += " Get admin rights and rerun the grapheneX."                    
         else:
             err_msg += " Try running the grapheneX with sudo."
+        emit(data + "_log", err_msg)
         logger.error(err_msg)
     except Exception as e:
-        logger.error("Failed to execute hardening command. " + str(e))
+        fail_msg = "Failed to execute hardening command. " + str(e)
+        emit(data + "_log", fail_msg)
+        logger.error(fail_msg)
