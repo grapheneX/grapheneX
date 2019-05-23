@@ -22,13 +22,6 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.logs.val(this.logs.val() + currentTime + " > " + message + "\n");
     }
 
-    this.harden = () => {
-        if (!this.drawer.is(":visible"))
-            this.icon.toggleClass("rotated");
-            this.drawer.slideDown({duration: 150});
-        this.socket.emit("harden", this.name);
-    }
-
     this.render = function () {
         var modules = $("#modules");
         modules.append('<div class="module-box deep" style="margin-bottom: 20px" id="' + this.name + '_div">\
@@ -65,23 +58,24 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
 
         this.logs.val("[#]: " + this.source + "\n");
         this.button.click(() => {
-            this.openDrawer(200); 
-            this.execute_btn.click(() => {
-                this.execute_btn.find(".fa-cog").addClass('rotate_cogs');
-
-                // Test code. 
-                setTimeout(() => {
-                    this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");;
-                }, 1000);
-                // test code end
-            })
+            this.openDrawer(200);
         });
         this.area.click(()=>{
-            this.harden();
+            this.openDrawer(200);
         });
         this.socket.on(this.name + "_log", (data) => {
             this.writeLog(data);
         });
+        this.execute_btn.click(() => {
+            this.socket.emit("harden", this.name);
+            this.execute_btn.find(".fa-cog").addClass('rotate_cogs');
+
+            // Test code. 
+            setTimeout(() => {
+                this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");;
+            }, 1000);
+            // test code end
+        })
     }
 }
 
