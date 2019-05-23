@@ -45,7 +45,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
                     </div>\
                 </div>\
             </div>\
-        </div>')
+        </div>');
 
         // Access DOM
         this.div = $("#" + this.name + "_div")
@@ -64,17 +64,16 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
             this.openDrawer(200);
         });
         this.socket.on(this.name + "_log", (data) => {
-            this.writeLog(data);
+            this.writeLog(data.msg);
+            if (data.state == "success")
+                this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");
+            else if (data.state == "error")
+                setTimeout(() => {this.execute_btn.find(".fa-cog").removeClass('rotate_cogs')}, 400);
+                
         });
         this.execute_btn.click(() => {
             this.socket.emit("harden", this.name);
             this.execute_btn.find(".fa-cog").addClass('rotate_cogs');
-
-            // Test code. 
-            setTimeout(() => {
-                this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");;
-            }, 1000);
-            // test code end
         })
     }
 }
