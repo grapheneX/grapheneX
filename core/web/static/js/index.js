@@ -47,6 +47,8 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
                     <div class="drawer-content" id="' + this.name + '_drawer">\
                         <textarea class="logs consolas font-small text-muted" name="logs"\
                             id="' + this.name + '_logs" cols="30" rows="5" readonly></textarea>\
+                        <button class="btn btn-block" style="border-width: 0; margin-top: 1%;" \
+                            id="' + this.name + '_execute_btn">Run<i class="fas fa-cog ml-1"></i></button>\
                     </div>\
                 </div>\
             </div>\
@@ -59,10 +61,20 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.logs = $("#" + this.name + "_logs")
         this.button = $("#" + this.name + "_btn")
         this.icon = $("#" + this.name + "_ico")
+        this.execute_btn = $("#" + this.name + "_execute_btn");
 
         this.logs.val("[#]: " + this.source + "\n");
         this.button.click(() => {
             this.openDrawer(200); 
+            this.execute_btn.click(() => {
+                this.execute_btn.find(".fa-cog").addClass('rotate_cogs');
+
+                // Test code. 
+                setTimeout(() => {
+                    this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");;
+                }, 1000);
+                // test code end
+            })
         });
         this.area.click(()=>{
             this.harden();

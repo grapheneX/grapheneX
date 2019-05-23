@@ -14,7 +14,7 @@ a {
 
 .btn {
     border: 1px solid #1DA1F2;
-    color: white
+    color: white;
 }
 
 .btn:hover {
@@ -114,6 +114,17 @@ a {
     /* Opera 10.50-12.00 */
     transform: rotate(90deg);
     /* Firefox 16+, IE 10+, Opera 12.10+ */
+}
+
+/* Rotate baby */
+.rotate_cogs {
+    animation: rotate_ar 2s linear infinite;
+}
+
+@keyframes rotate_ar{
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 /* Loading stuff */
