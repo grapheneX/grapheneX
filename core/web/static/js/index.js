@@ -24,9 +24,9 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
 
     this.render = function () {
         var modules = $("#modules");
-        modules.append('<div class="module-box deep" style="margin-bottom: 20px" id="' + this.name + '_div">\
+        modules.append('<div class="module-box deep" style="margin-bottom: 20px" id="' + this.name + '_div" data-aos="fade-up">\
             <div class="row">\
-                <div class="col-8 d-flex justify-content-between" id="' + this.name + '_area">\
+                <div  class="col-8 d-flex justify-content-between" id="' + this.name + '_area">\
                     <div class="mr-auto p-2 text-left">\
                         <h6>' + this.name + '</h6>\
                         <p class="text-muted" style="font-size: 13px; margin-bottom:0">' + this.desc + '</p>\
@@ -63,16 +63,16 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.area.click(()=>{
             this.openDrawer(200);
         });
-        this.socket.on(this.name + "_log", (data) => {
-            this.writeLog(data.msg);
-            if (data.state == "success")
-                this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");
-            else if (data.state == "error")
-                setTimeout(() => {this.execute_btn.find(".fa-cog").removeClass('rotate_cogs')}, 400);
-        });
         this.execute_btn.click(() => {
+            this.execute_btn.find(".fa-cog").addClass("rotate_cogs");
             this.socket.emit("harden", this.name);
-            this.execute_btn.find(".fa-cog").addClass('rotate_cogs');
+            this.socket.on(this.name + "_log", (data) => {
+                this.writeLog(data.msg);
+                if (data.state == "success")
+                    this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");
+                else if (data.state == "error")
+                    this.execute_btn.find(".fa-cog").removeClass('rotate_cogs').addClass("fa-times-circle");
+            });
         })
     }
 }
