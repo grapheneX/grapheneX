@@ -153,7 +153,7 @@ class ShellCommands(Help):
             self.namespace = ""
 
     def do_harden(self, arg):
-        """Execute the hardening method"""
+        """Execute the hardening command"""
 
         if not (self.module and self.namespace):
             logger.error('Select a module/namespace.')

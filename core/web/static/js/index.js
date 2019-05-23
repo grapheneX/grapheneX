@@ -1,9 +1,8 @@
 $(document).ready(initializePage);
 
-
 function Module(moduleName, moduleDesc, moduleSource, socket) {
     /*
-    This is a Module object.
+    Module object.
     */
     this.name = moduleName;
     this.socket = socket;
@@ -18,13 +17,9 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         });
     }
 
-    this.logWrite = (message) => {
-        this.logs.val(this.logs.val() + message + "\n");
-    }
-
-    this.harden = () => {
-        // Todo: Add socket io query or connetion stuff
-        return null
+    this.writeLog = (message) => {
+        var currentTime = new Date().toLocaleTimeString().split(' ')[0];
+        this.logs.val(this.logs.val() + currentTime + " > " + message + "\n");
     }
 
     this.render = function () {
@@ -33,14 +28,30 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
 
         // Access DOM
         this.div = $("#" + this.name + "_div")
+        this.area = $("#" + this.name + "_area")
         this.drawer = $("#" + this.name + "_drawer")
         this.logs = $("#" + this.name + "_logs")
         this.button = $("#" + this.name + "_btn")
         this.icon = $("#" + this.name + "_ico")
+        this.execute_btn = $("#" + this.name + "_execute_btn");
 
-        this.logWrite(this.source);
-        this.button.click(() => {  // Listening click event
-            this.openDrawer(250);  // open textbox
+        this.logs.val("[#]: " + this.source + "\n");
+        this.button.click(() => {
+            this.openDrawer(200);
+        });
+        this.area.click(()=>{
+            this.openDrawer(200);
+        });
+        this.execute_btn.click(() => {
+            this.execute_btn.find(".fa-cog").addClass("rotate_cogs");
+            this.socket.emit("harden", this.name);
+            this.socket.on(this.name + "_log", (data) => {
+                this.writeLog(data.msg);
+                if (data.state == "success")
+                    this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");
+                else if (data.state == "error")
+                    this.execute_btn.find(".fa-cog").removeClass('rotate_cogs').addClass("fa-times-circle");
+            });
         })
     }
 }
@@ -55,41 +66,36 @@ search = function (socket) {
                 var { name, desc, source } = elem
                 var mod = new Module(name, desc, source, socket);
                 mod.render();
-            })
-        })
-    })
+            });
+        });
+    });
 }
 
-
 function initializePage() {
-    AOS.init(); // AOS scroll lib
-
-
+    AOS.init(); // AOS scroll library
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-    socket.emit('get_namespaces', {})  // Request namespace list
-    socket.on('get_namespaces', (data) => {  // Added namespace string to html
+    socket.emit('get_namespaces', {});  // Request namespace list
+    socket.on('get_namespaces', (data) => {  // Add namespace string to html
         var { namespaces } = data;
         namespaces.forEach(namespace => {
             $("#namespaces").append('<li class="dropdown-item">' + namespace + '</li>');
-        })
+        });
 
         // Getting current namespace from server
         socket.emit('get_current_namespace', {});
         socket.on('get_current_namespace', (data) => {
             $("#current_namespace").text(data.current_namespace);
             socket.emit('send_current_namespace', data.current_namespace);
-        })
+        });
 
-        // Namespcae selection
+        // Namespace selection
         $("#namespaces li").click(function (e) {
-            e.preventDefault()  // no reload page 
+            // Don't reload page
+            e.preventDefault()   
             $("#current_namespace").text($(this).text());
-
-            // 'send_current_namespace' event, will trigger 'get_module'. See server side            
+            // 'send_current_namespace' event, will trigger 'get_module'            
             socket.emit('send_current_namespace', $(this).text());
-        })
-
-        /* Namespace stuff finished */
+        });
 
         // Getting modules
         socket.on('get_module', (data) => {
@@ -99,11 +105,10 @@ function initializePage() {
                 var { name, desc, source } = elem
                 var mod = new Module(name, desc, source, socket);
                 mod.render();
-            })
-            console.log("Page is ready");
-            $(".overlay").fadeOut("slow");  // remove loading screen
+            });
+            // Remove loading screen when page is ready
+            $(".overlay").fadeOut("slow");
             search(socket);
-        })
-    })
-
+        });
+    });
 }

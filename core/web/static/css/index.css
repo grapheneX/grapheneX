@@ -14,7 +14,7 @@ a {
 
 .btn {
     border: 1px solid #1DA1F2;
-    color: white
+    color: white;
 }
 
 .btn:hover {
@@ -23,6 +23,10 @@ a {
 
 .consolas {
     font-family: monospace;
+}
+
+.font-small {
+    font-size: 12px;
 }
 
 .deep {
@@ -74,7 +78,6 @@ a {
     font-size: 12px;
     border: 1px solid #1DA1F2;
     border-left: none;
-    cursor: pointer;
     -webkit-border-top-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
     -moz-border-radius-topright: 5px;
@@ -92,6 +95,8 @@ a {
     background-color: #111111;
     width: 100%;
     border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
 }
 
 .fa-arrow-circle-right {
@@ -109,6 +114,17 @@ a {
     /* Opera 10.50-12.00 */
     transform: rotate(90deg);
     /* Firefox 16+, IE 10+, Opera 12.10+ */
+}
+
+/* Rotate baby */
+.rotate_cogs {
+    animation: rotate_ar 2s linear infinite;
+}
+
+@keyframes rotate_ar{
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 /* Loading stuff */
