@@ -1,10 +1,10 @@
 function getModuleBox(name, desc) {
-	return '<div class="module-box deep" style="margin-bottom: 20px" id="' + name + '_div">\
+	return '<div class="module-box deep" style="margin-bottom: 20px" id="' + name + '_div" data-aos="fade-up">\
             <div class="row">\
-                <div class="col-8 d-flex justify-content-between">\
+                <div  class="col-8 d-flex justify-content-between" id="' + name + '_area">\
                     <div class="mr-auto p-2 text-left">\
                         <h6>' + name + '</h6>\
-                        <p class="text-muted" style="font-size: 12px; margin-bottom:0">' + desc + '</p>\
+                        <p class="text-muted" style="font-size: 13px; margin-bottom:0">' + desc + '</p>\
                     </div>\
                 </div>\
                 <div class="col-4 text-right mt-1">\
@@ -13,8 +13,10 @@ function getModuleBox(name, desc) {
                 </div>\
                 <div class="container-fluid mt-1">\
                     <div class="drawer-content" id="' + name + '_drawer">\
-                        <textarea class="logs consolas text-muted" name="logs"\
-                            id="' + name + '_logs" cols="30" rows="5" disabled></textarea>\
+                        <textarea class="logs consolas font-small text-muted" name="logs"\
+                            id="' + name + '_logs" cols="30" rows="5" readonly></textarea>\
+                        <button class="btn btn-block" style="border-width: 0; margin-top: 1%;" \
+                            id="' + name + '_execute_btn">Run<i class="fas fa-cog ml-1"></i></button>\
                     </div>\
                 </div>\
             </div>\
