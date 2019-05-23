@@ -6,7 +6,6 @@ from core.web import app, logger, socketio
 from core.utils.helpers import check_os, get_os_info, get_modules
 from flask import render_template
 from flask_socketio import emit
-import inspect
 
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
