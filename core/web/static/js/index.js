@@ -69,7 +69,6 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
                 this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");
             else if (data.state == "error")
                 setTimeout(() => {this.execute_btn.find(".fa-cog").removeClass('rotate_cogs')}, 400);
-                
         });
         this.execute_btn.click(() => {
             this.socket.emit("harden", this.name);
