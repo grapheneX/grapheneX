@@ -24,28 +24,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
 
     this.render = function () {
         var modules = $("#modules");
-        modules.append('<div class="module-box deep" style="margin-bottom: 20px" id="' + this.name + '_div" data-aos="fade-up">\
-            <div class="row">\
-                <div  class="col-8 d-flex justify-content-between" id="' + this.name + '_area">\
-                    <div class="mr-auto p-2 text-left">\
-                        <h6>' + this.name + '</h6>\
-                        <p class="text-muted" style="font-size: 13px; margin-bottom:0">' + this.desc + '</p>\
-                    </div>\
-                </div>\
-                <div class="col-4 text-right mt-1">\
-                    <a id="' + this.name + '_btn"><i style="font-size: 52px"\
-                            id="' + this.name + '_ico" class="fas fa-arrow-circle-right"></i></a>\
-                </div>\
-                <div class="container-fluid mt-1">\
-                    <div class="drawer-content" id="' + this.name + '_drawer">\
-                        <textarea class="logs consolas font-small text-muted" name="logs"\
-                            id="' + this.name + '_logs" cols="30" rows="5" readonly></textarea>\
-                        <button class="btn btn-block" style="border-width: 0; margin-top: 1%;" \
-                            id="' + this.name + '_execute_btn">Run<i class="fas fa-cog ml-1"></i></button>\
-                    </div>\
-                </div>\
-            </div>\
-        </div>');
+        modules.append(getModuleBox(this.name, this.desc));
 
         // Access DOM
         this.div = $("#" + this.name + "_div")
