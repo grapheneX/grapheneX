@@ -98,6 +98,10 @@ a {
     border-right: none !important;
 }
 
+.sr-bar:focus{
+    outline-width: 0;
+}
+
 .sr-btn {
     float: left;
     width: 10%;
