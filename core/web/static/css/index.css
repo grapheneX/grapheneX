@@ -20,7 +20,7 @@ a {
     border: 1px solid #D8D8D8;
 }
 .btn-primary{
-    background-color: #1DA1F2;
+    background-color: #303030;
     border: 1px solid #D8D8D8;
 }
 
@@ -31,7 +31,7 @@ a {
 }
 
 .btn-primary:hover{
-    background-color: #1DA1F2;
+    background-color: #303030;
     opacity: 0.7;
 }
 
