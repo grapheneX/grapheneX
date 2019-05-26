@@ -208,3 +208,11 @@ class ShellCommands(Help):
         """Default command"""
 
         logger.error("Command not found.")
+
+    def do_add(self, arg):
+        """New module insertion command"""
+
+        if(arg):
+            pass
+        else:
+            logger.error("Argument not provided")
