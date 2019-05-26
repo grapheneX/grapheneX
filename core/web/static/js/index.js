@@ -39,7 +39,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         this.button.click(() => {
             this.openDrawer(200);
         });
-        this.area.click(()=>{
+        this.area.click(() => {
             this.openDrawer(200);
         });
         this.execute_btn.click(() => {
@@ -71,8 +71,19 @@ search = function (socket) {
     });
 }
 
+
 function initializePage() {
     AOS.init(); // AOS scroll library
+
+    // Modal conf
+    $("#addModuleModal").on('show.bs.modal', function () {  // when modal open
+        $("#openModal").find('.fa-plus').addClass('rotate_cogs')
+    })
+    $("#addModuleModal").on('hidden.bs.modal', function () { // when modal close
+        $("#openModal").find('.fa-plus').removeClass('rotate_cogs')
+    })
+    // End
+
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.emit('get_namespaces', {});  // Request namespace list
     socket.on('get_namespaces', (data) => {  // Add namespace string to html
@@ -91,7 +102,7 @@ function initializePage() {
         // Namespace selection
         $("#namespaces li").click(function (e) {
             // Don't reload page
-            e.preventDefault()   
+            e.preventDefault()
             $("#current_namespace").text($(this).text());
             // 'send_current_namespace' event, will trigger 'get_module'            
             socket.emit('send_current_namespace', $(this).text());
