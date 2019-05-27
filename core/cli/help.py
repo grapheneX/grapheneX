@@ -50,3 +50,7 @@ class Help:
     def help_use(self):
         self.message(syntax="use [module]",
             content="Use hardening module")
+
+    def help_add(self):
+        self.message(syntax="add [filename]",
+            content="Add new hardening module")
