@@ -33,11 +33,18 @@
     ],
     "general": [
         {
-            "name": "test2_modules",
-            "desc": "test2_modules desc",
-            "command": "test2_module command",
+            "name": "win_test_module",
+            "desc": "win_test_module desc",
+            "command": "win_test_module command",
             "require_superuser": "False",
             "target_os": "win"
+        },
+        {
+            "name": "linux_test_module",
+            "desc": "linux_test_module desc",
+            "command": "linux_test_module command",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ]
 }

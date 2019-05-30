@@ -86,26 +86,6 @@ def is_admin():
     except:
         return False
 
-def get_modules():
-    """Returns hardening modules as dict"""
-    hrd_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                           '..', 'hrd')
-    hrd_os = 'win' if check_os() else 'linux'
-    files = [os.path.join(hrd_dir, hrd_os, f) for f in os.listdir(
-        os.path.join(hrd_dir, hrd_os)) if f.endswith('.py')]
-    modules = dict()
-    for path in files:
-        module_name = os.path.basename(path)[:-3]
-        spec = importlib.util.spec_from_file_location(module_name, path)
-        hrd = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(hrd)
-        modules[module_name] = {}
-        for name, obj in inspect.getmembers(hrd, inspect.isclass):
-            modules[module_name][name] = obj
-        # Remove super class from modules
-        modules[module_name].pop('HardenMethod')
-    __import__('pprint').pprint(modules)
-    return modules
 
 def get_os_info():
     uname = platform.uname()
@@ -137,12 +117,10 @@ def check_mod_file(filename):
 
     return True
 
-def get_modules_2(path=PROJECT_DIR):
+def get_modules(path=PROJECT_DIR):
     current_os = "win" if check_os() else "linux"
     with open(PROJECT_DIR / 'modules.json', 'r') as json_file:
         json_data = json.load(json_file)
-
-    #__import__('pprint').pprint(json_data)
 
     return_dict = dict()
     available_modules = list()

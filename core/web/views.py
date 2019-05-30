@@ -1,13 +1,12 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-import inspect
 from core.web import app, logger, socketio
-from core.utils.helpers import check_os, get_os_info, get_modules_2
+from core.utils.helpers import check_os, get_os_info, get_modules
 from flask import render_template
 from flask_socketio import emit
 
-module_dict = get_modules_2()
+module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
 length_list = [len(value) for key, value in module_dict.items()]
 
@@ -38,8 +37,8 @@ def get_current_namespace(data):
         for name, mod in mod_dict.items():
             modules.append({
                 'name': name,
-                'desc': inspect.getdoc(mod().command),
-                'source': inspect.getsource(mod().command).split("\"\"\"")[-2]
+                'desc': mod.desc,
+                'source': mod.command
             })
         logger.info(f'Sending modules of {data}.')
         emit('get_module', modules)
@@ -52,8 +51,8 @@ def search_module(data):
     for name, mod in result.items():
         payload.append({
             'name': name,
-            'desc': inspect.getdoc(mod().command),
-            'source': inspect.getsource(mod().command).split("\"\"\"")[-2]
+            'desc': mod.desc,
+            'source': mod.command
         })
     emit('search_module', {'result': payload})
 
@@ -61,8 +60,8 @@ def search_module(data):
 def hardening_exec(data):
     try:
         logger.info("Executing the hardening command of " + current_namespace + "/" + data)
-        hrd = module_dict[current_namespace][data]()
-        out = hrd.command()
+        hrd = module_dict[current_namespace][data]
+        out = hrd.execute_command()
         print(out)
         emit(data + "_log", {"msg": out, "state":"output"})
         success_msg = "Hardening command executed successfully."
