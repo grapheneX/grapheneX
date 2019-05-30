@@ -1,12 +1,23 @@
+from core.linux.exec import run_cmd as linux_run
+from core.win.exec import run_cmd as win_run
 from core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
 
 class HardenMethod:
-    display_name = __name__
-    require_superuser = False
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
 
-    def command(self):
-        # You must override this function
-        logger.warn("Harden command not defined!")
-        return None
+    def execute_command(self):
+        if self.target_os == 'win':
+            return win_run(self.command)
+        else:
+            return linux_run(self.command)
+    
+    def __str__(self):
+        return f"<HardenMethod name: {self.name}>"
+
+    def __repr__(self):
+        return self.__str__()
+

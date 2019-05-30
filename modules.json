@@ -1,0 +1,43 @@
+{
+    "firewall": [
+        {
+            "name": "Disable_File_Sharing",
+            "desc": "Disable File and Printer Sharing.",
+            "command": "netsh advfirewall firewall set rule group=\"File and Printer Sharing\" new enable=No",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Disable_RDP",
+            "desc": "Disable Remote Desktop Protocol",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\" /v fDenyTSConnections /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        }
+    ],
+    "kernel": [
+        {
+            "name": "Logs_Restrict_Access",
+            "desc": "Restricting access to kernel logs",
+            "command": "echo \"kernel.dmesg_restrict = 1\" > /etc/sysctl.d/50-dmesg-restrict.conf",
+            "require_superuser": "False",
+            "target_os": "linux"
+        },
+        {
+            "name": "Pointers_Restrict_Access",
+            "desc": "Restricting access to kernel pointers.",
+            "command": "echo \"kernel.kptr_restrict = 1\" > /etc/sysctl.d/50-kptr-restrict.conf",
+            "require_superuser": "False",
+            "target_os": "linux"
+        }
+    ],
+    "general": [
+        {
+            "name": "test2_modules",
+            "desc": "test2_modules desc",
+            "command": "test2_module command",
+            "require_superuser": "False",
+            "target_os": "win"
+        }
+    ]
+}

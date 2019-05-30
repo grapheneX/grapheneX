@@ -3,11 +3,11 @@
 
 import inspect
 from core.web import app, logger, socketio
-from core.utils.helpers import check_os, get_os_info, get_modules
+from core.utils.helpers import check_os, get_os_info, get_modules_2
 from flask import render_template
 from flask_socketio import emit
 
-module_dict = get_modules()
+module_dict = get_modules_2()
 current_namespace = list(module_dict.keys())[0]
 length_list = [len(value) for key, value in module_dict.items()]
 
