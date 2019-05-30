@@ -44,15 +44,15 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         });
         this.execute_btn.click(() => {
             this.execute_btn.find(".fa-cog").addClass("rotate_cogs");
-            this.socket.emit("harden", this.name);
-            this.socket.on(this.name + "_log", (data) => {
-                this.writeLog(data.msg);
-                if (data.state == "success")
-                    this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");
-                else if (data.state == "error")
-                    this.execute_btn.find(".fa-cog").removeClass('rotate_cogs').addClass("fa-times-circle");
-            });
-        })
+            this.socket.emit("harden", this.name); 
+        });
+        this.socket.on(this.name + "_log", (data) => {
+            this.writeLog(data.msg);
+            if (data.state == "success")
+                this.execute_btn.find(".fa-cog").removeClass('rotate_cogs fa-cog').addClass("fa-check");
+            else if (data.state == "error")
+                this.execute_btn.find(".fa-cog").removeClass('rotate_cogs').addClass("fa-times-circle");
+        });
     }
 }
 
