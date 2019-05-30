@@ -210,7 +210,7 @@ class ShellCommands(Help):
         logger.error("Command not found.")
 
     def do_add(self, arg):
-        """New module insertion command"""
+        """Add your custom hardening module"""
 
         if(arg):
             pass
