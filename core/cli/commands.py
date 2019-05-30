@@ -215,4 +215,4 @@ class ShellCommands(Help):
         if(arg):
             pass
         else:
-            logger.error("Argument not provided")
+            logger.error("No argument (filename) given.")
