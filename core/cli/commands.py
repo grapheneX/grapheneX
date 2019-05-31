@@ -160,9 +160,9 @@ class ShellCommands(Help):
         
     def do_web(self, arg):
         """Run the grapheneX web server"""
-        
+
         from core.web import run_server
-        run_server({"host_port":arg} if arg else None)
+        run_server({"host_port":arg} if arg else None, False)
 
     def do_harden(self, arg):
         """Execute the hardening command"""

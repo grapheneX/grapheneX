@@ -15,7 +15,7 @@ def disable_flask_logs():
     import logging
     log = logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-def run_server(args=None):
+def run_server(args=None, exit_shell=True):
     disable_flask_logs()
     try:
         if args:
@@ -33,6 +33,7 @@ def run_server(args=None):
         run_server()
     except KeyboardInterrupt:
         socketio.stop()
-        Shell().do_exit(None)
+        if exit_shell:
+            Shell().do_exit(None)
     except Exception as e:
         logger.error('An error occurred: ' + str(e))
