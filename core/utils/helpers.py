@@ -121,7 +121,6 @@ def get_modules(path=PROJECT_DIR):
     current_os = "win" if check_os() else "linux"
     with open(PROJECT_DIR / 'modules.json', 'r') as json_file:
         json_data = json.load(json_file)
-
     return_dict = dict()
     available_modules = list()
     for namespace, modlist in json_data.items():
@@ -133,6 +132,4 @@ def get_modules(path=PROJECT_DIR):
 
         for module in available_modules:
             return_dict[module['namespace']][module['name']] = HardenMethod(**module)
-
-
     return return_dict
