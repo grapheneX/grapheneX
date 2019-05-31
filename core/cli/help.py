@@ -54,3 +54,7 @@ class Help:
     def help_add(self):
         self.message(syntax="add [filename]",
             content="Add new hardening module")
+
+    def help_web(self):
+        self.message(syntax="web [host:port]",
+            content="Start the web server")

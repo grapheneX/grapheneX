@@ -151,7 +151,7 @@ class ShellCommands(Help):
             self.namespace = ""
 
     def do_add(self, arg):
-        """Add your custom hardening module"""
+        """Add custom hardening module"""
 
         if(arg):
             pass
