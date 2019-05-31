@@ -150,6 +150,14 @@ class ShellCommands(Help):
         else:
             self.namespace = ""
 
+    def do_add(self, arg):
+        """Add your custom hardening module"""
+
+        if(arg):
+            pass
+        else:
+            logger.error("No argument (filename) given.")
+
     def do_harden(self, arg):
         """Execute the hardening command"""
 
@@ -206,11 +214,3 @@ class ShellCommands(Help):
         """Default command"""
 
         logger.error("Command not found.")
-
-    def do_add(self, arg):
-        """Add your custom hardening module"""
-
-        if(arg):
-            pass
-        else:
-            logger.error("No argument (filename) given.")
