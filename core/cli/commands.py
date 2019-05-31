@@ -157,6 +157,11 @@ class ShellCommands(Help):
             pass
         else:
             logger.error("No argument (filename) given.")
+        
+    def do_web(self, arg):
+        """Run the grapheneX web server"""
+
+        pass
 
     def do_harden(self, arg):
         """Execute the hardening command"""
