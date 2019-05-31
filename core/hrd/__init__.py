@@ -1,7 +1,4 @@
 from core.hrd.exec import WinExec, LinuxExec
-from core.utils.logcl import GraphenexLogger
-
-logger = GraphenexLogger(__name__)
 
 class HardenMethod:
     def __init__(self, **kwargs):
