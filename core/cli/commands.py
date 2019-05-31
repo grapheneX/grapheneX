@@ -100,11 +100,10 @@ class ShellCommands(Help):
         """Information about the desired module"""
         
         if self.module:
-            mod_func = self.modules[self.namespace][self.module]().command
-            mod_desc = inspect.getdoc(mod_func)
-            mod_cmd = inspect.getsource(mod_func).split("\"\"\"")[-2]
-            print(f"\n\tNamespace: {self.namespace}\n\tModule: {self.module}\n\t" + 
-                f"Description: {mod_desc}\n" + f"\tCommand: {mod_cmd}\n")
+            module = self.modules[self.namespace][self.module]
+
+            print(f"\n\tNamespace: {self.namespace}\n\tModule: {module.name}\n\t" + 
+                f"Description: {module.desc}\n" + f"\tCommand: {module.command}\n")
         else:
             logger.error('No module selected.')
 
@@ -116,13 +115,13 @@ class ShellCommands(Help):
             if arg in self.modules.keys():
                 for name, module in self.modules[arg].items():
                     search_table.append(
-                        [arg + "/" + name, inspect.getdoc(module.command)])
+                        [arg + "/" + name, module.desc])
             else:
                 for k, v in self.modules.items():
                     for name, module in v.items():
                         if arg.lower() in name.lower():
                             search_table.append(
-                                [k + "/" + name, inspect.getdoc(module.command)])
+                                [k + "/" + name, module.desc])
             if len(search_table) > 1:
                 print(AsciiTable(search_table).table)
             else:
@@ -136,12 +135,12 @@ class ShellCommands(Help):
         modules_table = [['Module', 'Description']]
         if self.namespace:
             for name, module in self.modules[self.namespace].items():
-                modules_table.append([name, inspect.getdoc(module.command)])
+                modules_table.append([name, module.desc])
         else:
             for k, v in self.modules.items():
                 for name, module in v.items():
                     modules_table.append(
-                        [k + "/" + name, inspect.getdoc(module.command)])
+                        [k + "/" + name, module.desc])
         print(AsciiTable(modules_table).table)
 
     def do_back(self, arg):
@@ -159,8 +158,8 @@ class ShellCommands(Help):
             logger.error('Select a module/namespace.')
         else:
             try:
-                hrd = self.modules[self.namespace][self.module]()
-                out = hrd.command()
+                hrd = self.modules[self.namespace][self.module]
+                out = hrd.execute_command()
                 print(out)
                 logger.info("Hardening command executed successfully.")
             except PermissionError:
