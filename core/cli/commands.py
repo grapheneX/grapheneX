@@ -190,14 +190,18 @@ class ShellCommands(Help):
                 with open(mod_json_file, 'r') as f:
                     data = json.load(f)
                 # Append with other module information
-                data[mod_ns].append({
-                    "name": mod_name.capitalize(),
-                    "desc": input(input_prompt + "Module description: "),
-                    "command": input(input_prompt + "Command: "),
-                    "require_superuser": "True" if "y" in input(input_prompt + 
-                        "Does this command requires superuser? (y/N): ") else "False",
-                    "target_os": "win" if check_os() else "linux"
-                    })
+                mod_dict = {
+                        "name": mod_name.capitalize(),
+                        "desc": input(input_prompt + "Module description: "),
+                        "command": input(input_prompt + "Command: "),
+                        "require_superuser": "True" if "y" in input(input_prompt + 
+                            "Does this command requires superuser? (y/N): ") else "False",
+                        "target_os": "win" if check_os() else "linux"
+                        }
+                try:
+                    data[mod_ns].append(mod_dict)
+                except:
+                    data.update({mod_ns: [mod_dict]})
                 # Write the updated modules.json
                 with open(mod_json_file, 'w') as f:
                     json.dump(data, f)
@@ -211,6 +215,9 @@ class ShellCommands(Help):
                 pass
         except Exception as e:
             logger.error(str(e))
+        except KeyboardInterrupt:
+            print()
+            logger.info("Cancelled by user.")
         # Reset styles
         print(Style.RESET_ALL)
 
