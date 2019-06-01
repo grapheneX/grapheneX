@@ -3,7 +3,7 @@
 
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
-from core.utils.helpers import check_os
+from core.utils.helpers import check_os, PROJECT_DIR
 from terminaltables import AsciiTable
 from colorama import init, Fore, Style
 import inquirer
@@ -157,15 +157,16 @@ class ShellCommands(Help):
     def do_edit(self, arg):
         """Add, edit or delete module"""
 
-        edit_prompt = [
-            inquirer.List('option',
-                        message="What do you want to do?",
-                        choices=["Add module", "Edit module", "Remove module"],
-                    ),
-        ]
-        choice = inquirer.prompt(edit_prompt)
-        if choice['option'] == "Add module":
-            try:
+        try:
+            edit_prompt = [
+                inquirer.List('option',
+                            message="What do you want to do?",
+                            choices=["Add module", "Edit module", "Remove module"],
+                        ),
+            ]
+            choice = inquirer.prompt(edit_prompt)
+            if choice['option'] == "Add module":
+
                 ns_prompt = [
                     inquirer.List('namespace',
                                 message="Select a namespace for your module",
@@ -187,11 +188,10 @@ class ShellCommands(Help):
                     "] Does this command requires superuser? (y/N): ") else "False"
                 mod_os = "win" if check_os() else "linux"
                 print(Style.RESET_ALL)
-                
-            except Exception as e:
+            else:
+                pass
+        except Exception as e:
                 logger.error(str(e))
-        else:
-            pass
         
     def do_web(self, arg):
         """Run the grapheneX web server"""
