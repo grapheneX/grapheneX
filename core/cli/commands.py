@@ -168,9 +168,12 @@ class ShellCommands(Help):
         mod_name = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your module: ")
         mod_desc = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Module description: ")
         mod_cmd = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Command: ")
-        mod_su = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Does this command requires superuser? (y/N): ")
+        mod_su = "True" if "y" in input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + 
+            "] Does this command requires superuser? (y/N): ") else "False"
         mod_os = "win" if check_os() else "linux"
         print(Style.RESET_ALL)
+
+        ##
         
     def do_web(self, arg):
         """Run the grapheneX web server"""
