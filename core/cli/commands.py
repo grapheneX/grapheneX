@@ -5,7 +5,7 @@ from core.utils.helpers import check_os, get_modules, mod_json_file
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
-from PyInquirer import prompt
+from PyInquirer import prompt, Validator, ValidationError 
 import random
 import json
 import os
@@ -179,6 +179,7 @@ class ShellCommands(Help):
                 }
             ]
             choice = prompt(edit_prompt)
+            
             # ADD
             if choice['option'] == "Add module":
                 # Namespace selection
@@ -197,7 +198,7 @@ class ShellCommands(Help):
                         'type': 'input',
                         'name': 'mod_name',
                         'message': 'Name of your module',
-                        #'validate': lambda _, x: re.match(r'^\w+$', x)
+                        'validate': ModuleNameValidation, 
                     },
                     {
                         'type': 'input',
@@ -241,6 +242,7 @@ class ShellCommands(Help):
                 # Write the updated modules.json
                 save_mod_json(data)
                 logger.info("Module added successfully. Use 'list' command to see available modules.")
+
             # EDIT & REMOVE
             elif choice['option'] == "Edit module" or choice['option'] == "Remove module":
                 mod_option = choice['option'].split(" ")[0].lower()
@@ -266,7 +268,8 @@ class ShellCommands(Help):
                 selected_mod = prompt(mod_prompt)['module']
                 mod_list = [mod['name'] for mod in list(data[selected_ns])]
                 mod_index = mod_list.index(selected_mod)
-                # EDIT
+
+                # EDIT 
                 if mod_option == "edit":
                     # Create a list for properties
                     prop_list = list(self.modules[selected_ns][selected_mod].kwargs.keys())
@@ -294,6 +297,7 @@ class ShellCommands(Help):
                     save_mod_json(data)
                     logger.info("Module updated successfully. (" + selected_ns + "/" + 
                         selected_mod + ":" + selected_prop + ")")
+
                 # REMOVE
                 else:
                     data[selected_ns].pop(mod_index)
@@ -369,3 +373,10 @@ class ShellCommands(Help):
         """Default command"""
 
         logger.error("Command not found.")
+
+class ModuleNameValidation(Validator):
+        def validate(self, document):
+            if not re.match(r'^\w+$', document.text):
+                raise ValidationError(
+                    message='Enter a valid module name',
+                    cursor_position=len(document.text))
