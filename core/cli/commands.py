@@ -5,11 +5,13 @@ from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from core.utils.helpers import check_os
 from terminaltables import AsciiTable
+from colorama import init, Fore, Style
 import inquirer
 import random
 import os
 
 logger = GraphenexLogger(__name__)
+init()
 
 class ShellCommands(Help):
     def do_switch(self, arg):
@@ -161,9 +163,14 @@ class ShellCommands(Help):
                     ),
         ]
         mod_ns = inquirer.prompt(ns_prompt)['namespace']
-        print(mod_ns)
-
-    
+        if mod_ns == "new":
+            mod_ns = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your namespace: ")
+        mod_name = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your module: ")
+        mod_desc = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Module description: ")
+        mod_cmd = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Command: ")
+        mod_su = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Does this command requires superuser? (y/N): ")
+        mod_os = "win" if check_os() else "linux"
+        print(Style.RESET_ALL)
         
     def do_web(self, arg):
         """Run the grapheneX web server"""
