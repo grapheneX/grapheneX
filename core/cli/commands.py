@@ -188,22 +188,15 @@ class ShellCommands(Help):
                 mod_su = "True" if "y" in input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + 
                     "] Does this command requires superuser? (y/N): ") else "False"
                 print(Style.RESET_ALL)
-
-                mod_dict = {mod_ns: [{
-                    "name": mod_name,
+                with open(mod_json_file, 'r') as f:
+                    data = json.load(f)
+                data[mod_ns].append({
+                    "name": mod_name.capitalize(),
                     "desc": mod_desc,
                     "command": mod_cmd,
                     "require_superuser": mod_su,
                     "target_os": "win" if check_os() else "linux"
-                    }]}
-                
-
-                with open(mod_json_file, 'r') as f:
-                    data = json.load(f)
-
-                data.update(mod_dict)
-                print(mod_dict)
-
+                    })
                 with open(mod_json_file, 'w') as f:
                     json.dump(data, f)
 
