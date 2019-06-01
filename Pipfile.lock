@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7c4eaabaa5acb80f94acb7951106bcbd218b7d779e3e820cdcc405bd30f75ca6"
+            "sha256": "34119504979b14496ee2639b80cae81ca2a142b8c463e86a4fe1e38086466c80"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -55,13 +55,6 @@
             "index": "pypi",
             "version": "==10.0"
         },
-        "decorator": {
-            "hashes": [
-                "sha256:86156361c50488b84a3f148056ea716ca587df2f0de1d34750d35c21312725de",
-                "sha256:f069f3a01830ca754ba5258fde2278454a0b5b79e0d7f5c13b3b97e57d4acff6"
-            ],
-            "version": "==4.4.0"
-        },
         "flask": {
             "hashes": [
                 "sha256:ad7c6d841e64296b962296c2c2dabc6543752985727af86a975072dea984b6f3",
@@ -93,13 +86,6 @@
             ],
             "index": "pypi",
             "version": "==2.6.3"
-        },
-        "inquiry": {
-            "hashes": [
-                "sha256:f91dd530e3bcbddc6ffed25132de7080ca238f57ff5e9a62048fb482ed52552d"
-            ],
-            "index": "pypi",
-            "version": "==0.0.3"
         },
         "itsdangerous": {
             "hashes": [
@@ -190,14 +176,6 @@
             "index": "pypi",
             "version": "==4.0.3"
         },
-        "pytz": {
-            "hashes": [
-                "sha256:0797293d12ca2f7e5dd5bc0807f521f39d5b60a2c347c48f8362f9fd0174af3f",
-                "sha256:65eb49cc05b7917fddc61e1fe6d8a4512c295cb53891dd5ec816bcccdce3f1a5",
-                "sha256:6c42f767873c44d69f6f0514c5f1f97394ab5d817e1e6116ad6d087ab5a17253"
-            ],
-            "version": "==2013b0"
-        },
         "readchar": {
             "hashes": [
                 "sha256:3ac34aab28563bc895f73233d5c08b28f951ca190d5850b8d4bec973132a8dca",
@@ -219,18 +197,6 @@
             ],
             "index": "pypi",
             "version": "==3.1.0"
-        },
-        "timestring": {
-            "hashes": [
-                "sha256:7b6539851ff48e5618be9f187b99d525176ecc866b5ae7e4ba0c3e220dc2a5ea"
-            ],
-            "version": "==1.6.2"
-        },
-        "valideer": {
-            "hashes": [
-                "sha256:4b997751d514e9c8990321bf46c09b3b15c398472dae3ef993e2e0f72fe82596"
-            ],
-            "version": "==0.4.2"
         },
         "werkzeug": {
             "hashes": [

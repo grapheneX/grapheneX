@@ -23,7 +23,6 @@ six = "*"
 terminaltables = "*"
 werkzeug = "*"
 MarkupSafe = "*"
-inquiry = "*"
 inquirer = "*"
 
 [requires]
