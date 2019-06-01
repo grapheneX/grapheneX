@@ -23,6 +23,8 @@ six = "*"
 terminaltables = "*"
 werkzeug = "*"
 MarkupSafe = "*"
+inquiry = "*"
+inquirer = "*"
 
 [requires]
 python_version = "3.7"
