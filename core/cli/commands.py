@@ -218,12 +218,13 @@ class ShellCommands(Help):
                 # Write the updated modules.json
                 save_mod_json(data)
                 logger.info("Module added successfully. Use 'list' command to see available modules.")
-            # EDIT
-            elif choice['option'] == "Edit module":
+            # EDIT & REMOVE
+            elif choice['option'] == "Edit module" or choice['option'] == "Remove module":
+                mod_option = choice['option'].split(" ")[0].lower()
                 # Namespace selection
                 ns_prompt = [
                     inquirer.List('namespace',
-                                message="Select the namespace of module to edit",
+                                message="Select the namespace of module to " + mod_option,
                                 choices=list(self.modules.keys()),
                             ),
                 ]
@@ -231,45 +232,45 @@ class ShellCommands(Help):
                 # Module selection
                 mod_prompt = [
                     inquirer.List('module',
-                                message="Select a module to edit",
+                                message="Select a module to " + mod_option,
                                 choices=self.modules[selected_ns],
                             ),
                 ]
                 selected_mod = inquirer.prompt(mod_prompt)['module']
-                mod_index = list(self.modules[selected_ns].keys()).index(selected_mod)
-                # Create a list for properties
-                prop_list = list(self.modules[selected_ns][selected_mod].kwargs.keys())
-                prop_list.remove('namespace')
-                prop_list.remove('target_os')
-                # Module property selection
-                prop_prompt = [
-                    inquirer.List('property',
-                                message="Select a property for editing " + selected_mod,
-                                choices=prop_list,
-                            ),
-                ]
-                selected_prop = inquirer.prompt(prop_prompt)['property']
-                # New value for property
-                new_val = inquirer.prompt([inquirer.Text('val', message="New value for " + selected_prop)])['val']
-                new_val = new_val.capitalize() if selected_prop == "name" else new_val
-                # Read modules.json
-                data = get_mod_json()
-                # Update the selected property of module
-                data[selected_ns][mod_index][selected_prop] = new_val
-                # Write the updated modules.json
-                save_mod_json(data)
-                logger.info("Module updated successfully. (" + selected_ns + "/" + 
-                    selected_mod + ":" + selected_prop + ")")
-            elif choice['option'] == "Remove module":
-                # TODO : Implement remove
-                pass
+                # EDIT
+                if mod_option == "edit":
+                    # Create a list for properties
+                    prop_list = list(self.modules[selected_ns][selected_mod].kwargs.keys())
+                    prop_list.remove('namespace')
+                    prop_list.remove('target_os')
+                    # Module property selection
+                    prop_prompt = [
+                        inquirer.List('property',
+                                    message="Select a property for editing " + selected_mod,
+                                    choices=prop_list,
+                                ),
+                    ]
+                    selected_prop = inquirer.prompt(prop_prompt)['property']
+                    # New value for property
+                    new_val = inquirer.prompt([inquirer.Text('val', message="New value for " + selected_prop)])['val']
+                    new_val = new_val.capitalize() if selected_prop == "name" else new_val
+                    # Read modules.json
+                    data = get_mod_json()
+                    # Update the selected property of module
+                    mod_list = [mod['name'] for mod in list(data[selected_ns])]
+                    mod_index = mod_list.index(selected_mod)
+                    data[selected_ns][mod_index][selected_prop] = new_val
+                    # Write the updated modules.json
+                    save_mod_json(data)
+                    logger.info("Module updated successfully. (" + selected_ns + "/" + 
+                        selected_mod + ":" + selected_prop + ")")
+                # REMOVE
+                else:
+                    pass
             else:
                 pass
         except Exception as e:
             logger.error(str(e))
-        except KeyboardInterrupt:
-            print()
-            logger.info("Cancelled by user.")
         self.modules = get_modules()
 
     def do_web(self, arg):
