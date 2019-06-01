@@ -209,11 +209,10 @@ class ShellCommands(Help):
                 # Write the updated modules.json
                 with open(mod_json_file, 'w') as f:
                     json.dump(data, f)
-                self.modules = get_modules()
                 logger.info("Module added successfully. Use 'list' command to see available modules.")
             # EDIT
             elif choice['option'] == "Edit module":
-                
+                # Namespace selection
                 ns_prompt = [
                     inquirer.List('namespace',
                                 message="Select the namespace of module to edit",
@@ -221,6 +220,7 @@ class ShellCommands(Help):
                             ),
                 ]
                 selected_ns = inquirer.prompt(ns_prompt)['namespace']
+                # Module selection
                 mod_prompt = [
                     inquirer.List('module',
                                 message="Select a module to edit",
@@ -228,6 +228,8 @@ class ShellCommands(Help):
                             ),
                 ]
                 selected_mod = inquirer.prompt(mod_prompt)['module']
+                mod_index = list(self.modules[selected_ns].keys()).index(selected_mod)
+                # Module property selection
                 prop_prompt = [
                     inquirer.List('property',
                                 message="Select a property for editing " + selected_mod,
@@ -235,8 +237,21 @@ class ShellCommands(Help):
                             ),
                 ]
                 selected_prop = inquirer.prompt(prop_prompt)['property']
+                # New value for property
+                new_val = inquirer.prompt([inquirer.Text('name', message="New value for " + selected_prop)])['name']
+                # Read modules.json
+                with open(mod_json_file, 'r') as f:
+                    data = json.load(f)
+                # Update the selected property of module
+                data[selected_ns][mod_index][selected_prop] = new_val
+                print(data[selected_ns][mod_index])
                 
-                
+
+
+                '''# Write the updated modules.json
+                with open(mod_json_file, 'w') as f:
+                    json.dump(data, f)'''
+
             elif choice['option'] == "Remove module":
                 # TODO : Implement remove
                 pass
@@ -247,6 +262,7 @@ class ShellCommands(Help):
         except KeyboardInterrupt:
             print()
             logger.info("Cancelled by user.")
+        self.modules = get_modules()
 
     def do_web(self, arg):
         """Run the grapheneX web server"""
