@@ -237,16 +237,21 @@ class ShellCommands(Help):
                 ]
                 selected_mod = inquirer.prompt(mod_prompt)['module']
                 mod_index = list(self.modules[selected_ns].keys()).index(selected_mod)
+                # Create a list for properties
+                prop_list = list(self.modules[selected_ns][selected_mod].kwargs.keys())
+                prop_list.remove('namespace')
+                prop_list.remove('target_os')
                 # Module property selection
                 prop_prompt = [
                     inquirer.List('property',
                                 message="Select a property for editing " + selected_mod,
-                                choices=list(self.modules[selected_ns][selected_mod].kwargs.keys()),
+                                choices=prop_list,
                             ),
                 ]
                 selected_prop = inquirer.prompt(prop_prompt)['property']
                 # New value for property
                 new_val = inquirer.prompt([inquirer.Text('val', message="New value for " + selected_prop)])['val']
+                new_val = new_val.capitalize() if selected_prop == "name" else new_val
                 # Read modules.json
                 data = get_mod_json()
                 # Update the selected property of module
