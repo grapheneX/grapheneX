@@ -94,29 +94,6 @@ def get_os_info():
         'processor': f"{uname.processor} - ({uname.machine})"
     }
 
-def check_mod_file(filename):
-    module_name = os.path.basename(filename)[:-3]
-    spec = importlib.util.spec_from_file_location(module_name, filename)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-
-    for name, obj in inspect.getmembers(mod, inspect.isclass):
-        if name == 'HardenMethod':
-            continue
-            
-        if type(HardenMethod()) not in map(lambda n: type(n()), inspect.getmro(obj)):
-            logger.error(f'Please use core.hrd.HardenMethod as super class for module {name}')
-            return False
-
-        if obj.command.__module__ == 'core.hrd':
-            logger.error(f'Please provide a command() method for module {name}.')
-            return False
-
-        if not obj.command.__doc__:
-            logger.warn(f'command() method in module {name} doesn\'t contain a docsting.')
-
-    return True
-
 def get_modules(path=PROJECT_DIR):
     current_os = "win" if check_os() else "linux"
     with open(PROJECT_DIR / 'modules.json', 'r') as json_file:
