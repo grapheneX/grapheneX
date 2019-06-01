@@ -163,7 +163,7 @@ class ShellCommands(Help):
                 data = json.load(f)
             return data
             
-        def set_mod_json(data):
+        def save_mod_json(data):
             with open(mod_json_file, 'w') as f:
                 json.dump(data, f)
 
