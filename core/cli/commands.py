@@ -9,6 +9,7 @@ from colorama import init, Fore, Style
 import inquirer
 import random
 import os
+import re
 
 logger = GraphenexLogger(__name__)
 init()
@@ -165,7 +166,12 @@ class ShellCommands(Help):
         mod_ns = inquirer.prompt(ns_prompt)['namespace']
         if mod_ns == "new":
             mod_ns = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your namespace: ")
-        mod_name = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your module: ")
+        while True:
+            mod_name = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your module: ")
+            if re.match(r'^\w+$', mod_name):
+                break
+            else:
+                logger.error("Invalid module name. Allowed characters are 'a-zA-Z0-9_'")
         mod_desc = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Module description: ")
         mod_cmd = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Command: ")
         mod_su = "True" if "y" in input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + 
