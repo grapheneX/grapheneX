@@ -157,6 +157,16 @@ class ShellCommands(Help):
     def do_edit(self, arg):
         """Add, edit or delete module"""
 
+        def get_mod_json():
+            data = ""
+            with open(mod_json_file, 'r') as f:
+                data = json.load(f)
+            return data
+            
+        def set_mod_json(data):
+            with open(mod_json_file, 'w') as f:
+                json.dump(data, f)
+
         try:
             edit_prompt = [
                 inquirer.List('option',
@@ -192,8 +202,7 @@ class ShellCommands(Help):
                 except:
                     pass
                 # Read modules.json
-                with open(mod_json_file, 'r') as f:
-                    data = json.load(f)
+                data = get_mod_json()
                 # Append with other module information
                 mod_dict = {
                         "name": mod_details['mod_name'].capitalize(),
@@ -207,8 +216,7 @@ class ShellCommands(Help):
                 except:
                     data.update({mod_ns: [mod_dict]})
                 # Write the updated modules.json
-                with open(mod_json_file, 'w') as f:
-                    json.dump(data, f)
+                save_mod_json(data)
                 logger.info("Module added successfully. Use 'list' command to see available modules.")
             # EDIT
             elif choice['option'] == "Edit module":
@@ -238,20 +246,15 @@ class ShellCommands(Help):
                 ]
                 selected_prop = inquirer.prompt(prop_prompt)['property']
                 # New value for property
-                new_val = inquirer.prompt([inquirer.Text('name', message="New value for " + selected_prop)])['name']
+                new_val = inquirer.prompt([inquirer.Text('val', message="New value for " + selected_prop)])['val']
                 # Read modules.json
-                with open(mod_json_file, 'r') as f:
-                    data = json.load(f)
+                data = get_mod_json()
                 # Update the selected property of module
                 data[selected_ns][mod_index][selected_prop] = new_val
-                print(data[selected_ns][mod_index])
-                
-
-
-                '''# Write the updated modules.json
-                with open(mod_json_file, 'w') as f:
-                    json.dump(data, f)'''
-
+                # Write the updated modules.json
+                save_mod_json(data)
+                logger.info("Module updated successfully. (" + selected_ns + "/" + 
+                    selected_mod + ":" + selected_prop + ")")
             elif choice['option'] == "Remove module":
                 # TODO : Implement remove
                 pass
