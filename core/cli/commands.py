@@ -154,7 +154,7 @@ class ShellCommands(Help):
         else:
             self.namespace = ""
 
-    def do_edit(self, arg):
+    def do_customize(self, arg):
         """Add, edit or delete module"""
 
         def get_mod_json():
@@ -271,6 +271,8 @@ class ShellCommands(Help):
                 pass
         except Exception as e:
             logger.error(str(e))
+        self.namespace = ""
+        self.module = ""
         self.modules = get_modules()
 
     def do_web(self, arg):
