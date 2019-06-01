@@ -3,11 +3,12 @@
 
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
-from core.utils.helpers import check_os, PROJECT_DIR
+from core.utils.helpers import check_os, mod_json_file
 from terminaltables import AsciiTable
 from colorama import init, Fore, Style
 import inquirer
 import random
+import json
 import os
 import re
 
@@ -166,7 +167,7 @@ class ShellCommands(Help):
             ]
             choice = inquirer.prompt(edit_prompt)
             if choice['option'] == "Add module":
-
+                # Add module to modules.json
                 ns_prompt = [
                     inquirer.List('namespace',
                                 message="Select a namespace for your module",
@@ -186,8 +187,32 @@ class ShellCommands(Help):
                 mod_cmd = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Command: ")
                 mod_su = "True" if "y" in input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + 
                     "] Does this command requires superuser? (y/N): ") else "False"
-                mod_os = "win" if check_os() else "linux"
                 print(Style.RESET_ALL)
+
+                mod_dict = {mod_ns: [{
+                    "name": mod_name,
+                    "desc": mod_desc,
+                    "command": mod_cmd,
+                    "require_superuser": mod_su,
+                    "target_os": "win" if check_os() else "linux"
+                    }]}
+                
+
+                with open(mod_json_file, 'r') as f:
+                    data = json.load(f)
+
+                data.update(mod_dict)
+                print(mod_dict)
+
+                with open(mod_json_file, 'w') as f:
+                    json.dump(data, f)
+
+            elif choice['option'] == "Edit module":
+                # TODO : implement edit
+                pass
+            elif choice['option'] == "Remove module":
+                # TODO : implement remove
+                pass
             else:
                 pass
         except Exception as e:

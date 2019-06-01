@@ -16,6 +16,7 @@ from core.utils.logcl import GraphenexLogger
 logger = GraphenexLogger(__name__)
 
 PROJECT_DIR = pathlib.Path.cwd()
+mod_json_file = PROJECT_DIR / 'modules.json'
 
 
 def print_header():
@@ -96,7 +97,7 @@ def get_os_info():
 
 def get_modules(path=PROJECT_DIR):
     current_os = "win" if check_os() else "linux"
-    with open(PROJECT_DIR / 'modules.json', 'r') as json_file:
+    with open(path / 'modules.json', 'r') as json_file:
         json_data = json.load(json_file)
     return_dict = dict()
     available_modules = list()
