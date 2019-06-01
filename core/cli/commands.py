@@ -166,7 +166,9 @@ class ShellCommands(Help):
         def save_mod_json(data):
             with open(mod_json_file, 'w') as f:
                 json.dump(data, f)
-
+        
+        # Read modules.json
+        data = get_mod_json()
         try:
             edit_prompt = [
                 inquirer.List('option',
@@ -201,8 +203,6 @@ class ShellCommands(Help):
                     mod_ns = mod_details['mod_ns']
                 except:
                     pass
-                # Read modules.json
-                data = get_mod_json()
                 # Append with other module information
                 mod_dict = {
                         "name": mod_details['mod_name'].capitalize(),
@@ -237,6 +237,8 @@ class ShellCommands(Help):
                             ),
                 ]
                 selected_mod = inquirer.prompt(mod_prompt)['module']
+                mod_list = [mod['name'] for mod in list(data[selected_ns])]
+                mod_index = mod_list.index(selected_mod)
                 # EDIT
                 if mod_option == "edit":
                     # Create a list for properties
@@ -254,11 +256,7 @@ class ShellCommands(Help):
                     # New value for property
                     new_val = inquirer.prompt([inquirer.Text('val', message="New value for " + selected_prop)])['val']
                     new_val = new_val.capitalize() if selected_prop == "name" else new_val
-                    # Read modules.json
-                    data = get_mod_json()
                     # Update the selected property of module
-                    mod_list = [mod['name'] for mod in list(data[selected_ns])]
-                    mod_index = mod_list.index(selected_mod)
                     data[selected_ns][mod_index][selected_prop] = new_val
                     # Write the updated modules.json
                     save_mod_json(data)
@@ -266,7 +264,9 @@ class ShellCommands(Help):
                         selected_mod + ":" + selected_prop + ")")
                 # REMOVE
                 else:
-                    pass
+                    data[selected_ns].pop(mod_index)
+                    save_mod_json(data)
+                    logger.info("Module removed successfully. (" + selected_mod + ")")
             else:
                 pass
         except Exception as e:
