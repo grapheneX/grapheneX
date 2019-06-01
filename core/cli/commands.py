@@ -154,7 +154,7 @@ class ShellCommands(Help):
         else:
             self.namespace = ""
 
-    def do_customize(self, arg):
+    def do_manage(self, arg):
         """Add, edit or delete module"""
 
         def get_mod_json():
