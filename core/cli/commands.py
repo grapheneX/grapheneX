@@ -5,6 +5,7 @@ from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from core.utils.helpers import check_os
 from terminaltables import AsciiTable
+import inquirer
 import random
 import os
 
@@ -152,11 +153,17 @@ class ShellCommands(Help):
 
     def do_add(self, arg):
         """Add custom hardening module"""
+        
+        ns_prompt = [
+            inquirer.List('namespace',
+                        message="Select a namespace for your module",
+                        choices=list(self.modules.keys()) + ["new"],
+                    ),
+        ]
+        mod_ns = inquirer.prompt(ns_prompt)['namespace']
+        print(mod_ns)
 
-        if(arg):
-            pass
-        else:
-            logger.error("No argument (filename) given.")
+    
         
     def do_web(self, arg):
         """Run the grapheneX web server"""
