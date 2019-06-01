@@ -5,7 +5,7 @@ from core.utils.helpers import check_os, get_modules, mod_json_file
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
-import inquirer
+from PyInquirer import prompt
 import random
 import json
 import os
@@ -171,34 +171,57 @@ class ShellCommands(Help):
         data = get_mod_json()
         try:
             edit_prompt = [
-                inquirer.List('option',
-                            message="What do you want to do?",
-                            choices=["Add module", "Edit module", "Remove module"],
-                        ),
+                {
+                    'type': 'rawlist',
+                    'name': 'option',
+                    'message': 'What do you want to do?',
+                    'choices': ["Add module", "Edit module", "Remove module"],
+                }
             ]
-            choice = inquirer.prompt(edit_prompt)
+            choice = prompt(edit_prompt)
             # ADD
             if choice['option'] == "Add module":
                 # Namespace selection
                 ns_prompt = [
-                    inquirer.List('namespace',
-                                message="Select a namespace for your module",
-                                choices=list(self.modules.keys()) + ["new"],
-                            ),
+                    {
+                        'type': 'rawlist',
+                        'name': 'namespace',
+                        'message': 'Select a namespace for your module',
+                        'choices': list(self.modules.keys()) + ["new"],
+                    }
                 ]
                 # Module details
-                mod_ns = inquirer.prompt(ns_prompt)['namespace']
+                mod_ns = prompt(ns_prompt)['namespace']
                 mod_questions = [
-                    inquirer.Text('mod_name', message="Name of your module",
-                        validate=lambda _, x: re.match(r'^\w+$', x)),
-                    inquirer.Text('mod_desc', message="Module description"),
-                    inquirer.Text('mod_cmd', message="Command"),
-                    inquirer.Confirm('mod_su', message="Does this command requires superuser?",
-                    )
+                    {
+                        'type': 'input',
+                        'name': 'mod_name',
+                        'message': 'Name of your module',
+                        #'validate': lambda _, x: re.match(r'^\w+$', x)
+                    },
+                    {
+                        'type': 'input',
+                        'name': 'mod_desc',
+                        'message': 'Module description',
+                    },
+                    {
+                        'type': 'input',
+                        'name': 'mod_cmd',
+                        'message': 'Command',
+                    },
+                    {
+                        'type': 'confirm',
+                        'name': 'mod_su',
+                        'message': 'Does this command requires superuser?',
+                    }
                 ]
                 if mod_ns == "new":
-                    mod_questions = [inquirer.Text('mod_ns', message="Name of your namespace")] + mod_questions
-                mod_details = inquirer.prompt(mod_questions)
+                    mod_questions = [{
+                        'type': 'input',
+                        'name': 'mod_ns',
+                        'message': 'Name of your namespace',
+                    }] + mod_questions
+                mod_details = prompt(mod_questions)
                 try:
                     mod_ns = mod_details['mod_ns']
                 except:
@@ -223,20 +246,24 @@ class ShellCommands(Help):
                 mod_option = choice['option'].split(" ")[0].lower()
                 # Namespace selection
                 ns_prompt = [
-                    inquirer.List('namespace',
-                                message="Select the namespace of module to " + mod_option,
-                                choices=list(self.modules.keys()),
-                            ),
+                    {
+                        'type': 'rawlist',
+                        'name': 'namespace',
+                        'message': "Select the namespace of module to " + mod_option,
+                        'choices': list(self.modules.keys())
+                    }
                 ]
-                selected_ns = inquirer.prompt(ns_prompt)['namespace']
+                selected_ns = prompt(ns_prompt)['namespace']
                 # Module selection
                 mod_prompt = [
-                    inquirer.List('module',
-                                message="Select a module to " + mod_option,
-                                choices=self.modules[selected_ns],
-                            ),
+                    {
+                        'type': 'rawlist',
+                        'name': 'module',
+                        'message': "Select a module to " + mod_option,
+                        'choices': self.modules[selected_ns]
+                    }
                 ]
-                selected_mod = inquirer.prompt(mod_prompt)['module']
+                selected_mod = prompt(mod_prompt)['module']
                 mod_list = [mod['name'] for mod in list(data[selected_ns])]
                 mod_index = mod_list.index(selected_mod)
                 # EDIT
@@ -247,14 +274,19 @@ class ShellCommands(Help):
                     prop_list.remove('target_os')
                     # Module property selection
                     prop_prompt = [
-                        inquirer.List('property',
-                                    message="Select a property for editing " + selected_mod,
-                                    choices=prop_list,
-                                ),
+                        {
+                            'type': 'rawlist',
+                            'name': 'property',
+                            'message': "Select a property for editing " + selected_mod,
+                            'choices': prop_list
+                        }
                     ]
-                    selected_prop = inquirer.prompt(prop_prompt)['property']
+                    selected_prop = prompt(prop_prompt)['property']
                     # New value for property
-                    new_val = inquirer.prompt([inquirer.Text('val', message="New value for " + selected_prop)])['val']
+                    new_val = prompt([{
+                        'type': 'input',
+                        'name': 'val',
+                        'message': "New value for " + selected_prop}])['val']
                     new_val = new_val.capitalize() if selected_prop == "name" else new_val
                     # Update the selected property of module
                     data[selected_ns][mod_index][selected_prop] = new_val
