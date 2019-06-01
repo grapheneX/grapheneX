@@ -157,29 +157,30 @@ class ShellCommands(Help):
     def do_add(self, arg):
         """Add custom hardening module"""
 
-        ns_prompt = [
-            inquirer.List('namespace',
-                        message="Select a namespace for your module",
-                        choices=list(self.modules.keys()) + ["new"],
-                    ),
-        ]
-        mod_ns = inquirer.prompt(ns_prompt)['namespace']
-        if mod_ns == "new":
-            mod_ns = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your namespace: ")
-        while True:
-            mod_name = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your module: ")
-            if re.match(r'^\w+$', mod_name):
-                break
-            else:
-                logger.error("Invalid module name. Allowed characters are 'a-zA-Z0-9_'")
-        mod_desc = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Module description: ")
-        mod_cmd = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Command: ")
-        mod_su = "True" if "y" in input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + 
-            "] Does this command requires superuser? (y/N): ") else "False"
-        mod_os = "win" if check_os() else "linux"
-        print(Style.RESET_ALL)
-
-        ##
+        try:
+            ns_prompt = [
+                inquirer.List('namespace',
+                            message="Select a namespace for your module",
+                            choices=list(self.modules.keys()) + ["new"],
+                        ),
+            ]
+            mod_ns = inquirer.prompt(ns_prompt)['namespace']
+            if mod_ns == "new":
+                mod_ns = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your namespace: ")
+            while True:
+                mod_name = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Name of your module: ")
+                if re.match(r'^\w+$', mod_name):
+                    break
+                else:
+                    logger.error("Invalid module name. Allowed characters are 'a-zA-Z0-9_'")
+            mod_desc = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Module description: ")
+            mod_cmd = input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] Command: ")
+            mod_su = "True" if "y" in input(Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + 
+                "] Does this command requires superuser? (y/N): ") else "False"
+            mod_os = "win" if check_os() else "linux"
+            print(Style.RESET_ALL)
+        except Exception as e:
+            logger.error(str(e))
         
     def do_web(self, arg):
         """Run the grapheneX web server"""
