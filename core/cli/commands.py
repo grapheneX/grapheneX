@@ -155,7 +155,7 @@ class ShellCommands(Help):
 
     def do_add(self, arg):
         """Add custom hardening module"""
-        
+
         ns_prompt = [
             inquirer.List('namespace',
                         message="Select a namespace for your module",
