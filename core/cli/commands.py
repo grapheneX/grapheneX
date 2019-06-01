@@ -4,7 +4,6 @@
 from core.utils.helpers import check_os, get_modules, mod_json_file
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
-from colorama import init, Fore, Style
 from terminaltables import AsciiTable
 import inquirer
 import random
@@ -13,7 +12,7 @@ import os
 import re
 
 logger = GraphenexLogger(__name__)
-init()
+
 
 class ShellCommands(Help):
     def do_switch(self, arg):
@@ -159,7 +158,6 @@ class ShellCommands(Help):
         """Add, edit or delete module"""
 
         try:
-            input_prompt = Fore.WHITE + "[" + Fore.YELLOW + "?" + Fore.WHITE + "] "
             edit_prompt = [
                 inquirer.List('option',
                             message="What do you want to do?",
@@ -169,33 +167,39 @@ class ShellCommands(Help):
             choice = inquirer.prompt(edit_prompt)
             # ADD
             if choice['option'] == "Add module":
+                # Namespace selection
                 ns_prompt = [
                     inquirer.List('namespace',
                                 message="Select a namespace for your module",
                                 choices=list(self.modules.keys()) + ["new"],
                             ),
                 ]
-                # Module namespace
+                # Module details
                 mod_ns = inquirer.prompt(ns_prompt)['namespace']
+                mod_questions = [
+                    inquirer.Text('mod_name', message="Name of your module",
+                        validate=lambda _, x: re.match(r'^\w+$', x)),
+                    inquirer.Text('mod_desc', message="Module description"),
+                    inquirer.Text('mod_cmd', message="Command"),
+                    inquirer.Confirm('mod_su', message="Does this command requires superuser?",
+                    )
+                ]
                 if mod_ns == "new":
-                    mod_ns = input(input_prompt + "Name of your namespace: ")
-                # Module name
-                while True:
-                    mod_name = input(input_prompt + "Name of your module: ")
-                    if re.match(r'^\w+$', mod_name):
-                        break
-                    else:
-                        logger.error("Invalid module name. Allowed characters are 'a-zA-Z0-9_'")
+                    mod_questions = [inquirer.Text('mod_ns', message="Name of your namespace")] + mod_questions
+                mod_details = inquirer.prompt(mod_questions)
+                try:
+                    mod_ns = mod_details['mod_ns']
+                except:
+                    pass
                 # Read modules.json
                 with open(mod_json_file, 'r') as f:
                     data = json.load(f)
                 # Append with other module information
                 mod_dict = {
-                        "name": mod_name.capitalize(),
-                        "desc": input(input_prompt + "Module description: "),
-                        "command": input(input_prompt + "Command: "),
-                        "require_superuser": "True" if "y" in input(input_prompt + 
-                            "Does this command requires superuser? (y/N): ") else "False",
+                        "name": mod_details['mod_name'].capitalize(),
+                        "desc": mod_details['mod_desc'],
+                        "command":  mod_details['mod_cmd'],
+                        "require_superuser": mod_details['mod_su'],
                         "target_os": "win" if check_os() else "linux"
                         }
                 try:
@@ -207,7 +211,7 @@ class ShellCommands(Help):
                     json.dump(data, f)
                 self.modules = get_modules()
                 logger.info("Module added successfully. Use 'list' command to see available modules.")
-            # EDIT   
+            # EDIT
             elif choice['option'] == "Edit module":
                 
                 ns_prompt = [
@@ -216,13 +220,23 @@ class ShellCommands(Help):
                                 choices=list(self.modules.keys()),
                             ),
                 ]
+                selected_ns = inquirer.prompt(ns_prompt)['namespace']
                 mod_prompt = [
                     inquirer.List('module',
-                                message="Select the module to edit",
-                                choices=list(self.modules[ns_prompt]),
+                                message="Select a module to edit",
+                                choices=list(self.modules[selected_ns]),
                             ),
                 ]
-
+                selected_mod = inquirer.prompt(mod_prompt)['module']
+                print(self.modules[selected_ns][selected_mod])
+                prop_prompt = [
+                    inquirer.List('property',
+                                message="Select a property for editing " + selected_mod,
+                                choices=list(self.modules[selected_ns][selected_mod]),
+                            ),
+                ]
+                selected_prop = inquirer.prompt(prop_prompt)['property']
+                
 
                 
             elif choice['option'] == "Remove module":
@@ -235,8 +249,6 @@ class ShellCommands(Help):
         except KeyboardInterrupt:
             print()
             logger.info("Cancelled by user.")
-        # Reset styles
-        print(Style.RESET_ALL)
 
     def do_web(self, arg):
         """Run the grapheneX web server"""
