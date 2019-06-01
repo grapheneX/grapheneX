@@ -4,6 +4,7 @@ class HardenMethod:
     def __init__(self, **kwargs):
         self.linuxExec = LinuxExec()
         self.winExec = WinExec()
+        self.kwargs = kwargs
         for k, v in kwargs.items():
             setattr(self, k, v)
 

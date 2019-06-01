@@ -224,20 +224,18 @@ class ShellCommands(Help):
                 mod_prompt = [
                     inquirer.List('module',
                                 message="Select a module to edit",
-                                choices=list(self.modules[selected_ns]),
+                                choices=self.modules[selected_ns],
                             ),
                 ]
                 selected_mod = inquirer.prompt(mod_prompt)['module']
-                print(self.modules[selected_ns][selected_mod])
                 prop_prompt = [
                     inquirer.List('property',
                                 message="Select a property for editing " + selected_mod,
-                                choices=list(self.modules[selected_ns][selected_mod]),
+                                choices=list(self.modules[selected_ns][selected_mod].kwargs.keys()),
                             ),
                 ]
                 selected_prop = inquirer.prompt(prop_prompt)['property']
                 
-
                 
             elif choice['option'] == "Remove module":
                 # TODO : Implement remove
