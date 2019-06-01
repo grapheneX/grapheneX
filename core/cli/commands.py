@@ -165,7 +165,7 @@ class ShellCommands(Help):
             
         def save_mod_json(data):
             with open(mod_json_file, 'w') as f:
-                json.dump(data, f)
+                json.dump(data, f, indent=4)
         
         # Read modules.json
         data = get_mod_json()

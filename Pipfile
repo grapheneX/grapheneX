@@ -4,26 +4,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+autopep8 = "*"
 
 [packages]
-autopep8 = "*"
-click = "*"
-colorama = "*"
-coloredlogs = "*"
-flask = "*"
 flask-socketio = "*"
-humanfriendly = "*"
-itsdangerous = "*"
-jinja2 = "*"
-pycodestyle = "*"
-pyreadline = "*"
-python-engineio = "*"
-python-socketio = "*"
-six = "*"
+coloredlogs = "*"
 terminaltables = "*"
-werkzeug = "*"
-MarkupSafe = "*"
-inquirer = "*"
 pyinquirer = "*"
 
 [requires]
