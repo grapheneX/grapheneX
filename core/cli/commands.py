@@ -1,11 +1,11 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+from core.utils.helpers import check_os, get_modules, mod_json_file
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
-from core.utils.helpers import check_os, mod_json_file
-from terminaltables import AsciiTable
 from colorama import init, Fore, Style
+from terminaltables import AsciiTable
 import inquirer
 import random
 import json
@@ -205,9 +205,26 @@ class ShellCommands(Help):
                 # Write the updated modules.json
                 with open(mod_json_file, 'w') as f:
                     json.dump(data, f)
+                self.modules = get_modules()
+                logger.info("Module added successfully. Use 'list' command to see available modules.")
+            # EDIT   
             elif choice['option'] == "Edit module":
-                # TODO : Implement edit
-                pass
+                
+                ns_prompt = [
+                    inquirer.List('namespace',
+                                message="Select the namespace of module to edit",
+                                choices=list(self.modules.keys()),
+                            ),
+                ]
+                mod_prompt = [
+                    inquirer.List('module',
+                                message="Select the module to edit",
+                                choices=list(self.modules[ns_prompt]),
+                            ),
+                ]
+
+
+                
             elif choice['option'] == "Remove module":
                 # TODO : Implement remove
                 pass
