@@ -24,6 +24,7 @@ terminaltables = "*"
 werkzeug = "*"
 MarkupSafe = "*"
 inquirer = "*"
+pyinquirer = "*"
 
 [requires]
 python_version = "3.7"
