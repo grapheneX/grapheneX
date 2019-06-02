@@ -78,6 +78,10 @@ function initializePage() {
     // Modal conf
     $("#addModuleModal").on('show.bs.modal', function () {  // when modal open
         $("#openModal").find('.fa-plus').addClass('rotate_cogs')
+        $("ul#amod_ns_list > li").last().click(function() {
+            console.log(this);
+            $(this).text("Click")
+        })
     })
     $("#addModuleModal").on('hidden.bs.modal', function () { // when modal close
         $("#openModal").find('.fa-plus').removeClass('rotate_cogs')

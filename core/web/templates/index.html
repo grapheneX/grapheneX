@@ -120,6 +120,19 @@
                             <label for="amod_name">Module Name</label>
                             <input type="text" class="form-control" id="amod_name" placeholder="Name">
                         </div>
+                        <label for="amod_ns_list">Module Name</label>
+                        <ul class="list-group" id="amod_ns_list">
+                            <li class="list-group-item">Cras justo odio</li>
+                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                            <li class="list-group-item">Morbi leo risus</li>
+                            <li class="list-group-item">Porta ac consectetur ac</li>
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between">
+                                    New Module
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </li>
+                        </ul>
                         <div class="form-group">
                             <label for="amod_desc">Description</label>
                             <textarea class="form-control" id="amod_desc" spellcheck="false" rows="5" placeholder="Description"></textarea>
@@ -144,6 +157,7 @@
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/aos.js') }}"></script>
         <script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/listgroup.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/template.js') }}"></script>
         <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
