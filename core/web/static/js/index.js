@@ -72,16 +72,44 @@ search = function (socket) {
 }
 
 
+saveModal = () => {
+    console.log($("#amod_ns_list").find(".active").text())
+}
+
 function initializePage() {
     AOS.init(); // AOS scroll library
 
     // Modal conf
     $("#addModuleModal").on('show.bs.modal', function () {  // when modal open
         $("#openModal").find('.fa-plus').addClass('rotate_cogs')
-        $("ul#amod_ns_list > li").last().click(function() {
-            console.log(this);
-            $(this).text("Click")
+        var _addNsElem = $("#amod_ns_list > li").last();  // get last element
+        var _input = $("<input class='form-control ' id='amod_new_ns' \
+                        style='padding: .75rem 1.25rem; height: auto;'\
+                        placeholder='Namespace name...'\
+                        type='text' />")
+
+        _addNsElem.click(() => {
+            _addNsElem.before(_input);
+            _addNsElem.hide();
+            _input.val('');
+            _input.focus();
+            _input.on('keypress', function(e) {
+                if (e.keyCode == 13) {  // When press enter
+                    var newNsText = _input.val();
+                    /* 
+                        Todo send new namespace with socketio
+                    */
+                    var newNsElem = $("<li class='list-group-item'>"+ newNsText +"</li>")
+                    _input.replaceWith(newNsElem)
+                    newNsElem.addClass('active');
+                    _addNsElem.removeClass('active');
+                    _addNsElem.show();
+                }
+            })
         })
+
+        
+        
     })
     $("#addModuleModal").on('hidden.bs.modal', function () { // when modal close
         $("#openModal").find('.fa-plus').removeClass('rotate_cogs')
@@ -94,6 +122,7 @@ function initializePage() {
         var { namespaces } = data;
         namespaces.forEach(namespace => {
             $("#namespaces").append('<li class="dropdown-item">' + namespace + '</li>');
+            $("#amod_ns_list").prepend('<li class="list-group-item">' + namespace + '</li>');
         });
 
         // Getting current namespace from server

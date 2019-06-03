@@ -120,15 +120,11 @@
                             <label for="amod_name">Module Name</label>
                             <input type="text" class="form-control" id="amod_name" placeholder="Name">
                         </div>
-                        <label for="amod_ns_list">Module Name</label>
+                        <label for="amod_ns_list">Namespace</label>
                         <ul class="list-group" id="amod_ns_list">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
                             <li class="list-group-item">
                                 <div class="d-flex justify-content-between">
-                                    New Module
+                                    New Namespace
                                     <i class="fas fa-plus"></i>
                                 </div>
                             </li>
@@ -146,7 +142,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel <i
                                 class="fas fa-times"></i></button>
-                        <button type="button" class="btn btn-primary">Add <i class="fas fa-check"></i></button>
+                        <button type="button" class="btn btn-primary" onclick="saveModal()">Add <i class="fas fa-check"></i></button>
                     </div>
                 </div>
             </div>
