@@ -1,15 +1,18 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+from core.utils.helpers import check_os, get_modules, mod_json_file
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
-from core.utils.helpers import check_os
 from terminaltables import AsciiTable
-import inspect
+from PyInquirer import prompt, Validator, ValidationError 
 import random
+import json
 import os
+import re
 
 logger = GraphenexLogger(__name__)
+
 
 class ShellCommands(Help):
     def do_switch(self, arg):
@@ -151,6 +154,169 @@ class ShellCommands(Help):
         else:
             self.namespace = ""
 
+    def do_manage(self, arg):
+        """Add, edit or delete module"""
+
+        def get_mod_json():
+            data = ""
+            with open(mod_json_file, 'r') as f:
+                data = json.load(f)
+            return data
+            
+        def save_mod_json(data):
+            with open(mod_json_file, 'w') as f:
+                json.dump(data, f, indent=4)
+        
+        # Read modules.json
+        data = get_mod_json()
+        try:
+            edit_prompt = [
+                {
+                    'type': 'rawlist',
+                    'name': 'option',
+                    'message': 'What do you want to do?',
+                    'choices': ["Add module", "Edit module", "Remove module"],
+                }
+            ]
+            choice = prompt(edit_prompt)
+            
+            # ADD
+            if choice['option'] == "Add module":
+                # Namespace selection
+                ns_prompt = [
+                    {
+                        'type': 'rawlist',
+                        'name': 'namespace',
+                        'message': 'Select a namespace for your module',
+                        'choices': list(self.modules.keys()) + ["new"],
+                    }
+                ]
+                # Module details
+                mod_ns = prompt(ns_prompt)['namespace']
+                mod_questions = [
+                    {
+                        'type': 'input',
+                        'name': 'mod_name',
+                        'message': 'Name of your module',
+                        'validate': ModuleNameValidation, 
+                    },
+                    {
+                        'type': 'input',
+                        'name': 'mod_desc',
+                        'message': 'Module description',
+                    },
+                    {
+                        'type': 'input',
+                        'name': 'mod_cmd',
+                        'message': 'Command',
+                    },
+                    {
+                        'type': 'confirm',
+                        'name': 'mod_su',
+                        'message': 'Does this command requires superuser?',
+                    }
+                ]
+                if mod_ns == "new":
+                    mod_questions = [{
+                        'type': 'input',
+                        'name': 'mod_ns',
+                        'message': 'Name of your namespace',
+                    }] + mod_questions
+                mod_details = prompt(mod_questions)
+                try:
+                    mod_ns = mod_details['mod_ns']
+                except:
+                    pass
+                # Append with other module information
+                mod_dict = {
+                        "name": mod_details['mod_name'].capitalize(),
+                        "desc": mod_details['mod_desc'],
+                        "command":  mod_details['mod_cmd'],
+                        "require_superuser": mod_details['mod_su'],
+                        "target_os": "win" if check_os() else "linux"
+                        }
+                try:
+                    data[mod_ns].append(mod_dict)
+                except:
+                    data.update({mod_ns: [mod_dict]})
+                # Write the updated modules.json
+                save_mod_json(data)
+                logger.info("Module added successfully. Use 'list' command to see available modules.")
+
+            # EDIT & REMOVE
+            elif choice['option'] == "Edit module" or choice['option'] == "Remove module":
+                mod_option = choice['option'].split(" ")[0].lower()
+                # Namespace selection
+                ns_prompt = [
+                    {
+                        'type': 'rawlist',
+                        'name': 'namespace',
+                        'message': "Select the namespace of module to " + mod_option,
+                        'choices': list(self.modules.keys())
+                    }
+                ]
+                selected_ns = prompt(ns_prompt)['namespace']
+                # Module selection
+                mod_prompt = [
+                    {
+                        'type': 'rawlist',
+                        'name': 'module',
+                        'message': "Select a module to " + mod_option,
+                        'choices': self.modules[selected_ns]
+                    }
+                ]
+                selected_mod = prompt(mod_prompt)['module']
+                mod_list = [mod['name'] for mod in list(data[selected_ns])]
+                mod_index = mod_list.index(selected_mod)
+
+                # EDIT 
+                if mod_option == "edit":
+                    # Create a list for properties
+                    prop_list = list(self.modules[selected_ns][selected_mod].kwargs.keys())
+                    prop_list.remove('namespace')
+                    prop_list.remove('target_os')
+                    # Module property selection
+                    prop_prompt = [
+                        {
+                            'type': 'rawlist',
+                            'name': 'property',
+                            'message': "Select a property for editing " + selected_mod,
+                            'choices': prop_list
+                        }
+                    ]
+                    selected_prop = prompt(prop_prompt)['property']
+                    # New value for property
+                    new_val = prompt([{
+                        'type': 'input',
+                        'name': 'val',
+                        'message': "New value for " + selected_prop}])['val']
+                    new_val = new_val.capitalize() if selected_prop == "name" else new_val
+                    # Update the selected property of module
+                    data[selected_ns][mod_index][selected_prop] = new_val
+                    # Write the updated modules.json
+                    save_mod_json(data)
+                    logger.info("Module updated successfully. (" + selected_ns + "/" + 
+                        selected_mod + ":" + selected_prop + ")")
+
+                # REMOVE
+                else:
+                    data[selected_ns].pop(mod_index)
+                    save_mod_json(data)
+                    logger.info("Module removed successfully. (" + selected_mod + ")")
+            else:
+                pass
+        except Exception as e:
+            logger.error(str(e))
+        self.namespace = ""
+        self.module = ""
+        self.modules = get_modules()
+
+    def do_web(self, arg):
+        """Run the grapheneX web server"""
+
+        from core.web import run_server
+        run_server({"host_port":arg} if arg else None, False)
+
     def do_harden(self, arg):
         """Execute the hardening command"""
 
@@ -208,10 +374,9 @@ class ShellCommands(Help):
 
         logger.error("Command not found.")
 
-    def do_add(self, arg):
-        """New module insertion command"""
-
-        if(arg):
-            pass
-        else:
-            logger.error("Argument not provided")
+class ModuleNameValidation(Validator):
+        def validate(self, document):
+            if not re.match(r'^\w+$', document.text):
+                raise ValidationError(
+                    message='Enter a valid module name',
+                    cursor_position=len(document.text))

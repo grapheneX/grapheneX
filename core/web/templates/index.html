@@ -52,9 +52,11 @@
                         modules found.</p>
 
                 </div>
-                <button class="btn btn-block mt-2" data-toggle="modal" data-target="#addModuleModal" id="openModal"><i
-                        class="fas fa-plus"></i> Add
-                    Module</button>
+                <div class="col-md-auto">
+                    <button class="btn btn-block mt-2" data-toggle="modal" data-target="#addModuleModal" id="openModal"><i
+                            class="fas fa-plus"></i> Add
+                        Module</button>
+                </div>
                 <!--Left side end-->
             </div>
             <div class="col-md-8 mt-3 mt-sm-0" data-aos="fade-up">
@@ -116,16 +118,16 @@
                     <div class="modal-body text-left">
                         <div class="form-group">
                             <label for="amod_name">Module Name</label>
-                            <input type="text" class="form-control" id="amod_name" placeholder="Name here...">
+                            <input type="text" class="form-control" id="amod_name" placeholder="Name">
                         </div>
                         <div class="form-group">
                             <label for="amod_desc">Description</label>
-                            <textarea class="form-control" id="amod_desc" spellcheck="false" rows="5" placeholder="Description here..."></textarea>
+                            <textarea class="form-control" id="amod_desc" spellcheck="false" rows="5" placeholder="Description"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="amod_cmd">Command</label>
                             <textarea class="form-control consolas" spellcheck="false" id="amod_cmd"
-                                rows="5" placeholder="Type command..."></textarea>
+                                rows="5" placeholder="Hardening Command"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
