@@ -1,5 +1,7 @@
 $(document).ready(initializePage);
 
+var socket;
+
 function Module(moduleName, moduleDesc, moduleSource, socket) {
     /*
     Module object.
@@ -71,9 +73,13 @@ search = function (socket) {
     });
 }
 
-
 saveModal = () => {
-    console.log($("#amod_ns_list").find(".active").text())
+    socket.emit("add_module", {
+        "ns": $("#amod_ns_list").find(".active").text().trim(),
+        "name": $("#amod_name").val(),
+        "desc": $("#amod_desc").val(),
+        "cmd": $("#amod_cmd").val()
+    }); 
 }
 
 prepareModal = () => {
@@ -91,11 +97,8 @@ prepareModal = () => {
                 _input.val('');
                 _input.focus();
                 _input.on('keypress', function(e) {
-                    if (e.keyCode == 13) {  // When press enter
+                    if (e.keyCode == 13) { // Pressed on enter key
                         var newNsText = _input.val();
-                        /* 
-                            Todo send new namespace with socketio
-                        */
                         var newNsElem = $("<li class='list-group-item'>"+ newNsText +"</li>")
                         _input.replaceWith(newNsElem)
                         newNsElem.addClass('active');
@@ -113,7 +116,7 @@ prepareModal = () => {
 function initializePage() {
     AOS.init(); // AOS scroll library
     prepareModal();
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.emit('get_namespaces', {});  // Request namespace list
     socket.on('get_namespaces', (data) => {  // Add namespace string to html
         var { namespaces } = data;
