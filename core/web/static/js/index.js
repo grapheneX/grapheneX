@@ -76,45 +76,46 @@ saveModal = () => {
     console.log($("#amod_ns_list").find(".active").text())
 }
 
+prepareModal = () => {
+        // Modal conf
+        $("#addModuleModal").on('show.bs.modal', function () {  // when modal open
+            $("#openModal").find('.fa-plus').addClass('rotate_cogs')
+            var _addNsElem = $("#amod_ns_list > li").last();  // get last element
+            var _input = $("<input class='form-control ' id='amod_new_ns' \
+                            style='padding: .75rem 1.25rem; height: auto;'\
+                            placeholder='Namespace name...'\
+                            type='text' />")
+    
+            _addNsElem.click(() => {
+                _addNsElem.before(_input);
+                _addNsElem.hide();
+                _input.val('');
+                _input.focus();
+                _input.on('keypress', function(e) {
+                    if (e.keyCode == 13) {  // When press enter
+                        var newNsText = _input.val();
+                        /* 
+                            Todo send new namespace with socketio
+                        */
+                        var newNsElem = $("<li class='list-group-item'>"+ newNsText +"</li>")
+                        _input.replaceWith(newNsElem)
+                        newNsElem.addClass('active');
+                        _addNsElem.removeClass('active');
+                        _addNsElem.show();
+                    }
+                })
+            }) 
+        })
+        $("#addModuleModal").on('hidden.bs.modal', function () { // when modal close
+            $("#openModal").find('.fa-plus').removeClass('rotate_cogs')
+        })
+        // End
+}
+
 function initializePage() {
     AOS.init(); // AOS scroll library
 
-    // Modal conf
-    $("#addModuleModal").on('show.bs.modal', function () {  // when modal open
-        $("#openModal").find('.fa-plus').addClass('rotate_cogs')
-        var _addNsElem = $("#amod_ns_list > li").last();  // get last element
-        var _input = $("<input class='form-control ' id='amod_new_ns' \
-                        style='padding: .75rem 1.25rem; height: auto;'\
-                        placeholder='Namespace name...'\
-                        type='text' />")
-
-        _addNsElem.click(() => {
-            _addNsElem.before(_input);
-            _addNsElem.hide();
-            _input.val('');
-            _input.focus();
-            _input.on('keypress', function(e) {
-                if (e.keyCode == 13) {  // When press enter
-                    var newNsText = _input.val();
-                    /* 
-                        Todo send new namespace with socketio
-                    */
-                    var newNsElem = $("<li class='list-group-item'>"+ newNsText +"</li>")
-                    _input.replaceWith(newNsElem)
-                    newNsElem.addClass('active');
-                    _addNsElem.removeClass('active');
-                    _addNsElem.show();
-                }
-            })
-        })
-
-        
-        
-    })
-    $("#addModuleModal").on('hidden.bs.modal', function () { // when modal close
-        $("#openModal").find('.fa-plus').removeClass('rotate_cogs')
-    })
-    // End
+    prepareModal();
 
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.emit('get_namespaces', {});  // Request namespace list
