@@ -112,12 +112,26 @@ prepareModal = () => {
         // End
 }
 
+createMessage = (data) => {
+    var _modal = $("#messageModal");
+    _modal.modal({backdrop: false});  // not touch background opacity
+    _modal.find(".modal-content").addClass('text-white bg-' + data.tag);
+    _modal.find(".modal-content").text(data.content);
+    var sec = typeof data.duration === 'undefined' ? 1000 : data.duration;
+    setTimeout(() => {
+        _modal.modal("hide");
+    }, sec)
+}
+
 function initializePage() {
     AOS.init(); // AOS scroll library
 
     prepareModal();
 
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    socket.on('messages', (data) => {  // Messages
+        createMessage(data);
+    })
     socket.emit('get_namespaces', {});  // Request namespace list
     socket.on('get_namespaces', (data) => {  // Add namespace string to html
         var { namespaces } = data;
