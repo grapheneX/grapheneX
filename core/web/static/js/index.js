@@ -114,7 +114,7 @@ prepareModal = () => {
 
 createMessage = (data) => {
     var _modal = $("#messageModal");
-    _modal.modal({backdrop: false});  // not touch background opacity
+    _modal.modal({backdrop: false});  // don't touch background opacity
     _modal.find(".modal-content").addClass('text-white bg-' + data.tag);
     _modal.find(".modal-content").text(data.content);
     var sec = typeof data.duration === 'undefined' ? 1000 : data.duration;
