@@ -77,10 +77,9 @@ saveModal = () => {
 }
 
 prepareModal = () => {
-        // Modal conf
-        $("#addModuleModal").on('show.bs.modal', function () {  // when modal open
+        $("#addModuleModal").on('show.bs.modal', function () {
             $("#openModal").find('.fa-plus').addClass('rotate_cogs')
-            var _addNsElem = $("#amod_ns_list > li").last();  // get last element
+            var _addNsElem = $("#amod_ns_list > li").last();
             var _input = $("<input class='form-control ' id='amod_new_ns' \
                             style='padding: .75rem 1.25rem; height: auto;'\
                             placeholder='Namespace name...'\
@@ -106,17 +105,14 @@ prepareModal = () => {
                 })
             }) 
         })
-        $("#addModuleModal").on('hidden.bs.modal', function () { // when modal close
+        $("#addModuleModal").on('hidden.bs.modal', function () {
             $("#openModal").find('.fa-plus').removeClass('rotate_cogs')
         })
-        // End
 }
 
 function initializePage() {
     AOS.init(); // AOS scroll library
-
     prepareModal();
-
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.emit('get_namespaces', {});  // Request namespace list
     socket.on('get_namespaces', (data) => {  // Add namespace string to html
