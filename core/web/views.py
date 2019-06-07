@@ -90,11 +90,21 @@ def add_module(mod):
     logger.info("Adding new module: '" + mod_name + "'")
     # Check namespace
     if not mod_ns:
-        logger.error("Invalid namespace.")
+        ns_error_msg = "Invalid namespace."
+        logger.error(ns_error_msg)
+        emit('log_message', {
+        'tag': 'danger',
+        'content': ns_error_msg
+        })
         return
     # Check module name
     if not re.match(r'^\w+$', mod_name):
-        logger.error("Invalid module name.")
+        mod_error_msg = "Invalid module name."
+        logger.error(mod_error_msg)
+        emit('log_message', {
+        'tag': 'danger',
+        'content': mod_error_msg
+        })
         return
     # Get modules.json
     with open(mod_json_file, 'r') as f:

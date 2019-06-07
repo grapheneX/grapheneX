@@ -128,7 +128,7 @@ function initializePage() {
     AOS.init(); // AOS scroll library
     prepareModal();
     socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-    socket.on('messages', (data) => {
+    socket.on('log_message', (data) => {
         createMessage(data);
     })
     socket.emit('get_namespaces', {});  // Request namespace list
