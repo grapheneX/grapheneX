@@ -13,7 +13,6 @@ import re
 
 logger = GraphenexLogger(__name__)
 
-
 class ShellCommands(Help):
     def do_switch(self, arg):
         """Switch between modules or namespaces"""
@@ -216,18 +215,21 @@ class ShellCommands(Help):
                     }
                 ]
                 if mod_ns == "new":
-                    mod_questions = [{
+                    mod_question = [{
                         'type': 'input',
                         'name': 'mod_ns',
                         'message': 'Name of your namespace',
                         'validate': NamespaceValidation
-                    }] + mod_questions
-                mod_details = prompt(mod_questions)
+                    }]
+                    mod_namespace = prompt(mod_question)
                 try:
-                    mod_ns = mod_details['mod_ns']
+                    mod_ns = mod_namespace['mod_ns']
                 except:
                     pass
+                #The modules in the selected namespace are static defined to the ModuleNameValidation class.
+                ModuleNameValidation.modules = self.modules[mod_ns].keys()
                 # Append with other module information
+                mod_details = prompt(mod_questions)
                 mod_dict = {
                         "name": mod_details['mod_name'].capitalize(),
                         "desc": mod_details['mod_desc'],
@@ -380,10 +382,14 @@ class ModuleNameValidation(Validator):
                 raise ValidationError(
                     message='Enter a valid module name',
                     cursor_position=len(document.text))
+            elif document.text.lower() in [module.lower() for module in self.modules]:
+                raise ValidationError(
+                    message="Try a different name, this module name is available",
+                    cursor_position=len(document.text))
+
 class NamespaceValidation(Validator):
     def validate(self, document):
         if document.text == ("kernel" if check_os() else "firewall"):
             raise ValidationError(
-                    message="Namespace validator",
-                    cursor_position=len(document.text)
-            )
+                    message="You do not have permission to access this namespace.",
+                    cursor_position=len(document.text))
