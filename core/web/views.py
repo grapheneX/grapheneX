@@ -85,44 +85,57 @@ def hardening_exec(data):
 
 @socketio.on('add_module')
 def add_module(mod):
-    mod_name = mod['name']
-    mod_ns = mod['ns']
-    logger.info("Adding new module: '" + mod_name + "'")
-    # Check namespace
-    if not mod_ns:
-        ns_error_msg = "Invalid namespace."
-        logger.error(ns_error_msg)
-        emit('log_message', {
-        'tag': 'danger',
-        'content': ns_error_msg
-        })
-        return
-    # Check module name
-    if not re.match(r'^\w+$', mod_name):
-        mod_error_msg = "Invalid module name."
-        logger.error(mod_error_msg)
-        emit('log_message', {
-        'tag': 'danger',
-        'content': mod_error_msg
-        })
-        return
-    # Get modules.json
-    with open(mod_json_file, 'r') as f:
-        data = json.load(f)
-    # Prepare module dict
-    mod_dict = {
-            "name": mod_name,
-            "desc": mod['desc'],
-            "command": mod['cmd'],
-            "require_superuser": 'False', # TODO: Get superuser info
-            "target_os": "win" if check_os() else "linux"
-            }
-    # Append to json data
     try:
-        data[mod_ns].append(mod_dict)
-    except:
-        data.update({mod_ns: [mod_dict]})
-    # Update the modules.json
-    with open(mod_json_file, 'w') as f:
-        json.dump(data, f, indent=4)
-    logger.info("Module added successfully.")
+        mod_name = mod['name']
+        mod_ns = mod['ns']
+        logger.info("Adding new module: '" + mod_name + "'")
+        # Check namespace
+        if not mod_ns:
+            ns_error_msg = "Invalid namespace."
+            logger.error(ns_error_msg)
+            emit('log_message', {
+            'tag': 'danger',
+            'content': ns_error_msg
+            })
+            return
+        # Check module name
+        if not re.match(r'^\w+$', mod_name):
+            mod_error_msg = "Invalid module name."
+            logger.error(mod_error_msg)
+            emit('log_message', {
+            'tag': 'danger',
+            'content': mod_error_msg
+            })
+            return
+        # Get modules.json
+        with open(mod_json_file, 'r') as f:
+            data = json.load(f)
+        # Prepare module dict
+        mod_dict = {
+                "name": mod_name,
+                "desc": mod['desc'],
+                "command": mod['cmd'],
+                "require_superuser": 'False', # TODO: Get superuser info
+                "target_os": "win" if check_os() else "linux"
+                }
+        # Append to json data
+        try:
+            data[mod_ns].append(mod_dict)
+        except:
+            data.update({mod_ns: [mod_dict]})
+        # Update the modules.json
+        with open(mod_json_file, 'w') as f:
+            json.dump(data, f, indent=4)
+        success_msg = "Module added successfully."
+        emit('log_message', {
+            'tag': 'success',
+            'content': success_msg
+        })
+        logger.info(success_msg)
+    except Exception as e:
+        exception_msg = "Error occurred while adding new module. " + str(e)
+        emit('log_message', {
+            'tag': 'warning',
+            'content': exception_msg
+        })
+        logger.warn(exception_msg)
