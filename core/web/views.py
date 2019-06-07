@@ -102,7 +102,7 @@ def add_module(mod):
     try:
         mod_name = mod['name']
         mod_ns = mod['ns']
-        logger.info("Adding new module: '" + mod_name + "'")
+        logger.info("Adding new module: '" + mod_ns + "/" + mod_name + "'")
         # Check namespace
         if not mod_ns:
             ns_error_msg = "Invalid namespace."
