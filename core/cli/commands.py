@@ -227,7 +227,7 @@ class ShellCommands(Help):
                 except:
                     pass
                 #The modules in the selected namespace are static defined to the ModuleNameValidation class.
-                ModuleNameValidation.modules = self.modules[mod_ns].keys()
+                ModuleNameValidation.modules = self.modules[mod_ns].keys() if mod_ns in self.modules.keys() else []
                 # Append with other module information
                 mod_details = prompt(mod_questions)
                 mod_dict = {
@@ -238,9 +238,9 @@ class ShellCommands(Help):
                         "target_os": "win" if check_os() else "linux"
                         }
                 try:
-                    data[mod_ns].append(mod_dict)
+                    data[mod_ns.lower()].append(mod_dict)
                 except:
-                    data.update({mod_ns: [mod_dict]})
+                    data.update({mod_ns.lower(): [mod_dict]})
                 # Write the updated modules.json
                 save_mod_json(data)
                 logger.info("Module added successfully. Use 'list' command to see available modules.")
