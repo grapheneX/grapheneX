@@ -58,7 +58,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
     }
 }
 
-search = function (socket) {
+search = function () {
     $("#module_search").on("keyup", function () {
         query = $(this).val();
         socket.emit('search_module', { query: query });
@@ -168,7 +168,7 @@ function initializePage() {
             });
             // Remove loading screen when page is ready
             $(".overlay").fadeOut("slow");
-            search(socket);
+            search();
         });
     });
 }
