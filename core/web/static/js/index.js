@@ -91,16 +91,17 @@ prepareModal = () => {
                             style='padding: .75rem 1.25rem; height: auto;'\
                             placeholder='Namespace name...'\
                             type='text' />")
-    
             _addNsElem.click(() => {
-                _addNsElem.before(_input);
+                if($('#amod_new_ns').length == 0)
+                    _addNsElem.before(_input);
                 _addNsElem.hide();
                 _input.val('');
                 _input.focus();
                 _input.on('keypress', function(e) {
                     if (e.keyCode == 13) { // Pressed on enter key
                         var newNsText = _input.val();
-                        var newNsElem = $("<li class='list-group-item'>"+ newNsText +"</li>")
+                        var newNsElem = $("<li class='list-group-item' id='new_ns_" + newNsText + "'>"+ 
+                            newNsText +"</li>")
                         _input.replaceWith(newNsElem)
                         newNsElem.addClass('active');
                         _addNsElem.removeClass('active');
@@ -180,6 +181,7 @@ function initializePage() {
     socket.on('new_module_added', () => {
         $("#addModuleModal").modal('toggle');
         $("#addModuleModal").find("input,textarea,select").val('').end()
+        $('[id^="new_ns_"]').remove()
         socket.emit('get_namespaces', {});
     });
 }
