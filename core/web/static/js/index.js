@@ -114,13 +114,15 @@ prepareModal = () => {
 }
 
 createMessage = (data) => {
+    var messageClass = 'text-white bg-' + data.tag
     var _modal = $("#messageModal");
     _modal.modal({backdrop: false});  // don't touch background opacity
-    _modal.find(".modal-content").addClass('text-white bg-' + data.tag);
+    _modal.find(".modal-content").addClass(messageClass);
     _modal.find(".modal-content").text(data.content);
     var sec = typeof data.duration === 'undefined' ? 1000 : data.duration;
     setTimeout(() => {
         _modal.modal("hide");
+        _modal.find(".modal-content").removeClass(messageClass);
     }, sec)
 }
 
