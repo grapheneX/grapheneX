@@ -132,6 +132,9 @@ def add_module(mod):
             'content': success_msg
         })
         logger.info(success_msg)
+        global module_dict
+        module_dict = get_modules()
+        emit('new_module_added')
     except Exception as e:
         exception_msg = "Error occurred while adding new module. " + str(e)
         emit('log_message', {
