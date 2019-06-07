@@ -138,9 +138,12 @@ function initializePage() {
 
     socket.on('get_namespaces', (data) => {  // Add namespace string to html
         var { namespaces } = data;
+        $("#namespaces").empty()
         namespaces.forEach(namespace => {
             $("#namespaces").append('<li class="dropdown-item">' + namespace + '</li>');
-            $("#amod_ns_list").prepend('<li class="list-group-item">' + namespace + '</li>');
+            if($("#ns_list_" + namespace).length == 0)
+                $("#amod_ns_list").prepend('<li class="list-group-item" id="ns_list_' + namespace + 
+                    '">' + namespace + '</li>');
         });
         socket.emit('get_current_namespace', {});
         // Namespace selection
@@ -177,6 +180,6 @@ function initializePage() {
     socket.on('new_module_added', () => {
         $("#addModuleModal").modal('toggle');
         $("#addModuleModal").find("input,textarea,select").val('').end()
-        socket.emit('get_current_namespace', {});
+        socket.emit('get_namespaces', {});
     });
 }
