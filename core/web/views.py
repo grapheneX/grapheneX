@@ -68,7 +68,11 @@ def hardening_exec(data):
         print(out)
         emit(data + "_log", {"msg": out, "state":"output"})
         success_msg = "Hardening command executed successfully."
-        emit(data + "_log", {"msg": success_msg, "state":"success"})
+        emit('log_message', {
+            'tag': 'success',
+            'content': success_msg
+        })
+        emit(data + "_log", {"state":"success"})
         logger.info(success_msg)
     except PermissionError:
         err_msg = "Insufficient permissions for hardening."
@@ -76,12 +80,22 @@ def hardening_exec(data):
             err_msg += " Get admin rights and rerun the grapheneX."                    
         else:
             err_msg += " Try running the grapheneX with sudo."
-        emit(data + "_log", {"msg": err_msg, "state":"error"})
+        emit('log_message', {
+            'tag': 'warning',
+            'content': err_msg,
+            'duration': 2000
+        })
+        emit(data + "_log", {"state":"error"})
         logger.error(err_msg)
     except Exception as e:
-        fail_msg = "Failed to execute hardening command. " + str(e)
-        emit(data + "_log", {"msg": fail_msg, "state":"error"})
-        logger.error(fail_msg)
+        fail_msg = "Failed to execute hardening command."
+        emit('log_message', {
+            'tag': 'danger',
+            'content': fail_msg,
+            'duration': 2000
+        })
+        emit(data + "_log", {"msg": str(e), "state":"error"})
+        logger.error(fail_msg + " " + str(e))
 
 @socketio.on('add_module')
 def add_module(mod):
