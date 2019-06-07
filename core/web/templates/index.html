@@ -120,6 +120,15 @@
                             <label for="amod_name">Module Name</label>
                             <input type="text" class="form-control" id="amod_name" placeholder="Name">
                         </div>
+                        <label for="amod_ns_list">Namespace</label>
+                        <ul class="list-group" id="amod_ns_list">
+                            <li class="list-group-item">
+                                <div class="d-flex justify-content-between">
+                                    New Namespace
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                            </li>
+                        </ul>
                         <div class="form-group">
                             <label for="amod_desc">Description</label>
                             <textarea class="form-control" id="amod_desc" spellcheck="false" rows="5" placeholder="Description"></textarea>
@@ -133,17 +142,25 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel <i
                                 class="fas fa-times"></i></button>
-                        <button type="button" class="btn btn-primary">Add <i class="fas fa-check"></i></button>
+                        <button type="button" class="btn btn-primary" onclick="saveModal()">Add <i class="fas fa-check"></i></button>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="modal fade right" id="messageModal" tabindex="-1" role="dialog"
+            aria-labelledby="messageModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-side modal-top-right" role="document">
+                <div class="modal-content alert-primary p-1">
+                </div>
+            </div>
+        </div>   
         <!--Javascript includes-->
         <script src="{{ url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
         <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/aos.js') }}"></script>
         <script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/listgroup.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/template.js') }}"></script>
         <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
