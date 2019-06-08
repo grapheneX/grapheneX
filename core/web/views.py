@@ -10,7 +10,6 @@ import re
 
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
-length_list = [len(value) for key, value in module_dict.items()]
 
 @app.route('/')
 def main():
@@ -18,7 +17,10 @@ def main():
         'index.html',
         title="grapheneX [Web]",
         sys_info=get_os_info(),
-        mod_count=sum(length_list))
+        mod_count=get_mod_count(module_dict))
+
+def get_mod_count(mod_dict):
+    return sum([len(value) for key, value in mod_dict.items()])
 
 @socketio.on('get_namespaces')
 def send_namespaces(data):
@@ -148,6 +150,8 @@ def add_module(mod):
         logger.info(success_msg)
         global module_dict
         module_dict = get_modules()
+        # Success event with module count
+        emit('new_module_added', get_mod_count(module_dict))
     except Exception as e:
         exception_msg = "Error occurred while adding new module. " + str(e)
         emit('log_message', {

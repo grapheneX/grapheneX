@@ -179,10 +179,11 @@ function initializePage() {
     });
 
     // Added new module
-    socket.on('new_module_added', () => {
+    socket.on('new_module_added', (data) => {
         $("#addModuleModal").modal('toggle');
-        $("#addModuleModal").find("input,textarea,select").val('').end()
-        $('[id^="new_ns_"]').remove()
+        $("#addModuleModal").find("input,textarea,select").val('').end();
+        $('[id^="new_ns_"]').remove();
+        $("#modulecount").text(data);
         socket.emit('get_namespaces', {});
     });
 
