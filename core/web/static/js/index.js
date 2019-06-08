@@ -184,4 +184,8 @@ function initializePage() {
         $('[id^="new_ns_"]').remove()
         socket.emit('get_namespaces', {});
     });
+
+    $('#amod_su_label').click(() => {
+        $('#amod_su').click(); 
+    });
 }
