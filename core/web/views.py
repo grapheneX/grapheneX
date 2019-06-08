@@ -129,7 +129,7 @@ def add_module(mod):
                 "name": mod_name,
                 "desc": mod['desc'],
                 "command": mod['cmd'],
-                "require_superuser": 'False', # TODO: Get superuser info
+                "require_superuser": str(mod['su']).capitalize(),
                 "target_os": "win" if check_os() else "linux"
                 }
         # Append to json data
@@ -148,7 +148,6 @@ def add_module(mod):
         logger.info(success_msg)
         global module_dict
         module_dict = get_modules()
-        emit('new_module_added')
     except Exception as e:
         exception_msg = "Error occurred while adding new module. " + str(e)
         emit('log_message', {

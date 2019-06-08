@@ -79,7 +79,8 @@ saveModal = () => {
         "ns": $("#amod_ns_list").find(".active").text().trim(),
         "name": $("#amod_name").val(),
         "desc": $("#amod_desc").val(),
-        "cmd": $("#amod_cmd").val()
+        "cmd": $("#amod_cmd").val(),
+        "su": $('#amod_su').prop("checked")
     }); 
 }
 
