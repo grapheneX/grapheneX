@@ -156,6 +156,7 @@ def add_module(mod):
         exception_msg = "Error occurred while adding new module. " + str(e)
         emit('log_message', {
             'tag': 'warning',
-            'content': exception_msg
+            'content': exception_msg,
+            'duration': 2000
         })
         logger.warn(exception_msg)
