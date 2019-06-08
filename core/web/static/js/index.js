@@ -98,6 +98,9 @@ prepareModal = () => {
                 _addNsElem.hide();
                 _input.val('');
                 _input.focus();
+                _input.focusout(function() {
+                    _input.trigger(jQuery.Event('keypress', {keyCode: 13, which: 13}));
+                })
                 _input.on('keypress', function(e) {
                     if (e.keyCode == 13) { // Pressed on enter key
                         var newNsText = _input.val();
