@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from core.utils.helpers import check_os, get_modules, mod_json_file
+from core.utils.helpers import check_os, get_modules, mod_json_file, get_forbidden_namespaces
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
@@ -389,7 +389,8 @@ class ModuleNameValidation(Validator):
 
 class NamespaceValidation(Validator):
     def validate(self, document):
-        if document.text == ("kernel" if check_os() else "firewall"):
+        namespaces = get_forbidden_namespaces()
+        if document.text.lower() in [namespace.lower() for namespace in namespaces]:
             raise ValidationError(
                     message="You do not have permission to access this namespace.",
                     cursor_position=len(document.text))
