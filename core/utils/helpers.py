@@ -97,8 +97,7 @@ def get_os_info():
 
 def get_modules(path=PROJECT_DIR):
     current_os="win" if check_os() else "linux"
-    with open(path / 'modules.json', 'r') as json_file:
-        json_data = json.load(json_file)
+    json_data = get_mod_json()
     return_dict = dict()
     available_modules = list()
     for namespace, modlist in json_data.items():
@@ -113,10 +112,14 @@ def get_modules(path=PROJECT_DIR):
     return return_dict
 
 def get_forbidden_namespaces(path=PROJECT_DIR,os='win' if check_os() else 'linux'):
-    with open(path / 'modules.json', 'r') as json_file:
-        json_data = json.load(json_file)
+    json_data = get_mod_json()
     namespaces = list()
     for namespace, modlist in json_data.items():
         if os not in [module['target_os'] for module in modlist]:
             namespaces.append(namespace)
     return namespaces
+
+def get_mod_json(path=PROJECT_DIR):
+    with open(path / 'modules.json', 'r') as json_file:
+        json_data = json.load(json_file)
+    return json_data
