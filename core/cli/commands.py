@@ -226,7 +226,7 @@ class ShellCommands(Help):
                     mod_ns = mod_namespace['mod_ns']
                 except:
                     pass
-                #The modules in the selected namespace are static defined to the ModuleNameValidation class.
+                #Assigning property to the ModuleNameValidation class to access modules within the selected namespace.
                 ModuleNameValidation.modules = self.modules[mod_ns].keys() if mod_ns in self.modules.keys() else []
                 # Append with other module information
                 mod_details = prompt(mod_questions)
