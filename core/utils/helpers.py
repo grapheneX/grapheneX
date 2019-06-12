@@ -95,7 +95,7 @@ def get_os_info():
         'processor': f"{uname.processor} - ({uname.machine})"
     }
 
-def get_modules(path=PROJECT_DIR):
+def get_modules():
     current_os="win" if check_os() else "linux"
     json_data = get_mod_json()
     return_dict = dict()
@@ -111,7 +111,7 @@ def get_modules(path=PROJECT_DIR):
             return_dict[module['namespace']][module['name']] = HardenMethod(**module)
     return return_dict
 
-def get_forbidden_namespaces(path=PROJECT_DIR,os='win' if check_os() else 'linux'):
+def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     json_data = get_mod_json()
     namespaces = list()
     for namespace, modlist in json_data.items():
