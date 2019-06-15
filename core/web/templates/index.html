@@ -116,19 +116,19 @@
                         </button>
                     </div>
                     <div class="modal-body text-left">
+                        <label for="amod_ns_list">Namespace</label>
+                            <ul class="list-group" id="amod_ns_list">
+                                <li class="list-group-item" id="ns_list_new">
+                                    <div class="d-flex justify-content-between">
+                                        New Namespace
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                </li>
+                        </ul>
                         <div class="form-group">
                             <label for="amod_name">Module Name</label>
                             <input type="text" class="form-control" id="amod_name" placeholder="Name">
                         </div>
-                        <label for="amod_ns_list">Namespace</label>
-                        <ul class="list-group" id="amod_ns_list">
-                            <li class="list-group-item">
-                                <div class="d-flex justify-content-between">
-                                    New Namespace
-                                    <i class="fas fa-plus"></i>
-                                </div>
-                            </li>
-                        </ul>
                         <div class="form-group">
                             <label for="amod_desc">Description</label>
                             <textarea class="form-control" id="amod_desc" spellcheck="false" rows="5" placeholder="Description"></textarea>
@@ -137,6 +137,17 @@
                             <label for="amod_cmd">Command</label>
                             <textarea class="form-control consolas" spellcheck="false" id="amod_cmd"
                                 rows="5" placeholder="Hardening Command"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" id="amod_su">
+                                    </div>
+                                </div>
+                                <div class="form-control" id="amod_su_label"><span style="color:#D8D8D8;">
+                                    Requires Superuser Privileges</span></div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

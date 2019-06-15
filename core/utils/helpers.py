@@ -20,7 +20,7 @@ mod_json_file = PROJECT_DIR / 'modules.json'
 
 
 def print_header():
-    """ 
+    """
     Shows project logo in ASCII format,
     project description and repository.
     Checks dependencies for colored output.
@@ -35,21 +35,21 @@ def print_header():
                   "Install requirements.txt with pip.")
             sys.exit()
     import_colorama()
-    project_desc = Style.BRIGHT + Fore.WHITE + """             
-                 +ho:`                
-           `:ohh. /dddy/.             
+    project_desc = Style.BRIGHT + Fore.WHITE + """
+                 +ho:`
+           `:ohh. /dddy/.
         ./ydddddd/ -hddddho:          | grapheneX |
     `:ohdddddddddds``sddddds- :.      """+Style.NORMAL+"~ Automated System Hardening Framework"+Style.BRIGHT+"""
     +ddddddddddddddh. /dds- /hdd      """+Style.NORMAL+"+ Created for Linux & Windows."+Style.BRIGHT+"""
     +dddddddddddddddd/ .. /hdddd      """+Style.NORMAL+"> https://github.com/grapheneX"+Style.BRIGHT+"""
     +ddddddddddddddddo``/hdddddd      """+Style.NORMAL+"- Copyright (C) 2019"+Style.BRIGHT+"""
-    +ddddddddddddddo.`+ddddddddd             
-    `-/+oyhddddd+``+dddddddddddd      
-    :o+/-.` `-` .syddddddddddddd      
-    +dddddddyso+:-. `.-/+oyhdddd      
-     -+yddddddddddddhyso/:-` `-`      
-        `/sddddddddddddddy+-          
-            -+hddddddds:`             
+    +ddddddddddddddo.`+ddddddddd
+    `-/+oyhddddd+``+dddddddddddd
+    :o+/-.` `-` .syddddddddddddd
+    +dddddddyso+:-. `.-/+oyhdddd
+     -+yddddddddddddhyso/:-` `-`
+        `/sddddddddddddddy+-
+            -+hddddddds:`
                `/sy+-
     """+Style.NORMAL
     print(project_desc)
@@ -95,15 +95,14 @@ def get_os_info():
         'processor': f"{uname.processor} - ({uname.machine})"
     }
 
-def get_modules(path=PROJECT_DIR):
-    current_os = "win" if check_os() else "linux"
-    with open(path / 'modules.json', 'r') as json_file:
-        json_data = json.load(json_file)
+def get_modules():
+    current_os="win" if check_os() else "linux"
+    json_data = get_mod_json()
     return_dict = dict()
     available_modules = list()
     for namespace, modlist in json_data.items():
         for module in modlist:
-            module['namespace'] =  namespace  
+            module['namespace'] =  namespace
             if module['target_os'] == current_os:
                 return_dict[module['namespace']] = dict()
                 available_modules.append(module)
@@ -111,3 +110,16 @@ def get_modules(path=PROJECT_DIR):
         for module in available_modules:
             return_dict[module['namespace']][module['name']] = HardenMethod(**module)
     return return_dict
+
+def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
+    json_data = get_mod_json()
+    namespaces = list()
+    for namespace, modlist in json_data.items():
+        if os not in [module['target_os'] for module in modlist]:
+            namespaces.append(namespace)
+    return namespaces
+
+def get_mod_json(path=PROJECT_DIR):
+    with open(path / 'modules.json', 'r') as json_file:
+        json_data = json.load(json_file)
+    return json_data

@@ -1,18 +1,17 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from core.utils.helpers import check_os, get_modules, mod_json_file
+from core.utils.helpers import check_os, get_modules, mod_json_file, get_forbidden_namespaces
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
-from PyInquirer import prompt, Validator, ValidationError 
+from PyInquirer import prompt, Validator, ValidationError
 import random
 import json
 import os
 import re
 
 logger = GraphenexLogger(__name__)
-
 
 class ShellCommands(Help):
     def do_switch(self, arg):
@@ -81,7 +80,7 @@ class ShellCommands(Help):
         mline = line.lower().partition(' ')[2]
         # If namespace selected
         if '/' in mline:
-            # title() -> given module string for getting rid of 
+            # title() -> given module string for getting rid of
             # case sensitivity
             mline = mline.split('/')[0].lower() + "/" + \
                 mline.split('/')[1].title()
@@ -98,14 +97,14 @@ class ShellCommands(Help):
             mline = mline.title()
             comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
         return comp_text
-            
+
     def do_info(self, arg):
         """Information about the desired module"""
-        
+
         if self.module:
             module = self.modules[self.namespace][self.module]
 
-            print(f"\n\tNamespace: {self.namespace}\n\tModule: {module.name}\n\t" + 
+            print(f"\n\tNamespace: {self.namespace}\n\tModule: {module.name}\n\t" +
                 f"Description: {module.desc}\n" + f"\tCommand: {module.command}\n")
         else:
             logger.error('No module selected.')
@@ -156,17 +155,16 @@ class ShellCommands(Help):
 
     def do_manage(self, arg):
         """Add, edit or delete module"""
-
         def get_mod_json():
             data = ""
             with open(mod_json_file, 'r') as f:
                 data = json.load(f)
             return data
-            
+
         def save_mod_json(data):
             with open(mod_json_file, 'w') as f:
                 json.dump(data, f, indent=4)
-        
+
         # Read modules.json
         data = get_mod_json()
         try:
@@ -179,7 +177,7 @@ class ShellCommands(Help):
                 }
             ]
             choice = prompt(edit_prompt)
-            
+
             # ADD
             if choice['option'] == "Add module":
                 # Namespace selection
@@ -198,7 +196,7 @@ class ShellCommands(Help):
                         'type': 'input',
                         'name': 'mod_name',
                         'message': 'Name of your module',
-                        'validate': ModuleNameValidation, 
+                        'validate': ModuleNameValidation,
                     },
                     {
                         'type': 'input',
@@ -217,17 +215,21 @@ class ShellCommands(Help):
                     }
                 ]
                 if mod_ns == "new":
-                    mod_questions = [{
+                    mod_question = [{
                         'type': 'input',
                         'name': 'mod_ns',
                         'message': 'Name of your namespace',
-                    }] + mod_questions
-                mod_details = prompt(mod_questions)
+                        'validate': NamespaceValidation
+                    }]
+                    mod_namespace = prompt(mod_question)
                 try:
-                    mod_ns = mod_details['mod_ns']
+                    mod_ns = mod_namespace['mod_ns']
                 except:
                     pass
+                #Assigning property to the ModuleNameValidation class to access modules within the selected namespace.
+                ModuleNameValidation.modules = self.modules[mod_ns].keys() if mod_ns in self.modules.keys() else []
                 # Append with other module information
+                mod_details = prompt(mod_questions)
                 mod_dict = {
                         "name": mod_details['mod_name'].capitalize(),
                         "desc": mod_details['mod_desc'],
@@ -236,9 +238,9 @@ class ShellCommands(Help):
                         "target_os": "win" if check_os() else "linux"
                         }
                 try:
-                    data[mod_ns].append(mod_dict)
+                    data[mod_ns.lower()].append(mod_dict)
                 except:
-                    data.update({mod_ns: [mod_dict]})
+                    data.update({mod_ns.lower(): [mod_dict]})
                 # Write the updated modules.json
                 save_mod_json(data)
                 logger.info("Module added successfully. Use 'list' command to see available modules.")
@@ -269,7 +271,7 @@ class ShellCommands(Help):
                 mod_list = [mod['name'] for mod in list(data[selected_ns])]
                 mod_index = mod_list.index(selected_mod)
 
-                # EDIT 
+                # EDIT
                 if mod_option == "edit":
                     # Create a list for properties
                     prop_list = list(self.modules[selected_ns][selected_mod].kwargs.keys())
@@ -295,7 +297,7 @@ class ShellCommands(Help):
                     data[selected_ns][mod_index][selected_prop] = new_val
                     # Write the updated modules.json
                     save_mod_json(data)
-                    logger.info("Module updated successfully. (" + selected_ns + "/" + 
+                    logger.info("Module updated successfully. (" + selected_ns + "/" +
                         selected_mod + ":" + selected_prop + ")")
 
                 # REMOVE
@@ -331,13 +333,13 @@ class ShellCommands(Help):
             except PermissionError:
                 err_msg = "Insufficient permissions for hardening."
                 if check_os():
-                    err_msg += " Get admin rights and rerun the grapheneX."                    
+                    err_msg += " Get admin rights and rerun the grapheneX."
                 else:
                     err_msg += " Try running the grapheneX with sudo."
                 logger.error(err_msg)
             except Exception as e:
                 logger.error("Failed to execute hardening command. " + str(e))
-                
+
     def do_exit(self, arg):
         "Exit interactive shell"
 
@@ -359,7 +361,7 @@ class ShellCommands(Help):
 
     def do_EOF(self, arg):
         """EOF exit"""
-        
+
         print()
         self.do_exit(arg)
         return True
@@ -379,4 +381,16 @@ class ModuleNameValidation(Validator):
             if not re.match(r'^\w+$', document.text):
                 raise ValidationError(
                     message='Enter a valid module name',
+                    cursor_position=len(document.text))
+            elif document.text.lower() in [module.lower() for module in self.modules]:
+                raise ValidationError(
+                    message="Try a different name, this module name is available",
+                    cursor_position=len(document.text))
+
+class NamespaceValidation(Validator):
+    def validate(self, document):
+        namespaces = get_forbidden_namespaces()
+        if document.text.lower() in [namespace.lower() for namespace in namespaces]:
+            raise ValidationError(
+                    message="You do not have permission to access this namespace.",
                     cursor_position=len(document.text))

@@ -49,6 +49,10 @@ a {
     box-shadow: inset 0 .5px .5px rgba(0, 0, 0, 0.075), 0 0 3px rgba(255, 255, 255, 0.6);
   }
 
+.input-group-text{
+    background-color: #111111;
+    color: #D8D8D8;
+}
 
 .consolas {
     font-family: monospace;
