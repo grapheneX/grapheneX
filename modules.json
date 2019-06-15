@@ -126,7 +126,28 @@
         {
             "name": "Do_Not_Allow_Anonymous_Enumeration_Of_SAM_Accounts_And_Shares",
             "desc": "This is a Category 1 finding because it allows anonymous logon users (null session connections) to list all account names and enumerate all shared resources, thus providing a map of potential points to attack the system.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\FileSystem\" /v NtfsDisableLastAccessUpdate  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "NTFS_Update_Disable",
+            "desc": "If you'd like to get a little extra performance out of your disk volumes, or if you have a large number of folders, you can disable this process and make directory lists more nimble.",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Control\\Lsa\" /v RestrictAnonymous  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Require_Ctrl_Alt_Del_For_Interactive_Logins",
+            "desc": "Disabling the Ctrl+Alt+Del security attention sequence can compromise system security. Because only Windows responds to the Ctrl+Alt+Del security sequence, you can be assured that any passwords you enter following that sequence are sent only to Windows. If you eliminate the sequence requirement, malicious programs can request and receive your Windows password. Disabling this sequence also suppresses a custom logon banner.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v DisableCAD  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Configure_A_Machine_Inactivity_For_15_minutes",
+            "desc": "Unattended systems are susceptible to unauthorized use and should be locked when unattended. The screen saver should be set at a maximum of 15 minutes and be password protected. This protects critical and sensitive data from exposure to unauthorized personnel with physical access to the computer.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v InactivityTimeoutSecs  /t REG_DWORD /d 0x00000384 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
