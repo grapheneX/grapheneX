@@ -87,7 +87,6 @@ def is_admin():
     except:
         return False
 
-
 def get_os_info():
     uname = platform.uname()
     return {
