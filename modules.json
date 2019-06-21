@@ -103,13 +103,6 @@
     ],
     "general": [
         {
-            "name": "win_test_module",
-            "desc": "win_test_module desc",
-            "command": "win_test_module command",
-            "require_superuser": "False",
-            "target_os": "win"
-        },
-        {
             "name": "Disable_The_Guest_Account",
             "desc": "Guest accounts allow temporary login on a Windows system without requiring to provide credentials/password. Each system administrator would have a different need on how to configure guest account on their systems. This post explains how to enable or disable guest account on a Windows computer.",
             "command": "net user guest /active:no",
@@ -150,13 +143,6 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v InactivityTimeoutSecs  /t REG_DWORD /d 0x00000384 /f",
             "require_superuser": "False",
             "target_os": "win"
-        },
-        {
-            "name": "linux_test_module",
-            "desc": "linux_test_module desc",
-            "command": "linux_test_module command",
-            "require_superuser": "True",
-            "target_os": "linux"
         }
     ]
 }
