@@ -33,18 +33,18 @@
     ],
     "general": [
         {
-            "name": "win_test_module",
-            "desc": "win_test_module desc",
-            "command": "win_test_module command",
-            "require_superuser": "False",
+            "name": "Disable_Guest_Account",
+            "desc": "Disable built-in Guest accounts",
+            "command": "net user guest /active:no",
+            "require_superuser": "True",
             "target_os": "win"
         },
         {
-            "name": "linux_test_module",
-            "desc": "linux_test_module desc",
-            "command": "linux_test_module command",
+            "name": "Not_Allow_Everyone_Perm_Anonymous",
+            "desc": "Not allow 'everyone' permissions to apply to anonymous users.",
+            "command": "reg add 'HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\' /v EveryoneIncludesAnonymous /t REG_DWORD /d 0 /f",
             "require_superuser": "True",
-            "target_os": "linux"
+            "target_os": "win" 
         }
     ]
 }
