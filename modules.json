@@ -143,6 +143,49 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v InactivityTimeoutSecs  /t REG_DWORD /d 0x00000384 /f",
             "require_superuser": "False",
             "target_os": "win"
+        },
+        {
+            "name": "Disable_Lan_Manager_Hash_Value_Save_Next_Password_Change",
+            "desc": "The LAN Manager hash uses a weak encryption algorithm and there are several tools available that use this hash to retrieve account passwords. This setting controls whether a LAN Manager hash of the password is stored in the SAM the next time the password is changed.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v NoLMHash  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Prevents_Group_Policy_Refresh_From_Being_Blocked",
+            "desc": "If this setting is enabled, then Group Policy settings are not refreshed while a user is currently logged on. This could lead to instances when a user does not have the latest changes to a policy applied and is therefore operating in an insecure context.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\system\" /v DisableBkGndGroupPolicy  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Required_Microsoft_Network_Client_Digitally_Sign_Communications",
+            "desc": "The server message block (SMB) protocol provides the basis for many network operations. Digitally signed SMB packets aid in preventing man-in-the-middle attacks. If this policy is enabled, the SMB client will only communicate with an SMB server that performs SMB packet signing.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v RequireSecuritySignature  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Prevents_SAM_Accounts_Will_Not_Be_Allowed",
+            "desc": "This is a Category 1 finding as it allows anonymous logon users (null session connections) to list all account names, thus providing a list of potential points to attack the system.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RestrictAnonymousSAM  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Configured_To_Use_The_Classic_Security_Model",
+            "desc": "Windows includes two network-sharing security models—Classic and Guest only. With the classic model, local accounts must be password protected; otherwise, anyone can use guest user accounts to access shared system resources.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\" /v ForceGuest  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Prevent_Unsolicited_Remote_Assistance_Offers",
+            "desc": "This setting controls whether unsolicited offers of help to this computer are allowed. The list of users allowed to offer remote assistance to this system is accessed by pressing the Helpers button.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services\" /v fAllowUnsolicited  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
         }
+ 
     ]
 }
