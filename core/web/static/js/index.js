@@ -46,7 +46,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
         });
         this.execute_btn.click(() => {
             this.execute_btn.find(".fa-cog").addClass("rotate_cogs");
-            this.socket.emit("harden", this.name); 
+            this.socket.emit("harden", this.name);
         });
         this.socket.on(this.name + "_log", (data) => {
             if (data.msg != null)
@@ -62,15 +62,18 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
 search = function () {
     $("#module_search").on("keyup", function () {
         query = $(this).val();
-        socket.emit('search_module', { query: query });
-        socket.on('search_module', (data) => {
-            $("#modules").empty();
-            data.result.forEach(elem => {
-                var { name, desc, source } = elem
-                var mod = new Module(name, desc, source, socket);
-                mod.render();
+        setTimeout(() => {
+            socket.emit('search_module', { query: query });
+            socket.on('search_module', (data) => {
+                $("#modules").empty();
+                data.result.forEach(elem => {
+                    var { name, desc, source } = elem
+                    var mod = new Module(name, desc, source, socket);
+                    mod.render();
+                });
             });
-        });
+        }, 500)
+
     });
 }
 
@@ -81,48 +84,48 @@ saveModal = () => {
         "desc": $("#amod_desc").val(),
         "cmd": $("#amod_cmd").val(),
         "su": $('#amod_su').prop("checked")
-    }); 
+    });
 }
 
 prepareModal = () => {
-        $("#addModuleModal").on('show.bs.modal', function () {
-            $("#openModal").find('.fa-plus').addClass('rotate_cogs')
-            var _addNsElem = $("#amod_ns_list > li").last();
-            var _input = $("<input class='form-control ' id='amod_new_ns' \
+    $("#addModuleModal").on('show.bs.modal', function () {
+        $("#openModal").find('.fa-plus').addClass('rotate_cogs')
+        var _addNsElem = $("#amod_ns_list > li").last();
+        var _input = $("<input class='form-control ' id='amod_new_ns' \
                             style='padding: .75rem 1.25rem; height: auto;'\
                             placeholder='Namespace name...'\
                             type='text' />")
-            _addNsElem.click(() => {
-                if($('#amod_new_ns').length == 0)
-                    _addNsElem.before(_input);
-                _addNsElem.hide();
-                _input.val('');
-                _input.focus();
-                _input.focusout(function() {
-                    _input.trigger(jQuery.Event('keypress', {keyCode: 13, which: 13}));
-                })
-                _input.on('keypress', function(e) {
-                    if (e.keyCode == 13) { // Pressed on enter key
-                        var newNsText = _input.val();
-                        var newNsElem = $("<li class='list-group-item' id='new_ns_" + newNsText + "'>"+ 
-                            newNsText +"</li>")
-                        _input.replaceWith(newNsElem)
-                        newNsElem.addClass('active');
-                        _addNsElem.removeClass('active');
-                        _addNsElem.show();
-                    }
-                })
-            }) 
+        _addNsElem.click(() => {
+            if ($('#amod_new_ns').length == 0)
+                _addNsElem.before(_input);
+            _addNsElem.hide();
+            _input.val('');
+            _input.focus();
+            _input.focusout(function () {
+                _input.trigger(jQuery.Event('keypress', { keyCode: 13, which: 13 }));
+            })
+            _input.on('keypress', function (e) {
+                if (e.keyCode == 13) { // Pressed on enter key
+                    var newNsText = _input.val();
+                    var newNsElem = $("<li class='list-group-item' id='new_ns_" + newNsText + "'>" +
+                        newNsText + "</li>")
+                    _input.replaceWith(newNsElem)
+                    newNsElem.addClass('active');
+                    _addNsElem.removeClass('active');
+                    _addNsElem.show();
+                }
+            })
         })
-        $("#addModuleModal").on('hidden.bs.modal', function () {
-            $("#openModal").find('.fa-plus').removeClass('rotate_cogs')
-        })
+    })
+    $("#addModuleModal").on('hidden.bs.modal', function () {
+        $("#openModal").find('.fa-plus').removeClass('rotate_cogs')
+    })
 }
 
 createMessage = (data) => {
     var messageClass = 'text-white bg-' + data.tag
     var _modal = $("#messageModal");
-    _modal.modal({backdrop: false});  // don't touch background opacity
+    _modal.modal({ backdrop: false });  // don't touch background opacity
     _modal.find(".modal-content").addClass(messageClass);
     _modal.find(".modal-content").text(data.content);
     var sec = typeof data.duration === 'undefined' ? 1000 : data.duration;
@@ -146,8 +149,8 @@ function initializePage() {
         $("#namespaces").empty()
         namespaces.forEach(namespace => {
             $("#namespaces").append('<li class="dropdown-item">' + namespace + '</li>');
-            if($("#ns_list_" + namespace).length == 0)
-                $("#amod_ns_list").prepend('<li class="list-group-item" id="ns_list_' + namespace + 
+            if ($("#ns_list_" + namespace).length == 0)
+                $("#amod_ns_list").prepend('<li class="list-group-item" id="ns_list_' + namespace +
                     '">' + namespace + '</li>');
         });
         socket.emit('get_current_namespace', {});
@@ -166,7 +169,7 @@ function initializePage() {
         $("#current_namespace").text(data.current_namespace);
         socket.emit('send_current_namespace', data.current_namespace);
     });
-    
+
     // Getting modules
     socket.on('get_module', (data) => {
         $("#modules").empty();
@@ -191,6 +194,6 @@ function initializePage() {
     });
 
     $('#amod_su_label').click(() => {
-        $('#amod_su').click(); 
+        $('#amod_su').click();
     });
 }
