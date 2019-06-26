@@ -13,6 +13,166 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\" /v fDenyTSConnections /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
+        },
+		{
+            "name": "RDP_Max_Security",
+            "desc": "Maximizes The Security Of A Remote Desktop Connection",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp\" /v MinEncryptionLevel /t REG_DWORD /d 4 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+		{
+            "name": "Enable_Firewall",
+            "desc": "Enable Firewall All Profiles",
+            "command": "netsh advfirewall set allprofiles state on",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+		{
+            "name": "Remove_Enable_LMhosts",
+            "desc": "Remove Enable LMhosts Lookup",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Services\\NetBT\\Parameters\\EnableLMHosts\" /v MinEncryptionLevel /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+		{
+            "name": "Block_All_Ports",
+            "desc": "Block All Incoming Connections",
+            "command": "netsh advfirewall set allprofiles firewallpolicy blockinboundalways,allowoutbound",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+		{
+            "name": "Disable_ICMP_IPV4",
+            "desc": "ICMP  is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
+            "command": "netsh advfirewall firewall add rule name='ICMP Allow incoming V4 echo request' protocol=icmpv4:8,any dir=in action=allow",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+		{
+            "name": "Disable_ICMP_IPV6",
+            "desc": "ICMP  is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
+            "command": "netsh advfirewall firewall add rule name='ICMP Allow incoming V6 echo request' protocol=icmpv6:8,any dir=in action=allow",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+		{
+            "name": "Disable_Sending_Pass_SMB",
+            "desc": "Some non-Microsoft SMB servers only support unencrypted (plain text) password authentication. Sending plain text passwords across the network, when authenticating to an SMB server, reduces the overall security of the environment.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Services\\NetBT\\Parameters\" /v EnablePlainTextPassword /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Restrict_Shares_Access",
+            "desc": "Network shares that can be accessed anonymously will not be allowed",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v NullSessionShares /t REG_SZ /d (Blank) /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Allow_Only_LMA",
+            "desc": "The Kerberos v5 authentication protocol is the default for authentication for domains. NTLM which is less secure, is retained in later Windows versions for compatibility with standalone systems as well as applications that may still use it. Earlier versions of the LM/NTLM protocol are particularly vulnerable to attack and must be prevented.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Control\\Lsa\" /v LmCompatibilityLevel /t REG_DWORD /d 5 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        }
+    ],
+    "user": [
+        {
+            "name": "Disable_NULL_Session",
+            "desc": "NTLM sessions that are allowed to fall back to Null (unauthenticated) sessions may gain unauthorized access.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Control\\Lsa\\MSV1_0\" /v allownullsessionfallback /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Disable_The_Guest_Account",
+            "desc": "Guest accounts allow temporary login on a Windows system without requiring to provide credentials/password. Each system administrator would have a different need on how to configure guest account on their systems. This post explains how to enable or disable guest account on a Windows computer.",
+            "command": "net user guest /active:no",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Restrict_Permission_Anon_User",
+            "desc": "This setting helps define the permissions that anonymous users have. If this setting is enabled then anonymous users have the same rights and permissions as the built-in Everyone group. Anonymous users should not have these permissions or rights.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Control\\Lsa\" /v EveryoneIncludesAnonymous /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Require_Keys_For_Login",
+            "desc": "Disabling the Ctrl+Alt+Del security attention sequence can compromise system security. Because only Windows responds to the Ctrl+Alt+Del security sequence, you can be assured that any passwords you enter following that sequence are sent only to Windows. If you eliminate the sequence requirement, malicious programs can request and receive your Windows password. Disabling this sequence also suppresses a custom logon banner.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v DisableCAD  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Disallow_Anon_Enum_Of_SAM",
+            "desc": "This is a Category 1 finding because it allows anonymous logon users (null session connections) to list all account names and enumerate all shared resources, thus providing a map of potential points to attack the system.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\FileSystem\" /v NtfsDisableLastAccessUpdate  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Prevent_SAM_Accounts_Disallow",
+            "desc": "This is a Category 1 finding as it allows anonymous logon users (null session connections) to list all account names, thus providing a list of potential points to attack the system.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RestrictAnonymousSAM  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Prevent_Group_Policy_Refresh",
+            "desc": "If this setting is enabled, then Group Policy settings are not refreshed while a user is currently logged on. This could lead to instances when a user does not have the latest changes to a policy applied and is therefore operating in an insecure context.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\system\" /v DisableBkGndGroupPolicy  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Config_Classic_Security_Model",
+            "desc": "Windows includes two network-sharing security models—Classic and Guest only. With the classic model, local accounts must be password protected; otherwise, anyone can use guest user accounts to access shared system resources.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\" /v ForceGuest  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        }
+    ],
+    "network": [
+        {
+            "name": "Disable_Lan_Hash_Value",
+            "desc": "The LAN Manager hash uses a weak encryption algorithm and there are several tools available that use this hash to retrieve account passwords. This setting controls whether a LAN Manager hash of the password is stored in the SAM the next time the password is changed.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v NoLMHash  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Network_Digitally_Sign_Communications",
+            "desc": "The server message block (SMB) protocol provides the basis for many network operations. Digitally signed SMB packets aid in preventing man-in-the-middle attacks. If this policy is enabled, the SMB client will only communicate with an SMB server that performs SMB packet signing.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v RequireSecuritySignature  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        }
+    ],
+    "services": [
+        {
+            "name": "Prevent_Remote_Assistance",
+            "desc": "This setting controls whether unsolicited offers of help to this computer are allowed. The list of users allowed to offer remote assistance to this system is accessed by pressing the Helpers button.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services\" /v fAllowUnsolicited  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "NTFS_Update_Disable",
+            "desc": "If you'd like to get a little extra performance out of your disk volumes, or if you have a large number of folders, you can disable this process and make directory lists more nimble.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Control\\Lsa\" /v RestrictAnonymous  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Machine_Inactivity_15_Min",
+            "desc": "Unattended systems are susceptible to unauthorized use and should be locked when unattended. The screen saver should be set at a maximum of 15 minutes and be password protected. This protects critical and sensitive data from exposure to unauthorized personnel with physical access to the computer.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v InactivityTimeoutSecs  /t REG_DWORD /d 0x00000384 /f",
+            "require_superuser": "False",
+            "target_os": "win"
         }
     ],
     "kernel": [
@@ -29,22 +189,6 @@
             "command": "echo \"kernel.kptr_restrict = 1\" > /etc/sysctl.d/50-kptr-restrict.conf",
             "require_superuser": "False",
             "target_os": "linux"
-        }
-    ],
-    "general": [
-        {
-            "name": "Disable_Guest_Account",
-            "desc": "Disable built-in Guest accounts",
-            "command": "net user guest /active:no",
-            "require_superuser": "True",
-            "target_os": "win"
-        },
-        {
-            "name": "Not_Allow_Everyone_Perm_Anonymous",
-            "desc": "Not allow 'everyone' permissions to apply to anonymous users.",
-            "command": "reg add 'HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\\' /v EveryoneIncludesAnonymous /t REG_DWORD /d 0 /f",
-            "require_superuser": "True",
-            "target_os": "win" 
         }
     ]
 }

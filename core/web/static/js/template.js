@@ -1,13 +1,13 @@
 function getModuleBox(name, desc) {
-	return '<div class="module-box deep" style="margin-bottom: 20px" id="' + name + '_div" data-aos="fade-up">\
+	return '<div class="module-box deep" style="margin-bottom: 20px;" id="' + name + '_div" data-aos="fade-up">\
             <div class="row">\
-                <div  class="col-8 d-flex justify-content-between" id="' + name + '_area">\
-                    <div class="mr-auto p-2 text-left">\
+                <div  class="col-9 d-flex justify-content-between" id="' + name + '_area">\
+                    <div class="mr-auto p-2 text-left" style="word-break: break-all;">\
                         <h6>' + name + '</h6>\
                         <p class="text-muted" style="font-size: 13px; margin-bottom:0">' + desc + '</p>\
                     </div>\
                 </div>\
-                <div class="col-4 text-right mt-1">\
+                <div class="col-3 text-right mt-1">\
                     <a id="' + name + '_btn"><i style="font-size: 52px"\
                             id="' + name + '_ico" class="fas fa-arrow-circle-right"></i></a>\
                 </div>\
