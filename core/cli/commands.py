@@ -6,6 +6,7 @@ from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
 from PyInquirer import prompt, Validator, ValidationError
+import textwrap
 import random
 import json
 import os
@@ -135,15 +136,22 @@ class ShellCommands(Help):
         """List available hardening modules"""
 
         modules_table = [['Module', 'Description']]
+        table = AsciiTable(modules_table)
+        max_width = table.column_max_width(1)
+
         if self.namespace:
-            for name, module in self.modules[self.namespace].items():
-                modules_table.append([name, module.desc])
+            for name, module in self.modules[self.namespace].items(): 
+                wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                table.table_data.append(
+                    [self.namespace + "/" + name, wrapped])
         else:
             for k, v in self.modules.items():
                 for name, module in v.items():
-                    modules_table.append(
-                        [k + "/" + name, module.desc])
-        print(AsciiTable(modules_table).table)
+                    wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                    table.table_data.append(
+                        [k + "/" + name, wrapped])
+          
+        print(table.table)
 
     def do_back(self, arg):
         """Go back if namespace (hardening method) selected or switched"""
