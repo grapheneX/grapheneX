@@ -14,49 +14,49 @@
             "require_superuser": "False",
             "target_os": "win"
         },
-		{
+        {
             "name": "RDP_Max_Security",
             "desc": "Maximizes The Security Of A Remote Desktop Connection",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp\" /v MinEncryptionLevel /t REG_DWORD /d 4 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
-		{
+        {
             "name": "Enable_Firewall",
             "desc": "Enable Firewall All Profiles",
             "command": "netsh advfirewall set allprofiles state on",
             "require_superuser": "False",
             "target_os": "win"
         },
-		{
+        {
             "name": "Remove_Enable_LMhosts",
             "desc": "Remove Enable LMhosts Lookup",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Services\\NetBT\\Parameters\\EnableLMHosts\" /v MinEncryptionLevel /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
-		{
+        {
             "name": "Block_All_Ports",
             "desc": "Block All Incoming Connections",
             "command": "netsh advfirewall set allprofiles firewallpolicy blockinboundalways,allowoutbound",
             "require_superuser": "False",
             "target_os": "win"
         },
-		{
+        {
             "name": "Disable_ICMP_IPV4",
             "desc": "ICMP  is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
             "command": "netsh advfirewall firewall add rule name='ICMP Allow incoming V4 echo request' protocol=icmpv4:8,any dir=in action=allow",
             "require_superuser": "False",
             "target_os": "win"
         },
-		{
+        {
             "name": "Disable_ICMP_IPV6",
             "desc": "ICMP  is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
             "command": "netsh advfirewall firewall add rule name='ICMP Allow incoming V6 echo request' protocol=icmpv6:8,any dir=in action=allow",
             "require_superuser": "False",
             "target_os": "win"
         },
-		{
+        {
             "name": "Disable_Sending_Pass_SMB",
             "desc": "Some non-Microsoft SMB servers only support unencrypted (plain text) password authentication. Sending plain text passwords across the network, when authenticating to an SMB server, reduces the overall security of the environment.",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Services\\NetBT\\Parameters\" /v EnablePlainTextPassword /t REG_DWORD /d 0 /f",
@@ -134,6 +134,13 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\" /v ForceGuest  /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
+        },
+        {
+            "name": "Auto_Logout",
+            "desc": "Set auto logout inactive users.",
+            "command": "echo \"readonly TMOUT=900\" >> /etc/profile.d/idle-users.sh; echo \"readonly HISTFILE\" >> /etc/profile.d/idle-users.sh; chmod +x /etc/profile.d/idle-users.sh",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "network": [
@@ -150,6 +157,41 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v RequireSecuritySignature  /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
+        },
+        {
+            "name": "Enable_Cookie_Protection",
+            "desc": "Enable TCP SYN Cookie protection.",
+            "command": "echo \"net.ipv4.tcp_syncookies = 1\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Disable_IP_Source_Routing",
+            "desc": "Disable IP source routing.",
+            "command": "echo \"net.ipv4.conf.all.accept_source_route = 0\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Disable_Redirect_Acceptance",
+            "desc": "Disable ICMP redirect acceptance.",
+            "command": "echo \"net.ipv4.conf.all.accept_redirects = 0\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Ignore_ICMP",
+            "desc": "Enable ignoring to ICMP requests.",
+            "command": "echo \"net.ipv4.icmp_echo_ignore_all = 1\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Ignore_Broadcast",
+            "desc": "Enable ignoring broadcasts request.",
+            "command": "echo \"net.ipv4.icmp_echo_ignore_broadcasts = 1\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "services": [
@@ -173,6 +215,13 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v InactivityTimeoutSecs  /t REG_DWORD /d 0x00000384 /f",
             "require_superuser": "False",
             "target_os": "win"
+        },
+        {
+            "name": "Syslog_Service",
+            "desc": "Ensure syslog service is enabled and running.",
+            "command": "systemctl enable rsyslog; systemctl start rsyslog",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "kernel": [
@@ -187,6 +236,20 @@
             "name": "Pointers_Restrict_Access",
             "desc": "Restricting access to kernel pointers.",
             "command": "echo \"kernel.kptr_restrict = 1\" > /etc/sysctl.d/50-kptr-restrict.conf",
+            "require_superuser": "False",
+            "target_os": "linux"
+        },
+        {
+            "name": "ExecShield_Protection",
+            "desc": "ExecShield protection",
+            "command": "echo \"kernel.exec-shield = 2\" > /etc/sysctl.d/50-exec-shield.conf",
+            "require_superuser": "False",
+            "target_os": "linux"
+        },
+        {
+            "name": "Randomise_Memory",
+            "desc": "Randomise memory space.",
+            "command": "echo \"kernel.randomize_va_space=2\" > /etc/sysctl.d/50-rand-va-space.conf",
             "require_superuser": "False",
             "target_os": "linux"
         }
