@@ -1,7 +1,8 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from core.utils.helpers import check_os, get_modules, mod_json_file, get_forbidden_namespaces
+from core.utils.helpers import check_os, get_modules, \
+    mod_json_file, get_forbidden_namespaces
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
