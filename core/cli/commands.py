@@ -115,19 +115,24 @@ class ShellCommands(Help):
         """Search for modules"""
 
         search_table = [['Module', 'Description']]
+        table = AsciiTable(search_table)
+        max_width = table.column_max_width(1)
+
         if arg:
             if arg in self.modules.keys():
                 for name, module in self.modules[arg].items():
-                    search_table.append(
-                        [arg + "/" + name, module.desc])
+                    wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                    table.table_data.append(
+                        [arg + "/" + name, wrapped])
             else:
                 for k, v in self.modules.items():
                     for name, module in v.items():
                         if arg.lower() in name.lower():
-                            search_table.append(
-                                [k + "/" + name, module.desc])
-            if len(search_table) > 1:
-                print(AsciiTable(search_table).table)
+                            wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                            table.table_data.append(
+                                [k + "/" + name, wrapped])
+            if len(table.table_data) > 1:
+                print(table.table)
             else:
                 logger.error(f"Nothing found for \"{arg}\".")
         else:
