@@ -15,7 +15,7 @@ from core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
 
-PROJECT_DIR = pathlib.Path.cwd()
+PROJECT_DIR = pathlib.Path(__file__).absolute().parent.parent.parent
 mod_json_file = PROJECT_DIR / 'modules.json'
 
 
