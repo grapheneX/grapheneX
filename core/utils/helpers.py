@@ -1,6 +1,7 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+import argparse
 import sys
 import os
 import importlib.util
@@ -16,6 +17,27 @@ logger = GraphenexLogger(__name__)
 project_dir = '/'.join(os.path.dirname(os.path.realpath(__file__)) \
                 .split("/")[:-2]) + '/'
 mod_json_file = project_dir + 'modules.json'
+
+def parse_cli_args():
+    """
+    Command-line argument parser.
+
+    Returns parsed args as dict.
+    [-w, --web]: Runs web server if given.
+    """
+    parser = argparse.ArgumentParser(
+        description='grapheneX | Automated System Hardening Framework')
+    parser.add_argument('-w',
+                        '--web',
+                        help='run the grapheneX web server',
+                        action="store_true")
+    parser.add_argument('host_port', metavar='host:port', type=str, nargs='?', 
+                        default='0.0.0.0:8080',
+                        help="host and port to run the web interface")
+    parser.add_argument('--open', action="store_true",
+                        help="open browser on web server start")
+    args = vars(parser.parse_args())
+    return args
 
 def print_header():
     """
