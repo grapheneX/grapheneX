@@ -17,7 +17,7 @@ def disable_flask_logs():
     import logging
     log = logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-def run_server(args=None, exit_shell=True, open_browser=False):
+def run_server(args=None, exit_shell=True):
     disable_flask_logs()
     try:
         if args:
@@ -29,7 +29,7 @@ def run_server(args=None, exit_shell=True, open_browser=False):
         starting_msg = "Starting server: [http://" + server_params[0] + ":" + server_params[1] + "]"
         if server_params[0] == "0.0.0.0": starting_msg += " (localhost:" + server_params[1] + ")"
         logger.info(starting_msg)
-        if open_browser:
+        if args['open']:
             webbrowser.open(f"http://{'localhost' if server_params[0] == '0.0.0.0' else server_params[0]}:{server_params[1]}")
         socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=False)
     except (PermissionError, ValueError):
