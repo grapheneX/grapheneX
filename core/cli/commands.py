@@ -170,7 +170,7 @@ class ShellCommands(Help):
         try:
             edit_prompt = [
                 {
-                    'type': 'rawlist',
+                    'type': 'list',
                     'name': 'option',
                     'message': 'What do you want to do?',
                     'choices': ["Add module", "Edit module", "Remove module"],
@@ -183,7 +183,7 @@ class ShellCommands(Help):
                 # Namespace selection
                 ns_prompt = [
                     {
-                        'type': 'rawlist',
+                        'type': 'list',
                         'name': 'namespace',
                         'message': 'Select a namespace for your module',
                         'choices': list(self.modules.keys()) + ["new"],
@@ -226,7 +226,7 @@ class ShellCommands(Help):
                     mod_ns = mod_namespace['mod_ns']
                 except:
                     pass
-                #Assigning property to the ModuleNameValidation class to access modules within the selected namespace.
+                # Assigning property to the ModuleNameValidation class to access modules within the selected namespace.
                 ModuleNameValidation.modules = self.modules[mod_ns].keys() if mod_ns in self.modules.keys() else []
                 # Append with other module information
                 mod_details = prompt(mod_questions)
@@ -251,7 +251,7 @@ class ShellCommands(Help):
                 # Namespace selection
                 ns_prompt = [
                     {
-                        'type': 'rawlist',
+                        'type': 'list',
                         'name': 'namespace',
                         'message': "Select the namespace of module to " + mod_option,
                         'choices': list(self.modules.keys())
@@ -261,7 +261,7 @@ class ShellCommands(Help):
                 # Module selection
                 mod_prompt = [
                     {
-                        'type': 'rawlist',
+                        'type': 'list',
                         'name': 'module',
                         'message': "Select a module to " + mod_option,
                         'choices': self.modules[selected_ns]
@@ -280,7 +280,7 @@ class ShellCommands(Help):
                     # Module property selection
                     prop_prompt = [
                         {
-                            'type': 'rawlist',
+                            'type': 'list',
                             'name': 'property',
                             'message': "Select a property for editing " + selected_mod,
                             'choices': prop_list
