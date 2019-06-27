@@ -10,7 +10,7 @@ def main():
     args = parse_cli_args()
     print_header()
     if(args['web']):
-        run_server(args)
+        run_server(args, open_browser=args['open'])
     else:
         start_cli()
 
