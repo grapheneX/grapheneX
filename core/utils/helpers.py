@@ -7,17 +7,15 @@ import importlib.util
 import inspect
 import ctypes
 import platform
-import pathlib
 import json
 
 from core.hrd import HardenMethod
 from core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
-
-PROJECT_DIR = pathlib.Path.cwd()
-mod_json_file = PROJECT_DIR / 'modules.json'
-
+project_dir = '/'.join(os.path.dirname(os.path.realpath(__file__)) \
+                .split("/")[:-2]) + '/'
+mod_json_file = project_dir + 'modules.json'
 
 def print_header():
     """
@@ -118,7 +116,7 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
             namespaces.append(namespace)
     return namespaces
 
-def get_mod_json(path=PROJECT_DIR):
-    with open(path / 'modules.json', 'r') as json_file:
+def get_mod_json(path=project_dir):
+    with open(path + 'modules.json', 'r') as json_file:
         json_data = json.load(json_file)
     return json_data
