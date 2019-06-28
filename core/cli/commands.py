@@ -6,6 +6,7 @@ from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
 from PyInquirer import prompt, Validator, ValidationError
+import textwrap
 import random
 import json
 import os
@@ -113,19 +114,24 @@ class ShellCommands(Help):
         """Search for modules"""
 
         search_table = [['Module', 'Description']]
+        table = AsciiTable(search_table)
+        max_width = table.column_max_width(1)
+
         if arg:
             if arg in self.modules.keys():
                 for name, module in self.modules[arg].items():
-                    search_table.append(
-                        [arg + "/" + name, module.desc])
+                    wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                    table.table_data.append(
+                        [arg + "/" + name, wrapped])
             else:
                 for k, v in self.modules.items():
                     for name, module in v.items():
                         if arg.lower() in name.lower():
-                            search_table.append(
-                                [k + "/" + name, module.desc])
-            if len(search_table) > 1:
-                print(AsciiTable(search_table).table)
+                            wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                            table.table_data.append(
+                                [k + "/" + name, wrapped])
+            if len(table.table_data) > 1:
+                print(table.table)
             else:
                 logger.error(f"Nothing found for \"{arg}\".")
         else:
@@ -135,15 +141,22 @@ class ShellCommands(Help):
         """List available hardening modules"""
 
         modules_table = [['Module', 'Description']]
+        table = AsciiTable(modules_table)
+        max_width = table.column_max_width(1)
+
         if self.namespace:
-            for name, module in self.modules[self.namespace].items():
-                modules_table.append([name, module.desc])
+            for name, module in self.modules[self.namespace].items(): 
+                wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                table.table_data.append(
+                    [self.namespace + "/" + name, wrapped])
         else:
             for k, v in self.modules.items():
                 for name, module in v.items():
-                    modules_table.append(
-                        [k + "/" + name, module.desc])
-        print(AsciiTable(modules_table).table)
+                    wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                    table.table_data.append(
+                        [k + "/" + name, wrapped])
+          
+        print(table.table)
 
     def do_back(self, arg):
         """Go back if namespace (hardening method) selected or switched"""

@@ -3,8 +3,11 @@
 
 from core.utils.argparser import parse_cli_args
 from core.utils.helpers import print_header
+from core.utils.logcl import GraphenexLogger
 from core.cli.shell import start_cli
 from core.web import run_server
+
+logger = GraphenexLogger('Graphenex')
 
 def main():
     args = parse_cli_args()
@@ -12,6 +15,8 @@ def main():
     if(args['web']):
         run_server(args)
     else:
+        if args['open']:
+            logger.warn("--open argument is unnecessary. Use with -w or --web")
         start_cli()
 
 if __name__ == "__main__":
