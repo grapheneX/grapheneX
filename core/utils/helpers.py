@@ -1,6 +1,9 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+from core.hrd import HardenMethod
+from core.utils.logcl import GraphenexLogger
+
 import argparse
 import sys
 import os
@@ -9,14 +12,13 @@ import inspect
 import ctypes
 import platform
 import json
+import pathlib
 
-from core.hrd import HardenMethod
-from core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
-project_dir = '/'.join(os.path.dirname(os.path.realpath(__file__)) \
-                .split("/")[:-2]) + '/'
-mod_json_file = project_dir + 'modules.json'
+
+project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
+mod_json_file = project_dir / 'modules.json'
 
 def parse_cli_args():
     """
@@ -139,6 +141,6 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     return namespaces
 
 def get_mod_json(path=project_dir):
-    with open(path + 'modules.json', 'r') as json_file:
+    with open(mod_json_file, 'r') as json_file:
         json_data = json.load(json_file)
     return json_data
