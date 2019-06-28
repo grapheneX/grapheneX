@@ -140,7 +140,7 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
             namespaces.append(namespace)
     return namespaces
 
-def get_mod_json(path=project_dir):
+def get_mod_json():
     with open(mod_json_file, 'r') as json_file:
         json_data = json.load(json_file)
     return json_data
