@@ -253,5 +253,14 @@
             "require_superuser": "False",
             "target_os": "linux"
         }
+    ],
+    "other": [
+        {
+            "name": "SSH_Disable_Root",
+            "desc": "Disable the option to login directly as root via SSH, use sudo instead.",
+            "command": "echo \"PermitRootLogin no\" >> /etc/ssh/ssh_config",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
     ]
 }
