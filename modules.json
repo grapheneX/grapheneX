@@ -254,6 +254,22 @@
             "target_os": "linux"
         }
     ],
+    "filesystem": [
+        {
+            "name": "Link_Protection",
+            "desc": "Enable hard/soft link protection.",
+            "command": "echo \"fs.protected_hardlinks = 1\" > /etc/sysctl.d/50-fs-hardening.conf; echo \"fs.protected_symlinks = 1\" >> /etc/sysctl.d/50-fs-hardening.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Disable_Uncommon_FS",
+            "desc": "Disable uncommon filesystems.",
+            "command": "echo \"install cramfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install freevxfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install jffs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install hfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install hfsplus /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install squashfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install udf /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install fat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install vfat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install nfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install nfsv3 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install gfs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
+    ],
     "other": [
         {
             "name": "SSH_Disable_Root",
