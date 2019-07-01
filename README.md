@@ -82,6 +82,13 @@ optional arguments:
 
 ### Interactive Shell
 
+Execute the `grapheneX.py` with Python in order to start the interactive shell.
+
+![GrapheneX Interactive Shell](https://user-images.githubusercontent.com/24392180/60462623-7a9ef580-9c52-11e9-8baf-039c2e97669d.gif)
+
+• grapheneX currently supports [Python3.7](https://www.python.org/)   
+• Project's some functions (such as hardening) might not work without root access. So consider running the grapheneX with sudo/administrative access.
+
 ### Web Interface
 
 ## Commands
