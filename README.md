@@ -82,9 +82,16 @@ pipenv run python grapheneX.py
 
 ## Contribution
 
+For contributing to this project, see [CONTRIBUTING.md](./CONTRIBUTING.md)
+
 ## Sponsors
+
+We don't have any sponsors yet. Contact us with email if you want to help us improve the project.
 
 ## License
 
+GNU General Public License v3.0 ([gpl](https://www.gnu.org/licenses/gpl.txt))
+
 ## Credit
 
+Copyright (C) 2019 by [GrapheneX Team](https://github.com/orgs/grapheneX/people)
