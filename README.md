@@ -32,6 +32,8 @@ Description
 
 ## Examples
 
+## Screenshots
+
 ## TODO(s)
 
 ## Contribution
