@@ -66,6 +66,21 @@ pipenv run python grapheneX.py
 
 ### Command Line Arguments
 
+```
+usage: grapheneX.py [-h] [-v] [-w] [--open] [host:port]
+
+grapheneX | Automated System Hardening Framework
+
+positional arguments:
+  host:port      host and port to run the web interface
+
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --version  show version information
+  -w, --web      run the grapheneX web server
+  --open         open browser on web server start
+```
+
 ### Interactive Shell
 
 ### Web Interface
