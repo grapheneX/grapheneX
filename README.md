@@ -7,3 +7,36 @@
 [![Stars](https://img.shields.io/github/stars/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/stargazers)
 [![Forks](https://img.shields.io/github/forks/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/network)
 [![License](https://img.shields.io/github/license/grapheneX/grapheneX.svg?style=flat-square)](./LICENSE)
+
+Description
+
+## Installation
+
+### Dependencies
+
+### Clone the Repository
+
+### Package Installation
+
+## Usage
+
+### Command Line Arguments
+
+### Interactive Shell
+
+### Web Interface
+
+## Commands
+
+## Web
+
+## Examples
+
+## TODO(s)
+
+## Contribution
+
+## License
+
+## Credit
+
