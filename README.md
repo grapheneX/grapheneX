@@ -26,6 +26,16 @@ Hardening commands and the scopes of those commands are referred to `modules` an
 Additionally, it's possible to add, edit or remove modules and namespaces. 
 Also, the hardening operation can be automated with the presets that contain a list of modules.
 
+Currently, grapheneX support the hardening sections below. Each of these namespaces contains more than one module.
+
+• Firewall  
+• User   
+• Network   
+• Services   
+• Kernel   
+• Filesystem  
+• Other
+
 ## Installation
 
 ### Dependencies
