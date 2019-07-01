@@ -134,6 +134,13 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\" /v ForceGuest  /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
+        },
+        {
+            "name": "Auto_Logout",
+            "desc": "Set auto logout inactive users.",
+            "command": "echo \"readonly TMOUT=900\" >> /etc/profile.d/idle-users.sh; echo \"readonly HISTFILE\" >> /etc/profile.d/idle-users.sh; chmod +x /etc/profile.d/idle-users.sh",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "network": [
@@ -157,6 +164,69 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Printers\" /v DisableHTTPPrinting /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
+        },
+        {
+            "name": "Enable_Cookie_Protection",
+            "desc": "Enable TCP SYN Cookie protection.",
+            "command": "echo \"net.ipv4.tcp_syncookies = 1\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Disable_IP_Source_Routing",
+            "desc": "Disable IP source routing.",
+            "command": "echo \"net.ipv4.conf.all.accept_source_route = 0\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Disable_Redirect_Acceptance",
+            "desc": "Disable ICMP redirect acceptance.",
+            "command": "echo \"net.ipv4.conf.all.accept_redirects = 0\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Ignore_ICMP",
+            "desc": "Enable ignoring to ICMP requests.",
+            "command": "echo \"net.ipv4.icmp_echo_ignore_all = 1\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Ignore_Broadcast",
+            "desc": "Enable ignoring broadcasts request.",
+            "command": "echo \"net.ipv4.icmp_echo_ignore_broadcasts = 1\" > /etc/sysctl.d/50-net-stack.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Force_SYN",
+            "desc": "Make sure new incoming tcp connections are SYN packets",
+            "command": "iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP",
+            "require_superuser": "False",
+            "target_os": "linux"
+        },
+        {
+            "name": "Fragment_Drop",
+            "desc": "Packets with incoming fragments drop them. This attack result into Linux server panic such data loss.",
+            "command": "iptables -A INPUT -f -j DROP",
+            "require_superuser": "False",
+            "target_os": "linux"
+        },
+        {
+            "name": "XMAS_Drop",
+            "desc": "Incoming malformed XMAS packets drop them",
+            "command": "iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP",
+            "require_superuser": "False",
+            "target_os": "linux"
+        },
+        {
+            "name": "Drop_Null",
+            "desc": "Incoming malformed NULL packets",
+            "command": "iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP",
+            "require_superuser": "False",
+            "target_os": "linux"
         }
     ],
     "services": [
@@ -215,6 +285,13 @@
             "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\" /v SafeDllSearchMode /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
+        },
+        {
+            "name": "Syslog_Service",
+            "desc": "Ensure syslog service is enabled and running.",
+            "command": "systemctl enable rsyslog; systemctl start rsyslog",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "kernel": [
@@ -230,6 +307,45 @@
             "desc": "Restricting access to kernel pointers.",
             "command": "echo \"kernel.kptr_restrict = 1\" > /etc/sysctl.d/50-kptr-restrict.conf",
             "require_superuser": "False",
+            "target_os": "linux"
+        },
+        {
+            "name": "ExecShield_Protection",
+            "desc": "ExecShield protection",
+            "command": "echo \"kernel.exec-shield = 2\" > /etc/sysctl.d/50-exec-shield.conf",
+            "require_superuser": "False",
+            "target_os": "linux"
+        },
+        {
+            "name": "Randomise_Memory",
+            "desc": "Randomise memory space.",
+            "command": "echo \"kernel.randomize_va_space=2\" > /etc/sysctl.d/50-rand-va-space.conf",
+            "require_superuser": "False",
+            "target_os": "linux"
+        }
+    ],
+    "filesystem": [
+        {
+            "name": "Link_Protection",
+            "desc": "Enable hard/soft link protection.",
+            "command": "echo \"fs.protected_hardlinks = 1\" > /etc/sysctl.d/50-fs-hardening.conf; echo \"fs.protected_symlinks = 1\" >> /etc/sysctl.d/50-fs-hardening.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Disable_Uncommon_FS",
+            "desc": "Disable uncommon filesystems.",
+            "command": "echo \"install cramfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install freevxfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install jffs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install hfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install hfsplus /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install squashfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install udf /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install fat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install vfat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install nfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install nfsv3 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install gfs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
+    ],
+    "other": [
+        {
+            "name": "SSH_Disable_Root",
+            "desc": "Disable the option to login directly as root via SSH, use sudo instead.",
+            "command": "echo \"PermitRootLogin no\" >> /etc/ssh/ssh_config",
+            "require_superuser": "True",
             "target_os": "linux"
         }
     ]
