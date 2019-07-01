@@ -16,7 +16,7 @@ Unfortunately, it's not possible to know all the details about hardening and nec
 Therefore there are hardening checklists that contain various commands and rules of the specified operating system available such as [trimstray/linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) & [Windows Server Hardening Checklist](https://www.upguard.com/blog/the-windows-server-hardening-checklist) on the internet for providing a set of commands with their sections and of course simplifying the concept for the end user.
 But still, the user must know the commands and apply the hardening manually depending on the system. That's where the `grapheneX` exactly comes in play.
 
-> `The project name is derived from the 'graphene'.` Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
+> The project name is derived from the 'graphene'. Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
 
 `grapheneX` project aims to provide a framework for securing the system with hardening commands automatically. 
 It's designed for the end user as well as the Linux and Windows developers due to the interface options. (interactive shell/web interface) 
