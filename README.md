@@ -72,6 +72,8 @@ pipenv run python grapheneX.py
 
 ## Commands
 
+### help
+
 ### list
 
 ### switch
@@ -92,9 +94,11 @@ pipenv run python grapheneX.py
 
 ### clear
 
+Clear terminal
+
 ### exit
 
-### help
+Exit interactive shell
 
 ## Web
 
