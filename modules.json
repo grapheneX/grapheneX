@@ -130,7 +130,7 @@
         },
         {
             "name": "Config_Classic_Security_Model",
-            "desc": "Windows includes two network-sharing security models—Classic and Guest only. With the classic model, local accounts must be password protected; otherwise, anyone can use guest user accounts to access shared system resources.",
+            "desc": "Windows includes two network-sharing security models\u00e2\u20ac\u201dClassic and Guest only. With the classic model, local accounts must be password protected; otherwise, anyone can use guest user accounts to access shared system resources.",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\" /v ForceGuest  /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
@@ -155,6 +155,13 @@
             "name": "Network_Digitally_Sign_Communications",
             "desc": "The server message block (SMB) protocol provides the basis for many network operations. Digitally signed SMB packets aid in preventing man-in-the-middle attacks. If this policy is enabled, the SMB client will only communicate with an SMB server that performs SMB packet signing.",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v RequireSecuritySignature  /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Prevent_Printing_Over_Http",
+            "desc": "This module verifies that the system is configured to prevent the client computer's ability to print over HTTP, which allows the computer to print to printers on the intranet as well as the Internet.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Printers\" /v DisableHTTPPrinting /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
@@ -241,6 +248,41 @@
             "name": "Machine_Inactivity_15_Min",
             "desc": "Unattended systems are susceptible to unauthorized use and should be locked when unattended. The screen saver should be set at a maximum of 15 minutes and be password protected. This protects critical and sensitive data from exposure to unauthorized personnel with physical access to the computer.",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v InactivityTimeoutSecs  /t REG_DWORD /d 0x00000384 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "IPSec_Exemptions_Limited",
+            "desc": "This check verifies that Windows is configured to limit IPSec exemptions.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\IPSEC\" /v NoDefaultExempt  /t REG_DWORD /d 3 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "WinExplorer_Heap_Corruption_Disable",
+            "desc": "This check verifies that heap termination on corruption is disabled. This may prevent Windows Explorer from terminating immediately from certain legacy plug-in applications.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services\" /v fAllowUnsolicited  /t REG_DWORD /d 0 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Remote_Logfiles_Generate",
+            "desc": "This check verifies that Remote Assistance log files will be generated.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services\" /v LoggingEnabled /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "SubSystem_Require_Case_Insensitivity",
+            "desc": "This setting controls the behavior of non-Windows subsystems when dealing with the case of arguments or commands. Case sensitivity could lead to the access of files or commands that must be restricted. To prevent this from happening, case insensitivity restrictions must be required.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v ObCaseInsensitive /t REG_DWORD /d 1 /f",
+            "require_superuser": "False",
+            "target_os": "win"
+        },
+        {
+            "name": "Safe_DLL_Search_Mode",
+            "desc": "The default search behavior, when an application calls a function in a Dynamic Link Library (DLL), is to search the current directory followed by the directories contained in the systems path environment variable. An unauthorized DLL inserted into an applications working directory could allow malicious code to be run on the system. Creating the following registry key and setting the appropriate value forces the system to search the %Systemroot% for the DLL before searching the current directory or the rest of the path.",
+            "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\" /v SafeDllSearchMode /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },

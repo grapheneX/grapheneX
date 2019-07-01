@@ -2,8 +2,8 @@ function getModuleBox(name, desc) {
 	return '<div class="module-box deep" style="margin-bottom: 20px;" id="' + name + '_div" data-aos="fade-up">\
             <div class="row">\
                 <div  class="col-9 d-flex justify-content-between" id="' + name + '_area">\
-                    <div class="mr-auto p-2 text-left" style="word-break: break-all;">\
-                        <h6>' + name + '</h6>\
+                    <div class="mr-auto p-2 text-left">\
+                        <h6 style="word-break: break-all;">' + name + '</h6>\
                         <p class="text-muted" style="font-size: 13px; margin-bottom:0">' + desc + '</p>\
                     </div>\
                 </div>\

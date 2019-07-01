@@ -1,23 +1,45 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+from core.hrd import HardenMethod
+from core.utils.logcl import GraphenexLogger
+
+import argparse
 import sys
 import os
 import importlib.util
 import inspect
 import ctypes
 import platform
-import pathlib
 import json
+import pathlib
 
-from core.hrd import HardenMethod
-from core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
 
-PROJECT_DIR = pathlib.Path.cwd()
-mod_json_file = PROJECT_DIR / 'modules.json'
+project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
+mod_json_file = project_dir / 'modules.json'
 
+def parse_cli_args():
+    """
+    Command-line argument parser.
+
+    Returns parsed args as dict.
+    [-w, --web]: Runs web server if given.
+    """
+    parser = argparse.ArgumentParser(
+        description='grapheneX | Automated System Hardening Framework')
+    parser.add_argument('-w',
+                        '--web',
+                        help='run the grapheneX web server',
+                        action="store_true")
+    parser.add_argument('host_port', metavar='host:port', type=str, nargs='?', 
+                        default='0.0.0.0:8080',
+                        help="host and port to run the web interface")
+    parser.add_argument('--open', action="store_true",
+                        help="open browser on web server start")
+    args = vars(parser.parse_args())
+    return args
 
 def print_header():
     """
@@ -118,7 +140,7 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
             namespaces.append(namespace)
     return namespaces
 
-def get_mod_json(path=PROJECT_DIR):
-    with open(path / 'modules.json', 'r') as json_file:
+def get_mod_json():
+    with open(mod_json_file, 'r') as json_file:
         json_data = json.load(json_file)
     return json_data
