@@ -72,6 +72,30 @@ pipenv run python grapheneX.py
 
 ## Commands
 
+### list
+
+### switch
+
+### use
+
+### info
+
+### harden
+
+### back
+
+### search
+
+### manage
+
+### web
+
+### clear
+
+### exit
+
+### help
+
 ## Web
 
 ## Examples
