@@ -8,7 +8,7 @@
 [![Forks](https://img.shields.io/github/forks/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/network)
 [![License](https://img.shields.io/github/license/grapheneX/grapheneX.svg?style=flat-square)](./LICENSE)
 
-Description
+> In computing, hardening is usually the process of securing a system by reducing its surface of vulnerability, which is larger when a system performs more functions; in principle a single-function system is more secure than a multipurpose one. Reducing available ways of attack typically includes changing default passwords, the removal of unnecessary software, unnecessary usernames or logins, and the disabling or removal of unnecessary services.
 
 ## Installation
 
