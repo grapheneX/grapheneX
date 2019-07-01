@@ -48,6 +48,19 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 
 ### Package Installation
 
+Pip:
+
+```
+pip install -r requirements.txt
+python grapheneX.py
+```
+
+Pipenv:
+
+```
+pipenv install
+pipenv run python grapheneX.py
+```
 
 ## Usage
 
