@@ -19,7 +19,8 @@ def main():
         run_server(args)
     else:
         if args['open']:
-            logger.warn("--open argument is unnecessary. Use with -w or --web")
+            logger.warn("[--open] argument is unnecessary. " +
+                    "Use with [-w] or [--web].")
         start_cli()
 
 if __name__ == "__main__":
