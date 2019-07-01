@@ -40,9 +40,14 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 
 ### Dependencies
 
-### Clone the Repository
+* [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
+  *  [Flask](http://flask.pocoo.org/)
+* [coloredlogs](https://pypi.org/project/coloredlogs/)
+* [terminaltables](https://pypi.org/project/terminaltables/)
+* [PyInquirer](https://pypi.org/project/PyInquirer/)
 
 ### Package Installation
+
 
 ## Usage
 
