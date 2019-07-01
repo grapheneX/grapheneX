@@ -6,10 +6,14 @@ from core.utils.logcl import GraphenexLogger
 from core.cli.shell import start_cli
 from core.web import run_server
 
+version = 1.0
 logger = GraphenexLogger('Graphenex')
 
 def main():
     args = parse_cli_args()
+    if(args['version']):
+        print("grapheneX v" + str(version))
+        exit()
     print_header()
     if(args['web']):
         run_server(args)
