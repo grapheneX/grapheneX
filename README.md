@@ -17,6 +17,7 @@ Therefore there are hardening checklists that contain various commands and rules
 But still, the user must know the commands and apply the hardening manually depending on the system. That's where the `grapheneX` exactly comes in play.
 
 
+
 ## Installation
 
 ### Dependencies
