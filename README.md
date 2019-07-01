@@ -45,6 +45,8 @@ But still, the user must know the commands and apply the hardening manually depe
 
 ## Contribution
 
+## Sponsors
+
 ## License
 
 ## Credit
