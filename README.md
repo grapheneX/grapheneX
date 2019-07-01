@@ -1,8 +1,6 @@
 ![grapheneX](https://user-images.githubusercontent.com/24392180/60434254-65ed3e00-9c0f-11e9-8b73-73f9a1b25f60.png)
 
-# grapheneX [![Release](https://img.shields.io/github/release/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/releases)
-
-### Automated System Hardening Framework for Linux & Windows.
+[![Release](https://img.shields.io/github/release/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/releases)
 
 [![Issues](https://img.shields.io/github/issues/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/pulls)
