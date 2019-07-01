@@ -68,9 +68,8 @@ pipenv run python grapheneX.py
 
 ```
 usage: grapheneX.py [-h] [-v] [-w] [--open] [host:port]
-
-grapheneX | Automated System Hardening Framework
-
+```
+```
 positional arguments:
   host:port      host and port to run the web interface
 
