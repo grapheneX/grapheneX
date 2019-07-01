@@ -14,7 +14,8 @@ Although the current technology tries to design systems as safe as possible, sec
 The user must be knowledgeable about the technical side of system architecture and should be aware of the importance of securing his/her system from vulnerabilities like this. 
 Unfortunately, it's not possible to know all the details about hardening and necessary commands for every ordinary user and the hardening remains to be a technical issue due to the difficulty of understanding operating system internals. 
 Therefore there are hardening checklists that contain various commands and rules of the specified operating system available such as [trimstray/linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) & [Windows Server Hardening Checklist](https://www.upguard.com/blog/the-windows-server-hardening-checklist) on the internet for providing a set of commands with their sections and of course simplifying the concept for the end user.
-But still, the user must know the commands and apply the hardening manually depending on the system. That's where the `grapheneX project` comes in play exactly.
+But still, the user must know the commands and apply the hardening manually depending on the system. That's where the `grapheneX` exactly comes in play.
+
 
 ## Installation
 
