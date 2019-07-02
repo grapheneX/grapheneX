@@ -130,11 +130,38 @@ python grapheneX.py -w --open
 
 ### help
 
+`help` or `?` shows the commands list above.
+
 ### list
+
+Show the available modules in a table.
+For example:
+
+![List Command](https://user-images.githubusercontent.com/24392180/60528104-5e579300-9cfc-11e9-9a01-ac827fd365b1.gif)
 
 ### switch
 
+`switch` command can be used to switch to a namespace or use a module. It's helpful if you want to see a list of modules in a namespace.
+
+```
+switch [NAMESPACE]
+```
+
+![Switch Command](https://user-images.githubusercontent.com/24392180/60528986-46810e80-9cfe-11e9-9870-00333657fdee.gif)
+
+• Supports autocomplete for namespaces.
+
+Also, using the `switch` command like this is possible:
+
+```
+switch [NAMESPACE]/[MODULE]
+```
+
+It's the equivalent of the `use` command in this situation.
+
 ### use
+
+
 
 ### info
 
