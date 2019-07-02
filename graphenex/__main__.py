@@ -6,16 +6,21 @@ from graphenex.core.utils.logcl import GraphenexLogger
 from graphenex.core.cli.shell import start_cli
 from graphenex.core.web import run_server
 
+version = 1.0
 logger = GraphenexLogger('Graphenex')
 
 def main():
     args = parse_cli_args()
+    if(args['version']):
+        print("grapheneX v" + str(version))
+        exit()
     print_header()
     if(args['web']):
         run_server(args)
     else:
         if args['open']:
-            logger.warn("--open argument is unnecessary. Use with -w or --web")
+            logger.warn("[--open] argument is unnecessary. " +
+                    "Use with [-w] or [--web].")
         start_cli()
 
 if __name__ == "__main__":

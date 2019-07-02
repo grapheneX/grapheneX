@@ -44,7 +44,7 @@ class Help:
             content="Switch between modules")
 
     def help_search(self):
-        self.message(syntax="search [module]",
+        self.message(syntax="search [query]",
             content="Search for module or namespace")
 
     def help_use(self):
@@ -54,3 +54,7 @@ class Help:
     def help_web(self):
         self.message(syntax="web [host:port]",
             content="Start the web server")
+
+    def help_preset(self):
+        self.message(syntax="preset [preset]",
+            content="Execute the hardening module preset")
