@@ -348,5 +348,15 @@
             "require_superuser": "True",
             "target_os": "linux"
         }
+    ],
+    "presets": [
+        {
+            "name": "Kernel_Access_Restriction",
+            "modules": [
+                "kernel/Logs_Restrict_Access",
+                "kernel/Pointers_Restrict_Access"
+            ],
+            "target_os": "linux"
+        }
     ]
 }
