@@ -189,10 +189,6 @@ Executes the hardening command of the selected module.
 
 ### preset
 
-### back
-
-Go back from selected namespace or module.
-
 ### search
 
 ```
@@ -240,8 +236,11 @@ Choosing the `remove` option in the `manage` menu will be enough for removing th
 
 ![Removing Module](https://user-images.githubusercontent.com/24392180/60545589-18aec080-9d24-11e9-9e3f-2385f05ecf09.gif)
 
-
 ### web
+
+### back
+
+Go back from selected namespace or module.
 
 ### clear
 
