@@ -483,7 +483,7 @@ class ModuleNameValidation(Validator):
                     cursor_position=len(document.text))
             elif document.text.lower() in [module.lower() for module in self.modules]:
                 raise ValidationError(
-                    message="Try a different name, this module name is available",
+                    message="Try a different name, this module name is not available.",
                     cursor_position=len(document.text))
 
 class NamespaceValidation(Validator):
