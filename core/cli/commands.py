@@ -242,7 +242,7 @@ class ShellCommands(Help):
                 # Append with other module information
                 mod_details = prompt(mod_questions)
                 mod_dict = {
-                        "name": mod_details['mod_name'].capitalize(),
+                        "name": mod_details['mod_name'].title(),
                         "desc": mod_details['mod_desc'],
                         "command":  mod_details['mod_cmd'],
                         "require_superuser": mod_details['mod_su'],
@@ -304,7 +304,7 @@ class ShellCommands(Help):
                         'type': 'input',
                         'name': 'val',
                         'message': "New value for " + selected_prop}])['val']
-                    new_val = new_val.capitalize() if selected_prop == "name" else new_val
+                    new_val = new_val.title() if selected_prop == "name" else new_val
                     # Update the selected property of module
                     data[selected_ns][mod_index][selected_prop] = new_val
                     # Write the updated modules.json
