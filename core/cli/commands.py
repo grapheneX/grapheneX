@@ -235,8 +235,10 @@ class ShellCommands(Help):
                     mod_ns = mod_namespace['mod_ns']
                 except:
                     pass
-                # Assigning property to the ModuleNameValidation class to access modules within the selected namespace.
-                ModuleNameValidation.modules = self.modules[mod_ns].keys() if mod_ns in self.modules.keys() else []
+                # Assigning property to the ModuleNameValidation class to 
+                # access modules within the selected namespace.
+                ModuleNameValidation.modules = self.modules[mod_ns].keys() \
+                    if mod_ns in self.modules.keys() else []
                 # Append with other module information
                 mod_details = prompt(mod_questions)
                 mod_dict = {
@@ -252,7 +254,8 @@ class ShellCommands(Help):
                     data.update({mod_ns.lower(): [mod_dict]})
                 # Write the updated modules.json
                 save_mod_json(data)
-                logger.info("Module added successfully. Use 'list' command to see available modules.")
+                logger.info("Module added successfully. Use 'list' " + \
+                    "command to see available modules.")
 
             # EDIT & REMOVE
             elif choice['option'] == "Edit module" or choice['option'] == "Remove module":
@@ -393,7 +396,7 @@ class ShellCommands(Help):
                 mods = ""
                 for module in preset['modules'][:-1]:
                     mods += '\n'.join(textwrap.wrap(module, max_width - 40)) + '\n'
-                mods += '\n'.join(textwrap.wrap(preset['modules'][-1], max_width - 40))
+                mods += '\n'.join(textwrap.wrap(preset['modules'][-1], max_width-40))
                 table.table_data.append([preset['name'], mods])
             # Show the table
             if len(table.table_data) > 1:
