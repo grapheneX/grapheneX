@@ -357,6 +357,13 @@
                 "kernel/Pointers_Restrict_Access"
             ],
             "target_os": "linux"
+        },
+        {
+            "name": "Network_Hardening",
+            "modules": [
+                "network/All"
+            ],
+            "target_os": "linux"
         }
     ]
 }
