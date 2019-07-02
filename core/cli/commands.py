@@ -328,7 +328,8 @@ class ShellCommands(Help):
         
         presets = get_presets()
         if arg:
-            modules = [preset['modules'] for preset in presets if preset['name'] == arg]
+            modules = [preset['modules'] for preset in presets \
+                if preset['name'] == arg]
             if len(modules) == 0:
                 logger.error(f"Preset not found: '{arg}'")
                 return
@@ -344,21 +345,31 @@ class ShellCommands(Help):
                 conf_mod = prompt(confirm_prompt)['confirm']
             except:
                 return
+            # Main module loop
             for module in modules:
+                # Select the namespace
                 self.namespace = module.split("/")[0].lower()
+                # Loop through the modules
                 for name, mod in self.modules[self.namespace].items():
+                    # Select the module if it equals to the module in
+                    # the preset or equals to 'all'
                     if module.split("/")[1].lower() == "all" or \
                      module.split("/")[1].lower() == name.lower():
+                        # Select the module
                         self.module = mod.get_mod_name()
+                        # If confirmation not needed
                         if conf_mod:
                             self.do_harden(None)
                         else:
+                            # Show module information
                             self.do_info(None)
+                            # Ask for permission for executing the command
                             exec_conf = prompt([{
                                     'type': 'confirm',
                                     'name': 'confirm',
                                     'message': 'Execute the hardening command?',
                             }])
+                            # Execute the command or cancel
                             try:
                                 if exec_conf['confirm']:
                                     self.do_harden(None)
@@ -367,6 +378,7 @@ class ShellCommands(Help):
                             except:
                                 logger.info("Hardening cancelled. " + \
                                 f"({self.namespace}/{self.module})")
+            # Go back from the selected module and namespace
             self.module = ""
             self.namespace = ""
         else:
@@ -376,13 +388,14 @@ class ShellCommands(Help):
             search_table = [['Preset', 'Modules']]
             table = AsciiTable(search_table)
             max_width = table.column_max_width(1)
+            # Create a table of presets
             for preset in presets:
                 mods = ""
                 for module in preset['modules'][:-1]:
                     mods += '\n'.join(textwrap.wrap(module, max_width - 40)) + '\n'
                 mods += '\n'.join(textwrap.wrap(preset['modules'][-1], max_width - 40))
                 table.table_data.append([preset['name'], mods])
-
+            # Show the table
             if len(table.table_data) > 1:
                 print(table.table)
             else:
