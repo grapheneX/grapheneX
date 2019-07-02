@@ -44,7 +44,7 @@ class Help:
             content="Switch between modules")
 
     def help_search(self):
-        self.message(syntax="search [module]",
+        self.message(syntax="search [query]",
             content="Search for module or namespace")
 
     def help_use(self):
