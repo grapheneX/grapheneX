@@ -110,7 +110,7 @@ python grapheneX.py -w 192.168.1.36:8090
 python grapheneX.py -w --open
 ```
 
-## Commands
+## CLI Commands
 
 | Command 	| Description                                                                 	|
 |---------	|-----------------------------------------------------------------------------	|
