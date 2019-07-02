@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.utils.helpers import check_os, get_modules, \
-    get_mod_json, mod_json_file, get_forbidden_namespaces
+    get_mod_json, get_presets, mod_json_file, get_forbidden_namespaces
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
@@ -325,9 +325,15 @@ class ShellCommands(Help):
 
     def do_preset(self, arg):
         """Show/execute the hardening module presets"""
-        
-        pass 
 
+        if arg:
+            pass
+        else:
+            print(get_presets())
+
+            
+
+        
     def do_web(self, arg):
         """Run the grapheneX web server"""
 
