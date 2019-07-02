@@ -327,7 +327,6 @@ class ShellCommands(Help):
         """Show/execute the hardening module presets"""
         
         presets = get_presets()
-
         if arg:
             modules = [preset['modules'] for preset in presets if preset['name'] == arg]
             if len(modules) == 0:
@@ -341,15 +340,35 @@ class ShellCommands(Help):
                     'message': 'Run modules without confirmation?',
                 }
             ]
-            conf_mod = prompt(confirm_prompt)['confirm']
+            try:
+                conf_mod = prompt(confirm_prompt)['confirm']
+            except:
+                return
             for module in modules:
-                namespace = module.split("/")[0].lower()
-                for name, mod in self.modules[namespace].items():
-                    if module.split("/")[1].lower() == "all":
-                        print(mod)
-                    if module.split("/")[1].lower() == name.lower():
-                        print(mod)
-
+                self.namespace = module.split("/")[0].lower()
+                for name, mod in self.modules[self.namespace].items():
+                    if module.split("/")[1].lower() == "all" or \
+                     module.split("/")[1].lower() == name.lower():
+                        self.module = mod.get_mod_name()
+                        if conf_mod:
+                            self.do_harden(None)
+                        else:
+                            self.do_info(None)
+                            exec_conf = prompt([{
+                                    'type': 'confirm',
+                                    'name': 'confirm',
+                                    'message': 'Execute the hardening command?',
+                            }])
+                            try:
+                                if exec_conf['confirm']:
+                                    self.do_harden(None)
+                                else:
+                                    raise Exception("Cancelled by user.")
+                            except:
+                                logger.info("Hardening cancelled. " + \
+                                f"({self.namespace}/{self.module})")
+            self.module = ""
+            self.namespace = ""
         else:
             if not presets:
                 logger.warn(f"No presets found in {mod_json_file}")
