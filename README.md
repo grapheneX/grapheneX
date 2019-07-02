@@ -82,7 +82,7 @@ optional arguments:
 
 ### Interactive Shell
 
-Execute the `grapheneX.py` with Python in order to start the interactive shell.
+Execute the `grapheneX.py` in order to start the interactive shell.
 
 ![GrapheneX Interactive Shell](https://user-images.githubusercontent.com/24392180/60462623-7a9ef580-9c52-11e9-8baf-039c2e97669d.gif)
 
@@ -90,6 +90,25 @@ Execute the `grapheneX.py` with Python in order to start the interactive shell.
 • Project's some functions (such as hardening) might not work without root access. So consider running the grapheneX with sudo/administrative access.
 
 ### Web Interface
+
+Execute the `grapheneX.py` with the `-w` or `--web` argument in order to start the web server. 
+
+![Starting the Web Server](https://user-images.githubusercontent.com/24392180/60523549-99a19400-9cf3-11e9-85eb-d89cfb083056.gif)
+
+![GrapheneX Web Interface](https://user-images.githubusercontent.com/24392180/60525198-9bb92200-9cf6-11e9-80c6-9b69b5d10c81.gif)
+
+
+• The default host and port value are `0.0.0.0:8080`. It can be changed via the `host:port` argument as shown below.
+
+```
+python grapheneX.py -w 192.168.1.36:8090
+```
+
+• Use `--open` argument to open the browser after the server start. 
+
+```
+python grapheneX.py -w --open
+```
 
 ## Commands
 
