@@ -203,6 +203,44 @@ search [QUERY]
 
 ### manage
 
+`manage` command allows to add, edit or remove modules.
+
+• Adding modules with `manage`
+
+Follow the instructions for adding a new module. Choose the 'new' option in the namespace prompt for creating a new namespace.
+
+![Adding Module](https://user-images.githubusercontent.com/24392180/60544556-b1900c80-9d21-11e9-8013-69be929fdf53.gif)
+
+• Adding modules manually
+
+grapheneX stores the modules and namespaces in `modules.json` file. It will show up as a new module when a new element is created in this JSON file. An example element is given below.
+
+```
+"namespace": [
+        {
+            "name": "Module_Name",
+            "desc": "This is the module description.",
+            "command": "echo 'hardening command'",
+            "require_superuser": "True/False",
+            "target_os": "linux/win"
+        }
+    ]
+```
+• Editing modules
+
+Choose the `edit` option after the `manage` command for the editing the module properties.
+
+![Editing Module](https://user-images.githubusercontent.com/24392180/60545208-30d21000-9d23-11e9-8b5d-e85a52521180.gif)
+
+Or edit the `modules.json` manually.
+
+• Removing modules
+
+Choosing the `remove` option in the `manage` menu will be enough for removing the specified module. It's also possible to remove the module from `modules.json` manually.
+
+![Removing Module](https://user-images.githubusercontent.com/24392180/60545589-18aec080-9d24-11e9-9e3f-2385f05ecf09.gif)
+
+
 ### web
 
 ### clear
