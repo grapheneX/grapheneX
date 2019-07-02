@@ -40,7 +40,7 @@ class ShellCommands(Help):
         return [s[offs:] for s in avb_namespaces if s.startswith(mline)]
 
     def do_use(self, arg):
-        """Use hardening module"""
+        """Use a hardening module"""
 
         if "/" in arg and arg.split("/")[0].lower() in self.modules.keys():
             self.namespace = arg.split("/")[0].lower()
@@ -101,7 +101,7 @@ class ShellCommands(Help):
         return comp_text
 
     def do_info(self, arg):
-        """Information about the desired module"""
+        """Show information about the module"""
 
         if self.module:
             module = self.modules[self.namespace][self.module]
@@ -160,7 +160,7 @@ class ShellCommands(Help):
         print(table.table)
 
     def do_back(self, arg):
-        """Go back if namespace (hardening method) selected or switched"""
+        """Go back from namespace or module"""
 
         if self.module:
             self.module = ""
@@ -413,7 +413,7 @@ class ShellCommands(Help):
         return [s[offs:].title() for s in avb_presets if s.startswith(mline)]
 
     def do_web(self, arg):
-        """Run the grapheneX web server"""
+        """Start the grapheneX web server"""
 
         from core.web import run_server
         run_server({"host_port":arg} if arg else None, False)
@@ -466,7 +466,7 @@ class ShellCommands(Help):
         return True
 
     def do_clear(self, arg):
-        """Clear terminal"""
+        """Clear the terminal"""
 
         os.system("cls" if check_os() else "clear")
 
