@@ -147,11 +147,14 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     return namespaces
 
 def get_presets(os='win' if check_os() else 'linux'):
-    presets = list()    
-    for preset in get_mod_json()['presets']:
-        if preset['target_os'] == os:
-            presets.append(preset)
-    return presets
+    try:
+        presets = list()
+        for preset in get_mod_json()['presets']:
+            if preset['target_os'] == os:
+                presets.append(preset)
+        return presets
+    except KeyError:
+        return None
 
 def get_mod_json():
     with open(mod_json_file, 'r') as json_file:
