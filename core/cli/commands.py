@@ -329,7 +329,25 @@ class ShellCommands(Help):
         if arg:
             pass
         else:
-            print(get_presets())
+            presets = get_presets()
+            if not presets:
+                logger.warn(f"No presets found in {mod_json_file}")
+            search_table = [['Preset', 'Modules']]
+            table = AsciiTable(search_table)
+            max_width = table.column_max_width(1)
+            mods = ""
+            for preset in presets:
+                for module in preset['modules'][:-1]:
+                    mods += '\n'.join(textwrap.wrap(module, max_width - 40)) + '\n'
+                mods += '\n'.join(textwrap.wrap(preset['modules'][-1], max_width - 40))
+                table.table_data.append([preset['name'], mods])
+
+            if len(table.table_data) > 1:
+                print(table.table)
+            else:
+                logger.warn(f"No presets found in {mod_json_file}")
+            
+
 
             
 
