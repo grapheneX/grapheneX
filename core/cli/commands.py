@@ -347,11 +347,14 @@ class ShellCommands(Help):
             else:
                 logger.warn(f"No presets found in {mod_json_file}")
             
+    def complete_preset(self, text, line, begidx, endidx):
+        """Complete preset command"""
 
+        avb_presets = [i['name'].lower() for i in get_presets()]
+        mline = line.lower().partition(' ')[2]
+        offs = len(mline) - len(text)
+        return [s[offs:].title() for s in avb_presets if s.startswith(mline)]
 
-            
-
-        
     def do_web(self, arg):
         """Run the grapheneX web server"""
 
