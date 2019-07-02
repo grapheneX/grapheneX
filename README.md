@@ -191,7 +191,15 @@ Executes the hardening command of the selected module.
 
 ### back
 
+Go back from selected namespace or module.
+
 ### search
+
+```
+search [QUERY]
+```
+
+![Search Command](https://user-images.githubusercontent.com/24392180/60532081-26a11900-9d05-11e9-87da-ee7eefd3ab90.gif)
 
 ### manage
 
