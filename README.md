@@ -177,6 +177,10 @@ use [MODULE]
 
 ### info
 
+Shows information (namespace, description, OS command) about the selected module.
+
+![Info Command](https://user-images.githubusercontent.com/24392180/60531173-02dcd380-9d03-11e9-9410-a59e6ed3d5a4.gif)
+
 ### harden
 
 ### preset
