@@ -329,10 +329,25 @@ class ShellCommands(Help):
         presets = get_presets()
 
         if arg:
-            print(presets)
+            modules = [preset['modules'] for preset in presets if preset['name'] == arg]
+            if len(modules) == 0:
+                logger.error(f"Preset not found: '{arg}'")
+                return
+            confirm_prompt = [
+                {
+                    'type': 'confirm',
+                    'name': 'confirm',
+                    'message': 'Run modules without confirmation?',
+                }
+            ]
+            prompt(confirm_prompt)
+
+            
+
         else:
             if not presets:
                 logger.warn(f"No presets found in {mod_json_file}")
+                return
             search_table = [['Preset', 'Modules']]
             table = AsciiTable(search_table)
             max_width = table.column_max_width(1)
