@@ -5,7 +5,6 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text(encoding="utf-8")
 
 
-# This call to setup() does all the work
 setup(
     name="graphenex",
     version="1.0.0",

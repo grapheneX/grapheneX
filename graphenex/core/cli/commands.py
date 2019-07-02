@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from graphenex.core.utils.helpers import check_os, get_modules, \
-    mod_json_file, get_forbidden_namespaces
+    mod_json_file, get_forbidden_namespaces, get_mod_json
 from graphenex.core.utils.logcl import GraphenexLogger
 from graphenex.core.cli.help import Help
 
