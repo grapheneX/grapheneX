@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.utils.helpers import check_os, get_modules, \
-    mod_json_file, get_forbidden_namespaces
+    get_mod_json, mod_json_file, get_forbidden_namespaces
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
@@ -169,11 +169,6 @@ class ShellCommands(Help):
 
     def do_manage(self, arg):
         """Add, edit or delete module"""
-        def get_mod_json():
-            data = ""
-            with open(mod_json_file, 'r') as f:
-                data = json.load(f)
-            return data
 
         def save_mod_json(data):
             with open(mod_json_file, 'w') as f:
@@ -331,7 +326,7 @@ class ShellCommands(Help):
     def do_preset(self, arg):
         """Show/execute the hardening module presets"""
         
-        pass
+        pass 
 
     def do_web(self, arg):
         """Run the grapheneX web server"""
