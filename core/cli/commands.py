@@ -327,6 +327,12 @@ class ShellCommands(Help):
         self.module = ""
         self.modules = get_modules()
 
+
+    def do_preset(self, arg):
+        """Show/execute the hardening module presets"""
+        
+        pass
+
     def do_web(self, arg):
         """Run the grapheneX web server"""
 

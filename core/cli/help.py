@@ -54,3 +54,7 @@ class Help:
     def help_web(self):
         self.message(syntax="web [host:port]",
             content="Start the web server")
+
+    def help_preset(self):
+        self.message(syntax="preset [num]",
+            content="Execute the hardening module preset")
