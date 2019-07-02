@@ -183,6 +183,10 @@ Shows information (namespace, description, OS command) about the selected module
 
 ### harden
 
+Executes the hardening command of the selected module.
+
+![Harden Command](https://user-images.githubusercontent.com/24392180/60531788-67e4f900-9d04-11e9-8960-2d2f2a7289f0.gif)
+
 ### preset
 
 ### back
