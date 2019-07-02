@@ -333,6 +333,7 @@ class ShellCommands(Help):
             if len(modules) == 0:
                 logger.error(f"Preset not found: '{arg}'")
                 return
+            modules = modules[0]
             confirm_prompt = [
                 {
                     'type': 'confirm',
@@ -340,9 +341,14 @@ class ShellCommands(Help):
                     'message': 'Run modules without confirmation?',
                 }
             ]
-            prompt(confirm_prompt)
-
-            
+            conf_mod = prompt(confirm_prompt)['confirm']
+            for module in modules:
+                namespace = module.split("/")[0].lower()
+                for name, mod in self.modules[namespace].items():
+                    if module.split("/")[1].lower() == "all":
+                        print(mod)
+                    if module.split("/")[1].lower() == name.lower():
+                        print(mod)
 
         else:
             if not presets:
