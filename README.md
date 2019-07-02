@@ -130,7 +130,11 @@ python grapheneX.py -w --open
 
 ### help
 
-`help` or `?` shows the commands list above.
+`help` or `?` shows the commands list above.  
+`help [CMD]` shows the detailed usage of given command.
+
+![Help Command](https://user-images.githubusercontent.com/24392180/60530004-8648f580-9d00-11e9-82b7-7adc05f94a42.gif)
+
 
 ### list
 
@@ -161,7 +165,15 @@ It's the equivalent of the `use` command in this situation.
 
 ### use
 
+Serves the purpose of selecting a hardening module.
 
+```
+use [MODULE]
+```
+
+![Use Command](https://user-images.githubusercontent.com/24392180/60530449-69f98880-9d01-11e9-93a9-4f612e4ed7ad.gif)
+
+• Supports autocomplete for modules.
 
 ### info
 
