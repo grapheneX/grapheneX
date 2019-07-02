@@ -126,8 +126,9 @@ def get_modules():
     return_dict = dict()
     available_modules = list()
     for namespace, modlist in json_data.items():
+        if namespace == "presets": continue
         for module in modlist:
-            module['namespace'] =  namespace
+            module['namespace'] = namespace
             if module['target_os'] == current_os:
                 return_dict[module['namespace']] = dict()
                 available_modules.append(module)
@@ -142,6 +143,7 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     for namespace, modlist in json_data.items():
         if os not in [module['target_os'] for module in modlist]:
             namespaces.append(namespace)
+    namespaces.append("presets")
     return namespaces
 
 def get_mod_json():
