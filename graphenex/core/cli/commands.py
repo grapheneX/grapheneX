@@ -1,10 +1,11 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from core.utils.helpers import check_os, get_modules, \
+from graphenex.core.utils.helpers import check_os, get_modules, \
     mod_json_file, get_forbidden_namespaces
-from core.utils.logcl import GraphenexLogger
-from core.cli.help import Help
+from graphenex.core.utils.logcl import GraphenexLogger
+from graphenex.core.cli.help import Help
+
 from terminaltables import AsciiTable
 from PyInquirer import prompt, Validator, ValidationError
 import textwrap
@@ -12,6 +13,7 @@ import random
 import json
 import os
 import re
+
 
 logger = GraphenexLogger(__name__)
 
@@ -330,7 +332,7 @@ class ShellCommands(Help):
     def do_web(self, arg):
         """Run the grapheneX web server"""
 
-        from core.web import run_server
+        from graphenex.core.web import run_server
         run_server({"host_port":arg} if arg else None, False)
 
     def do_harden(self, arg):

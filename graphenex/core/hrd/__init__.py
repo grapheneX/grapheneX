@@ -1,4 +1,4 @@
-from core.hrd.exec import WinExec, LinuxExec
+from graphenex.core.hrd.exec import WinExec, LinuxExec
 
 class HardenMethod:
     def __init__(self, **kwargs):

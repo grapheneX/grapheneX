@@ -1,8 +1,8 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from core.web import app, logger, socketio
-from core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file
+from graphenex.core.web import app, logger, socketio
+from graphenex.core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file
 from flask import render_template
 from flask_socketio import emit
 import json
