@@ -23,7 +23,7 @@ setup(
     packages=["graphenex", "graphenex.core", "graphenex.core.web", "graphenex.core.cli", "graphenex.core.hrd", "graphenex.core.utils"],
     include_package_data=True,
     install_requires=["flask-socketio", "coloredlogs", "terminaltables", "pyinquirer"],
-    scripts=['bin/graphenex.py'],
+    scripts=['scripts/graphenex.py'],
     entry_points={
         "console_scripts": [
             "graphenex=graphenex.__main__:main",
