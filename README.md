@@ -318,6 +318,9 @@ There's a menu available in the web interface for adding new modules.
 
 ## Screenshots
 
+![Screenshot I](https://user-images.githubusercontent.com/24392180/60601258-7e4d8c00-9dba-11e9-93e1-96411b76b462.png)
+
+
 ## TODO(s)
 
 ## Contribution
