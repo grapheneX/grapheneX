@@ -238,6 +238,15 @@ Choosing the `remove` option in the `manage` menu will be enough for removing th
 
 ### web
 
+Starts the grapheneX web server with the optional `host:port` argument.
+
+```
+web [host:port]
+```
+
+![Web Command](https://user-images.githubusercontent.com/24392180/60546423-f027c600-9d25-11e9-8d45-e9cd9373d9bd.gif)
+
+
 ### back
 
 Go back from selected namespace or module.
