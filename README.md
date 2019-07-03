@@ -320,6 +320,12 @@ There's a menu available in the web interface for adding new modules.
 
 ![Screenshot II](https://user-images.githubusercontent.com/24392180/60601258-7e4d8c00-9dba-11e9-93e1-96411b76b462.png)
 
+![Screenshot III](https://user-images.githubusercontent.com/24392180/60625283-9be51a80-9de7-11e9-99ea-46875d8b3ed8.JPG)
+
+![Screenshot IV](https://user-images.githubusercontent.com/24392180/60625314-bae3ac80-9de7-11e9-98ef-e5fa69c3be38.JPG)
+
+![Screenshot V](https://user-images.githubusercontent.com/24392180/60625373-eb2b4b00-9de7-11e9-9e9a-ab1869af9b1a.JPG)
+
 
 ## TODO(s)
 
