@@ -331,7 +331,7 @@ There's a menu available in the web interface for adding new modules.
 
 * Add new modules for Linux and Windows.
 
-## Contribution
+## Contributing
 
 For contributing to this project, see [CONTRIBUTING.md](./CONTRIBUTING.md)
 
