@@ -20,9 +20,8 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["graphenex", "graphenex.core"],
+    packages=["graphenex", "graphenex.core", "graphenex.core.web", "graphenex.core.cli", "graphenex.core.hrd", "graphenex.core.utils"],
     include_package_data=True,
-    package_data={'',["modules.json"]},
     install_requires=["flask-socketio", "coloredlogs", "terminaltables", "pyinquirer"],
     entry_points={
         "console_scripts": [

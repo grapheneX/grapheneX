@@ -1,0 +1,6 @@
+include graphenex/modules.json
+include graphenex/core/web/static/css/*
+include graphenex/core/web/static/js/*
+include graphenex/core/web/static/images/*
+include graphenex/core/web/static/webfonts/*
+include graphenex/core/web/templates/*
