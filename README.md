@@ -189,6 +189,20 @@ Executes the hardening command of the selected module.
 
 ### preset
 
+grapheneX has presets that contain particular modules for automating the hardening operation. Presets can be customized with the `modules.json` file and they can contain any supported module. `preset` command shows the available module presets and `preset [PRESET]` runs the hardening commands in a preset.
+
+![Show Presets](https://user-images.githubusercontent.com/24392180/60548388-a097c900-9d2a-11e9-8927-bbbd90493430.gif)
+
+An example `preset` command output is shown above. Below, a preset that contains 2 modules is selected and hardening modules executed.
+
+![Preset Command](https://user-images.githubusercontent.com/24392180/60548929-0cc6fc80-9d2c-11e9-9bff-01882feb6b9f.gif)
+
+`preset` command supports autocomplete for preset names. Also, it supports an option for asking permission between each hardening command execution so that the user knows what he/she is doing.
+
+• Adding module presets
+
+
+
 ### search
 
 ```
