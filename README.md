@@ -113,7 +113,7 @@ python grapheneX.py -w --open
 | clear   	| Clear the terminal                                                          	|
 | exit    	| Exit interactive shell                                                      	|
 | harden  	| Execute the hardening command                                               	|
-| help    	| List available commands with "help" or show detailed help with "help <cmd>" 	|
+| help    	| List available commands with "help" or show detailed help with "help `<cmd>`" 	|
 | info    	| Show information about the module                                           	|
 | list    	| List available hardening modules                                            	|
 | manage  	| Add, edit or delete module                                                  	|
@@ -260,7 +260,6 @@ Choose the `edit` option after the `manage` command for the editing the module p
 
 ![Editing Module](https://user-images.githubusercontent.com/24392180/60545208-30d21000-9d23-11e9-8b5d-e85a52521180.gif)
 
-Or edit the `modules.json` manually.
 
 • Removing modules
 
