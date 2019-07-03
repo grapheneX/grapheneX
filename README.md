@@ -294,6 +294,26 @@ Exit interactive shell
 
 ## Web
 
+Most of the command line features are accessible with the Web interface.
+
+### Namespaces & Modules
+
+It's easy to switch between namespaces and see details of modules.
+
+![Namespaces and Modules](https://user-images.githubusercontent.com/24392180/60549923-02f2c880-9d2f-11e9-9ee2-b3f58afeb5fd.gif)
+
+### Hardening
+
+Just click `run` under the module properties for executing the hardening command.
+
+![Hardening](https://user-images.githubusercontent.com/24392180/60551119-f2dce800-9d32-11e9-9e4b-126354778e9f.gif)
+
+### Adding Modules
+
+There's a menu available in the web interface for adding new modules.
+
+![Adding Modules](https://user-images.githubusercontent.com/24392180/60551262-6c74d600-9d33-11e9-8c3e-f553fafdda74.gif)
+
 ## Examples
 
 ## Screenshots
