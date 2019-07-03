@@ -326,7 +326,6 @@ There's a menu available in the web interface for adding new modules.
 
 ![Screenshot V](https://user-images.githubusercontent.com/24392180/60625373-eb2b4b00-9de7-11e9-9e9a-ab1869af9b1a.JPG)
 
-
 ## TODO(s)
 
 * Add new modules for Linux and Windows.
@@ -342,7 +341,3 @@ We don't have any sponsors yet. Contact us with email if you want to help us imp
 ## License
 
 GNU General Public License v3.0 ([gpl](https://www.gnu.org/licenses/gpl.txt))
-
-## Credit
-
-Copyright (C) 2019 by [GrapheneX Team](https://github.com/orgs/grapheneX/people)
