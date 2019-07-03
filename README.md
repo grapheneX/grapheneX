@@ -47,19 +47,14 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 * [PyInquirer](https://pypi.org/project/PyInquirer/)
 
 ### Package Installation
+You can install `grapheneX` with `pip`. Usually this is the easiest way
 
-Pip:
-
+```bash
+$ pip install graphenex
 ```
-pip install -r requirements.txt
-python grapheneX.py
-```
-
-Pipenv:
-
-```
-pipenv install
-pipenv run python grapheneX.py
+Also
+```bash
+$ python setup.py install 
 ```
 
 ## Usage
@@ -67,7 +62,7 @@ pipenv run python grapheneX.py
 ### Command Line Arguments
 
 ```
-usage: grapheneX.py [-h] [-v] [-w] [--open] [host:port]
+usage: grapheneX [-h] [-v] [-w] [--open] [host:port]
 ```
 ```
 positional arguments:
@@ -255,6 +250,10 @@ grapheneX stores the modules and namespaces in `modules.json` file. It will show
         }
     ]
 ```
+path of `modules.json`: `$PYPATH/Lib/site-packages/graphenex/moules.json`
+
+**Notice** We recommend that you install the module from the CLI or Web interface
+
 • Editing modules
 
 Choose the `edit` option after the `manage` command for the editing the module properties.
