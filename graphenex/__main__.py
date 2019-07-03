@@ -5,8 +5,9 @@ from graphenex.core.utils.helpers import parse_cli_args, print_header
 from graphenex.core.utils.logcl import GraphenexLogger
 from graphenex.core.cli.shell import start_cli
 from graphenex.core.web import run_server
+from graphenex import __version__
 
-version = 1.0
+version = __version__
 logger = GraphenexLogger('Graphenex')
 
 def main():
