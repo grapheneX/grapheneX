@@ -360,12 +360,12 @@ class ShellCommands(Help):
                      module.split("/")[1].lower() == name.lower():
                         # Select the module
                         self.module = mod.get_mod_name()
+                        # Show module information
+                        self.do_info(None)
                         # If confirmation not needed
                         if conf_mod:
                             self.do_harden(None)
                         else:
-                            # Show module information
-                            self.do_info(None)
                             # Ask for permission for executing the command
                             exec_conf = prompt([{
                                     'type': 'confirm',
