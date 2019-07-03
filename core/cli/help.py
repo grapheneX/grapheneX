@@ -56,5 +56,5 @@ class Help:
             content="Start the web server")
 
     def help_preset(self):
-        self.message(syntax="preset [num]",
+        self.message(syntax="preset [preset]",
             content="Execute the hardening module preset")
