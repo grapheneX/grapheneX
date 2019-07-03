@@ -133,9 +133,6 @@ python grapheneX.py -w --open
 `help` or `?` shows the commands list above.  
 `help [CMD]` shows the detailed usage of given command.
 
-![Help Command](https://user-images.githubusercontent.com/24392180/60530004-8648f580-9d00-11e9-82b7-7adc05f94a42.gif)
-
-
 ### list
 
 Show the available modules in a table.
@@ -201,7 +198,29 @@ An example `preset` command output is shown above. Below, a preset that contains
 
 • Adding module presets
 
+Presets are stored in the `presets` element inside the `modules.json` file. This JSON file can be edited for updating the presets.
 
+```
+"presets": [
+        {
+            "name": "Preset_1",
+            "modules": [
+                "namespace1/Module_Name1",
+                "namespace2/Module_Name2",
+            ],
+            "target_os": "linux/win"
+        },
+        {
+            "name": "Preset_2",
+            "modules": [
+                "namespace/All"
+            ],
+            "target_os": "linux/win"
+        }
+    ]
+```
+
+`namespace/All` means every hardening command in that `namespace` will be executed.
 
 ### search
 
