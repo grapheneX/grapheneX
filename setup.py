@@ -16,8 +16,6 @@ setup(
     author_email="graphenex.project@protonmail.com",
     license="GPLv3",
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Operating System :: OS Independent",
         "Topic :: Security",
         "Topic :: Utilities",
@@ -25,6 +23,9 @@ setup(
         "Intended Audience :: End Users/Desktop",
         "Intended Audience :: System Administrators",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
     ],
     packages=["graphenex", "graphenex.core", "graphenex.core.web", "graphenex.core.cli", "graphenex.core.hrd", "graphenex.core.utils"],
     include_package_data=True,
