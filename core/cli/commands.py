@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from core.utils.helpers import check_os, get_modules, \
-    mod_json_file, get_forbidden_namespaces
+    get_mod_json, get_presets, mod_json_file, get_forbidden_namespaces
 from core.utils.logcl import GraphenexLogger
 from core.cli.help import Help
 from terminaltables import AsciiTable
@@ -40,7 +40,7 @@ class ShellCommands(Help):
         return [s[offs:] for s in avb_namespaces if s.startswith(mline)]
 
     def do_use(self, arg):
-        """Use hardening module"""
+        """Use a hardening module"""
 
         if "/" in arg and arg.split("/")[0].lower() in self.modules.keys():
             self.namespace = arg.split("/")[0].lower()
@@ -101,7 +101,7 @@ class ShellCommands(Help):
         return comp_text
 
     def do_info(self, arg):
-        """Information about the desired module"""
+        """Show information about the module"""
 
         if self.module:
             module = self.modules[self.namespace][self.module]
@@ -160,7 +160,7 @@ class ShellCommands(Help):
         print(table.table)
 
     def do_back(self, arg):
-        """Go back if namespace (hardening method) selected or switched"""
+        """Go back from namespace or module"""
 
         if self.module:
             self.module = ""
@@ -169,11 +169,6 @@ class ShellCommands(Help):
 
     def do_manage(self, arg):
         """Add, edit or delete module"""
-        def get_mod_json():
-            data = ""
-            with open(mod_json_file, 'r') as f:
-                data = json.load(f)
-            return data
 
         def save_mod_json(data):
             with open(mod_json_file, 'w') as f:
@@ -240,12 +235,14 @@ class ShellCommands(Help):
                     mod_ns = mod_namespace['mod_ns']
                 except:
                     pass
-                # Assigning property to the ModuleNameValidation class to access modules within the selected namespace.
-                ModuleNameValidation.modules = self.modules[mod_ns].keys() if mod_ns in self.modules.keys() else []
+                # Assigning property to the ModuleNameValidation class to 
+                # access modules within the selected namespace.
+                ModuleNameValidation.modules = self.modules[mod_ns].keys() \
+                    if mod_ns in self.modules.keys() else []
                 # Append with other module information
                 mod_details = prompt(mod_questions)
                 mod_dict = {
-                        "name": mod_details['mod_name'].capitalize(),
+                        "name": mod_details['mod_name'].title(),
                         "desc": mod_details['mod_desc'],
                         "command":  mod_details['mod_cmd'],
                         "require_superuser": mod_details['mod_su'],
@@ -257,7 +254,8 @@ class ShellCommands(Help):
                     data.update({mod_ns.lower(): [mod_dict]})
                 # Write the updated modules.json
                 save_mod_json(data)
-                logger.info("Module added successfully. Use 'list' command to see available modules.")
+                logger.info("Module added successfully. Use 'list' " + \
+                    "command to see available modules.")
 
             # EDIT & REMOVE
             elif choice['option'] == "Edit module" or choice['option'] == "Remove module":
@@ -306,7 +304,7 @@ class ShellCommands(Help):
                         'type': 'input',
                         'name': 'val',
                         'message': "New value for " + selected_prop}])['val']
-                    new_val = new_val.capitalize() if selected_prop == "name" else new_val
+                    new_val = new_val.title() if selected_prop == "name" else new_val
                     # Update the selected property of module
                     data[selected_ns][mod_index][selected_prop] = new_val
                     # Write the updated modules.json
@@ -327,8 +325,95 @@ class ShellCommands(Help):
         self.module = ""
         self.modules = get_modules()
 
+
+    def do_preset(self, arg):
+        """Show/execute the hardening module presets"""
+        
+        presets = get_presets()
+        if arg:
+            modules = [preset['modules'] for preset in presets \
+                if preset['name'] == arg]
+            if len(modules) == 0:
+                logger.error(f"Preset not found: '{arg}'")
+                return
+            modules = modules[0]
+            confirm_prompt = [
+                {
+                    'type': 'confirm',
+                    'name': 'confirm',
+                    'message': 'Run modules without confirmation?',
+                }
+            ]
+            try:
+                conf_mod = prompt(confirm_prompt)['confirm']
+            except:
+                return
+            # Main module loop
+            for module in modules:
+                # Select the namespace
+                self.namespace = module.split("/")[0].lower()
+                # Loop through the modules
+                for name, mod in self.modules[self.namespace].items():
+                    # Select the module if it equals to the module in
+                    # the preset or equals to 'all'
+                    if module.split("/")[1].lower() == "all" or \
+                     module.split("/")[1].lower() == name.lower():
+                        # Select the module
+                        self.module = mod.get_mod_name()
+                        # Show module information
+                        self.do_info(None)
+                        # If confirmation not needed
+                        if conf_mod:
+                            self.do_harden(None)
+                        else:
+                            # Ask for permission for executing the command
+                            exec_conf = prompt([{
+                                    'type': 'confirm',
+                                    'name': 'confirm',
+                                    'message': 'Execute the hardening command?',
+                            }])
+                            # Execute the command or cancel
+                            try:
+                                if exec_conf['confirm']:
+                                    self.do_harden(None)
+                                else:
+                                    raise Exception("Cancelled by user.")
+                            except:
+                                logger.info("Hardening cancelled. " + \
+                                f"({self.namespace}/{self.module})")
+            # Go back from the selected module and namespace
+            self.module = ""
+            self.namespace = ""
+        else:
+            if not presets:
+                logger.warn(f"No presets found in {mod_json_file}")
+                return
+            search_table = [['Preset', 'Modules']]
+            table = AsciiTable(search_table)
+            max_width = table.column_max_width(1)
+            # Create a table of presets
+            for preset in presets:
+                mods = ""
+                for module in preset['modules'][:-1]:
+                    mods += '\n'.join(textwrap.wrap(module, max_width - 40)) + '\n'
+                mods += '\n'.join(textwrap.wrap(preset['modules'][-1], max_width-40))
+                table.table_data.append([preset['name'], mods])
+            # Show the table
+            if len(table.table_data) > 1:
+                print(table.table)
+            else:
+                logger.warn(f"No presets found in {mod_json_file}")
+            
+    def complete_preset(self, text, line, begidx, endidx):
+        """Complete preset command"""
+
+        avb_presets = [i['name'].lower() for i in get_presets()]
+        mline = line.lower().partition(' ')[2]
+        offs = len(mline) - len(text)
+        return [s[offs:].title() for s in avb_presets if s.startswith(mline)]
+
     def do_web(self, arg):
-        """Run the grapheneX web server"""
+        """Start the grapheneX web server"""
 
         from core.web import run_server
         run_server({"host_port":arg} if arg else None, False)
@@ -381,7 +466,7 @@ class ShellCommands(Help):
         return True
 
     def do_clear(self, arg):
-        """Clear terminal"""
+        """Clear the terminal"""
 
         os.system("cls" if check_os() else "clear")
 
@@ -398,7 +483,7 @@ class ModuleNameValidation(Validator):
                     cursor_position=len(document.text))
             elif document.text.lower() in [module.lower() for module in self.modules]:
                 raise ValidationError(
-                    message="Try a different name, this module name is available",
+                    message="Try a different name, this module name is not available.",
                     cursor_position=len(document.text))
 
 class NamespaceValidation(Validator):

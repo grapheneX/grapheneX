@@ -29,10 +29,14 @@ def parse_cli_args():
     """
     parser = argparse.ArgumentParser(
         description='grapheneX | Automated System Hardening Framework')
+    parser.add_argument('-v',
+                        '--version', 
+                        action="store_true",
+                        help="show version information")
     parser.add_argument('-w',
                         '--web',
-                        help='run the grapheneX web server',
-                        action="store_true")
+                        action="store_true",
+                        help='start the grapheneX web server')
     parser.add_argument('host_port', metavar='host:port', type=str, nargs='?', 
                         default='0.0.0.0:8080',
                         help="host and port to run the web interface")
@@ -122,8 +126,9 @@ def get_modules():
     return_dict = dict()
     available_modules = list()
     for namespace, modlist in json_data.items():
+        if namespace == "presets": continue
         for module in modlist:
-            module['namespace'] =  namespace
+            module['namespace'] = namespace
             if module['target_os'] == current_os:
                 return_dict[module['namespace']] = dict()
                 available_modules.append(module)
@@ -138,7 +143,18 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     for namespace, modlist in json_data.items():
         if os not in [module['target_os'] for module in modlist]:
             namespaces.append(namespace)
+    namespaces.append("presets")
     return namespaces
+
+def get_presets(os='win' if check_os() else 'linux'):
+    try:
+        presets = list()
+        for preset in get_mod_json()['presets']:
+            if preset['target_os'] == os:
+                presets.append(preset)
+        return presets
+    except KeyError:
+        return None
 
 def get_mod_json():
     with open(mod_json_file, 'r') as json_file:
