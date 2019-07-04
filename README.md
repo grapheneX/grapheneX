@@ -253,9 +253,9 @@ grapheneX stores the modules and namespaces in `modules.json` file. It will show
         }
     ]
 ```
-path of `modules.json`: `$PYPATH/Lib/site-packages/graphenex/moules.json`
+`$PYPATH/Lib/site-packages/graphenex/moules.json`
 
-**Notice** We recommend that you install the module from the CLI or Web interface
+It's recommended to add modules from CLI or the Web interface other than editing the `modules.json` file.
 
 • Editing modules
 
@@ -263,6 +263,7 @@ Choose the `edit` option after the `manage` command for the editing the module p
 
 ![Editing Module](https://user-images.githubusercontent.com/24392180/60545208-30d21000-9d23-11e9-8b5d-e85a52521180.gif)
 
+Or edit the `modules.json` manually.
 
 • Removing modules
 
