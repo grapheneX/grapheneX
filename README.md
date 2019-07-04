@@ -60,6 +60,14 @@ Also it's possible to run the `setup.py` for installation as follows:
 python setup.py install 
 ```
 
+The commands below can be used for testing the project without installation:
+
+```
+cd grapheneX
+pipenv install
+pipenv run python -m graphenex
+```
+
 ## Usage
 
 ### Command Line Arguments
