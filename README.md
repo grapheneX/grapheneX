@@ -312,13 +312,23 @@ There's a menu available in the web interface for adding new modules.
 
 ![Adding Modules](https://user-images.githubusercontent.com/24392180/60551262-6c74d600-9d33-11e9-8c3e-f553fafdda74.gif)
 
-## Examples
-
 ## Screenshots
+
+![Screenshot I](https://user-images.githubusercontent.com/24392180/60615641-47866e80-9dd8-11e9-92fe-dfa8874db8fd.jpg)
+
+![Screenshot II](https://user-images.githubusercontent.com/24392180/60601258-7e4d8c00-9dba-11e9-93e1-96411b76b462.png)
+
+![Screenshot III](https://user-images.githubusercontent.com/24392180/60625283-9be51a80-9de7-11e9-99ea-46875d8b3ed8.JPG)
+
+![Screenshot IV](https://user-images.githubusercontent.com/24392180/60625314-bae3ac80-9de7-11e9-98ef-e5fa69c3be38.JPG)
+
+![Screenshot V](https://user-images.githubusercontent.com/24392180/60625373-eb2b4b00-9de7-11e9-9e9a-ab1869af9b1a.JPG)
 
 ## TODO(s)
 
-## Contribution
+* Add new modules for Linux and Windows.
+
+## Contributing
 
 For contributing to this project, see [CONTRIBUTING.md](./CONTRIBUTING.md)
 
@@ -329,7 +339,3 @@ We don't have any sponsors yet. Contact us with email if you want to help us imp
 ## License
 
 GNU General Public License v3.0 ([gpl](https://www.gnu.org/licenses/gpl.txt))
-
-## Credit
-
-Copyright (C) 2019 by [GrapheneX Team](https://github.com/orgs/grapheneX/people)
