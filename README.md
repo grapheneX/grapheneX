@@ -38,16 +38,6 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 
 ## Installation
 
-### Dependencies
-
-* [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
-  *  [Flask](http://flask.pocoo.org/)
-* [coloredlogs](https://pypi.org/project/coloredlogs/)
-* [terminaltables](https://pypi.org/project/terminaltables/)
-* [PyInquirer](https://pypi.org/project/PyInquirer/)
-
-### Package Installation
-
 You can install `grapheneX` with `pip`. Usually this is the easiest way:
 
 ```
@@ -67,6 +57,13 @@ cd grapheneX
 pipenv install
 pipenv run python -m graphenex
 ```
+### Dependencies
+
+* [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
+  *  [Flask](http://flask.pocoo.org/)
+* [coloredlogs](https://pypi.org/project/coloredlogs/)
+* [terminaltables](https://pypi.org/project/terminaltables/)
+* [PyInquirer](https://pypi.org/project/PyInquirer/)
 
 ## Usage
 
