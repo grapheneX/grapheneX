@@ -90,6 +90,7 @@ Execute the `grapheneX.py` in order to start the interactive shell.
 
 ![GrapheneX Interactive Shell](https://user-images.githubusercontent.com/24392180/60462623-7a9ef580-9c52-11e9-8baf-039c2e97669d.gif)
 
+• Animated gifs and screenshots added for demonstration and include the test execution of the unversioned grapheneX. Use `grapheneX` or `python -m graphenex` command for the execution.   
 • grapheneX currently supports [Python3.7](https://www.python.org/)   
 • Project's some functions (such as hardening) might not work without root access. So consider running the grapheneX with sudo/administrative access.
 
