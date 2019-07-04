@@ -22,7 +22,8 @@ But still, the user must know the commands and apply the hardening manually depe
 It's designed for the end user as well as the Linux and Windows developers due to the interface options. (interactive shell/web interface) 
 In addition to that, `grapheneX` can be used to secure a web server/application.
 
-Hardening commands and the scopes of those commands are referred to `modules` and the `namespaces` in the project. 
+Hardening commands and the scopes of those commands are referred to `modules` and the `namespaces` in the project.
+They exist at the `modules.json` file after installation. (`$PYPATH/site-packages/graphenex/modules.json`)
 Additionally, it's possible to add, edit or remove modules and namespaces. 
 Also, the hardening operation can be automated with the presets that contain a list of modules.
 
@@ -38,16 +39,6 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 
 ## Installation
 
-### Dependencies
-
-* [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
-  *  [Flask](http://flask.pocoo.org/)
-* [coloredlogs](https://pypi.org/project/coloredlogs/)
-* [terminaltables](https://pypi.org/project/terminaltables/)
-* [PyInquirer](https://pypi.org/project/PyInquirer/)
-
-### Package Installation
-
 You can install `grapheneX` with `pip`. Usually this is the easiest way:
 
 ```
@@ -59,6 +50,21 @@ Also it's possible to run the `setup.py` for installation as follows:
 ```
 python setup.py install 
 ```
+
+The commands below can be used for testing the project without installation:
+
+```
+cd grapheneX
+pipenv install
+pipenv run python -m graphenex
+```
+### Dependencies
+
+* [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
+  *  [Flask](http://flask.pocoo.org/)
+* [coloredlogs](https://pypi.org/project/coloredlogs/)
+* [terminaltables](https://pypi.org/project/terminaltables/)
+* [PyInquirer](https://pypi.org/project/PyInquirer/)
 
 ## Usage
 
@@ -253,7 +259,6 @@ grapheneX stores the modules and namespaces in `modules.json` file. It will show
         }
     ]
 ```
-`$PYPATH/Lib/site-packages/graphenex/moules.json`
 
 It's recommended to add modules from CLI or the Web interface other than editing the `modules.json` file.
 
