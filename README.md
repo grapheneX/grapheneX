@@ -47,14 +47,17 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 * [PyInquirer](https://pypi.org/project/PyInquirer/)
 
 ### Package Installation
-You can install `grapheneX` with `pip`. Usually this is the easiest way
 
-```bash
-$ pip install graphenex
+You can install `grapheneX` with `pip`. Usually this is the easiest way:
+
 ```
-Also
-```bash
-$ python setup.py install 
+pip install graphenex
+```
+
+Also it's possible to run the `setup.py` for installation as follows:
+
+```
+python setup.py install 
 ```
 
 ## Usage
@@ -107,21 +110,21 @@ python grapheneX.py -w --open
 
 ## CLI Commands
 
-| Command 	| Description                                                                 	|
-|---------	|-----------------------------------------------------------------------------	|
-| back    	| Go back from namespace or module                                            	|
-| clear   	| Clear the terminal                                                          	|
-| exit    	| Exit interactive shell                                                      	|
-| harden  	| Execute the hardening command                                               	|
-| help    	| List available commands with "help" or show detailed help with "help `<cmd>`" 	|
-| info    	| Show information about the module                                           	|
-| list    	| List available hardening modules                                            	|
-| manage  	| Add, edit or delete module                                                  	|
-| preset  	| Show/execute the hardening module presets                                   	|
-| search  	| Search for modules                                                          	|
-| switch  	| Switch between modules or namespaces                                        	|
-| use     	| Use a hardening module                                                      	|
-| web     	| Start the grapheneX web server                                              	|
+| Command 	| Description                                                                 	 |
+|---------	|------------------------------------------------------------------------------ |
+| back    	| Go back from namespace or module                                            	 |
+| clear   	| Clear the terminal                                                          	 |
+| exit    	| Exit interactive shell                                                      	 |
+| harden  	| Execute the hardening command                                               	 |
+| help    	| List available commands with "help" or show detailed help with "help `<cmd>`" |
+| info    	| Show information about the module                                           	 |
+| list    	| List available hardening modules                                            	 |
+| manage  	| Add, edit or delete module                                                  	 |
+| preset  	| Show/execute the hardening module presets                                   	 |
+| search  	| Search for modules                                                          	 |
+| switch  	| Switch between modules or namespaces                                        	 |
+| use     	| Use a hardening module                                                      	 |
+| web     	| Start the grapheneX web server                                              	 |
 
 ### help
 
