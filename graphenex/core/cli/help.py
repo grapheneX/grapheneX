@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from terminaltables import AsciiTable
-from core.utils.logcl import GraphenexLogger
+from graphenex.core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
 

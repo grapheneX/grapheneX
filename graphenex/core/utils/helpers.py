@@ -1,8 +1,8 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from core.hrd import HardenMethod
-from core.utils.logcl import GraphenexLogger
+from graphenex.core.hrd import HardenMethod
+from graphenex.core.utils.logcl import GraphenexLogger
 
 import argparse
 import sys

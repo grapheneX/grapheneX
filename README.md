@@ -22,7 +22,8 @@ But still, the user must know the commands and apply the hardening manually depe
 It's designed for the end user as well as the Linux and Windows developers due to the interface options. (interactive shell/web interface) 
 In addition to that, `grapheneX` can be used to secure a web server/application.
 
-Hardening commands and the scopes of those commands are referred to `modules` and the `namespaces` in the project. 
+Hardening commands and the scopes of those commands are referred to `modules` and the `namespaces` in the project.
+They exist at the `modules.json` file after installation. (`$PYPATH/site-packages/graphenex/modules.json`)
 Additionally, it's possible to add, edit or remove modules and namespaces. 
 Also, the hardening operation can be automated with the presets that contain a list of modules.
 
@@ -38,6 +39,25 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 
 ## Installation
 
+You can install `grapheneX` with `pip`. Usually this is the easiest way:
+
+```
+pip install graphenex
+```
+
+Also it's possible to run the `setup.py` for installation as follows:
+
+```
+python setup.py install 
+```
+
+The commands below can be used for testing the project without installation:
+
+```
+cd grapheneX
+pipenv install
+pipenv run python -m graphenex
+```
 ### Dependencies
 
 * [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
@@ -46,28 +66,12 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 * [terminaltables](https://pypi.org/project/terminaltables/)
 * [PyInquirer](https://pypi.org/project/PyInquirer/)
 
-### Package Installation
-
-Pip:
-
-```
-pip install -r requirements.txt
-python grapheneX.py
-```
-
-Pipenv:
-
-```
-pipenv install
-pipenv run python grapheneX.py
-```
-
 ## Usage
 
 ### Command Line Arguments
 
 ```
-usage: grapheneX.py [-h] [-v] [-w] [--open] [host:port]
+usage: grapheneX [-h] [-v] [-w] [--open] [host:port]
 ```
 ```
 positional arguments:
@@ -86,6 +90,7 @@ Execute the `grapheneX.py` in order to start the interactive shell.
 
 ![GrapheneX Interactive Shell](https://user-images.githubusercontent.com/24392180/60462623-7a9ef580-9c52-11e9-8baf-039c2e97669d.gif)
 
+• Animated gifs and screenshots added for demonstration and include the test execution of the unversioned grapheneX. Use `grapheneX` or `python -m graphenex` command for the execution.   
 • grapheneX currently supports [Python3.7](https://www.python.org/)   
 • Project's some functions (such as hardening) might not work without root access. So consider running the grapheneX with sudo/administrative access.
 
@@ -112,21 +117,21 @@ python grapheneX.py -w --open
 
 ## CLI Commands
 
-| Command 	| Description                                                                 	|
-|---------	|-----------------------------------------------------------------------------	|
-| back    	| Go back from namespace or module                                            	|
-| clear   	| Clear the terminal                                                          	|
-| exit    	| Exit interactive shell                                                      	|
-| harden  	| Execute the hardening command                                               	|
-| help    	| List available commands with "help" or show detailed help with "help <cmd>" 	|
-| info    	| Show information about the module                                           	|
-| list    	| List available hardening modules                                            	|
-| manage  	| Add, edit or delete module                                                  	|
-| preset  	| Show/execute the hardening module presets                                   	|
-| search  	| Search for modules                                                          	|
-| switch  	| Switch between modules or namespaces                                        	|
-| use     	| Use a hardening module                                                      	|
-| web     	| Start the grapheneX web server                                              	|
+| Command 	| Description                                                                 	 |
+|---------	|------------------------------------------------------------------------------ |
+| back    	| Go back from namespace or module                                            	 |
+| clear   	| Clear the terminal                                                          	 |
+| exit    	| Exit interactive shell                                                      	 |
+| harden  	| Execute the hardening command                                               	 |
+| help    	| List available commands with "help" or show detailed help with "help `<cmd>`" |
+| info    	| Show information about the module                                           	 |
+| list    	| List available hardening modules                                            	 |
+| manage  	| Add, edit or delete module                                                  	 |
+| preset  	| Show/execute the hardening module presets                                   	 |
+| search  	| Search for modules                                                          	 |
+| switch  	| Switch between modules or namespaces                                        	 |
+| use     	| Use a hardening module                                                      	 |
+| web     	| Start the grapheneX web server                                              	 |
 
 ### help
 
@@ -255,6 +260,9 @@ grapheneX stores the modules and namespaces in `modules.json` file. It will show
         }
     ]
 ```
+
+It's recommended to add modules from CLI or the Web interface other than editing the `modules.json` file.
+
 • Editing modules
 
 Choose the `edit` option after the `manage` command for the editing the module properties.

@@ -1,12 +1,13 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from core.utils.helpers import parse_cli_args, print_header
-from core.utils.logcl import GraphenexLogger
-from core.cli.shell import start_cli
-from core.web import run_server
+from graphenex.core.utils.helpers import parse_cli_args, print_header
+from graphenex.core.utils.logcl import GraphenexLogger
+from graphenex.core.cli.shell import start_cli
+from graphenex.core.web import run_server
+from graphenex import __version__
 
-version = 1.0
+version = __version__
 logger = GraphenexLogger('Graphenex')
 
 def main():
