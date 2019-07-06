@@ -359,11 +359,18 @@
             "target_os": "linux"
         },
         {
-            "name": "Network_Hardening",
+            "name": "Linux_Network_Hardening",
             "modules": [
                 "network/All"
             ],
             "target_os": "linux"
+        },
+        {
+            "name": "Windows_Network_Hardening",
+            "modules": [
+                "network/All"
+            ],
+            "target_os": "win"
         }
     ]
 }
