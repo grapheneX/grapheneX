@@ -122,7 +122,7 @@ def get_os_info():
     }
 
 def get_modules():
-    """Get hardening modules & namespaces in a dictionary""""
+    """Get hardening modules & namespaces in a dictionary"""
     current_os="win" if check_os() else "linux"
     json_data = get_mod_json()
     return_dict = dict()
@@ -150,7 +150,7 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     return namespaces
 
 def get_presets(os='win' if check_os() else 'linux'):
-    """Parse and return the presets in the 'modules' file""""
+    """Parse and return the presets in the 'modules' file"""
     try:
         presets = list()
         for preset in get_mod_json()['presets']:
