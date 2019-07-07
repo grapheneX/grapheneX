@@ -361,7 +361,7 @@ class ShellCommands(Help):
                     if module.split("/")[1].lower() == "all" or \
                      module.split("/")[1].lower() == name.lower():
                         # Select the module
-                        self.module = mod.get_mod_name()
+                        self.module = str(mod)
                         # Show module information
                         self.do_info(None)
                         # If confirmation not needed
