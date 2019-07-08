@@ -1,23 +1,24 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
+from graphenex.core.hrd import HardenMethod
+from graphenex.core.utils.logcl import GraphenexLogger
+
+import argparse
 import sys
 import os
 import importlib.util
 import inspect
 import ctypes
 import platform
-import pathlib
 import json
+import pathlib
 
-from core.hrd import HardenMethod
-from core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
 
-PROJECT_DIR = pathlib.Path(__file__).absolute().parent.parent.parent
-mod_json_file = PROJECT_DIR / 'modules.json'
-
+project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
+mod_json_file = project_dir / 'modules.json'
 
 def print_header():
     """
@@ -100,8 +101,9 @@ def get_modules():
     return_dict = dict()
     available_modules = list()
     for namespace, modlist in json_data.items():
+        if namespace == "presets": continue
         for module in modlist:
-            module['namespace'] =  namespace
+            module['namespace'] = namespace
             if module['target_os'] == current_os:
                 return_dict[module['namespace']] = dict()
                 available_modules.append(module)
@@ -116,9 +118,20 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     for namespace, modlist in json_data.items():
         if os not in [module['target_os'] for module in modlist]:
             namespaces.append(namespace)
+    namespaces.append("presets")
     return namespaces
 
-def get_mod_json(path=PROJECT_DIR):
-    with open(path / 'modules.json', 'r') as json_file:
+def get_presets(os='win' if check_os() else 'linux'):
+    try:
+        presets = list()
+        for preset in get_mod_json()['presets']:
+            if preset['target_os'] == os:
+                presets.append(preset)
+        return presets
+    except KeyError:
+        return None
+
+def get_mod_json():
+    with open(mod_json_file, 'r') as json_file:
         json_data = json.load(json_file)
     return json_data

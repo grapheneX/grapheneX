@@ -1,4 +1,4 @@
-from core.hrd.exec import WinExec, LinuxExec
+from graphenex.core.hrd.exec import WinExec, LinuxExec
 
 class HardenMethod:
     def __init__(self, **kwargs):
@@ -13,6 +13,9 @@ class HardenMethod:
 
     def __repr__(self):
         return self.__str__()
+
+    def get_mod_name(self):
+        return self.name
 
     def execute_command(self):
         return getattr(self, self.target_os + "Exec").run_cmd(self.command)

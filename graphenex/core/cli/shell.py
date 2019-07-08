@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from cmd import Cmd
-from core.cli.commands import ShellCommands
-from core.utils.helpers import get_modules
+from graphenex.core.cli.commands import ShellCommands
+from graphenex.core.utils.helpers import get_modules
 
 class Shell(ShellCommands, Cmd):
     """Interactive Shell constructor class"""
