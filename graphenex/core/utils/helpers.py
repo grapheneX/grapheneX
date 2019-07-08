@@ -20,6 +20,30 @@ logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
 mod_json_file = project_dir / 'modules.json'
 
+def parse_cli_args():
+    """
+    Command-line argument parser.
+    Returns parsed args as dict.
+    [-w, --web]: Runs web server if given.
+    """
+    parser = argparse.ArgumentParser(
+        description='grapheneX | Automated System Hardening Framework')
+    parser.add_argument('-v',
+                        '--version',
+                        action="store_true",
+                        help="show version information")
+    parser.add_argument('-w',
+                        '--web',
+                        action="store_true",
+                        help='start the grapheneX web server')
+    parser.add_argument('host_port', metavar='host:port', type=str, nargs='?',
+                        default='0.0.0.0:8080',
+                        help="host and port to run the web interface")
+    parser.add_argument('--open', action="store_true",
+                        help="open browser on web server start")
+    args = vars(parser.parse_args())
+    return args
+
 def print_header():
     """
     Shows project logo in ASCII format,
