@@ -44,14 +44,14 @@
         },
         {
             "name": "Disable_ICMP_IPV4",
-            "desc": "ICMP  is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
+            "desc": "ICMP is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
             "command": "netsh advfirewall firewall add rule name='ICMP Allow incoming V4 echo request' protocol=icmpv4:8,any dir=in action=allow",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Disable_ICMP_IPV6",
-            "desc": "ICMP  is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
+            "desc": "ICMP is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
             "command": "netsh advfirewall firewall add rule name='ICMP Allow incoming V6 echo request' protocol=icmpv6:8,any dir=in action=allow",
             "require_superuser": "False",
             "target_os": "win"
@@ -359,11 +359,29 @@
             "target_os": "linux"
         },
         {
-            "name": "Network_Hardening",
+            "name": "Linux_Network_Hardening",
             "modules": [
                 "network/All"
             ],
             "target_os": "linux"
+        },
+        {
+            "name": "Windows_Network_Hardening",
+            "modules": [
+                "network/All"
+            ],
+            "target_os": "win"
+        },
+        {
+            "name": "Windows_Firewall_Rules",
+            "modules": [
+                "firewall/Enable_Firewall",
+                "firewall/Block_All_Ports",
+                "firewall/Disable_File_Sharing",
+                "firewall/Disable_ICMP_IPV4",
+                "firewall/Disable_ICMP_IPV6"
+            ],
+            "target_os": "win"
         }
     ]
 }

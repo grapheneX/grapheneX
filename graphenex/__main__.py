@@ -7,13 +7,12 @@ from graphenex.core.cli.shell import start_cli
 from graphenex.core.web import run_server
 from graphenex import __version__
 
-version = __version__
 logger = GraphenexLogger('Graphenex')
 
 def main():
     args = parse_cli_args()
     if(args['version']):
-        print("grapheneX v" + str(version))
+        print(f"grapheneX v{__version__}")
         exit()
     print_header()
     if(args['web']):

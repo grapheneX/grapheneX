@@ -114,6 +114,7 @@ def is_admin():
         return False
 
 def get_os_info():
+    """Returns the operating system information"""
     uname = platform.uname()
     return {
         'system': f"{uname.system} | {uname.version}",
@@ -121,6 +122,7 @@ def get_os_info():
     }
 
 def get_modules():
+    """Get hardening modules & namespaces in a dictionary"""
     current_os="win" if check_os() else "linux"
     json_data = get_mod_json()
     return_dict = dict()
@@ -138,6 +140,7 @@ def get_modules():
     return return_dict
 
 def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
+    """Returns the restricted namespaces depending on the operating system"""
     json_data = get_mod_json()
     namespaces = list()
     for namespace, modlist in json_data.items():
@@ -147,6 +150,7 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     return namespaces
 
 def get_presets(os='win' if check_os() else 'linux'):
+    """Parse and return the presets in the 'modules' file"""
     try:
         presets = list()
         for preset in get_mod_json()['presets']:
@@ -157,6 +161,7 @@ def get_presets(os='win' if check_os() else 'linux'):
         return None
 
 def get_mod_json():
+    """Read the modules from file"""
     with open(mod_json_file, 'r') as json_file:
         json_data = json.load(json_file)
     return json_data
