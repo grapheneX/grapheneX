@@ -23,21 +23,20 @@ mod_json_file = project_dir / 'modules.json'
 def parse_cli_args():
     """
     Command-line argument parser.
-
     Returns parsed args as dict.
     [-w, --web]: Runs web server if given.
     """
     parser = argparse.ArgumentParser(
         description='grapheneX | Automated System Hardening Framework')
     parser.add_argument('-v',
-                        '--version', 
+                        '--version',
                         action="store_true",
                         help="show version information")
     parser.add_argument('-w',
                         '--web',
                         action="store_true",
                         help='start the grapheneX web server')
-    parser.add_argument('host_port', metavar='host:port', type=str, nargs='?', 
+    parser.add_argument('host_port', metavar='host:port', type=str, nargs='?',
                         default='0.0.0.0:8080',
                         help="host and port to run the web interface")
     parser.add_argument('--open', action="store_true",
