@@ -14,18 +14,16 @@ import platform
 import json
 import pathlib
 
-
 logger = GraphenexLogger(__name__)
-
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
 mod_json_file = project_dir / 'modules.json'
 
 def parse_cli_args():
     """
-    Command-line argument parser.
-    Returns parsed args as dict.
-    [-w, --web]: Runs web server if given.
+    Command-line argument parser
+    Returns parsed args as dict
     """
+
     parser = argparse.ArgumentParser(
         description='grapheneX | Automated System Hardening Framework')
     parser.add_argument('-v',
@@ -47,9 +45,10 @@ def parse_cli_args():
 def print_header():
     """
     Shows project logo in ASCII format,
-    project description and repository.
-    Checks dependencies for colored output.
+    project description and repository
+    Checks dependencies for colored output
     """
+
     def import_colorama():
         try:
             global init, Fore, Style, colored
@@ -86,10 +85,24 @@ def check_os():
     [1] -> Windows
     [0] -> Linux (else)
     """
+
     return 1 if __import__('os').name == 'nt' else 0
 
 def check_privileges():
     """Checks privileges and warns if they aren't sufficient"""
+    
+    def is_root():
+        """Returns if the app is run with sudo"""
+        return os.geteuid() == 0
+
+    def is_admin():
+        """Returns if the app is run with administrative access"""
+        try:
+            result = ctypes.windll.shell32.IsUserAnAdmin()
+            return result
+        except:
+            return False
+
     if check_os():
         if not is_admin():
             logger.warn("Some functions won't work without admin rights, " +
@@ -99,20 +112,9 @@ def check_privileges():
             logger.warn("Some functions won't work without root access, " +
                         "try running the grapheneX with sudo.")
 
-def is_root():
-    """Returns if the app is run with sudo"""
-    return os.geteuid() == 0
-
-def is_admin():
-    """Returns if the app is run with administrative access"""
-    try:
-        result = ctypes.windll.shell32.IsUserAnAdmin()
-        return result
-    except:
-        return False
-
 def get_os_info():
     """Returns the operating system information"""
+
     uname = platform.uname()
     return {
         'system': f"{uname.system} | {uname.version}",
@@ -121,6 +123,7 @@ def get_os_info():
 
 def get_modules():
     """Get hardening modules & namespaces in a dictionary"""
+
     current_os="win" if check_os() else "linux"
     json_data = get_mod_json()
     return_dict = dict()
@@ -139,6 +142,7 @@ def get_modules():
 
 def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     """Returns the restricted namespaces depending on the operating system"""
+
     json_data = get_mod_json()
     namespaces = list()
     for namespace, modlist in json_data.items():
@@ -149,6 +153,7 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
 
 def get_presets(os='win' if check_os() else 'linux'):
     """Parse and return the presets in the 'modules' file"""
+
     try:
         presets = list()
         for preset in get_mod_json()['presets']:
@@ -160,6 +165,7 @@ def get_presets(os='win' if check_os() else 'linux'):
 
 def get_mod_json():
     """Read the modules from file"""
+
     with open(mod_json_file, 'r') as json_file:
         json_data = json.load(json_file)
     return json_data
