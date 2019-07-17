@@ -4,7 +4,6 @@
 import logging
 import sys
 
-
 class GraphenexLogger(logging.Logger):
     """
     Logger class for printing logs to command-line.
@@ -17,6 +16,7 @@ class GraphenexLogger(logging.Logger):
         ```
     `GraphenexLogger(name, level, format)`
     """
+
     LEVELS = {
         'DEBUG': logging.DEBUG,
         'ERROR': logging.ERROR,
