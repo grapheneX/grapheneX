@@ -16,49 +16,49 @@
         },
         {
             "name": "RDP_Max_Security",
-            "desc": "Maximizes The Security Of A Remote Desktop Connection",
+            "desc": "Maximizes the security of a Remote Desktop Connection",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp\" /v MinEncryptionLevel /t REG_DWORD /d 4 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Enable_Firewall",
-            "desc": "Enable Firewall All Profiles",
+            "desc": "Enable firewall on all profiles",
             "command": "netsh advfirewall set allprofiles state on",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Remove_Enable_LMhosts",
-            "desc": "Remove Enable LMhosts Lookup",
+            "desc": "Remove Enable LMhosts lookup",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Services\\NetBT\\Parameters\\EnableLMHosts\" /v MinEncryptionLevel /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Block_All_Ports",
-            "desc": "Block All Incoming Connections",
+            "desc": "Block all incoming connections",
             "command": "netsh advfirewall set allprofiles firewallpolicy blockinboundalways,allowoutbound",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Disable_ICMP_IPV4",
-            "desc": "ICMP is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
+            "desc": "Disable the ICMP (IPV4) requests",
             "command": "netsh advfirewall firewall add rule name='ICMP Allow incoming V4 echo request' protocol=icmpv4:8,any dir=in action=allow",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Disable_ICMP_IPV6",
-            "desc": "ICMP is an error-reporting protocol network devices like routers use to generate error messages to the source IP address when network problems prevent delivery of IP packets",
+            "desc": "Disable the ICMP (IPV6) requests",
             "command": "netsh advfirewall firewall add rule name='ICMP Allow incoming V6 echo request' protocol=icmpv6:8,any dir=in action=allow",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Disable_Sending_Pass_SMB",
-            "desc": "Some non-Microsoft SMB servers only support unencrypted (plain text) password authentication. Sending plain text passwords across the network, when authenticating to an SMB server, reduces the overall security of the environment.",
+            "desc": "Some non-Microsoft SMB servers only support unencrypted (plain text) password authentication. Disable sending plain text passwords across the network, when authenticating to an SMB server, for increasing the overall security of the environment",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Services\\NetBT\\Parameters\" /v EnablePlainTextPassword /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
@@ -81,63 +81,63 @@
     "user": [
         {
             "name": "Disable_NULL_Session",
-            "desc": "NTLM sessions that are allowed to fall back to Null (unauthenticated) sessions may gain unauthorized access.",
+            "desc": "Disable NTLM sessions that are allowed to fall back to Null (unauthenticated) sessions for preventing unauthorized access",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Control\\Lsa\\MSV1_0\" /v allownullsessionfallback /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Disable_The_Guest_Account",
-            "desc": "Guest accounts allow temporary login on a Windows system without requiring to provide credentials/password. Each system administrator would have a different need on how to configure guest account on their systems. This post explains how to enable or disable guest account on a Windows computer.",
+            "desc": "Disable the guest accounts for preventing temporary login on a Windows system without requiring to provide credentials/password",
             "command": "net user guest /active:no",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Restrict_Permission_Anon_User",
-            "desc": "This setting helps define the permissions that anonymous users have. If this setting is enabled then anonymous users have the same rights and permissions as the built-in Everyone group. Anonymous users should not have these permissions or rights.",
+            "desc": "Restrict the permissions of anonymous users",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Control\\Lsa\" /v EveryoneIncludesAnonymous /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Require_Keys_For_Login",
-            "desc": "Disabling the Ctrl+Alt+Del security attention sequence can compromise system security. Because only Windows responds to the Ctrl+Alt+Del security sequence, you can be assured that any passwords you enter following that sequence are sent only to Windows. If you eliminate the sequence requirement, malicious programs can request and receive your Windows password. Disabling this sequence also suppresses a custom logon banner.",
+            "desc": "Enable the Ctrl+Alt+Del keys to login",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v DisableCAD  /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Disallow_Anon_Enum_Of_SAM",
-            "desc": "This is a Category 1 finding because it allows anonymous logon users (null session connections) to list all account names and enumerate all shared resources, thus providing a map of potential points to attack the system.",
+            "desc": "Disallow anonymous logon users (null session connections) to list all account names and enumerate all shared resources",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\FileSystem\" /v NtfsDisableLastAccessUpdate  /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
-            "name": "Prevent_SAM_Accounts_Disallow",
-            "desc": "This is a Category 1 finding as it allows anonymous logon users (null session connections) to list all account names, thus providing a list of potential points to attack the system.",
+            "name": "Prevent_Anon_SAM_Accounts",
+            "desc": "Disallow anonymous logon users (null session connections) to list all account names for preventing a list of potential points to attack the system.",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v RestrictAnonymousSAM  /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Prevent_Group_Policy_Refresh",
-            "desc": "If this setting is enabled, then Group Policy settings are not refreshed while a user is currently logged on. This could lead to instances when a user does not have the latest changes to a policy applied and is therefore operating in an insecure context.",
+            "desc": "Set Group Policy settings not to be refreshed while a user is currently logged on",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\system\" /v DisableBkGndGroupPolicy  /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Config_Classic_Security_Model",
-            "desc": "Windows includes two network-sharing security models\u00e2\u20ac\u201dClassic and Guest only. With the classic model, local accounts must be password protected; otherwise, anyone can use guest user accounts to access shared system resources.",
+            "desc": "Protect the local accounts with the classic model",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Lsa\" /v ForceGuest  /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Auto_Logout",
-            "desc": "Set auto logout inactive users.",
+            "desc": "Set auto logout inactive users",
             "command": "echo \"readonly TMOUT=900\" >> /etc/profile.d/idle-users.sh; echo \"readonly HISTFILE\" >> /etc/profile.d/idle-users.sh; chmod +x /etc/profile.d/idle-users.sh",
             "require_superuser": "True",
             "target_os": "linux"
@@ -151,7 +151,7 @@
         },
         {
           "name": "Set_File_Permissions",
-          "desc": "Set file permissions",
+          "desc": "Set file permissions of the root user",
           "command": "chown root:root; chmod og-rwx",
           "require_superuser": "*",
           "target_os": "linux"
@@ -160,84 +160,84 @@
     "network": [
         {
             "name": "Disable_Lan_Hash_Value",
-            "desc": "The LAN Manager hash uses a weak encryption algorithm and there are several tools available that use this hash to retrieve account passwords. This setting controls whether a LAN Manager hash of the password is stored in the SAM the next time the password is changed.",
+            "desc": "Disable storing the hash of the password in the LAN Manager",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\" /v NoLMHash  /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Network_Digitally_Sign_Communications",
-            "desc": "The server message block (SMB) protocol provides the basis for many network operations. Digitally signed SMB packets aid in preventing man-in-the-middle attacks. If this policy is enabled, the SMB client will only communicate with an SMB server that performs SMB packet signing.",
+            "desc": "Set the SMB client for only communicating with an SMB server that performs SMB packet signing",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\" /v RequireSecuritySignature  /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Prevent_Printing_Over_Http",
-            "desc": "This module verifies that the system is configured to prevent the client computer's ability to print over HTTP, which allows the computer to print to printers on the intranet as well as the Internet.",
+            "desc": "Configure the system to the prevent printing over HTTP",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Printers\" /v DisableHTTPPrinting /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Enable_Cookie_Protection",
-            "desc": "Enable TCP SYN Cookie protection.",
+            "desc": "Enable TCP SYN cookie protection",
             "command": "echo \"net.ipv4.tcp_syncookies = 1\" > /etc/sysctl.d/50-net-stack.conf",
             "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Disable_IP_Source_Routing",
-            "desc": "Disable IP source routing.",
+            "desc": "Disable IP source routing",
             "command": "echo \"net.ipv4.conf.all.accept_source_route = 0\" > /etc/sysctl.d/50-net-stack.conf",
             "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Disable_Redirect_Acceptance",
-            "desc": "Disable ICMP redirect acceptance.",
+            "desc": "Disable ICMP redirect acceptance",
             "command": "echo \"net.ipv4.conf.all.accept_redirects = 0\" > /etc/sysctl.d/50-net-stack.conf",
             "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Ignore_ICMP",
-            "desc": "Enable ignoring to ICMP requests.",
+            "desc": "Enable ignoring the ICMP requests",
             "command": "echo \"net.ipv4.icmp_echo_ignore_all = 1\" > /etc/sysctl.d/50-net-stack.conf",
             "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Ignore_Broadcast",
-            "desc": "Enable ignoring broadcasts request.",
+            "desc": "Enable ignoring the broadcasts requests",
             "command": "echo \"net.ipv4.icmp_echo_ignore_broadcasts = 1\" > /etc/sysctl.d/50-net-stack.conf",
             "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Force_SYN",
-            "desc": "Make sure new incoming tcp connections are SYN packets",
+            "desc": "Make sure new incoming TCP connections are SYN packets",
             "command": "iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
             "name": "Fragment_Drop",
-            "desc": "Packets with incoming fragments drop them. This attack result into Linux server panic such data loss.",
+            "desc": "Drop the incoming packets with fragments",
             "command": "iptables -A INPUT -f -j DROP",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
             "name": "XMAS_Drop",
-            "desc": "Incoming malformed XMAS packets drop them",
+            "desc": "Drop the incoming malformed XMAS packets",
             "command": "iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
             "name": "Drop_Null",
-            "desc": "Incoming malformed NULL packets",
+            "desc": "Drop the incoming malformed NULL packets",
             "command": "iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP",
             "require_superuser": "False",
             "target_os": "linux"
@@ -245,7 +245,7 @@
         {
             "name": "Set_Permissions_Network_Settings",
             "desc": "Set permissions on network settings",
-            "command": "chmod 02750 /bin/ping ; chmod 02750  /sbin/ifconfig",
+            "command": "chmod 02750 /bin/ping ; chmod 02750 /sbin/ifconfig",
             "require_superuser": "False",
             "target_os": "linux"
         },
@@ -258,7 +258,7 @@
         },
         {
             "name": "Set_Permissions_System_Configuration",
-            "desc": "Set permissions on system configuration",
+            "desc": "Set permissions on the system configuration",
             "command": "chmod 02750 /usr/bin/locate ; chmod 02750 /usr/bin/whereis",
             "require_superuser": "False",
             "target_os": "linux"
@@ -267,64 +267,64 @@
     "services": [
         {
             "name": "Prevent_Remote_Assistance",
-            "desc": "This setting controls whether unsolicited offers of help to this computer are allowed. The list of users allowed to offer remote assistance to this system is accessed by pressing the Helpers button.",
+            "desc": "Prevent unsolicited offers of help to the system",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services\" /v fAllowUnsolicited  /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "NTFS_Update_Disable",
-            "desc": "If you'd like to get a little extra performance out of your disk volumes, or if you have a large number of folders, you can disable this process and make directory lists more nimble.",
+            "desc": "Disable the NTFS updates for extra performance out of the disk volumes",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Control\\Lsa\" /v RestrictAnonymous  /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Machine_Inactivity_15_Min",
-            "desc": "Unattended systems are susceptible to unauthorized use and should be locked when unattended. The screen saver should be set at a maximum of 15 minutes and be password protected. This protects critical and sensitive data from exposure to unauthorized personnel with physical access to the computer.",
+            "desc": "Set the screen saver at a maximum of 15 minutes",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\" /v InactivityTimeoutSecs  /t REG_DWORD /d 0x00000384 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "IPSec_Exemptions_Limited",
-            "desc": "This check verifies that Windows is configured to limit IPSec exemptions.",
+            "desc": "Configure the Windows to limit IPSec exemptions",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Services\\IPSEC\" /v NoDefaultExempt  /t REG_DWORD /d 3 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "WinExplorer_Heap_Corruption_Disable",
-            "desc": "This check verifies that heap termination on corruption is disabled. This may prevent Windows Explorer from terminating immediately from certain legacy plug-in applications.",
+            "desc": "Disable the heap termination on corruption",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services\" /v fAllowUnsolicited  /t REG_DWORD /d 0 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Remote_Logfiles_Generate",
-            "desc": "This check verifies that Remote Assistance log files will be generated.",
+            "desc": "Generate the log files on Remote Assistance",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services\" /v LoggingEnabled /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "SubSystem_Require_Case_Insensitivity",
-            "desc": "This setting controls the behavior of non-Windows subsystems when dealing with the case of arguments or commands. Case sensitivity could lead to the access of files or commands that must be restricted. To prevent this from happening, case insensitivity restrictions must be required.",
+            "desc": "Require the case insensitivity restrictions for preventing the access of files or commands that must be restricted",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel\" /v ObCaseInsensitive /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Safe_DLL_Search_Mode",
-            "desc": "The default search behavior, when an application calls a function in a Dynamic Link Library (DLL), is to search the current directory followed by the directories contained in the systems path environment variable. An unauthorized DLL inserted into an applications working directory could allow malicious code to be run on the system. Creating the following registry key and setting the appropriate value forces the system to search the %Systemroot% for the DLL before searching the current directory or the rest of the path.",
+            "desc": "Search the %systemroot% for the DLL before searching the current directory or the rest of the path",
             "command": "reg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\" /v SafeDllSearchMode /t REG_DWORD /d 1 /f",
             "require_superuser": "False",
             "target_os": "win"
         },
         {
             "name": "Syslog_Service",
-            "desc": "Ensure syslog service is enabled and running.",
-            "command": "systemctl enable rsyslog; systemctl start rsyslog",
+            "desc": "Ensure syslog service is enabled and running",
+            "command": "systemctl enable rsyslog ; systemctl start rsyslog",
             "require_superuser": "True",
             "target_os": "linux"
         }
@@ -332,49 +332,49 @@
     "kernel": [
         {
             "name": "Logs_Restrict_Access",
-            "desc": "Restricting access to kernel logs",
+            "desc": "Restrict access to kernel logs",
             "command": "echo \"kernel.dmesg_restrict = 1\" > /etc/sysctl.d/50-dmesg-restrict.conf",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
             "name": "Pointers_Restrict_Access",
-            "desc": "Restricting access to kernel pointers.",
+            "desc": "Restrict access to kernel pointers",
             "command": "echo \"kernel.kptr_restrict = 1\" > /etc/sysctl.d/50-kptr-restrict.conf",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
             "name": "ExecShield_Protection",
-            "desc": "ExecShield protection",
+            "desc": "Enable the ExecShield protection",
             "command": "echo \"kernel.exec-shield = 2\" > /etc/sysctl.d/50-exec-shield.conf",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
             "name": "Randomise_Memory",
-            "desc": "Randomise memory space.",
+            "desc": "Randomise the memory space",
             "command": "echo \"kernel.randomize_va_space=2\" > /etc/sysctl.d/50-rand-va-space.conf",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
             "name": "Set_Permissions_Firewall_File",
-            "desc": "Set permissions on sensitive system files to firewall",
+            "desc": "Set permissions on the sensitive system files of firewall",
             "command": "chmod 0700 /etc/profile ; chmod 0700 /etc/hosts.allow ; chmod 0700 /etc/mtab ; chmod 0700 /etc/utmp ; chmod 0700 /var/adm/wtmp ; chmod 0700 /etc/syslog.pid",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
             "name": "Set_Permissions_Kernel_File",
-            "desc": "Set permissions on sensitive system files to kernel",
+            "desc": "Set permissions on the sensitive system files of kernel",
             "command": "chmod 0700 /etc/sysctl.conf ; chmod 0700 /etc/inittab",
             "require_superuser": "False",
             "target_os": "linux"
         },
         {
-            "name": "Set_Permissions_Privelege_Escalation",
-            "desc": "Set permissions on privelege escalation",
+            "name": "Set_Permissions_Privilege_Escalation",
+            "desc": "Set permissions of the privilege escalation",
             "command": "chmod 02750 /bin/su ; chmod 02750 /bin/sudo",
             "require_superuser": "False",
             "target_os": "linux"
@@ -383,15 +383,15 @@
     "filesystem": [
         {
             "name": "Link_Protection",
-            "desc": "Enable hard/soft link protection.",
-            "command": "echo \"fs.protected_hardlinks = 1\" > /etc/sysctl.d/50-fs-hardening.conf; echo \"fs.protected_symlinks = 1\" >> /etc/sysctl.d/50-fs-hardening.conf",
+            "desc": "Enable hard/soft link protection",
+            "command": "echo \"fs.protected_hardlinks = 1\" > /etc/sysctl.d/50-fs-hardening.conf ; echo \"fs.protected_symlinks = 1\" >> /etc/sysctl.d/50-fs-hardening.conf",
             "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Disable_Uncommon_FS",
-            "desc": "Disable uncommon filesystems.",
-            "command": "echo \"install cramfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install freevxfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install jffs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install hfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install hfsplus /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install squashfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install udf /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install fat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install vfat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install nfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install nfsv3 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf; echo \"install gfs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf",
+            "desc": "Disable uncommon filesystems",
+            "command": "echo \"install cramfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install freevxfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install jffs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install hfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install hfsplus /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install squashfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install udf /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install fat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install vfat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install nfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install nfsv3 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install gfs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf",
             "require_superuser": "True",
             "target_os": "linux"
         }
@@ -399,7 +399,7 @@
     "other": [
         {
             "name": "SSH_Disable_Root",
-            "desc": "Disable the option to login directly as root via SSH, use sudo instead.",
+            "desc": "Disable the option to login directly as root via SSH, use sudo instead",
             "command": "echo \"PermitRootLogin no\" >> /etc/ssh/ssh_config",
             "require_superuser": "True",
             "target_os": "linux"
