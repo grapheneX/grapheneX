@@ -14,24 +14,23 @@ import json
 import os
 import re
 
-
 logger = GraphenexLogger(__name__)
 
 class ShellCommands(Help):
     def do_switch(self, arg):
         """Switch between modules or namespaces"""
 
-        if arg:
-            arg = arg.lower()
-            if arg in self.modules.keys():
-                logger.info(f"Switched to \"{arg}\" namespace." +
-                            " Use 'list' to see available modules.")
-                self.namespace = arg
-                self.module = ""
-            else:
-                self.do_use(arg)
-        else:
+        if not arg:
             logger.warn("'switch' command takes 1 argument.")
+            return
+        arg = arg.lower()
+        if arg in self.modules.keys():
+            logger.info(f"Switched to \"{arg}\" namespace." +
+                        " Use 'list' command to see available modules.")
+            self.namespace = arg
+            self.module = ""
+        else:
+            self.do_use(arg)
 
     def complete_switch(self, text, line, begidx, endidx):
         """Complete switch command"""
@@ -42,7 +41,7 @@ class ShellCommands(Help):
         return [s[offs:] for s in avb_namespaces if s.startswith(mline)]
 
     def do_use(self, arg):
-        """Use a hardening module"""
+        """Use the hardening module"""
 
         if "/" in arg and arg.split("/")[0].lower() in self.modules.keys():
             self.namespace = arg.split("/")[0].lower()
@@ -51,26 +50,26 @@ class ShellCommands(Help):
         def select_module_msg():
             logger.info(f"\"{self.module}\" module selected. Use 'harden' command " +
                         "for hardening or use 'info' for more information.")
-        if arg:
-            module_found = False
-            if self.namespace:
-                for name, module in self.modules[self.namespace].items():
+        if not arg:
+            logger.warn("'use' command takes 1 argument.")
+            return
+        module_found = False
+        if self.namespace:
+            for name, module in self.modules[self.namespace].items():
+                if arg.lower() == name.lower():
+                    module_found = True
+                    self.module = name
+                    select_module_msg()
+        else:
+            for k, v in self.modules.items():
+                for name, module in v.items():
                     if arg.lower() == name.lower():
                         module_found = True
                         self.module = name
+                        self.namespace = k
                         select_module_msg()
-            else:
-                for k, v in self.modules.items():
-                    for name, module in v.items():
-                        if arg.lower() == name.lower():
-                            module_found = True
-                            self.module = name
-                            self.namespace = k
-                            select_module_msg()
-            if not module_found:
-                logger.error(f"No module/namespace named \"{arg}\".")
-        else:
-            logger.warn("'use' command takes 1 argument.")
+        if not module_found:
+            logger.error(f"No module/namespace named \"{arg}\".")
 
     def complete_use(self, text, line, begidx, endidx):
         """Complete use command"""
@@ -85,7 +84,7 @@ class ShellCommands(Help):
         # If namespace selected
         if '/' in mline:
             # title() -> given module string for getting rid of
-            # case sensitivity
+            # the case sensitivity
             mline = mline.split('/')[0].lower() + "/" + \
                 mline.split('/')[1].title()
         offs = len(mline) - len(text)
@@ -107,7 +106,6 @@ class ShellCommands(Help):
 
         if self.module:
             module = self.modules[self.namespace][self.module]
-
             print(f"\n\tNamespace: {self.namespace}\n\tModule: {module.name}\n\t" +
                 f"Description: {module.desc}\n" + f"\tCommand: {module.command}\n")
         else:
@@ -120,25 +118,25 @@ class ShellCommands(Help):
         table = AsciiTable(search_table)
         max_width = table.column_max_width(1)
 
-        if arg:
-            if arg in self.modules.keys():
-                for name, module in self.modules[arg].items():
-                    wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
-                    table.table_data.append(
-                        [arg + "/" + name, wrapped])
-            else:
-                for k, v in self.modules.items():
-                    for name, module in v.items():
-                        if arg.lower() in name.lower():
-                            wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
-                            table.table_data.append(
-                                [k + "/" + name, wrapped])
-            if len(table.table_data) > 1:
-                print(table.table)
-            else:
-                logger.error(f"Nothing found for \"{arg}\".")
-        else:
+        if not arg:
             self.do_list(None)
+            return
+        if arg in self.modules.keys():
+            for name, module in self.modules[arg].items():
+                wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                table.table_data.append(
+                    [arg + "/" + name, wrapped])
+        else:
+            for k, v in self.modules.items():
+                for name, module in v.items():
+                    if arg.lower() in name.lower():
+                        wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
+                        table.table_data.append(
+                            [k + "/" + name, wrapped])
+        if len(table.table_data) > 1:
+            print(table.table)
+        else:
+            logger.error(f"Nothing found for \"{arg}\".")
 
     def do_list(self, arg):
         """List available hardening modules"""
@@ -241,7 +239,6 @@ class ShellCommands(Help):
                 # access modules within the selected namespace.
                 ModuleNameValidation.modules = self.modules[mod_ns].keys() \
                     if mod_ns in self.modules.keys() else []
-                # Append with other module information
                 mod_details = prompt(mod_questions)
                 mod_dict = {
                         "name": mod_details['mod_name'].title(),
@@ -326,7 +323,6 @@ class ShellCommands(Help):
         self.namespace = ""
         self.module = ""
         self.modules = get_modules()
-
 
     def do_preset(self, arg):
         """Show/execute the hardening module presets"""
@@ -479,6 +475,8 @@ class ShellCommands(Help):
 
 class ModuleNameValidation(Validator):
         def validate(self, document):
+            """Validate the module name for the prompt"""
+
             if not re.match(r'^\w+$', document.text):
                 raise ValidationError(
                     message='Enter a valid module name',
@@ -490,6 +488,8 @@ class ModuleNameValidation(Validator):
 
 class NamespaceValidation(Validator):
     def validate(self, document):
+        """Validate the namespace for the prompt"""
+
         namespaces = get_forbidden_namespaces()
         if document.text.lower() in [namespace.lower() for namespace in namespaces]:
             raise ValidationError(
