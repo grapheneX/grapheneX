@@ -56,8 +56,7 @@ def print_header():
             from colorama import init, Fore, Style
             init()
         except:
-            print("colorama module not found.\n" +
-                  "Install requirements.txt with pip.")
+            print("colorama module not found.")
             sys.exit()
     import_colorama()
     project_desc = Style.BRIGHT + Fore.WHITE + """
