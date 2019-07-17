@@ -1,6 +1,11 @@
 from graphenex.core.hrd.exec import WinExec, LinuxExec
 
 class HardenMethod:
+    """
+    Class for retrieving the details of a
+    module and executing the command
+    """
+
     def __init__(self, **kwargs):
         self.linuxExec = LinuxExec()
         self.winExec = WinExec()
