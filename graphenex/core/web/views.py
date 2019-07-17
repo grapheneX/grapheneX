@@ -40,7 +40,7 @@ def get_current_namespace(data):
     modules = list()
     mod_dict = module_dict.get(data)
     if mod_dict == None:
-        logger.warn(f"Non-existent namespace: {data}.")
+        logger.warn(f"Non-existent namespace: \"{data}\".")
     else:
         global current_namespace
         current_namespace = data
@@ -50,7 +50,7 @@ def get_current_namespace(data):
                 'desc': mod.desc,
                 'source': mod.command
             })
-        logger.info(f'Sending modules of {current_namespace}.')
+        logger.info(f'Sending modules of \"{current_namespace}\".')
         emit('get_module', modules)
 
 @socketio.on('search_module')
