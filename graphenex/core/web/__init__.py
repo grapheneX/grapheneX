@@ -1,8 +1,8 @@
-from flask import Flask
-from flask_socketio import SocketIO
 from graphenex.core.cli.shell import Shell
 from graphenex.core.utils.logcl import GraphenexLogger
 
+from flask import Flask
+from flask_socketio import SocketIO
 import webbrowser
 
 logger = GraphenexLogger(__name__)
@@ -14,10 +14,14 @@ default_addr = ('0.0.0.0', '8080')
 from graphenex.core.web.views import *
 
 def disable_flask_logs():
+    """Disable the Flask logs"""
+
     import logging
     log = logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
 def run_server(args=None, exit_shell=True):
+    """Run the web server"""
+
     disable_flask_logs()
     try:
         if args:
