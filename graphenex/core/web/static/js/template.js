@@ -1,3 +1,12 @@
+/*
+Module divs
+Javascript will use:
+  - module_name_div
+  - module_name_btn (Button trigger)
+  - module_name_ico (for animation)
+  - module_name_drawer
+  - module_name_logs (logs text area)
+*/
 function getModuleBox(name, desc) {
 	return '<div class="module-box deep" style="margin-bottom: 20px;" id="' + name + '_div" data-aos="fade-up">\
             <div class="row">\
