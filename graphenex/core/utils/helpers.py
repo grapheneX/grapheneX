@@ -85,7 +85,6 @@ def check_os():
     [1] -> Windows
     [0] -> Linux (else)
     """
-
     return 1 if __import__('os').name == 'nt' else 0
 
 def check_privileges():
@@ -114,7 +113,6 @@ def check_privileges():
 
 def get_os_info():
     """Returns the operating system information"""
-
     uname = platform.uname()
     return {
         'system': f"{uname.system} | {uname.version}",
