@@ -3,6 +3,7 @@
 
 from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file
+
 from flask import render_template
 from flask_socketio import emit
 import json
@@ -20,22 +21,26 @@ def main():
         mod_count=get_mod_count(module_dict))
 
 def get_mod_count(mod_dict):
+    """Return the count of modules in the dict"""
     return sum([len(value) for key, value in mod_dict.items()])
 
 @socketio.on('get_namespaces')
 def send_namespaces(data):
+    """Send namespaces to the web"""
     emit('get_namespaces', {'namespaces': list(module_dict.keys())})
 
 @socketio.on('get_current_namespace')
 def send_current_namespace(data):
+    """Send the current namespace to the web"""
     emit('get_current_namespace', {'current_namespace': current_namespace})
 
 @socketio.on('send_current_namespace')
 def get_current_namespace(data):
+    """Set the current namespace and send modules"""
     modules = list()
     mod_dict = module_dict.get(data)
     if mod_dict == None:
-        logger.warn(f"Non-existent namespace: {data}.")
+        logger.warn(f"Non-existent namespace: \"{data}\".")
     else:
         global current_namespace
         current_namespace = data
@@ -45,11 +50,12 @@ def get_current_namespace(data):
                 'desc': mod.desc,
                 'source': mod.command
             })
-        logger.info(f'Sending modules of {current_namespace}.')
+        logger.info(f'Sending modules of \"{current_namespace}\".')
         emit('get_module', modules)
 
 @socketio.on('search_module')
 def search_module(data):
+    """Search module in the module list"""
     result = {name: mod for name, mod in module_dict.get(
         current_namespace).items() if data["query"].lower() in name.lower()}
     payload = list()
@@ -63,6 +69,7 @@ def search_module(data):
 
 @socketio.on('harden')
 def hardening_exec(data):
+    """Execute the hardening module and send its output to web"""
     try:
         logger.info("Executing the hardening command of " + current_namespace + "/" + data)
         hrd = module_dict[current_namespace][data]
@@ -101,6 +108,7 @@ def hardening_exec(data):
 
 @socketio.on('add_module')
 def add_module(mod):
+    """Add new module to the framework"""
     try:
         mod_name = mod['name']
         mod_ns = mod['ns']

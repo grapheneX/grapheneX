@@ -1,14 +1,15 @@
 #!/usr/bin/python3.7
 # -*- coding: utf-8 -*-
 
-from terminaltables import AsciiTable
 from graphenex.core.utils.logcl import GraphenexLogger
+
+from terminaltables import AsciiTable
 
 logger = GraphenexLogger(__name__)
 
 class Help:
     """
-    Help class that will contain help methods for every command.
+    Help class that will contain help methods for spesific commands
     """
 
     def do_help(self, arg):
@@ -37,6 +38,8 @@ class Help:
             print(AsciiTable(help_table).table)
 
     def message(self, syntax, content):
+        """Print the commands help message with its syntax"""
+
         print(f"\n\tSyntax: {syntax}\n\t{content}\n")
 
     def help_switch(self):

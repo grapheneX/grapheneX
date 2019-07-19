@@ -59,6 +59,7 @@ function Module(moduleName, moduleDesc, moduleSource, socket) {
     }
 }
 
+/* Search module event */
 search = function () {
     $("#module_search").on("keyup", function () {
         query = $(this).val();
@@ -77,6 +78,7 @@ search = function () {
     });
 }
 
+/* New module save event */
 saveModal = () => {
     socket.emit("add_module", {
         "ns": $("#amod_ns_list").find(".active").text().trim(),
@@ -87,6 +89,7 @@ saveModal = () => {
     });
 }
 
+/* Prepare the new module modal */
 prepareModal = () => {
     $("#addModuleModal").on('show.bs.modal', function () {
         $("#openModal").find('.fa-plus').addClass('rotate_cogs')
@@ -122,6 +125,7 @@ prepareModal = () => {
     })
 }
 
+/* Show message with modal */
 createMessage = (data) => {
     var messageClass = 'text-white bg-' + data.tag
     var _modal = $("#messageModal");
@@ -135,6 +139,7 @@ createMessage = (data) => {
     }, sec)
 }
 
+/* Initialize the page & connect */
 function initializePage() {
     AOS.init(); // AOS scroll library
     prepareModal();
@@ -142,9 +147,10 @@ function initializePage() {
     socket.on('log_message', (data) => {
         createMessage(data);
     })
-    socket.emit('get_namespaces', {});  // Request namespace list
-
-    socket.on('get_namespaces', (data) => {  // Add namespace string to html
+    // Request namespace list
+    socket.emit('get_namespaces', {});
+    // Add namespace string to HTML
+    socket.on('get_namespaces', (data) => {
         var { namespaces } = data;
         $("#namespaces").empty()
         namespaces.forEach(namespace => {

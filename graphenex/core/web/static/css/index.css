@@ -1,5 +1,5 @@
 /*
-    Graphenex web main css file
+    grapheneX web main CSS file
 */
 
 body {
@@ -16,10 +16,12 @@ a {
     border: 1px solid #1DA1F2;
     color: white;
 }
+
 .btn-danger {
     border: 1px solid #D8D8D8;
 }
-.btn-primary{
+
+.btn-primary {
     background-color: #303030;
     border: 1px solid #D8D8D8;
 }
@@ -30,16 +32,15 @@ a {
     opacity: 0.8;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
     background-color: #303030;
     opacity: 0.7;
 }
 
-.form-control{
+.form-control {
     background-color: #111111;
     color: #D8D8D8;
 }
-
 
 .form-control:focus {
     color: #D8D8D8;
@@ -47,9 +48,9 @@ a {
     border-color: #D8D8D8;
     background-color: #111111;
     box-shadow: inset 0 .5px .5px rgba(0, 0, 0, 0.075), 0 0 3px rgba(255, 255, 255, 0.6);
-  }
+}
 
-.input-group-text{
+.input-group-text {
     background-color: #111111;
     color: #D8D8D8;
 }
@@ -102,7 +103,7 @@ a {
     border-right: none !important;
 }
 
-.sr-bar:focus{
+.sr-bar:focus {
     outline-width: 0;
 }
 
@@ -140,7 +141,7 @@ a {
     transition: all .4s ease;
 }
 
-.list-group{
+.list-group {
     border: 1px solid #D8D8D8;
     border-radius: .25rem;
     max-height: 100px;
@@ -148,34 +149,35 @@ a {
     overflow-y:scroll;
     -webkit-overflow-scrolling: touch;
 }
-.list-group-item{
+
+.list-group-item {
     background-color: #111111;
     color: #D8D8D8;
 }
+
 .list-group-item.active {
     background-color: #555;
     border-color: #1E1E1E;
 }
 
-/* Scroll bar */
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 3px;
     background-color: #343A40;
 }
+
 ::-webkit-scrollbar {
     width: 5px;
     background-color: #343A40;
 }
+
 ::-webkit-scrollbar-thumb {
     border-radius: 3px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #555;
 }
 
-
-/* Add module stuff */
-.addmd-modal{
+.addmd-modal {
     background-color: #1E1E1E;
 }
 
@@ -192,19 +194,17 @@ a {
     /* Firefox 16+, IE 10+, Opera 12.10+ */
 }
 
-/* Rotate baby */
 .rotate_cogs {
     animation: rotate_ar 2s linear infinite;
 }
 
-@keyframes rotate_ar{
+@keyframes rotate_ar {
     100% {
         -webkit-transform: rotate(360deg);
     }
 }
 
-/* Loading stuff */
-.overlay{
+.overlay {
     position: fixed;
     top: 0;
     width: 100%;
@@ -213,12 +213,12 @@ a {
     z-index: 100;
 }
 
-.loading-img{
+.loading-img {
     margin-top: 200px;
     animation: spin 2s linear infinite;
 }
 
-@keyframes spin{
+@keyframes spin {
     0% {
         -webkit-transform: rotateY(0);
     }

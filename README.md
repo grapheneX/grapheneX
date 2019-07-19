@@ -2,6 +2,8 @@
 
 # grapheneX [![Release](https://img.shields.io/github/release/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/releases)
 
+[![PyPI](https://img.shields.io/pypi/v/graphenex.svg?style=flat-square)](https://pypi.org/project/graphenex)
+[![AUR](https://img.shields.io/aur/version/graphenex.svg?style=flat-square)](https://aur.archlinux.org/packages/graphenex/)
 [![Issues](https://img.shields.io/github/issues/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/pulls)
 [![Stars](https://img.shields.io/github/stars/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/stargazers)
