@@ -1,5 +1,5 @@
 ![grapheneX](https://user-images.githubusercontent.com/24392180/60434254-65ed3e00-9c0f-11e9-8b73-73f9a1b25f60.png)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
 # grapheneX [![Release](https://img.shields.io/github/release/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/releases)
 
@@ -358,6 +358,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://k3pwn.me"><img src="https://avatars1.githubusercontent.com/u/24392180?v=4" width="100px;" alt="k3"/><br /><sub><b>k3</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=KeyLo99" title="Code">💻</a> <a href="https://github.com/grapheneX/grapheneX/commits?author=KeyLo99" title="Documentation">📖</a> <a href="#projectManagement-KeyLo99" title="Project Management">📆</a> <a href="#question-KeyLo99" title="Answering Questions">💬</a> <a href="#ideas-KeyLo99" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-KeyLo99" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/bufgix"><img src="https://avatars1.githubusercontent.com/u/22038798?v=4" width="100px;" alt="Faruk"/><br /><sub><b>Faruk</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=bufgix" title="Code">💻</a> <a href="#design-bufgix" title="Design">🎨</a> <a href="#platform-bufgix" title="Packaging/porting to new platform">📦</a> <a href="#ideas-bufgix" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-bufgix" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
