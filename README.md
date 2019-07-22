@@ -349,10 +349,6 @@ For contributing to this project, see [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 We don't have any sponsors yet. Contact us with email if you want to help us improve the project.
 
-## License
-
-GNU General Public License v3.0 ([gpl](https://www.gnu.org/licenses/gpl.txt))
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -368,3 +364,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## License
+
+GNU General Public License v3.0 ([gpl](https://www.gnu.org/licenses/gpl.txt))
