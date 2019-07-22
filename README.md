@@ -1,4 +1,5 @@
 ![grapheneX](https://user-images.githubusercontent.com/24392180/60434254-65ed3e00-9c0f-11e9-8b73-73f9a1b25f60.png)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 # grapheneX [![Release](https://img.shields.io/github/release/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/releases)
 
@@ -351,3 +352,19 @@ We don't have any sponsors yet. Contact us with email if you want to help us imp
 ## License
 
 GNU General Public License v3.0 ([gpl](https://www.gnu.org/licenses/gpl.txt))
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="http://k3pwn.me"><img src="https://avatars1.githubusercontent.com/u/24392180?v=4" width="100px;" alt="k3"/><br /><sub><b>k3</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=KeyLo99" title="Code">💻</a> <a href="https://github.com/grapheneX/grapheneX/commits?author=KeyLo99" title="Documentation">📖</a> <a href="#projectManagement-KeyLo99" title="Project Management">📆</a> <a href="#question-KeyLo99" title="Answering Questions">💬</a> <a href="#ideas-KeyLo99" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-KeyLo99" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
