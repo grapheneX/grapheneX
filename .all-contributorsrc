@@ -18,6 +18,19 @@
         "ideas",
         "review"
       ]
+    },
+    {
+      "login": "bufgix",
+      "name": "Faruk",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/22038798?v=4",
+      "profile": "https://github.com/bufgix",
+      "contributions": [
+        "code",
+        "design",
+        "platform",
+        "ideas",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
