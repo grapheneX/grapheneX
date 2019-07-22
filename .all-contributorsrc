@@ -1,0 +1,28 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "KeyLo99",
+      "name": "k3",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/24392180?v=4",
+      "profile": "http://k3pwn.me",
+      "contributions": [
+        "code",
+        "doc",
+        "projectManagement",
+        "question",
+        "ideas",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "grapheneX",
+  "projectOwner": "grapheneX",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
