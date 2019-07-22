@@ -31,6 +31,15 @@
         "ideas",
         "review"
       ]
+    },
+    {
+      "login": "emperorfederico",
+      "name": "Emperor  Federico",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/37400853?v=4",
+      "profile": "http://www.emperorfederico.info",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
