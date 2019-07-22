@@ -31,6 +31,17 @@
         "ideas",
         "review"
       ]
+    },
+    {
+      "login": "afk",
+      "name": "Efe Aydın",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/22278039?v=4",
+      "profile": "https://github.com/afk",
+      "contributions": [
+        "code",
+        "ideas",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
