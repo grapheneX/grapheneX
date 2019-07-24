@@ -4,15 +4,40 @@
 from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file
 
-from flask import render_template
+from flask import render_template, session, request redirect
 from flask_socketio import emit
+from functools import wraps
 import json
 import re
 
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        token = session.get('token', None)
+        if token != app.config['ACCESS_TOKEN']:
+            return redirect('/control')
+        else:
+            return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/control', methods=["GET", "POST"])
+def control():
+    if session.get('token', None) == app.config['ACCESS_TOKEN']:
+        return redirect('/')
+
+    if request.method == 'POST':
+        token = request.form['token']
+        if token and token == app.config['ACCESS_TOKEN']:
+            session['token'] = token
+            return redirect('/')
+
+    return render_template('control.html')
+
 @app.route('/')
+@login_required
 def main():
     return render_template(
         'index.html',
