@@ -5,7 +5,7 @@ from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file
 
 from flask import render_template, session, request, redirect
-from flask_socketio import emit
+from flask_socketio import emit, disconnect
 from functools import wraps
 import json
 import re
@@ -32,8 +32,8 @@ def auth_socketio(f):
             return f(*args, **kwargs)
         else:
             emit('auth', {'text': 'Not authenticated'})
-            return lambda *args, **kwargs: None;  # this return must be a function. Because socket.io will execute as a function.
-
+            disconnect()
+    
     return decorated_function
 
 
