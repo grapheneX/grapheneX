@@ -97,14 +97,18 @@ Execute the `grapheneX` command in order to start the interactive shell.
 
 ### Web Interface
 
-Execute the `grapheneX.py` with the `-w` or `--web` argument in order to start the web server. 
+Execute the `grapheneX` with the `-w` or `--web` argument in order to start the web server. 
 
-![Starting the Web Server](https://user-images.githubusercontent.com/24392180/60523549-99a19400-9cf3-11e9-85eb-d89cfb083056.gif)
+![Starting the Web Server](https://user-images.githubusercontent.com/24392180/61898426-f292cf80-af21-11e9-9edc-21f0351bbf5b.gif)
 
-![GrapheneX Web Interface](https://user-images.githubusercontent.com/24392180/60525198-9bb92200-9cf6-11e9-80c6-9b69b5d10c81.gif)
+• Web interface has the authentication system that requires an `access token`. Once the user verifies her/his identity with the given token at the shell, grapheneX creates a session for further use.
+
+![GrapheneX Web Interface I](https://user-images.githubusercontent.com/24392180/61898886-fd019900-af22-11e9-9d1e-e2a58bee6651.gif)
+
+![GrapheneX Web Interface II](https://user-images.githubusercontent.com/24392180/60525198-9bb92200-9cf6-11e9-80c6-9b69b5d10c81.gif)
 
 
-• The default host and port value are `0.0.0.0:8080`. It can be changed via the `host:port` argument as shown below.
+• The default host and port value are `localhost:8080`. It can be changed via the `host:port` argument as shown below.
 
 ```
 python grapheneX.py -w 192.168.1.36:8090
