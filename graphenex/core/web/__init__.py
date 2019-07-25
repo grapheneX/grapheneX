@@ -33,8 +33,11 @@ def run_server(args=None, exit_shell=True):
         else:
             server_params = default_addr
         logger.info(f"Starting server: http://{server_params[0]}:{server_params[1]}")
-        if args and args['open']:
-            webbrowser.open(f"http://{'localhost' if server_params[0] == '0.0.0.0' else server_params[0]}:{server_params[1]}")
+        try:
+            if args and args['open']:
+                webbrowser.open(f"http://{server_params[0]}:{server_params[1]}")
+        except:
+            pass
         logger.info(f"Your access token: {app.config['ACCESS_TOKEN']}")
         socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=False)
     except (PermissionError, ValueError):
