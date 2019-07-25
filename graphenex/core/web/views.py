@@ -13,7 +13,6 @@ import re
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
 
-
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -45,6 +44,10 @@ def main():
         title="grapheneX [Web]",
         sys_info=get_os_info(),
         mod_count=get_mod_count(module_dict))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 def get_mod_count(mod_dict):
     """Return the count of modules in the dict"""
