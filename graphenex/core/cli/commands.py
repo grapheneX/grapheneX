@@ -9,6 +9,7 @@ from graphenex.core.cli.help import Help
 from terminaltables import AsciiTable
 from PyInquirer import prompt, Validator, ValidationError
 import textwrap
+import secrets
 import random
 import json
 import os
@@ -413,7 +414,8 @@ class ShellCommands(Help):
     def do_web(self, arg):
         """Start the grapheneX web server"""
 
-        from graphenex.core.web import run_server
+        from graphenex.core.web import run_server, app
+        app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(8)
         run_server({"host_port":arg} if arg else None, False)
 
     def do_harden(self, arg):

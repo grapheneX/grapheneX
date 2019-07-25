@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '77a98d7971ec94c8aae6dd2d'
 app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(8)
 socketio = SocketIO(app)
-default_addr = ('0.0.0.0', '8080')
+default_addr = ('localhost', '8080')
 
 from graphenex.core.web.views import *
 
@@ -32,13 +32,14 @@ def run_server(args=None, exit_shell=True):
                 else (args['host_port'], '8080')
         else:
             server_params = default_addr
-        starting_msg = "Starting server: [http://" + server_params[0] + ":" + server_params[1] + "]"
-        if server_params[0] == "0.0.0.0": starting_msg += " (localhost:" + server_params[1] + ")"
-        logger.info(starting_msg)
-        if args and args['open']:
-            webbrowser.open(f"http://{'localhost' if server_params[0] == '0.0.0.0' else server_params[0]}:{server_params[1]}")
+        logger.info(f"Starting server: http://{server_params[0]}:{server_params[1]}")
+        try:
+            if args and args['open']:
+                webbrowser.open(f"http://{server_params[0]}:{server_params[1]}")
+        except:
+            pass
         logger.info(f"Your access token: {app.config['ACCESS_TOKEN']}")
-        socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=True)
+        socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=False)
     except (PermissionError, ValueError):
         logger.error('Invalid host & port address. Restarting with default host and port.')
         run_server()
