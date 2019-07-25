@@ -90,7 +90,7 @@ optional arguments:
 
 Execute the `grapheneX` command in order to start the interactive shell.
 
-![GrapheneX Interactive Shell](https://user-images.githubusercontent.com/24392180/61891477-6927d100-af12-11e9-995b-373c8bfc98f5.gif)
+![GrapheneX Interactive Shell](https://user-images.githubusercontent.com/24392180/61892273-16e7af80-af14-11e9-91d8-8c7682439f06.gif)
 
 • Animated gifs and screenshots added for demonstration and include the test execution of the unversioned grapheneX. Use `grapheneX` or `python -m graphenex` command for the execution.   
 • grapheneX currently supports [Python3.7](https://www.python.org/)
