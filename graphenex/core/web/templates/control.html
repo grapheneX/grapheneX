@@ -19,7 +19,7 @@
                 <img class="img-responsive" src="{{ url_for('static', filename='images/graphenex_logo_white.png') }}"
                     alt="logo" height="200" width="200" id="banner">
                 <h3>GrapheneX Security</h3><hr class="fancy-hr"> 
-                <form method="POST" autocomplete="off">
+                <form method="POST" autocomplete="off" id="authform">
                     <div class="form-group">
                         <input class="form-control" type="text" name="token" id="token" placeholder="Access token">
                         <button class="btn btn-block mt-2" type="submit">Verify</button>
