@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '77a98d7971ec94c8aae6dd2d'
 app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(8)
 socketio = SocketIO(app)
-default_addr = ('0.0.0.0', '8080')
+default_addr = ('localhost', '8080')
 
 from graphenex.core.web.views import *
 
