@@ -2,11 +2,14 @@
     grapheneX web main CSS file
 */
 
+html,
 body {
     margin: 0;
     background-color: #1E1E1E;
     color: white;
+    height: 100%;
 }
+
 
 a {
     color: #1DA1F2;
@@ -155,6 +158,15 @@ a {
     color: #D8D8D8;
 }
 
+.fancy-hr {
+    border: 0;
+    background-image:  radial-gradient(
+        #D8D8D8,
+        #1e1e1e
+      );
+    height: 1px;
+}
+
 .list-group-item.active {
     background-color: #555;
     border-color: #1E1E1E;
@@ -217,6 +229,7 @@ a {
     margin-top: 200px;
     animation: spin 2s linear infinite;
 }
+
 
 @keyframes spin {
     0% {

@@ -13,6 +13,7 @@ import re
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
 
+
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -30,7 +31,7 @@ def control():
 
     if request.method == 'POST':
         token = request.form['token']
-        if token and token == app.config['ACCESS_TOKEN']:
+        if token == app.config['ACCESS_TOKEN']:
             session['token'] = token
             return redirect('/')
 

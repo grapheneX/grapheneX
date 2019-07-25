@@ -38,7 +38,7 @@ def run_server(args=None, exit_shell=True):
         if args and args['open']:
             webbrowser.open(f"http://{'localhost' if server_params[0] == '0.0.0.0' else server_params[0]}:{server_params[1]}")
         logger.info(f"Your access token: {app.config['ACCESS_TOKEN']}")
-        socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=False)
+        socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=True)
     except (PermissionError, ValueError):
         logger.error('Invalid host & port address. Restarting with default host and port.')
         run_server()
