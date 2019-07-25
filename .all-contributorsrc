@@ -1,0 +1,83 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "KeyLo99",
+      "name": "k3",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/24392180?v=4",
+      "profile": "http://k3pwn.me",
+      "contributions": [
+        "code",
+        "doc",
+        "projectManagement",
+        "question",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "bufgix",
+      "name": "Faruk",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/22038798?v=4",
+      "profile": "https://github.com/bufgix",
+      "contributions": [
+        "code",
+        "design",
+        "platform",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "EnesOkutan",
+      "name": "EnesOkutan",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/36725317?v=4",
+      "profile": "https://github.com/EnesOkutan",
+      "contributions": [
+        "code",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "afk",
+      "name": "Efe Aydın",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/22278039?v=4",
+      "profile": "https://github.com/afk",
+      "contributions": [
+        "code",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "ibanez75612",
+      "name": "ibanez75612",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/26774223?v=4",
+      "profile": "https://github.com/ibanez75612",
+      "contributions": [
+        "code",
+        "platform",
+        "review"
+      ]
+    },
+    {
+      "login": "emperorfederico",
+      "name": "Emperor  Federico",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/37400853?v=4",
+      "profile": "http://www.emperorfederico.info",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "grapheneX",
+  "projectOwner": "grapheneX",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
