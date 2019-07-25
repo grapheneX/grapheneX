@@ -19,13 +19,13 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         token = session.get('token', None)
         if token != app.config['ACCESS_TOKEN']:
-            return redirect('/control')
+            return redirect('/auth')
         else:
             return f(*args, **kwargs)
     return decorated_function
 
-@app.route('/control', methods=["GET", "POST"])
-def control():
+@app.route('/auth', methods=["GET", "POST"])
+def auth():
     if session.get('token', None) == app.config['ACCESS_TOKEN']:
         return redirect('/')
 
@@ -35,7 +35,7 @@ def control():
             session['token'] = token
             return redirect('/')
 
-    return render_template('control.html')
+    return render_template('auth.html')
 
 @app.route('/')
 @login_required
