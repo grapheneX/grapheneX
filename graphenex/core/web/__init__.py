@@ -32,9 +32,7 @@ def run_server(args=None, exit_shell=True):
                 else (args['host_port'], '8080')
         else:
             server_params = default_addr
-        starting_msg = "Starting server: [http://" + server_params[0] + ":" + server_params[1] + "]"
-        if server_params[0] == "0.0.0.0": starting_msg += " (localhost:" + server_params[1] + ")"
-        logger.info(starting_msg)
+        logger.info("Starting server: [http://" + server_params[0] + ":" + server_params[1] + "]")
         if args and args['open']:
             webbrowser.open(f"http://{'localhost' if server_params[0] == '0.0.0.0' else server_params[0]}:{server_params[1]}")
         logger.info(f"Your access token: {app.config['ACCESS_TOKEN']}")
