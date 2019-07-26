@@ -4,8 +4,8 @@
 from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file
 
-from flask import render_template, session, request, redirect
-from flask_socketio import emit
+from flask import render_template, session, request, redirect, flash
+from flask_socketio import emit, disconnect
 from functools import wraps
 import json
 import re
@@ -13,13 +13,12 @@ import re
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
 
-
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         token = session.get('token', None)
         if token != app.config['ACCESS_TOKEN']:
-            return redirect('/control')
+            return redirect('/auth')
         else:
             return f(*args, **kwargs)
     return decorated_function
@@ -32,13 +31,13 @@ def auth_socketio(f):
             return f(*args, **kwargs)
         else:
             emit('auth', {'text': 'Not authenticated'})
-            return lambda *args, **kwargs: None;  # this return must be a function. Because socket.io will execute as a function.
-
+            disconnect()
+    
     return decorated_function
 
 
-@app.route('/control', methods=["GET", "POST"])
-def control():
+@app.route('/auth', methods=["GET", "POST"])
+def auth():
     if session.get('token', None) == app.config['ACCESS_TOKEN']:
         return redirect('/')
 
@@ -47,8 +46,10 @@ def control():
         if token == app.config['ACCESS_TOKEN']:
             session['token'] = token
             return redirect('/')
+        else:
+            flash('Token is not valid', 'error')
 
-    return render_template('control.html')
+    return render_template('auth.html')
 
 
 @app.route('/')
@@ -59,6 +60,11 @@ def main():
         title="grapheneX [Web]",
         sys_info=get_os_info(),
         mod_count=get_mod_count(module_dict))
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 def get_mod_count(mod_dict):
