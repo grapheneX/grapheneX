@@ -6,7 +6,7 @@ README = (HERE / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="graphenex",
-    version="1.0.1",
+    version="1.1.0",
     description="Automated System Hardening Framework for Linux & Windows",
     long_description=README,
     long_description_content_type="text/markdown",
