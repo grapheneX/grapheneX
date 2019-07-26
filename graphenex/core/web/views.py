@@ -4,7 +4,7 @@
 from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file
 
-from flask import render_template, session, request, redirect
+from flask import render_template, session, request, redirect, flash
 from flask_socketio import emit, disconnect
 from functools import wraps
 import json
@@ -46,6 +46,8 @@ def auth():
         if token == app.config['ACCESS_TOKEN']:
             session['token'] = token
             return redirect('/')
+        else:
+            flash('Token is not valid', 'error')
 
     return render_template('auth.html')
 
