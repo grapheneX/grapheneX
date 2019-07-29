@@ -65,6 +65,7 @@ pipenv run python -m graphenex
 * [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
   *  [Flask](http://flask.pocoo.org/)
 * [coloredlogs](https://pypi.org/project/coloredlogs/)
+* [colorama](https://pypi.org/project/colorama/)
 * [terminaltables](https://pypi.org/project/terminaltables/)
 * [PyInquirer](https://pypi.org/project/PyInquirer/)
 
