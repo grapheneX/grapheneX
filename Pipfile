@@ -13,6 +13,7 @@ flask-socketio = "*"
 coloredlogs = "*"
 terminaltables = "*"
 pyinquirer = "*"
+colorama = "*"
 
 [requires]
 python_version = "3.7"
