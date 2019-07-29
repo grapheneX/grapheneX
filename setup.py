@@ -35,7 +35,7 @@ setup(
         "graphenex.core.utils"
     ],
     include_package_data=True,
-    install_requires=["flask-socketio", "coloredlogs", "terminaltables", "pyinquirer"],
+    install_requires=["flask-socketio", "coloredlogs", "colorama", "terminaltables", "pyinquirer"],
     entry_points={
         "console_scripts": [
             "grapheneX=graphenex.__main__:main",
