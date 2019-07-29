@@ -46,6 +46,11 @@ You can install `grapheneX` with `pip`. Usually this is the easiest way:
 ```
 pip install graphenex
 ```
+Or if you get an error try:
+
+```
+python3 -m pip install graphenex
+```
 
 Also it's possible to run the `setup.py` for installation as follows:
 
