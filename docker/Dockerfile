@@ -21,9 +21,9 @@ RUN echo "**** Fetching the repository ****" && \
     VERSION=$(curl --silent "https://api.github.com/repos/graphenex/grapheneX/releases/latest" | \
     grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
     curl -LO https://github.com/grapheneX/grapheneX/archive/$VERSION.tar.gz && \
-	tar -xzf $VERSION.tar.gz && \
-	cd "grapheneX-$VERSION" && \
-	python3 setup.py install
+    tar -xzf $VERSION.tar.gz && \
+    cd "grapheneX-$VERSION" && \
+    python3 setup.py install
 
 CMD ["/bin/sh", "-c", "grapheneX"]
 
