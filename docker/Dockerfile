@@ -1,6 +1,5 @@
 FROM alpine:latest
-#as builder
-MAINTAINER kondanta
+LABEL maintainer="graphenex.project@protonmail.com"
 
 ENV LC_ALL=C.UTF-8
 
