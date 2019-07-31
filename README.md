@@ -328,7 +328,7 @@ There's a menu available in the web interface for adding new modules.
 
 ![Adding Modules](https://user-images.githubusercontent.com/24392180/60551262-6c74d600-9d33-11e9-8c3e-f553fafdda74.gif)
 
-## grapheneX with Docker
+## Docker
 ### Building the image
 ```sh
 docker build -t graphenex .
