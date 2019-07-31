@@ -51,7 +51,7 @@ def print_header():
 
     def import_colorama():
         try:
-            global init, Fore, Style, colored
+            global init, Fore, Style
             from colorama import init, Fore, Style
             init()
         except:

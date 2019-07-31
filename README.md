@@ -65,6 +65,7 @@ pipenv run python -m graphenex
 * [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
   *  [Flask](http://flask.pocoo.org/)
 * [coloredlogs](https://pypi.org/project/coloredlogs/)
+* [colorama](https://pypi.org/project/colorama/)
 * [terminaltables](https://pypi.org/project/terminaltables/)
 * [PyInquirer](https://pypi.org/project/PyInquirer/)
 
@@ -327,7 +328,7 @@ There's a menu available in the web interface for adding new modules.
 
 ![Adding Modules](https://user-images.githubusercontent.com/24392180/60551262-6c74d600-9d33-11e9-8c3e-f553fafdda74.gif)
 
-## grapheneX with Docker
+## Docker
 ### Building the image
 ```sh
 docker build -t graphenex .
