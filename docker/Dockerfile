@@ -2,7 +2,6 @@ FROM alpine:latest
 #as builder
 MAINTAINER kondanta
 
-ARG VERSION=1.1.0
 ENV LC_ALL=C.UTF-8
 
 RUN echo "**** Installing Python ****" && \
@@ -20,7 +19,9 @@ RUN apk add --no-cache curl \
 	libc-dev
 
 # Fetching repository
-RUN curl -LO https://github.com/grapheneX/grapheneX/archive/$VERSION.tar.gz && \
+RUN VERSION=$(curl --silent "https://api.github.com/repos/graphenex/grapheneX/releases/latest" | \
+    grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    curl -LO https://github.com/grapheneX/grapheneX/archive/$VERSION.tar.gz && \
 	tar -xzf $VERSION.tar.gz && \
 	cd "grapheneX-$VERSION" && \
 	python3 setup.py install
