@@ -381,6 +381,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://www.emperorfederico.info"><img src="https://avatars1.githubusercontent.com/u/37400853?v=4" width="100px;" alt="Emperor  Federico"/><br /><sub><b>Emperor  Federico</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=emperorfederico" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/kondanta"><img src="https://avatars1.githubusercontent.com/u/16501501?v=4" width="100px;" alt="Taylan"/><br /><sub><b>Taylan</b></sub></a><br /><a href="#infra-kondanta" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/zero77"><img src="https://avatars3.githubusercontent.com/u/16563034?v=4" width="100px;" alt="zero77"/><br /><sub><b>zero77</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=zero77" title="Documentation">📖</a></td>
+  </tr>
 </table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->

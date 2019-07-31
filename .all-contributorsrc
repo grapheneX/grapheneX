@@ -82,6 +82,15 @@
       "contributions": [
         "infra"
       ]
+    },
+    {
+      "login": "zero77",
+      "name": "zero77",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/16563034?v=4",
+      "profile": "https://github.com/zero77",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
