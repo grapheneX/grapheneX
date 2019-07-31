@@ -65,6 +65,7 @@ pipenv run python -m graphenex
 * [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
   *  [Flask](http://flask.pocoo.org/)
 * [coloredlogs](https://pypi.org/project/coloredlogs/)
+* [colorama](https://pypi.org/project/colorama/)
 * [terminaltables](https://pypi.org/project/terminaltables/)
 * [PyInquirer](https://pypi.org/project/PyInquirer/)
 
@@ -327,6 +328,16 @@ There's a menu available in the web interface for adding new modules.
 
 ![Adding Modules](https://user-images.githubusercontent.com/24392180/60551262-6c74d600-9d33-11e9-8c3e-f553fafdda74.gif)
 
+## Docker
+### Building the image
+```sh
+docker build -t graphenex .
+```
+### Running the container
+```sh
+docker run --rm --name graphenex -p 8080:8080 --privileged graphenex
+```
+
 ## Screenshots
 
 ![Screenshot I](https://user-images.githubusercontent.com/24392180/60615641-47866e80-9dd8-11e9-92fe-dfa8874db8fd.jpg)
@@ -342,6 +353,8 @@ There's a menu available in the web interface for adding new modules.
 ## TODO(s)
 
 * Add new modules for Linux and Windows.
+
+* Add `-w` support to Docker image
 
 ## Contributing
 
