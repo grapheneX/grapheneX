@@ -141,6 +141,13 @@
             "command": "echo \"readonly TMOUT=900\" >> /etc/profile.d/idle-users.sh; echo \"readonly HISTFILE\" >> /etc/profile.d/idle-users.sh; chmod +x /etc/profile.d/idle-users.sh",
             "require_superuser": "True",
             "target_os": "linux"
+        },
+        {
+          "name": "Enable_Password_Control",
+          "desc": "Enable the maximum number of days that the password applies to the root user",
+          "command": "chage -M 20 root",
+          "require_superuser": "True",
+          "target_os": "linux"
         }
     ],
     "network": [
