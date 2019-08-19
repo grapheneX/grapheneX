@@ -249,6 +249,13 @@
             "require_superuser": "True",
             "target_os": "linux"
         },
+        {
+            "name": "Set_Permissions_Users",
+            "desc": "Set permissions on user info commands",
+            "command": "chmod 0750 /usr/bin/w ; chmod 0750 /usr/bin/who",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
     ],
     "services": [
         {
