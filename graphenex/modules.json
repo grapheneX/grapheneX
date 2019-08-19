@@ -241,7 +241,14 @@
             "command": "iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP",
             "require_superuser": "False",
             "target_os": "linux"
-        }
+        },
+        {
+            "name": "Set_Permissions_Network_Settings",
+            "desc": "Set permissions on network settings",
+            "command": "chmod 0750 /bin/ping ; chmod 0750 /sbin/ifconfig",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
     ],
     "services": [
         {
