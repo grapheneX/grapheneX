@@ -334,6 +334,13 @@
             "command": "chmod 0750 /bin/su ; chmod 0750 /bin/sudo",
             "require_superuser": "True",
             "target_os": "linux"
+        },
+        {
+            "name": "Set_Permissions_Preload_File",
+            "desc": "Set permissions on the sysctl preload/configuration file",
+            "command": "chmod 0700 /etc/sysctl.conf",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "kernel": [
