@@ -151,9 +151,9 @@
         },
         {
           "name": "Set_File_Permissions",
-          "desc": "Set file permissions of the root user",
+          "desc": "Set file permissions of grub file",
           "command": "chown root:root /etc/grub.conf ; chown -R root:root /etc/grub.d ; chmod og-rwx /etc/grub.conf ; chmod og-rwx /etc/grub.conf ; chmod -R og-rwx /etc/grub.d",
-          "require_superuser": "False",
+          "require_superuser": "True",
           "target_os": "linux"
         }
     ],
