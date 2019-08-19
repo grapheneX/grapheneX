@@ -327,6 +327,13 @@
             "command": "systemctl enable rsyslog ; systemctl start rsyslog",
             "require_superuser": "True",
             "target_os": "linux"
+        },
+        {
+            "name": "Set_Permissions_Privilege_Escalation",
+            "desc": "Set permissions of the privilege escalation",
+            "command": "chmod 0750 /bin/su ; chmod 0750 /bin/sudo",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "kernel": [
