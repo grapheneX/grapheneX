@@ -255,6 +255,13 @@
             "command": "chmod 0750 /usr/bin/w ; chmod 0750 /usr/bin/who",
             "require_superuser": "True",
             "target_os": "linux"
+        },
+        {
+            "name": "Set_Permissions_System_Configuration",
+            "desc": "Set permissions on the system configuration",
+            "command": "chmod 0750 /usr/bin/locate ; chmod 0750 /usr/bin/whereis",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "services": [
