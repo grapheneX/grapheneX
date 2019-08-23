@@ -39,7 +39,7 @@ def run_server(args=None, exit_shell=True):
         except:
             pass
         logger.info(f"Your access token: {app.config['ACCESS_TOKEN']}")
-        socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=True)
+        socketio.run(app, host=server_params[0], port=int(server_params[1]), debug=False)
     except (PermissionError, ValueError):
         logger.error('Invalid host & port address. Restarting with default host and port.')
         run_server()
