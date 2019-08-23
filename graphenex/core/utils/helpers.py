@@ -4,6 +4,8 @@
 from graphenex.core.hrd import HardenMethod
 from graphenex.core.utils.logcl import GraphenexLogger
 
+from typing import Any, Dict
+from collections import namedtuple, OrderedDict
 import argparse
 import sys
 import os
@@ -13,11 +15,40 @@ import ctypes
 import platform
 import json
 import pathlib
+import psutil
 
 logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
 mod_json_file = project_dir / 'modules.json'
 
+
+def get_system_info() -> Dict[str, Any]:
+    # Get system info when server start
+    info_dict = {}
+    logger.info("Getting system info...")
+
+    logger.info("Getting disk information...")
+    disks = list()
+    DiskResult = namedtuple('DiskResult', ['data', 'name'])
+    for disk in psutil.disk_partitions():
+        try:
+            res = DiskResult(psutil.disk_usage(disk.mountpoint), disk.mountpoint)
+            disks.append(res)
+        except PermissionError:
+            pass
+    info_dict['disks'] = disks
+
+    logger.info("Getting network info...")
+    masks = list()
+    MaskResult = namedtuple('MaskResult', ['name', 'recv', 'sent'])
+    for mask, data in OrderedDict(psutil.net_io_counters(pernic=True)).items():
+        if data.packets_recv > 0 or data.packets_sent > 0:
+            res = MaskResult(mask, data.packets_recv, data.packets_sent)
+            masks.append(res)
+
+    info_dict['network'] = masks  
+    return info_dict
+    
 def parse_cli_args():
     """
     Command-line argument parser
