@@ -138,22 +138,22 @@
         {
             "name": "Auto_Logout",
             "desc": "Set auto logout inactive users",
-            "command": "echo \"readonly TMOUT=900\" >> /etc/profile.d/idle-users.sh; echo \"readonly HISTFILE\" >> /etc/profile.d/idle-users.sh; chmod +x /etc/profile.d/idle-users.sh",
+            "command": "echo \"readonly TMOUT=900\" >> /etc/profile.d/idle-users.sh&& echo \"readonly HISTFILE\" >> /etc/profile.d/idle-users.sh&& chmod +x /etc/profile.d/idle-users.sh",
             "require_superuser": "True",
             "target_os": "linux"
         },
         {
           "name": "Enable_Password_Control",
-          "desc": "Enable password change control to root user",
+          "desc": "Enable the maximum number of days that the password applies to the root user",
           "command": "chage -M 20 root",
           "require_superuser": "True",
           "target_os": "linux"
         },
         {
           "name": "Set_File_Permissions",
-          "desc": "Set file permissions of the root user",
-          "command": "chown root:root; chmod og-rwx",
-          "require_superuser": "*",
+          "desc": "Set file permissions of the grub file",
+          "command": "chown root:root /etc/grub.conf && chown -R root:root /etc/grub.d && chmod og-rwx /etc/grub.conf && chmod og-rwx /etc/grub.conf && chmod -R og-rwx /etc/grub.d",
+          "require_superuser": "True",
           "target_os": "linux"
         }
     ],
@@ -245,22 +245,22 @@
         {
             "name": "Set_Permissions_Network_Settings",
             "desc": "Set permissions on network settings",
-            "command": "chmod 02750 /bin/ping ; chmod 02750 /sbin/ifconfig",
-            "require_superuser": "False",
+            "command": "chmod 0750 /bin/ping && chmod 0750 /sbin/ifconfig",
+            "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Set_Permissions_Users",
-            "desc": "Set permissions on users",
-            "command": "chmod 02750 /usr/bin/w ; chmod 02750 /usr/bin/who",
-            "require_superuser": "False",
+            "desc": "Set permissions of user info commands",
+            "command": "chmod 0750 /usr/bin/w && chmod 0750 /usr/bin/who",
+            "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Set_Permissions_System_Configuration",
-            "desc": "Set permissions on the system configuration",
-            "command": "chmod 02750 /usr/bin/locate ; chmod 02750 /usr/bin/whereis",
-            "require_superuser": "False",
+            "desc": "Set permissions of the system configuration",
+            "command": "chmod 0750 /usr/bin/locate && chmod 0750 /usr/bin/whereis",
+            "require_superuser": "True",
             "target_os": "linux"
         }
     ],
@@ -324,7 +324,21 @@
         {
             "name": "Syslog_Service",
             "desc": "Ensure syslog service is enabled and running",
-            "command": "systemctl enable rsyslog ; systemctl start rsyslog",
+            "command": "systemctl enable rsyslog && systemctl start rsyslog",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Set_Permissions_Privilege_Escalation",
+            "desc": "Set permissions of the privilege escalation",
+            "command": "chmod 0750 /bin/su && chmod 0750 /bin/sudo",
+            "require_superuser": "True",
+            "target_os": "linux"
+        },
+        {
+            "name": "Set_Permissions_Preload_File",
+            "desc": "Set permissions of the sysctl preload/configuration file",
+            "command": "chmod 0700 /etc/sysctl.conf",
             "require_superuser": "True",
             "target_os": "linux"
         }
@@ -357,41 +371,20 @@
             "command": "echo \"kernel.randomize_va_space=2\" > /etc/sysctl.d/50-rand-va-space.conf",
             "require_superuser": "False",
             "target_os": "linux"
-        },
-        {
-            "name": "Set_Permissions_Firewall_File",
-            "desc": "Set permissions on the sensitive system files of firewall",
-            "command": "chmod 0700 /etc/profile ; chmod 0700 /etc/hosts.allow ; chmod 0700 /etc/mtab ; chmod 0700 /etc/utmp ; chmod 0700 /var/adm/wtmp ; chmod 0700 /etc/syslog.pid",
-            "require_superuser": "False",
-            "target_os": "linux"
-        },
-        {
-            "name": "Set_Permissions_Kernel_File",
-            "desc": "Set permissions on the sensitive system files of kernel",
-            "command": "chmod 0700 /etc/sysctl.conf ; chmod 0700 /etc/inittab",
-            "require_superuser": "False",
-            "target_os": "linux"
-        },
-        {
-            "name": "Set_Permissions_Privilege_Escalation",
-            "desc": "Set permissions of the privilege escalation",
-            "command": "chmod 02750 /bin/su ; chmod 02750 /bin/sudo",
-            "require_superuser": "False",
-            "target_os": "linux"
         }
     ],
     "filesystem": [
         {
             "name": "Link_Protection",
             "desc": "Enable hard/soft link protection",
-            "command": "echo \"fs.protected_hardlinks = 1\" > /etc/sysctl.d/50-fs-hardening.conf ; echo \"fs.protected_symlinks = 1\" >> /etc/sysctl.d/50-fs-hardening.conf",
+            "command": "echo \"fs.protected_hardlinks = 1\" > /etc/sysctl.d/50-fs-hardening.conf && echo \"fs.protected_symlinks = 1\" >> /etc/sysctl.d/50-fs-hardening.conf",
             "require_superuser": "True",
             "target_os": "linux"
         },
         {
             "name": "Disable_Uncommon_FS",
             "desc": "Disable uncommon filesystems",
-            "command": "echo \"install cramfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install freevxfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install jffs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install hfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install hfsplus /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install squashfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install udf /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install fat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install vfat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install nfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install nfsv3 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf ; echo \"install gfs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf",
+            "command": "echo \"install cramfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install freevxfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install jffs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install hfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install hfsplus /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install squashfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install udf /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install fat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install vfat /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install nfs /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install nfsv3 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf && echo \"install gfs2 /bin/false\" >> /etc/modprobe.d/uncommon-fs.conf",
             "require_superuser": "True",
             "target_os": "linux"
         }

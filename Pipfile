@@ -14,6 +14,7 @@ coloredlogs = "*"
 terminaltables = "*"
 pyinquirer = "*"
 psutil = "*"
+colorama = "*"
 
 [requires]
 python_version = "3.7"

@@ -6,7 +6,7 @@ README = (HERE / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="graphenex",
-    version="1.1.0",
+    version="1.1.3",
     description="Automated System Hardening Framework for Linux & Windows",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -35,7 +35,7 @@ setup(
         "graphenex.core.utils"
     ],
     include_package_data=True,
-    install_requires=["flask-socketio", "coloredlogs", "terminaltables", "pyinquirer"],
+    install_requires=["flask-socketio", "coloredlogs", "colorama", "terminaltables", "pyinquirer"],
     entry_points={
         "console_scripts": [
             "grapheneX=graphenex.__main__:main",

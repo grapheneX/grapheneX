@@ -3,6 +3,7 @@
 
 from graphenex.core.hrd import HardenMethod
 from graphenex.core.utils.logcl import GraphenexLogger
+from colorama import init, Fore, Style
 
 from typing import Any, Dict
 from collections import namedtuple, OrderedDict
@@ -79,16 +80,7 @@ def print_header():
     project description and repository
     Checks dependencies for colored output
     """
-
-    def import_colorama():
-        try:
-            global init, Fore, Style, colored
-            from colorama import init, Fore, Style
-            init()
-        except:
-            print("colorama module not found.")
-            sys.exit()
-    import_colorama()
+    init()
     project_desc = Style.BRIGHT + Fore.WHITE + """
                  +ho:`
            `:ohh. /dddy/.

@@ -4,6 +4,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/graphenex.svg?style=flat-square)](https://pypi.org/project/graphenex)
 [![AUR](https://img.shields.io/aur/version/graphenex.svg?style=flat-square)](https://aur.archlinux.org/packages/graphenex/)
+[![Docker Build](https://img.shields.io/docker/cloud/build/graphenex/graphenex.svg?style=flat-square)](https://hub.docker.com/r/graphenex/graphenex/builds)
 [![Issues](https://img.shields.io/github/issues/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/issues)
 [![Pull Requests](https://img.shields.io/github/issues-pr/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/pulls)
 [![Stars](https://img.shields.io/github/stars/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/stargazers)
@@ -46,6 +47,11 @@ You can install `grapheneX` with `pip`. Usually this is the easiest way:
 ```
 pip install graphenex
 ```
+Or if you get an error try:
+
+```
+python3 -m pip install graphenex
+```
 
 Also it's possible to run the `setup.py` for installation as follows:
 
@@ -65,6 +71,7 @@ pipenv run python -m graphenex
 * [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
   *  [Flask](http://flask.pocoo.org/)
 * [coloredlogs](https://pypi.org/project/coloredlogs/)
+* [colorama](https://pypi.org/project/colorama/)
 * [terminaltables](https://pypi.org/project/terminaltables/)
 * [PyInquirer](https://pypi.org/project/PyInquirer/)
 
@@ -327,7 +334,7 @@ There's a menu available in the web interface for adding new modules.
 
 ![Adding Modules](https://user-images.githubusercontent.com/24392180/60551262-6c74d600-9d33-11e9-8c3e-f553fafdda74.gif)
 
-## grapheneX with Docker
+## Docker
 ### Building the image
 ```sh
 docker build -t graphenex .
@@ -373,6 +380,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/afk"><img src="https://avatars0.githubusercontent.com/u/22278039?v=4" width="100px;" alt="Efe Aydın"/><br /><sub><b>Efe Aydın</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=afk" title="Code">💻</a> <a href="#ideas-afk" title="Ideas, Planning, & Feedback">🤔</a> <a href="#review-afk" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/ibanez75612"><img src="https://avatars0.githubusercontent.com/u/26774223?v=4" width="100px;" alt="ibanez75612"/><br /><sub><b>ibanez75612</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=ibanez75612" title="Code">💻</a> <a href="#platform-ibanez75612" title="Packaging/porting to new platform">📦</a> <a href="#review-ibanez75612" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="http://www.emperorfederico.info"><img src="https://avatars1.githubusercontent.com/u/37400853?v=4" width="100px;" alt="Emperor  Federico"/><br /><sub><b>Emperor  Federico</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=emperorfederico" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/kondanta"><img src="https://avatars1.githubusercontent.com/u/16501501?v=4" width="100px;" alt="Taylan"/><br /><sub><b>Taylan</b></sub></a><br /><a href="#infra-kondanta" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/zero77"><img src="https://avatars3.githubusercontent.com/u/16563034?v=4" width="100px;" alt="zero77"/><br /><sub><b>zero77</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=zero77" title="Documentation">📖</a></td>
   </tr>
 </table>
 
