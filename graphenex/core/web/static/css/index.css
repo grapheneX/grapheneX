@@ -79,10 +79,32 @@ a {
     border-radius: 32px;
 }
 
+.systemstat {
+    padding: 20px;
+    border: 2px solid #1DA1F2;
+    border-radius: 32px;
+}
+
+hr {
+    margin-top: 0px;
+    margin-bottom: 1rem;
+    background-image: linear-gradient(90deg, white, transparent);
+    border: 0;
+    height: 1px;
+}
+
 .module-box {
     padding: 10px;
     border: 1px solid #1DA1F2;
     border-radius: 16px;
+}
+
+.table-dark {
+    background-color: #111111;
+}
+
+.progress-bar {
+    background-color: #1DA1F2;
 }
 
 .sr-bar {
