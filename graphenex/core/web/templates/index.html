@@ -45,8 +45,9 @@
                         <ul class="text-left" style="list-style-type: none;
                             padding: 0;
                             margin: 0;">
-                            <li id="os"><b>OS: </b><span class="text-muted">{{ sys_info.system }}</span></li>
-                            <li id="proc"><b>Processor: </b><span class="text-muted">{{ sys_info.processor }}</span>
+                            {% set general_info = sys_info_full['general'] %}
+                            <li id="os"><b>OS: </b><span class="text-muted">{{ general_info.system}}</span></li>
+                            <li id="proc"><b>Processor: </b><span class="text-muted">{{ general_info.processor }}</span>
                             </li>
                         </ul>
                         <!-- This button only visible mobile and it will open system block -->
@@ -82,10 +83,10 @@
                                     </thead>
                                     <tbody>
                                         {% for mask in sys_info_full.get('network')%}
-                                        <tr>
+                                        <tr id="{{ mask.slug }}">
                                             <th scope="row">{{ mask.name }}</th>
-                                            <td>{{ mask.sent }}</td>
-                                            <td>{{ mask.recv }}</td>
+                                            <td id="{{ mask.slug + '_send' }}">{{ mask.sent }}</td>
+                                            <td id="{{ mask.slug + '_recv' }}">{{ mask.recv }}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -213,6 +214,7 @@
         <script src="{{ url_for('static', filename='js/listgroup.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/template.js') }}"></script>
         <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/providers.js') }}"></script>
 </body>
 
 </html>

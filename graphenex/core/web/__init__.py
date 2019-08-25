@@ -13,7 +13,9 @@ app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(6)
 socketio = SocketIO(app)
 default_addr = ('localhost', '8080')
 
+
 from graphenex.core.web.views import *
+from graphenex.core.web.providers import *
 
 def disable_flask_logs():
     """Disable the Flask logs"""
