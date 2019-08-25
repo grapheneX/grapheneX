@@ -228,15 +228,39 @@ hr {
     /* Firefox 16+, IE 10+, Opera 12.10+ */
 }
 
-.rotate_cogs {
-    animation: rotate_ar 2s linear infinite;
-}
-
 @keyframes rotate_ar {
     100% {
         -webkit-transform: rotate(360deg);
     }
 }
+
+.rotate_cogs {
+    animation: rotate_ar 2s linear infinite;
+}
+
+.rotate_arrow {
+    -webkit-transform: rotate(180deg);
+    /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(180deg);
+    /* Firefox 3.5-15 */
+    -ms-transform: rotate(180deg);
+    /* IE 9 */
+    -o-transform: rotate(180deg);
+    /* Opera 10.50-12.00 */
+    transform: rotate(180deg);
+    /* Firefox 16+, IE 10+, Opera 12.10+ */
+}
+
+.fa-chevron-down {
+    transition: all .4s ease;
+}
+.opensystembtn:hover {
+    outline: none;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+}
+
+
 
 .overlay {
     position: fixed;
@@ -262,5 +286,11 @@ hr {
     }
     100%{
         -webkit-transform: rotateY(1turn);
+    }
+}
+
+@media (min-width: 768px) {
+    #systemdiv {
+        display: block;
     }
 }
