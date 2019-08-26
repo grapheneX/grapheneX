@@ -5,8 +5,10 @@ from graphenex.core.hrd import HardenMethod
 from graphenex.core.utils.logcl import GraphenexLogger
 from colorama import init, Fore, Style
 
+from typing import Any, Dict
+from collections import namedtuple, OrderedDict
+from unicodedata import normalize
 import argparse
-import sys
 import os
 import importlib.util
 import inspect
@@ -14,10 +16,77 @@ import ctypes
 import platform
 import json
 import pathlib
+import psutil
+import re
 
 logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
 mod_json_file = project_dir / 'modules.json'
+
+
+class Information:
+    
+    @staticmethod
+    def get_network():
+        masks = list()
+        MaskResult = namedtuple('MaskResult', ['name', 'recv', 'sent', 'slug'])
+        for mask, data in OrderedDict(psutil.net_io_counters(pernic=True)).items():
+            if data.packets_recv > 0 or data.packets_sent > 0:
+                res = MaskResult(mask, data.packets_recv, data.packets_sent, Information.slugify(mask))
+                masks.append(res)
+
+        return masks
+    
+    @staticmethod
+    def get_disk():
+        disks = list()
+        DiskResult = namedtuple('DiskResult', ['data', 'name'])
+        for disk in psutil.disk_partitions():
+            try:
+                res = DiskResult(psutil.disk_usage(
+                    disk.mountpoint), disk.mountpoint)
+                disks.append(res)
+            except PermissionError:
+                pass
+        
+        return disks
+    
+    @staticmethod
+    def get_general():
+        uname = platform.uname()
+        GeneralResult = namedtuple('GeneralResult', ['system', 'processor'])
+        res = GeneralResult(f"{uname.system} | {uname.version}",
+                            f"{uname.processor} - ({uname.machine})")
+
+        return res
+
+    @staticmethod
+    def get_all():
+        info_dict = {}
+        info_dict['disks'] = Information.get_disk()
+        info_dict['network'] = Information.get_network()
+        info_dict['general'] = Information.get_general()
+
+        return info_dict
+
+    @staticmethod
+    def slugify(text, delim='-'): 
+        """
+        Generate an ASCII-only slug.
+        """
+        _punctuation_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
+        result = []
+        for word in _punctuation_re.split(text.lower()):
+            word = normalize('NFKD', word) \
+                .encode('ascii', 'ignore') \
+                .decode('utf-8')
+
+            if word:
+                result.append(word)
+
+        return delim.join(result)
+
+
 
 def parse_cli_args():
     """
@@ -42,6 +111,7 @@ def parse_cli_args():
                         help="open browser on web server start")
     args = vars(parser.parse_args())
     return args
+
 
 def print_header():
     """
@@ -71,6 +141,7 @@ def print_header():
     logger.info("grapheneX started.")
     check_privileges()
 
+
 def check_os():
     """
     Returns operating system information.
@@ -79,9 +150,10 @@ def check_os():
     """
     return 1 if __import__('os').name == 'nt' else 0
 
+
 def check_privileges():
     """Checks privileges and warns if they aren't sufficient"""
-    
+
     def is_root():
         """Returns if the app is run with sudo"""
         return os.geteuid() == 0
@@ -103,6 +175,7 @@ def check_privileges():
             logger.warn("Some functions won't work without root access, " +
                         "try running the grapheneX with sudo.")
 
+
 def get_os_info():
     """Returns the operating system information"""
     uname = platform.uname()
@@ -111,15 +184,17 @@ def get_os_info():
         'processor': f"{uname.processor} - ({uname.machine})"
     }
 
+
 def get_modules():
     """Get hardening modules & namespaces in a dictionary"""
 
-    current_os="win" if check_os() else "linux"
+    current_os = "win" if check_os() else "linux"
     json_data = get_mod_json()
     return_dict = dict()
     available_modules = list()
     for namespace, modlist in json_data.items():
-        if namespace == "presets": continue
+        if namespace == "presets":
+            continue
         for module in modlist:
             module['namespace'] = namespace
             if module['target_os'] == current_os:
@@ -127,8 +202,10 @@ def get_modules():
                 available_modules.append(module)
 
         for module in available_modules:
-            return_dict[module['namespace']][module['name']] = HardenMethod(**module)
+            return_dict[module['namespace']
+                        ][module['name']] = HardenMethod(**module)
     return return_dict
+
 
 def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     """Returns the restricted namespaces depending on the operating system"""
@@ -141,6 +218,7 @@ def get_forbidden_namespaces(os='win' if check_os() else 'linux'):
     namespaces.append("presets")
     return namespaces
 
+
 def get_presets(os='win' if check_os() else 'linux'):
     """Parse and return the presets in the 'modules' file"""
 
@@ -152,6 +230,7 @@ def get_presets(os='win' if check_os() else 'linux'):
         return presets
     except KeyError:
         return None
+
 
 def get_mod_json():
     """Read the modules from file"""
