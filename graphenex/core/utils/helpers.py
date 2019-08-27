@@ -16,77 +16,10 @@ import ctypes
 import platform
 import json
 import pathlib
-import psutil
-import re
 
 logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
 mod_json_file = project_dir / 'modules.json'
-
-
-class Information:
-    
-    @staticmethod
-    def get_network():
-        masks = list()
-        MaskResult = namedtuple('MaskResult', ['name', 'recv', 'sent', 'slug'])
-        for mask, data in OrderedDict(psutil.net_io_counters(pernic=True)).items():
-            if data.packets_recv > 0 or data.packets_sent > 0:
-                res = MaskResult(mask, data.packets_recv, data.packets_sent, Information.slugify(mask))
-                masks.append(res)
-
-        return masks
-    
-    @staticmethod
-    def get_disk():
-        disks = list()
-        DiskResult = namedtuple('DiskResult', ['data', 'name'])
-        for disk in psutil.disk_partitions():
-            try:
-                res = DiskResult(psutil.disk_usage(
-                    disk.mountpoint), disk.mountpoint)
-                disks.append(res)
-            except PermissionError:
-                pass
-        
-        return disks
-    
-    @staticmethod
-    def get_general():
-        uname = platform.uname()
-        GeneralResult = namedtuple('GeneralResult', ['system', 'processor'])
-        res = GeneralResult(f"{uname.system} | {uname.version}",
-                            f"{uname.processor} - ({uname.machine})")
-
-        return res
-
-    @staticmethod
-    def get_all():
-        info_dict = {}
-        info_dict['disks'] = Information.get_disk()
-        info_dict['network'] = Information.get_network()
-        info_dict['general'] = Information.get_general()
-
-        return info_dict
-
-    @staticmethod
-    def slugify(text, delim='-'): 
-        """
-        Generate an ASCII-only slug.
-        """
-        _punctuation_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
-        result = []
-        for word in _punctuation_re.split(text.lower()):
-            word = normalize('NFKD', word) \
-                .encode('ascii', 'ignore') \
-                .decode('utf-8')
-
-            if word:
-                result.append(word)
-
-        return delim.join(result)
-
-
 
 def parse_cli_args():
     """

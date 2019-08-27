@@ -45,7 +45,7 @@
                         <ul class="text-left" style="list-style-type: none;
                             padding: 0;
                             margin: 0;">
-                            {% set general_info = sys_info_full['general'] %}
+                            {% set general_info = sys_all_info['general'] %}
                             <li id="os"><b>OS: </b><span class="text-muted">{{ general_info.system}}</span></li>
                             <li id="proc"><b>Processor: </b><span class="text-muted">{{ general_info.processor }}</span>
                             </li>
@@ -58,7 +58,7 @@
                             <div class="mb-4 mt-3">
                                 <h6>Disks <i class="fas fa-hdd"></i></h6>
                                 <hr>
-                                {% for disk in sys_info_full.get('disks') %}
+                                {% for disk in sys_all_info.get('disks') %}
                                 <div class="mb-1">
                                     <h6 style="font-size: 12px">{{ disk.name }}</h6>
                                     <div class="progress">
@@ -82,7 +82,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for mask in sys_info_full.get('network')%}
+                                        {% for mask in sys_all_info.get('network')%}
                                         <tr id="{{ mask.slug }}">
                                             <th scope="row">{{ mask.name }}</th>
                                             <td id="{{ mask.slug + '_send' }}">{{ mask.sent }}</td>
