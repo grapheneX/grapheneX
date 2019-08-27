@@ -105,16 +105,6 @@ def check_privileges():
             logger.warn("Some functions won't work without root access, " +
                         "try running the grapheneX with sudo.")
 
-
-def get_os_info():
-    """Returns the operating system information"""
-    uname = platform.uname()
-    return {
-        'system': f"{uname.system} | {uname.version}",
-        'processor': f"{uname.processor} - ({uname.machine})"
-    }
-
-
 def get_modules():
     """Get hardening modules & namespaces in a dictionary"""
 
