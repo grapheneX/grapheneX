@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from graphenex.core.web import app, logger, socketio
-from graphenex.core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file, get_system_info
+from graphenex.core.utils.helpers import check_os, get_modules, mod_json_file, Information
 
 from flask import render_template, session, request, redirect, flash
 from flask_socketio import emit, disconnect
@@ -59,9 +59,8 @@ def main():
     return render_template(
         'index.html',
         title="grapheneX [Web]",
-        sys_info=get_os_info(),
         mod_count=get_mod_count(module_dict),
-        sys_info_full=get_system_info())
+        sys_info_full=Information.get_all())
 
 
 @app.errorhandler(404)
