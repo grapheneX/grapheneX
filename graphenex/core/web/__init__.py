@@ -6,6 +6,8 @@ from flask_socketio import SocketIO
 import webbrowser
 import secrets
 
+
+
 logger = GraphenexLogger(__name__)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '77a98d7971ec94c8aae6dd2d'
