@@ -334,6 +334,12 @@ There's a menu available in the web interface for adding new modules.
 
 ![Adding Modules](https://user-images.githubusercontent.com/24392180/60551262-6c74d600-9d33-11e9-8c3e-f553fafdda74.gif)
 
+### System Monitor
+
+It's possible to display various system information such as disk usage and network state at the Web interface.
+
+![System Monitor](https://user-images.githubusercontent.com/24392180/64130757-12dd6600-cdcd-11e9-9be8-39395e104974.gif)
+
 ## Docker
 ### Building the image
 ```sh
