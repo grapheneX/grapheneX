@@ -79,10 +79,32 @@ a {
     border-radius: 32px;
 }
 
+.systemstat {
+    padding: 20px;
+    border: 2px solid #1DA1F2;
+    border-radius: 32px;
+}
+
+hr {
+    margin-top: 0px;
+    margin-bottom: 1rem;
+    background-image: linear-gradient(90deg, white, transparent);
+    border: 0;
+    height: 1px;
+}
+
 .module-box {
     padding: 10px;
     border: 1px solid #1DA1F2;
     border-radius: 16px;
+}
+
+.table-dark {
+    background-color: #111111;
+}
+
+.progress-bar {
+    background-color: #1DA1F2;
 }
 
 .sr-bar {
@@ -206,15 +228,39 @@ a {
     /* Firefox 16+, IE 10+, Opera 12.10+ */
 }
 
-.rotate_cogs {
-    animation: rotate_ar 2s linear infinite;
-}
-
 @keyframes rotate_ar {
     100% {
         -webkit-transform: rotate(360deg);
     }
 }
+
+.rotate_cogs {
+    animation: rotate_ar 2s linear infinite;
+}
+
+.rotate_arrow {
+    -webkit-transform: rotate(180deg);
+    /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(180deg);
+    /* Firefox 3.5-15 */
+    -ms-transform: rotate(180deg);
+    /* IE 9 */
+    -o-transform: rotate(180deg);
+    /* Opera 10.50-12.00 */
+    transform: rotate(180deg);
+    /* Firefox 16+, IE 10+, Opera 12.10+ */
+}
+
+.fa-chevron-down {
+    transition: all .4s ease;
+}
+.opensystembtn:hover {
+    outline: none;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+}
+
+
 
 .overlay {
     position: fixed;
@@ -240,5 +286,11 @@ a {
     }
     100%{
         -webkit-transform: rotateY(1turn);
+    }
+}
+
+@media (min-width: 768px) {
+    #systemdiv {
+        display: block;
     }
 }

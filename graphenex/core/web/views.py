@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from graphenex.core.web import app, logger, socketio
-from graphenex.core.utils.helpers import check_os, get_os_info, get_modules, mod_json_file
+from graphenex.core.utils.helpers import check_os, get_modules, mod_json_file
+from graphenex.core.utils.sysinfo import SysInformation
 
 from flask import render_template, session, request, redirect, flash
 from flask_socketio import emit, disconnect
@@ -12,6 +13,7 @@ import re
 
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]
+
 
 def login_required(f):
     @wraps(f)
@@ -31,8 +33,7 @@ def auth_socketio(f):
             return f(*args, **kwargs)
         else:
             emit('auth', {'text': 'Not authenticated'})
-            disconnect()
-    
+            
     return decorated_function
 
 
@@ -58,8 +59,8 @@ def main():
     return render_template(
         'index.html',
         title="grapheneX [Web]",
-        sys_info=get_os_info(),
-        mod_count=get_mod_count(module_dict))
+        mod_count=get_mod_count(module_dict),
+        sys_all_info=SysInformation.get_all_info())
 
 
 @app.errorhandler(404)

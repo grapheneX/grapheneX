@@ -142,6 +142,13 @@ createMessage = (data) => {
 /* Initialize the page & connect */
 function initializePage() {
     AOS.init(); // AOS scroll library
+    // Mobile div collapse button
+    $("#systemdiv").on('show.bs.collapse', function() {
+        $(".opensystembtn i").addClass("rotate_arrow")
+    })
+    $("#systemdiv").on('hide.bs.collapse', function() {
+        $(".opensystembtn i").removeClass("rotate_arrow")
+    })
     prepareModal();
     socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
     socket.on('log_message', (data) => {

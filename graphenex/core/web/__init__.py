@@ -6,6 +6,8 @@ from flask_socketio import SocketIO
 import webbrowser
 import secrets
 
+
+
 logger = GraphenexLogger(__name__)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '77a98d7971ec94c8aae6dd2d'
@@ -13,7 +15,9 @@ app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(6)
 socketio = SocketIO(app)
 default_addr = ('localhost', '8080')
 
+
 from graphenex.core.web.views import *
+from graphenex.core.web.providers import *
 
 def disable_flask_logs():
     """Disable the Flask logs"""
