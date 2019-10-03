@@ -389,6 +389,13 @@
             "command": "echo \"PermitRootLogin no\" >> /etc/ssh/ssh_config",
             "require_superuser": "True",
             "target_os": "linux"
+        },
+        {
+            "name": "SSH_Disable_Password_Login",
+            "desc": "Disable SSH authentication using passwords and force keys instead",
+            "command": "echo \"ChallengeResponseAuthentication no\" >> /etc/ssh/sshd_config && echo \"PasswordAuthentication no\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "presets": [
