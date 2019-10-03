@@ -392,7 +392,7 @@
         },
         {
             "name": "SSH_Disable_Password_Login",
-            "desc": "Disable SSH authentication using passwords and forces keys instead",
+            "desc": "Disable SSH authentication using passwords and force keys instead",
             "command": "echo \"ChallengeResponseAuthentication no\" >> /etc/ssh/sshd_config && echo \"PasswordAuthentication no\" >> /etc/ssh/sshd_config",
             "require_superuser": "True",
             "target_os": "linux"
