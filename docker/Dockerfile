@@ -12,10 +12,7 @@ RUN echo "**** Installing Python ****" && \
     pip3 install --no-cache --upgrade pip setuptools wheel && \
 	if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi
 
-RUN apk add --no-cache curl \
-	tar \
-	gcc \
-	libc-dev
+RUN apk add --no-cache curl tar gcc libc-dev linux-headers
 
 RUN echo "**** Fetching the repository ****" && \
     VERSION=$(curl --silent "https://api.github.com/repos/graphenex/grapheneX/releases/latest" | \
