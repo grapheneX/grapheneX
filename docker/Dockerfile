@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.10.2
 LABEL maintainer="graphenex.project@protonmail.com"
 ENV LC_ALL=C.UTF-8
 
