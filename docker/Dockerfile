@@ -1,18 +1,9 @@
-FROM alpine:3.10.2
+FROM python:3.7-slim AS build-image
 LABEL maintainer="graphenex.project@protonmail.com"
 ENV LC_ALL=C.UTF-8
 
-RUN echo "**** Installing Python ****" && \
-    apk add --no-cache python3 python3-dev  && \
-    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
-    \
-    echo "**** Installing pip ****" && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache --upgrade pip setuptools wheel && \
-	if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi
-
-RUN apk add --no-cache curl tar gcc libc-dev linux-headers
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends build-essential gcc curl
 
 RUN echo "**** Fetching the repository ****" && \
     VERSION=$(curl --silent "https://api.github.com/repos/graphenex/grapheneX/releases/latest" | \
@@ -20,14 +11,12 @@ RUN echo "**** Fetching the repository ****" && \
     curl -LO https://github.com/grapheneX/grapheneX/archive/$VERSION.tar.gz && \
     tar -xzf $VERSION.tar.gz && \
     cd "grapheneX-$VERSION" && \
-    python3 setup.py install
+    pip install --user .
+
+FROM python:3.7-slim AS runtime-image
+
+COPY --from=build-image /root/.local /root/.local
+
+ENV PATH=/root/.local/bin:$PATH
 
 CMD ["/bin/sh", "-c", "grapheneX"]
-
-# For two
-# FROM alpine:latest
-
-# WORKDIR /root/
-# COPY --from=builder /usr/bin/grapheneX .
-
-# CMD ["./grapheneX"]
