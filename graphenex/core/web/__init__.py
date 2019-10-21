@@ -16,14 +16,12 @@ app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(6)
 socketio = SocketIO(app)
 default_addr = ('localhost', '8080')
 
-# Change template folder for react
+# Added template folder for react
 template_dir = project_dir / 'core' / 'web' / 'frontend' / 'public'
-print(template_dir)
 template_loader = jinja2.ChoiceLoader([
     app.jinja_loader,
     jinja2.FileSystemLoader(str(template_dir))
 ])
-print(template_loader.list_templates())
 
 app.jinja_loader = template_loader
 
