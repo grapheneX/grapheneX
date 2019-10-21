@@ -62,6 +62,9 @@ def main():
         mod_count=get_mod_count(module_dict),
         sys_all_info=SysInformation.get_all_info())
 
+@app.route('/frontend')
+def front():
+    return render_template('front.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
