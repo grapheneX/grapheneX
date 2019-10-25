@@ -5,7 +5,7 @@ from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_modules, mod_json_file
 from graphenex.core.utils.sysinfo import SysInformation
 
-from flask import render_template, session, request, redirect, flash
+from flask import render_template, session, request, redirect, flash, jsonify
 from flask_socketio import emit, disconnect
 from functools import wraps
 import json
@@ -33,7 +33,7 @@ def auth_socketio(f):
             return f(*args, **kwargs)
         else:
             emit('auth', {'text': 'Not authenticated'})
-            
+
     return decorated_function
 
 
@@ -62,9 +62,16 @@ def main():
         mod_count=get_mod_count(module_dict),
         sys_all_info=SysInformation.get_all_info())
 
+
 @app.route('/frontend')
 def front():
     return render_template('front.html')
+
+
+@app.route('/api/getsysteminfo')
+def get_system_info():
+    return jsonify(SysInformation.get_all_info())
+
 
 @app.errorhandler(404)
 def page_not_found(e):
