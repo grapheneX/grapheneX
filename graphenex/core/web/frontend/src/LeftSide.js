@@ -1,7 +1,64 @@
 import React, { Component } from "react";
 import axios from "axios";
 import $ from "jquery";
-import { Collapse } from "react-bootstrap";
+import { Collapse, ProgressBar, Fade } from "react-bootstrap";
+import ContentLoader from "react-content-loader";
+
+const LoadingLine = props => {
+  return (
+    <ContentLoader
+      height={70}
+      width={400}
+      speed={2}
+      primaryColor="#181818"
+      secondaryColor="#1E1E1E"
+    >
+      <rect x="25" y="15" rx="5" ry="5" width="400" height="10" />
+      <rect x="25" y="45" rx="5" ry="5" width="400" height="10" />
+    </ContentLoader>
+  );
+};
+
+const SystemInfo = props => {
+  console.log(props);
+  const { info } = props;
+  return (
+    <ul
+      className="text-left"
+      style={{ listStyle: "none", padding: 0, margin: 0 }}
+    >
+      <li id="os" style={{ display: "inline" }}>
+        <b>OS: </b>
+        <span className="text-muted">{info.osName}</span>
+      </li>
+      <li id="proc">
+        <b>Processor: </b>
+        <span className="text-muted">{info.processor}</span>
+      </li>
+    </ul>
+  );
+};
+
+const Disk = props => {
+  const { disk, key } = props;
+  console.log(key);
+  let percent = disk[0][3];
+  let variant = null;
+  if (percent > 80.0) {
+    variant = "danger";
+  }
+  return (
+    <div className="mb-1 text-left" key={key}>
+      <h6 style={{ fontSize: 12 }}>{disk[1]}</h6>
+      <ProgressBar
+        variant={variant}
+        now={percent}
+        label={`${percent}%`}
+        key={key}
+      />
+    </div>
+  );
+};
 
 class LeftSide extends React.Component {
   constructor(props) {
@@ -14,7 +71,8 @@ class LeftSide extends React.Component {
       disks: [],
       network: [],
 
-      collapseOpen: false
+      collapseOpen: false,
+      isLoading: true
     };
   }
 
@@ -22,13 +80,18 @@ class LeftSide extends React.Component {
     axios
       .get("/api/getsysteminfo")
       .then(res => {
-        const { general } = res.data;
-        this.setState({
-          general: {
-            osName: general[0],
-            processor: general[1]
-          }
-        });
+        console.log(res);
+        const { general, disks } = res.data;
+        setTimeout(() => {
+          this.setState({
+            general: {
+              osName: general[0],
+              processor: general[1]
+            },
+            disks: disks,
+            isLoading: false
+          });
+        }, 1000);
       })
       .catch(err => {
         console.log(err);
@@ -64,19 +127,13 @@ class LeftSide extends React.Component {
         </div>
         {/* System information */}
         <div className="text-left">
-          <ul
-            className="text-left"
-            style={{ listStyle: "none", padding: 0, margin: 0 }}
-          >
-            <li id="os">
-              <b>OS: </b>
-              <span className="text-muted">{this.state.general.osName}</span>
-            </li>
-            <li id="proc">
-              <b>Processor: </b>
-              <span className="text-muted">{this.state.general.processor}</span>
-            </li>
-          </ul>
+          <Fade in={!this.state.isLoading}>
+            {this.state.isLoading ? (
+              <LoadingLine />
+            ) : (
+              <SystemInfo info={this.state.general} />
+            )}
+          </Fade>
         </div>
         {/* System information end */}
 
@@ -99,7 +156,21 @@ class LeftSide extends React.Component {
           <i className="fas fa-chevron-down" style={{ fontSize: 24 }}></i>
         </button>
         <Collapse in={this.state.collapseOpen}>
-          <div id="systemdiv">afljashdkjasnlasndkjasndkjandaskjd</div>
+          <div id="systemdiv">
+            <div className="mb-4 mt-3 text-left">
+              <h6>
+                Disks <i className="fas fa-hdd"></i>
+              </h6>
+              <hr />
+              {this.state.isLoading ? (
+                <LoadingLine />
+              ) : (
+                this.state.disks.map((disk, index) => (
+                  <Disk disk={disk} key={index} />
+                ))
+              )}
+            </div>
+          </div>
         </Collapse>
       </div>
     );
