@@ -1,16 +1,18 @@
 import React from "react";
 import axios from "axios";
 import {
-  Container,
-  Col,
-  Row,
   Dropdown,
   InputGroup,
   FormControl,
   Button,
-  Collapse
+  Form
 } from "react-bootstrap";
+import { Container, Button as FloatButton } from "react-floating-action-button";
 import ModuleBox from "./ModuleBox";
+import _Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const Swal = withReactContent(_Swal);
 
 class RightSide extends React.Component {
   constructor(props) {
@@ -18,8 +20,11 @@ class RightSide extends React.Component {
     this.state = {
       selectedNamespace: "",
       namespaces: [],
-      modules: []
+      modules: [],
+      searchQuery: ""
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +65,28 @@ class RightSide extends React.Component {
     });
     this.getModules(namespace);
   }
+
+  searchApiCall(string) {
+    axios
+      .post("/api/search", { query: string })
+      .then(res => {
+        const { result } = res.data;
+        this.setState({
+          modules: result
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  handleSearch(e) {
+    this.searchApiCall(e.target.value);
+    this.setState({
+      searchQuery: e.target.value
+    });
+  }
+
   render() {
     return (
       <div>
@@ -82,7 +109,11 @@ class RightSide extends React.Component {
           </Dropdown>
         </div>
         <InputGroup className="my-3">
-          <FormControl placeholder="Search Module" />
+          <FormControl
+            value={this.state.searchQuery}
+            placeholder="Search Module"
+            onChange={this.handleSearch}
+          />
           <InputGroup.Append>
             <Button>
               <i className="fa fa-search"></i>
@@ -94,6 +125,63 @@ class RightSide extends React.Component {
         {this.state.modules.map(moduleData => (
           <ModuleBox moduleData={moduleData} key={moduleData.name} />
         ))}
+        <Container styles={{ zIndex: 99 }}>
+          <FloatButton
+            tooltip="Add module"
+            icon="fas fa-plus"
+            styles={{
+              backgroundColor: "#111111",
+              color: "#E0E0E0"
+            }}
+            onClick={() => {
+              Swal.fire({
+                customClass: {
+                  container: "z-index: 999"
+                },
+                title: "Add a new module",
+                background: "#1E1E1E",
+                html: (
+                  <Form className="text-left" style={{ color: "#E0E0E0" }}>
+                    <Form.Label>Module Name</Form.Label>
+                    <FormControl
+                      className="mb-2"
+                      type="text"
+                      placeholder="Module name"
+                      id="moduleName"
+                    />
+                    <Form.Label>Module Description</Form.Label>
+                    <FormControl
+                      className="mb-2"
+                      as="textarea"
+                      rows={5}
+                      placeholder="Module Description"
+                      id="moduleDesc"
+                    />
+                    <Form.Label>Module Command</Form.Label>
+                    <FormControl
+                      className="consolas"
+                      as="textarea"
+                      rows={5}
+                      placeholder="Module Command"
+                      id="moduleCommand"
+                    />
+                  </Form>
+                ),
+                focusConfirm: false,
+                preConfirm: () => {
+                  return [
+                    document.getElementById("moduleName").value,
+                    document.getElementById("moduleDesc").value,
+                    document.getElementById("moduleCommand").value
+                  ];
+                }
+              }).then(datas => {
+                Swal.fire(JSON.stringify(datas));
+              });
+            }}
+            rotate
+          />
+        </Container>
       </div>
     );
   }

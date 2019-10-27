@@ -87,16 +87,19 @@ def get_system_info():
 
 
 @app.route('/api/getnetwork')
+@auth_api
 def get_network():
     return jsonify(SysInformation.get_network_info())
 
 
 @app.route('/api/getnamespaces')
+@auth_api
 def get_namespaces():
     return jsonify(list(module_dict.keys()))
 
 
 @app.route('/api/getmodules', methods=['POST'])
+@auth_api
 def getmodules():
     namespace = request.json.get('namespace')
     mod_dict = module_dict.get(namespace)
@@ -111,7 +114,24 @@ def getmodules():
     return jsonify(modules)
 
 
+@app.route('/api/search', methods=['POST'])
+@auth_api
+def search():
+    query = request.json.get('query')
+    result = {name: mod for name, mod in module_dict.get(
+        current_namespace).items() if query.lower() in name.lower()}
+    payload = list()
+    for name, mod in result.items():
+        payload.append({
+            'name': name,
+            'desc': mod.desc,
+            'source': mod.command
+        })
+    return jsonify({"result": payload})
+
+
 @app.route('/api/harden', methods=['POST'])
+@auth_api
 def hardening_exec():
     data = request.json.get('module_name')
     """Execute the hardening module and send its output to web"""
@@ -128,24 +148,9 @@ def hardening_exec():
             err_msg += " Get admin rights and rerun the grapheneX."
         else:
             err_msg += " Try running the grapheneX with sudo."
-        """
-                emit('log_message', {
-                    'tag': 'warning',
-                    'content': err_msg,
-                    'duration': 2000
-                })
-                emit(data + "_log", {"state": "error"})
-                 """
-        logger.error("permisson err")
+        logger.error(err_msg)
         return jsonify({"status": False, "msg": err_msg})
     except Exception as e:
-        """             fail_msg = "Failed to execute hardening command."
-                    emit('log_message', {
-                        'tag': 'danger',
-                        'content': fail_msg,
-                        'duration': 2000
-                    })
-                    emit(data + "_log", {"msg": str(e), "state": "error"}) """
         return jsonify({"status": False, "msg": "Failed to execute hardening command."})
 
 

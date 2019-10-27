@@ -13,8 +13,25 @@ const LoadingLine = props => {
       primaryColor="#181818"
       secondaryColor="#1E1E1E"
     >
-      <rect x="25" y="15" rx="5" ry="5" width="400" height="10" />
-      <rect x="25" y="45" rx="5" ry="5" width="400" height="10" />
+      <rect x="14" y="15" rx="5" ry="5" width="400" height="10" />
+      <rect x="14" y="45" rx="5" ry="5" width="400" height="10" />
+    </ContentLoader>
+  );
+};
+
+const DiskLoader = porps => {
+  return (
+    <ContentLoader
+      height={160}
+      width={400}
+      speed={2}
+      primaryColor="#181818"
+      secondaryColor="#1E1E1E"
+    >
+      <rect x="14" y="10" rx="0" ry="0" width="37" height="15" />
+      <rect x="14" y="40" rx="5" ry="5" width="400" height="20" />
+      <rect x="14" y="70" rx="0" ry="0" width="37" height="15" />
+      <rect x="14" y="100" rx="5" ry="5" width="400" height="20" />
     </ContentLoader>
   );
 };
@@ -136,7 +153,7 @@ class LeftSide extends React.Component {
       });
     this.networkInterval = setInterval(() => {
       this.getNetworkData();
-    }, 1000);
+    }, 5000);
   }
 
   componentWillUnmount() {
@@ -221,7 +238,7 @@ class LeftSide extends React.Component {
                 </h6>
                 <hr />
                 {this.state.isLoading ? (
-                  <LoadingLine />
+                  <DiskLoader />
                 ) : (
                   this.state.disks.map((disk, index) => (
                     <Disk disk={disk} key={index} />
