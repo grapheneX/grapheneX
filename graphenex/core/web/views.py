@@ -37,6 +37,17 @@ def auth_socketio(f):
     return decorated_function
 
 
+def auth_api(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('token', None) == app.config['ACCESS_TOKEN']:
+            return f(*args, **kwargs)
+        else:
+            return jsonify({'msg': 'Not authenticated'})
+
+    return decorated_function
+
+
 @app.route('/auth', methods=["GET", "POST"])
 def auth():
     if session.get('token', None) == app.config['ACCESS_TOKEN']:
@@ -55,6 +66,12 @@ def auth():
 
 @app.route('/')
 @login_required
+def front():
+    return render_template('front.html')
+
+
+@app.route('/deprecated')
+@login_required
 def main():
     return render_template(
         'index.html',
@@ -63,12 +80,8 @@ def main():
         sys_all_info=SysInformation.get_all_info())
 
 
-@app.route('/frontend')
-def front():
-    return render_template('front.html')
-
-
 @app.route('/api/getsysteminfo')
+@auth_api
 def get_system_info():
     return jsonify(SysInformation.get_all_info())
 
@@ -96,6 +109,44 @@ def getmodules():
         })
     logger.info(f'Sending modules of \"{namespace}\".')
     return jsonify(modules)
+
+
+@app.route('/api/harden', methods=['POST'])
+def hardening_exec():
+    data = request.json.get('module_name')
+    """Execute the hardening module and send its output to web"""
+    try:
+        logger.info("Executing the hardening command of " +
+                    current_namespace + "/" + data)
+        hrd = module_dict[current_namespace][data]
+        out = hrd.execute_command()
+        print(out)
+        return jsonify({"status": True, "msg": "Hardening command executed successfully.", "stdout": out})
+    except PermissionError:
+        err_msg = "Insufficient permissions for hardening."
+        if check_os():
+            err_msg += " Get admin rights and rerun the grapheneX."
+        else:
+            err_msg += " Try running the grapheneX with sudo."
+        """
+                emit('log_message', {
+                    'tag': 'warning',
+                    'content': err_msg,
+                    'duration': 2000
+                })
+                emit(data + "_log", {"state": "error"})
+                 """
+        logger.error("permisson err")
+        return jsonify({"status": False, "msg": err_msg})
+    except Exception as e:
+        """             fail_msg = "Failed to execute hardening command."
+                    emit('log_message', {
+                        'tag': 'danger',
+                        'content': fail_msg,
+                        'duration': 2000
+                    })
+                    emit(data + "_log", {"msg": str(e), "state": "error"}) """
+        return jsonify({"status": False, "msg": "Failed to execute hardening command."})
 
 
 @app.errorhandler(404)

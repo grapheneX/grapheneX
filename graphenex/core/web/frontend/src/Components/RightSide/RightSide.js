@@ -91,7 +91,9 @@ class RightSide extends React.Component {
         </InputGroup>
 
         {/* Modules */}
-        <ModuleBox />
+        {this.state.modules.map(moduleData => (
+          <ModuleBox moduleData={moduleData} key={moduleData.name} />
+        ))}
       </div>
     );
   }
