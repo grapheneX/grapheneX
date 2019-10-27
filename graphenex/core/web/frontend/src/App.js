@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import LeftSide from "./LeftSide";
+import LeftSide from "./Components/LeftSide";
+import RightSide from "./Components/RightSide";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -12,7 +13,7 @@ class App extends Component {
             <LeftSide />
           </div>
           <div className="col-md-8">
-            <p>asdasd</p>
+            <RightSide />
           </div>
         </div>
       </div>

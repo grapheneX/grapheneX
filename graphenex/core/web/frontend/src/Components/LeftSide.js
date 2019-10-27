@@ -20,7 +20,6 @@ const LoadingLine = props => {
 };
 
 const SystemInfo = props => {
-  console.log(props);
   const { info } = props;
   return (
     <ul
@@ -41,7 +40,6 @@ const SystemInfo = props => {
 
 const Disk = props => {
   const { disk, key } = props;
-  console.log(key);
   let percent = disk[0][3];
   let variant = null;
   if (percent > 80.0) {
@@ -57,6 +55,45 @@ const Disk = props => {
         key={key}
       />
     </div>
+  );
+};
+
+const NetworkTable = props => {
+  const { networkData } = props;
+  return (
+    <div className="table-responsive" style={{ maxHeight: 300 }}>
+      <table className="table table-striped table-dark table-borderless text-left">
+        <thead>
+          <tr>
+            <th scope="col">
+              Mask <i className="fa fa-mask"></i>
+            </th>
+            <th scope="col">
+              Sent <i className="fa fa-arrow-up"></i>
+            </th>
+            <th scope="col">
+              Recv <i className="fa fa-arrow-down"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {networkData.map((mask, index) => (
+            <NetworkMask mask={mask} key={index} />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const NetworkMask = props => {
+  const { mask } = props;
+  return (
+    <tr id={mask[3]}>
+      <th scope="row">{mask[0]}</th>
+      <td>{mask[2]}</td>
+      <td>{mask[1]}</td>
+    </tr>
   );
 };
 
@@ -81,7 +118,7 @@ class LeftSide extends React.Component {
       .get("/api/getsysteminfo")
       .then(res => {
         console.log(res);
-        const { general, disks } = res.data;
+        const { general, disks, network } = res.data;
         setTimeout(() => {
           this.setState({
             general: {
@@ -89,6 +126,7 @@ class LeftSide extends React.Component {
               processor: general[1]
             },
             disks: disks,
+            network: network,
             isLoading: false
           });
         }, 1000);
@@ -96,8 +134,27 @@ class LeftSide extends React.Component {
       .catch(err => {
         console.log(err);
       });
+    this.networkInterval = setInterval(() => {
+      this.getNetworkData();
+    }, 1000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.networkInterval);
+  }
+
+  getNetworkData() {
+    axios
+      .get("/api/getnetwork")
+      .then(res => {
+        this.setState({
+          network: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
   render() {
     return (
       <div className="box deep">
@@ -117,7 +174,7 @@ class LeftSide extends React.Component {
               ~ Automated System Hardening Framework.
               <br />
               + Created for Linux & Windows.
-              <br />>
+              <br />>{" "}
               <a href=" https://github.com/grapheneX" target="_blank">
                 https://github.com/grapheneX
               </a>
@@ -157,19 +214,30 @@ class LeftSide extends React.Component {
         </button>
         <Collapse in={this.state.collapseOpen}>
           <div id="systemdiv">
-            <div className="mb-4 mt-3 text-left">
-              <h6>
-                Disks <i className="fas fa-hdd"></i>
-              </h6>
-              <hr />
-              {this.state.isLoading ? (
-                <LoadingLine />
-              ) : (
-                this.state.disks.map((disk, index) => (
-                  <Disk disk={disk} key={index} />
-                ))
-              )}
+            <div>
+              <div className="mb-4 mt-3 text-left">
+                <h6>
+                  Disks <i className="fas fa-hdd"></i>
+                </h6>
+                <hr />
+                {this.state.isLoading ? (
+                  <LoadingLine />
+                ) : (
+                  this.state.disks.map((disk, index) => (
+                    <Disk disk={disk} key={index} />
+                  ))
+                )}
+              </div>
             </div>
+            <h6 className="text-left">
+              Network <i className="fa fa-network-wired"></i>
+            </h6>
+            <hr />
+            {!this.state.isLoading ? (
+              <NetworkTable networkData={this.state.network} />
+            ) : (
+              <LoadingLine />
+            )}
           </div>
         </Collapse>
       </div>

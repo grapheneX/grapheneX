@@ -73,6 +73,31 @@ def get_system_info():
     return jsonify(SysInformation.get_all_info())
 
 
+@app.route('/api/getnetwork')
+def get_network():
+    return jsonify(SysInformation.get_network_info())
+
+
+@app.route('/api/getnamespaces')
+def get_namespaces():
+    return jsonify(list(module_dict.keys()))
+
+
+@app.route('/api/getmodules', methods=['POST'])
+def getmodules():
+    namespace = request.json.get('namespace')
+    mod_dict = module_dict.get(namespace)
+    modules = list()
+    for name, mod in mod_dict.items():
+        modules.append({
+            'name': name,
+            'desc': mod.desc,
+            'source': mod.command
+        })
+    logger.info(f'Sending modules of \"{namespace}\".')
+    return jsonify(modules)
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
