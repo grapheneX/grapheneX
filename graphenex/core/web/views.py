@@ -154,6 +154,56 @@ def hardening_exec():
         return jsonify({"status": False, "msg": "Failed to execute hardening command."})
 
 
+@app.route('/api/addmodule', methods=['POST'])
+@auth_api
+def add_module():
+    mod = request.json.get('moduleObj')
+    """Add new module to the framework"""
+    try:
+        mod_name = mod['name']
+        mod_ns = mod['namespace']
+        logger.info("Adding new module: '" + mod_ns + "/" + mod_name + "'")
+        # Check namespace
+        if not mod_ns:
+            ns_error_msg = "Invalid namespace."
+            logger.error(ns_error_msg)
+            return jsonify({"status": False, "msg": ns_error_msg})
+        # Check module name
+        if not re.match(r'^\w+$', mod_name):
+            mod_error_msg = "Invalid module name."
+            logger.error(mod_error_msg)
+            return jsonify({"status": False, "msg": mod_error_msg})
+        # Get modules.json
+        with open(mod_json_file, 'r') as f:
+            data = json.load(f)
+        # Prepare module dict
+        mod_dict = {
+            "name": mod_name,
+            "desc": mod['desc'],
+            "command": mod['command'],
+            "require_superuser": str(mod['su']).capitalize(),
+            "target_os": "win" if check_os() else "linux"
+        }
+        # Append to json data
+        try:
+            data[mod_ns].append(mod_dict)
+        except:
+            data.update({mod_ns: [mod_dict]})
+        # Update the modules.json
+        with open(mod_json_file, 'w') as f:
+            json.dump(data, f, indent=4)
+        success_msg = "Module added successfully."
+        logger.info(success_msg)
+        global module_dict
+        module_dict = get_modules()
+        
+        return jsonify({"status": True, "msg": success_msg})
+    except Exception as e:
+        exception_msg = "Error occurred while adding new module. " + str(e)
+        logger.warn(exception_msg)
+        return jsonify({"status": False, "msg": exception_msg})
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

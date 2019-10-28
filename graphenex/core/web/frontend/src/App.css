@@ -258,8 +258,7 @@ hr {
 }
 
 .overlay {
-  position: fixed;
-  top: 0;
+  position: relative;
   width: 100%;
   height: 100%;
   background-color: #1e1e1e;
@@ -267,7 +266,7 @@ hr {
 }
 
 .loading-img {
-  margin-top: 200px;
+  margin-top: 50px;
   animation: spin 2s linear infinite;
 }
 
@@ -286,5 +285,8 @@ hr {
 @media (min-width: 768px) {
   #systemdiv {
     display: block;
+  }
+  .loading-img {
+    margin-top: 200px;
   }
 }

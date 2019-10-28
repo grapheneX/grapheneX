@@ -9,6 +9,8 @@ import {
 } from "react-bootstrap";
 import { Container, Button as FloatButton } from "react-floating-action-button";
 import ModuleBox from "./ModuleBox";
+import NamespaceSelector from "./NamespaceSelector";
+import GraphenexLogo from "../Loading";
 import _Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -18,10 +20,14 @@ class RightSide extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       selectedNamespace: "",
       namespaces: [],
       modules: [],
-      searchQuery: ""
+      searchQuery: "",
+
+      namespaceForAdd: "",
+      superUserPriv: false
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -50,9 +56,12 @@ class RightSide extends React.Component {
     axios
       .post("/api/getmodules", { namespace })
       .then(res => {
-        this.setState({
-          modules: res.data
-        });
+        setTimeout(() => {
+          this.setState({
+            modules: res.data,
+            isLoading: false
+          });
+        }, 1000); // ehehe
       })
       .catch(err => {
         console.log(err);
@@ -80,10 +89,41 @@ class RightSide extends React.Component {
       });
   }
 
+  addModuleApiCall(moduleObj) {
+    axios
+      .post("/api/addmodule", { moduleObj })
+      .then(res => {
+        const { data } = res;
+        if (data.status) {
+          Swal.fire({
+            type: "success",
+            text: data.msg
+          });
+        } else {
+          Swal.fire({
+            type: "error",
+            text: data.msg
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        this.getNamespacesAndModules();
+      });
+  }
+
   handleSearch(e) {
     this.searchApiCall(e.target.value);
     this.setState({
       searchQuery: e.target.value
+    });
+  }
+
+  namespaceForAddHandler(namespace) {
+    this.setState({
+      namespaceForAdd: namespace
     });
   }
 
@@ -122,9 +162,13 @@ class RightSide extends React.Component {
         </InputGroup>
 
         {/* Modules */}
-        {this.state.modules.map(moduleData => (
-          <ModuleBox moduleData={moduleData} key={moduleData.name} />
-        ))}
+        {this.state.isLoading ? (
+          <GraphenexLogo />
+        ) : (
+          this.state.modules.map(moduleData => (
+            <ModuleBox moduleData={moduleData} key={moduleData.name} />
+          ))
+        )}
         <Container styles={{ zIndex: 99 }}>
           <FloatButton
             tooltip="Add module"
@@ -142,6 +186,11 @@ class RightSide extends React.Component {
                 background: "#1E1E1E",
                 html: (
                   <Form className="text-left" style={{ color: "#E0E0E0" }}>
+                    <Form.Label>Namespace</Form.Label>
+                    <NamespaceSelector
+                      namespaces={this.state.namespaces}
+                      setNamespace={this.namespaceForAddHandler.bind(this)}
+                    />
                     <Form.Label>Module Name</Form.Label>
                     <FormControl
                       className="mb-2"
@@ -165,18 +214,33 @@ class RightSide extends React.Component {
                       placeholder="Module Command"
                       id="moduleCommand"
                     />
+                    <Form.Check
+                      className="mt-2"
+                      type="switch"
+                      onChange={() => {
+                        this.setState({
+                          superUserPriv: !this.state.superUserPriv
+                        });
+                      }}
+                      label="Requires Superuser Privileges"
+                      id="superuser-switch"
+                    />
                   </Form>
                 ),
                 focusConfirm: false,
                 preConfirm: () => {
-                  return [
-                    document.getElementById("moduleName").value,
-                    document.getElementById("moduleDesc").value,
-                    document.getElementById("moduleCommand").value
-                  ];
+                  return {
+                    namespace: this.state.namespaceForAdd,
+                    name: document.getElementById("moduleName").value,
+                    desc: document.getElementById("moduleDesc").value,
+                    command: document.getElementById("moduleCommand").value,
+                    su: this.state.superUserPriv
+                  };
                 }
-              }).then(datas => {
-                Swal.fire(JSON.stringify(datas));
+              }).then(({ value }) => {
+                if (value) {
+                  this.addModuleApiCall(value);
+                }
               });
             }}
             rotate
