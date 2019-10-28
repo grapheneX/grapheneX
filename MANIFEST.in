@@ -1,6 +1,8 @@
 include graphenex/modules.json
-include graphenex/core/web/static/css/*
-include graphenex/core/web/static/js/*
-include graphenex/core/web/static/images/*
-include graphenex/core/web/static/webfonts/*
 include graphenex/core/web/templates/*
+include graphenex/core/web/frontend/*
+include graphenex/core/web/frontend/static/css/*
+include graphenex/core/web/frontend/static/js/dist/bundle.js
+include graphenex/core/web/frontend/static/image/*
+include graphenex/core/web/frontend/static/webfonts/*
+exclude graphenex/core/web/frontend/node_modules/*
