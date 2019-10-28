@@ -1,6 +1,7 @@
 include graphenex/modules.json
 include graphenex/core/web/templates/*
 include graphenex/core/web/frontend/*
+include graphenex/core/web/frontend/public/index.html
 include graphenex/core/web/frontend/static/css/*
 include graphenex/core/web/frontend/static/js/dist/bundle.js
 include graphenex/core/web/frontend/static/image/*
