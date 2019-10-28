@@ -9,12 +9,12 @@ bumpversion = "*"
 twine = "*"
 
 [packages]
-flask-socketio = "*"
 coloredlogs = "*"
 terminaltables = "*"
 pyinquirer = "*"
 psutil = "*"
 colorama = "*"
+flask = "*"
 
 [requires]
 python_version = "3.7"

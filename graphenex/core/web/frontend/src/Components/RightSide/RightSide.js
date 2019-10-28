@@ -51,17 +51,14 @@ class RightSide extends React.Component {
         console.log(err);
       });
   }
-
   getModules(namespace) {
     axios
       .post("/api/getmodules", { namespace })
       .then(res => {
-        setTimeout(() => {
-          this.setState({
-            modules: res.data,
-            isLoading: false
-          });
-        }, 1000); // ehehe
+        this.setState({
+          modules: res.data,
+          isLoading: false
+        });
       })
       .catch(err => {
         console.log(err);
