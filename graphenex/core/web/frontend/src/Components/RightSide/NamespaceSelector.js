@@ -1,7 +1,7 @@
 import React from "react";
 import { ListGroup, FormControl } from "react-bootstrap";
 
-class NamespaceSelctor extends React.Component {
+class NamespaceSelector extends React.Component {
   constructor(props) {
     super(props);
     const { namespaces } = props;
@@ -46,6 +46,9 @@ class NamespaceSelctor extends React.Component {
               style={{ margin: 0 }}
               type="text"
               onChange={this.handleNewNamespace}
+              onBlur={() => {
+                alert("focus out");
+              }}
               onKeyPress={target => {
                 if (target.charCode == 13) {
                   setNamespace(newNamespace);
@@ -80,4 +83,4 @@ class NamespaceSelctor extends React.Component {
   }
 }
 
-export default NamespaceSelctor;
+export default NamespaceSelector;

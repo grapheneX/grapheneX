@@ -55,7 +55,7 @@ class ModuleBox extends React.Component {
   render() {
     const { moduleData } = this.props;
     return (
-      <div className="module-box deep" style={{ marginBottom: 20 }}>
+      <div className="module-box deep" style={{ marginBottom: 20 }} data-aos="fade-up">
         <div className="d-flex justify-content-between align-middle p-2">
           <div className="text-left">
             <h6 style={{ marginBottom: 0, wordBreak: "break-all" }}>

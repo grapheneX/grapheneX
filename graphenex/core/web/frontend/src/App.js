@@ -3,9 +3,15 @@ import { Container, Button as FloatButton } from "react-floating-action-button";
 import LeftSide from "./Components/LeftSide";
 import RightSide from "./Components/RightSide";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "./App.css";
 
 class App extends Component {
+  componentDidMount() {
+    AOS.init();
+  }
+
   render() {
     return (
       <div className="container text-center mt-4 mb-4">
