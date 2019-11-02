@@ -56,21 +56,16 @@ const SystemInfo = props => {
 };
 
 const Disk = props => {
-  const { disk, key } = props;
+  const { disk } = props;
   let percent = disk[0][3];
   let variant = null;
   if (percent > 80.0) {
     variant = "danger";
   }
   return (
-    <div className="mb-1 text-left" key={key}>
+    <div className="mb-1 text-left">
       <h6 style={{ fontSize: 12 }}>{disk[1]}</h6>
-      <ProgressBar
-        variant={variant}
-        now={percent}
-        label={`${percent}%`}
-        key={key}
-      />
+      <ProgressBar variant={variant} now={percent} label={`${percent}%`} />
     </div>
   );
 };
