@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Collapse, Form, Button } from "react-bootstrap";
-import Swal from "sweetalert2";
+import Toast from "../Toast";
 
 class ModuleBox extends React.Component {
   constructor(props) {
@@ -24,21 +24,18 @@ class ModuleBox extends React.Component {
       .then(res => {
         const { status, msg, stdout } = res.data;
         if (status) {
-          Swal.fire({
-            background: "#1E1E1E",
+          Toast.fire({
             type: "success",
-            confirmButtonColor: "transparent",
-            html: `<p style="color: #E0E0E0">${msg}</p>`
+            title:
+              "<div style='color: #E0E0E0'>Hardening command executed successfully.</div>"
           });
           this.setState({
             out: this.state.out + stdout
           });
         } else {
-          Swal.fire({
-            background: "#1E1E1E",
+          Toast.fire({
             type: "error",
-            confirmButtonColor: "transparent",
-            html: `<p style="color: #E0E0E0">${msg}</p>`
+            title: `<div style="color: #E0E0E0">${msg}</div>`
           });
         }
       })
@@ -55,7 +52,11 @@ class ModuleBox extends React.Component {
   render() {
     const { moduleData } = this.props;
     return (
-      <div className="module-box deep" style={{ marginBottom: 20 }} data-aos="fade-up">
+      <div
+        className="module-box deep"
+        style={{ marginBottom: 20 }}
+        data-aos="fade-up"
+      >
         <div className="d-flex justify-content-between align-middle p-2">
           <div className="text-left">
             <h6 style={{ marginBottom: 0, wordBreak: "break-all" }}>

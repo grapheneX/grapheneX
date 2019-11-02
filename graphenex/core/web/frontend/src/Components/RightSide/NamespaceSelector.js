@@ -20,9 +20,23 @@ class NamespaceSelector extends React.Component {
     });
   }
 
-  render() {
-    const { selectedNamespace, isNew, namespaces, newNamespace } = this.state;
+  namespaceAdd() {
+    const { namespaces, newNamespace } = this.state;
     const { setNamespace } = this.props;
+    setNamespace(newNamespace);
+    if (!namespaces.includes(newNamespace)) {
+      namespaces.push(newNamespace);
+    }
+    this.setState({
+      namespaces: namespaces,
+      selectedNamespace: newNamespace,
+      isNew: false
+    });
+  }
+
+  render() {
+    const { selectedNamespace, isNew, namespaces } = this.state;
+
     return (
       <ListGroup>
         {namespaces.map((namespace, index) => (
@@ -46,20 +60,12 @@ class NamespaceSelector extends React.Component {
               style={{ margin: 0 }}
               type="text"
               onChange={this.handleNewNamespace}
-              onBlur={() => {
-                alert("focus out");
+              onBlurCapture={() => {
+                this.namespaceAdd();
               }}
               onKeyPress={target => {
                 if (target.charCode == 13) {
-                  setNamespace(newNamespace);
-                  if (!namespaces.includes(newNamespace)) {
-                    namespaces.push(newNamespace);
-                  }
-                  this.setState({
-                    namespaces: namespaces,
-                    selectedNamespace: newNamespace,
-                    isNew: false
-                  });
+                  this.namespaceAdd();
                 }
               }}
             ></FormControl>

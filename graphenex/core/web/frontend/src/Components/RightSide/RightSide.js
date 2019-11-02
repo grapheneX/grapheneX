@@ -13,6 +13,7 @@ import NamespaceSelector from "./NamespaceSelector";
 import GraphenexLogo from "../Loading";
 import _Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Toast from "../Toast";
 
 const Swal = withReactContent(_Swal);
 
@@ -91,17 +92,10 @@ class RightSide extends React.Component {
       .post("/api/addmodule", { moduleObj })
       .then(res => {
         const { data } = res;
-        if (data.status) {
-          Swal.fire({
-            type: "success",
-            text: data.msg
-          });
-        } else {
-          Swal.fire({
-            type: "error",
-            text: data.msg
-          });
-        }
+        Toast.fire({
+          type: data.status ? "success" : "error",
+          title: `<div style="color: #E0E0E0">${data.msg}</div>`
+        });
       })
       .catch(err => {
         console.log(err);
@@ -179,6 +173,7 @@ class RightSide extends React.Component {
                 customClass: {
                   container: "z-index: 999"
                 },
+                showCancelButton: true,
                 title: "Add a new module",
                 background: "#1E1E1E",
                 html: (
