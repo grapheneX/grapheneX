@@ -59,7 +59,7 @@ def run_server(args=None, exit_shell=True):
         
         logger.info(f"Your access token: {app.config['ACCESS_TOKEN']}")
         app.run(host=server_params[0], port=int(
-            server_params[1]), debug=True)
+            server_params[1]), debug=False)
     except (PermissionError, ValueError):
         logger.error(
             'Invalid host & port address. Restarting with default host and port.')
