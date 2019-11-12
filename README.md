@@ -40,6 +40,8 @@ Currently, grapheneX support the hardening sections below. Each of these namespa
 • Filesystem  
 • Other
 
+Listen to The Python Podcast.\_\_init\_\_: [Automate Your Server Security With GrapheneX - Episode 237](https://www.pythonpodcast.com/graphenex-server-security-episode-237/)
+
 ## Installation
 
 You can install `grapheneX` with `pip`. Usually this is the easiest way:
