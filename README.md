@@ -58,7 +58,7 @@ python3 -m pip install graphenex
 Also it's possible to run the `setup.py` for installation as follows:
 
 ```
-python setup.py install 
+python3 setup.py install 
 ```
 
 The commands below can be used for testing the project without installation:
