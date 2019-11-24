@@ -393,6 +393,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/zero77"><img src="https://avatars3.githubusercontent.com/u/16563034?v=4" width="100px;" alt="zero77"/><br /><sub><b>zero77</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=zero77" title="Documentation">📖</a></td>
     <td align="center"><a href="https://privateger.me/"><img src="https://avatars0.githubusercontent.com/u/29523614?v=4" width="100px;" alt="Marc"/><br /><sub><b>Marc</b></sub></a><br /><a href="#content-PerhapsSomeone" title="Content">🖋</a></td>
+    <td align="center"><a href="http://mercode.org"><img src="https://avatars1.githubusercontent.com/u/40173707?v=4" width="100px;" alt="Tan Siret G. AKINCI"/><br /><sub><b>Tan Siret G. AKINCI</b></sub></a><br /><a href="https://github.com/grapheneX/grapheneX/commits?author=Yutyo" title="Documentation">📖</a></td>
   </tr>
 </table>
 

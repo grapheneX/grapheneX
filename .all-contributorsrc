@@ -100,6 +100,15 @@
       "contributions": [
         "content"
       ]
+    },
+    {
+      "login": "Yutyo",
+      "name": "Tan Siret G. AKINCI",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/40173707?v=4",
+      "profile": "http://mercode.org",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
