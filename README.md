@@ -65,7 +65,7 @@ Additionally, [poetry](https://python-poetry.org/) can be used for development:
 
 ```
 poetry install  # install the dependencies
-poetry run      # run grapheneX
+poetry run grapheneX     # run grapheneX
 ```
 
 ### Dependencies
