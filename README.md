@@ -55,12 +55,6 @@ Or if you get an error try:
 python3 -m pip install graphenex
 ```
 
-Also it's possible to run the `setup.py` for installation as follows:
-
-```
-python3 setup.py install 
-```
-
 Additionally, [poetry](https://python-poetry.org/) can be used for development:
 
 ```
