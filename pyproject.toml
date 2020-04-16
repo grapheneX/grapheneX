@@ -42,6 +42,7 @@ psutil = "^5.7.0"
 colorama = "^0.4.3"
 
 [tool.poetry.dev-dependencies]
+bumpversion = "^0.5.3"
 
 [tool.poetry.scripts]
 run = "graphenex.__main__:main"

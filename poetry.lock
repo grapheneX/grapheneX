@@ -1,4 +1,12 @@
 [[package]]
+category = "dev"
+description = "Version-bump your software with a single command!"
+name = "bumpversion"
+optional = false
+python-versions = "*"
+version = "0.5.3"
+
+[[package]]
 category = "main"
 description = "Composable command line interface toolkit"
 name = "click"
@@ -230,10 +238,14 @@ dev = ["pytest", "pytest-timeout", "coverage", "tox", "sphinx", "pallets-sphinx-
 watchdog = ["watchdog"]
 
 [metadata]
-content-hash = "e77576c7fd0b6e1ca321471611e52f621468c52fcfe7d43f982e5350404a6bb6"
+content-hash = "3b055879dd0c4fedb84559cbb1cb6364facf2b8441183d01689636fbb88479f0"
 python-versions = "^3.7"
 
 [metadata.files]
+bumpversion = [
+    {file = "bumpversion-0.5.3-py2.py3-none-any.whl", hash = "sha256:6753d9ff3552013e2130f7bc03c1007e24473b4835952679653fb132367bdd57"},
+    {file = "bumpversion-0.5.3.tar.gz", hash = "sha256:6744c873dd7aafc24453d8b6a1a0d6d109faf63cd0cd19cb78fd46e74932c77e"},
+]
 click = [
     {file = "click-7.1.1-py2.py3-none-any.whl", hash = "sha256:e345d143d80bf5ee7534056164e5e112ea5e22716bbb1ce727941f4c8b471b9a"},
     {file = "click-7.1.1.tar.gz", hash = "sha256:8a18b4ea89d8820c5d0c7da8a64b2c324b4dabb695804dbfea19b9be9d88c0cc"},
