@@ -58,8 +58,8 @@ python3 -m pip install graphenex
 Additionally, [poetry](https://python-poetry.org/) can be used for development:
 
 ```
-poetry install  # install the dependencies
-poetry run grapheneX     # run grapheneX
+poetry install        # install the dependencies
+poetry run grapheneX  # run grapheneX
 ```
 
 ### Dependencies
