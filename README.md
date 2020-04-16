@@ -61,13 +61,13 @@ Also it's possible to run the `setup.py` for installation as follows:
 python3 setup.py install 
 ```
 
-The commands below can be used for testing the project without installation:
+Additionally, [poetry](https://python-poetry.org/) can be used for development:
 
 ```
-cd grapheneX
-pipenv install
-pipenv run python -m graphenex
+poetry install  # install the dependencies
+poetry run      # run grapheneX
 ```
+
 ### Dependencies
 
 * [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
