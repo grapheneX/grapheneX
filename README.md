@@ -1,4 +1,4 @@
-![grapheneX](https://user-images.githubusercontent.com/24392180/60434254-65ed3e00-9c0f-11e9-8b73-73f9a1b25f60.png)
+![grapheneX](https://socialify.git.ci/grapheneX/grapheneX/image?description=1&font=Raleway&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FgrapheneX%2FgrapheneX%2Fmaster%2Fgraphenex%2Fcore%2Fweb%2Fstatic%2Fimages%2Fgraphenex_logo_white.png&owner=1&pulls=1&stargazers=1&theme=Dark)
 
 # grapheneX [![Release](https://img.shields.io/github/release/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/releases)
 
@@ -9,32 +9,30 @@
 
 > In computing, hardening is usually the process of securing a system by reducing its surface of vulnerability, which is larger when a system performs more functions; in principle a single-function system is more secure than a multipurpose one. Reducing available ways of attack typically includes changing default passwords, the removal of unnecessary software, unnecessary usernames or logins, and the disabling or removal of unnecessary services.
 
-![grapheneX](https://socialify.git.ci/grapheneX/grapheneX/image?description=1&font=Raleway&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FgrapheneX%2FgrapheneX%2Fmaster%2Fgraphenex%2Fcore%2Fweb%2Fstatic%2Fimages%2Fgraphenex_logo_white.png&owner=1&pulls=1&stargazers=1&theme=Dark)
-
 Although the current technology tries to design systems as safe as possible, security flaws and situations that can lead to vulnerabilities caused by unconscious use and missing configurations still exist.
-The user must be knowledgeable about the technical side of system architecture and should be aware of the importance of securing his/her system from vulnerabilities like this. 
-Unfortunately, it's not possible to know all the details about hardening and necessary commands for every ordinary user and the hardening remains to be a technical issue due to the difficulty of understanding operating system internals. 
+The user must be knowledgeable about the technical side of system architecture and should be aware of the importance of securing his/her system from vulnerabilities like this.
+Unfortunately, it's not possible to know all the details about hardening and necessary commands for every ordinary user and the hardening remains to be a technical issue due to the difficulty of understanding operating system internals.
 Therefore there are hardening checklists that contain various commands and rules of the specified operating system available such as [trimstray/linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) & [Windows Server Hardening Checklist](https://www.upguard.com/blog/the-windows-server-hardening-checklist) on the internet for providing a set of commands with their sections and of course simplifying the concept for the end user.
 But still, the user must know the commands and apply the hardening manually depending on the system. That's where the `grapheneX` exactly comes in play.
 
 > The project name is derived from the 'graphene'. Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
 
-`grapheneX` project aims to provide a framework for securing the system with hardening commands automatically. 
-It's designed for the end user as well as the Linux and Windows developers due to the interface options. (interactive shell/web interface) 
+`grapheneX` project aims to provide a framework for securing the system with hardening commands automatically.
+It's designed for the end user as well as the Linux and Windows developers due to the interface options. (interactive shell/web interface)
 In addition to that, `grapheneX` can be used to secure a web server/application.
 
 Hardening commands and the scopes of those commands are referred to `modules` and the `namespaces` in the project.
 They exist at the `modules.json` file after installation. (`$PYPATH/site-packages/graphenex/modules.json`)
-Additionally, it's possible to add, edit or remove modules and namespaces. 
+Additionally, it's possible to add, edit or remove modules and namespaces.
 Also, the hardening operation can be automated with the presets that contain a list of modules.
 
 Currently, grapheneX support the hardening sections below. Each of these namespaces contains more than one module.
 
 • Firewall  
-• User   
-• Network   
-• Services   
-• Kernel   
+• User  
+• Network  
+• Services  
+• Kernel  
 • Filesystem  
 • Other
 
@@ -47,6 +45,7 @@ You can install `grapheneX` with `pip`. Usually this is the easiest way:
 ```
 pip install graphenex
 ```
+
 Or if you get an error try:
 
 ```
@@ -62,12 +61,12 @@ poetry run grapheneX  # run grapheneX
 
 ### Dependencies
 
-* [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
-  *  [Flask](http://flask.pocoo.org/)
-* [coloredlogs](https://pypi.org/project/coloredlogs/)
-* [colorama](https://pypi.org/project/colorama/)
-* [terminaltables](https://pypi.org/project/terminaltables/)
-* [PyInquirer](https://pypi.org/project/PyInquirer/)
+- [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
+  - [Flask](http://flask.pocoo.org/)
+- [coloredlogs](https://pypi.org/project/coloredlogs/)
+- [colorama](https://pypi.org/project/colorama/)
+- [terminaltables](https://pypi.org/project/terminaltables/)
+- [PyInquirer](https://pypi.org/project/PyInquirer/)
 
 ## Usage
 
@@ -76,6 +75,7 @@ poetry run grapheneX  # run grapheneX
 ```
 usage: grapheneX [-h] [-v] [-w] [--open] [host:port]
 ```
+
 ```
 positional arguments:
   host:port      host and port to run the web interface
@@ -93,12 +93,12 @@ Execute the `grapheneX` command in order to start the interactive shell.
 
 ![GrapheneX Interactive Shell](https://user-images.githubusercontent.com/24392180/61892273-16e7af80-af14-11e9-91d8-8c7682439f06.gif)
 
-• Animated gifs and screenshots added for demonstration and include the test execution of the unversioned grapheneX. Use `grapheneX` or `python -m graphenex` command for the execution.   
+• Animated gifs and screenshots added for demonstration and include the test execution of the unversioned grapheneX. Use `grapheneX` or `python -m graphenex` command for the execution.  
 • grapheneX currently supports [Python3.7](https://www.python.org/)
 
 ### Web Interface
 
-Execute the `grapheneX` with the `-w` or `--web` argument in order to start the web server. 
+Execute the `grapheneX` with the `-w` or `--web` argument in order to start the web server.
 
 ![Starting the Web Server](https://user-images.githubusercontent.com/24392180/61898426-f292cf80-af21-11e9-9edc-21f0351bbf5b.gif)
 
@@ -108,14 +108,13 @@ Execute the `grapheneX` with the `-w` or `--web` argument in order to start the 
 
 ![GrapheneX Web Interface II](https://user-images.githubusercontent.com/24392180/60525198-9bb92200-9cf6-11e9-80c6-9b69b5d10c81.gif)
 
-
 • The default host and port value are `localhost:8080`. It can be changed via the `host:port` argument as shown below.
 
 ```
 python grapheneX.py -w 192.168.1.36:8090
 ```
 
-• Use `--open` argument to open the browser after the server start. 
+• Use `--open` argument to open the browser after the server start.
 
 ```
 python grapheneX.py -w --open
@@ -123,21 +122,21 @@ python grapheneX.py -w --open
 
 ## CLI Commands
 
-| Command 	| Description                                                                 	 |
-|---------	|------------------------------------------------------------------------------ |
-| back    	| Go back from namespace or module                                            	 |
-| clear   	| Clear the terminal                                                          	 |
-| exit    	| Exit interactive shell                                                      	 |
-| harden  	| Execute the hardening command                                               	 |
-| help    	| List available commands with "help" or show detailed help with "help `<cmd>`" |
-| info    	| Show information about the module                                           	 |
-| list    	| List available hardening modules                                            	 |
-| manage  	| Add, edit or delete module                                                  	 |
-| preset  	| Show/execute the hardening module presets                                   	 |
-| search  	| Search for modules                                                          	 |
-| switch  	| Switch between modules or namespaces                                        	 |
-| use     	| Use a hardening module                                                      	 |
-| web     	| Start the grapheneX web server                                              	 |
+| Command | Description                                                                   |
+| ------- | ----------------------------------------------------------------------------- |
+| back    | Go back from namespace or module                                              |
+| clear   | Clear the terminal                                                            |
+| exit    | Exit interactive shell                                                        |
+| harden  | Execute the hardening command                                                 |
+| help    | List available commands with "help" or show detailed help with "help `<cmd>`" |
+| info    | Show information about the module                                             |
+| list    | List available hardening modules                                              |
+| manage  | Add, edit or delete module                                                    |
+| preset  | Show/execute the hardening module presets                                     |
+| search  | Search for modules                                                            |
+| switch  | Switch between modules or namespaces                                          |
+| use     | Use a hardening module                                                        |
+| web     | Start the grapheneX web server                                                |
 
 ### help
 
@@ -293,7 +292,6 @@ web [host:port]
 
 ![Web Command](https://user-images.githubusercontent.com/24392180/60546423-f027c600-9d25-11e9-8d45-e9cd9373d9bd.gif)
 
-
 ### back
 
 Go back from selected namespace or module.
@@ -335,11 +333,15 @@ It's possible to display various system information such as disk usage and netwo
 ![System Monitor](https://user-images.githubusercontent.com/24392180/64130757-12dd6600-cdcd-11e9-9be8-39395e104974.gif)
 
 ## Docker
+
 ### Building the image
+
 ```sh
 docker build -t graphenex .
 ```
+
 ### Running the container
+
 ```sh
 docker run --rm --name graphenex -p 8080:8080 --privileged graphenex
 ```
@@ -358,9 +360,9 @@ docker run --rm --name graphenex -p 8080:8080 --privileged graphenex
 
 ## TODO(s)
 
-* Add new modules for Linux and Windows.
+- Add new modules for Linux and Windows.
 
-* Add `-w` support to Docker image
+- Add `-w` support to Docker image
 
 ## Contributing
 
