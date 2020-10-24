@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "GrapheneX"
+version = "1.3.1"
+description = "Automated System Hardening Framework for Linux & Windows"
+authors = ["bufgix <ooruc471@yandex.com>"]
+license = "GPL-3.0-or-later"
+homepage = "https://graphenex.github.io"
+repository = "https://github.com/grapheneX/grapheneX"
+readme="README.md"
+keywords = ["hardening", "hardening-commands", "security"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Topic :: Security",
+    "Topic :: Utilities",
+]
+packages = [
+    { include = "graphenex" }
+]
+include = [
+    "graphenex/modules.json",
+    "graphenex/core/web/static/css/*",
+    "graphenex/core/web/static/js/*",
+    "graphenex/core/web/static/images/*",
+    "graphenex/core/web/static/webfonts/*",
+    "graphenex/core/web/templates/*"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+flask-socketio = "^4.2.1"
+coloredlogs = "^12.0"
+terminaltables = "^3.1.0"
+pyinquirer = "^1.0.3"
+psutil = "^5.7.0"
+colorama = "^0.4.3"
+
+[tool.poetry.dev-dependencies]
+bumpversion = "^0.5.3"
+
+[tool.poetry.scripts]
+grapheneX = "graphenex.__main__:main"
