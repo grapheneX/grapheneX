@@ -5,13 +5,11 @@
 [![PyPI](https://img.shields.io/pypi/v/graphenex.svg?style=flat-square)](https://pypi.org/project/graphenex)
 [![AUR](https://img.shields.io/aur/version/graphenex.svg?style=flat-square)](https://aur.archlinux.org/packages/graphenex/)
 [![Docker Build](https://img.shields.io/docker/cloud/build/graphenex/graphenex.svg?style=flat-square)](https://hub.docker.com/r/graphenex/graphenex/builds)
-[![Issues](https://img.shields.io/github/issues/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/pulls)
-[![Stars](https://img.shields.io/github/stars/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/stargazers)
-[![Forks](https://img.shields.io/github/forks/grapheneX/grapheneX.svg?style=flat-square)](https://github.com/grapheneX/grapheneX/network)
 [![License](https://img.shields.io/github/license/grapheneX/grapheneX.svg?style=flat-square)](./LICENSE)
 
 > In computing, hardening is usually the process of securing a system by reducing its surface of vulnerability, which is larger when a system performs more functions; in principle a single-function system is more secure than a multipurpose one. Reducing available ways of attack typically includes changing default passwords, the removal of unnecessary software, unnecessary usernames or logins, and the disabling or removal of unnecessary services.
+
+![grapheneX](https://socialify.git.ci/grapheneX/grapheneX/image?description=1&font=Raleway&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FgrapheneX%2FgrapheneX%2Fmaster%2Fgraphenex%2Fcore%2Fweb%2Fstatic%2Fimages%2Fgraphenex_logo_white.png&owner=1&pulls=1&stargazers=1&theme=Dark)
 
 Although the current technology tries to design systems as safe as possible, security flaws and situations that can lead to vulnerabilities caused by unconscious use and missing configurations still exist.
 The user must be knowledgeable about the technical side of system architecture and should be aware of the importance of securing his/her system from vulnerabilities like this. 
