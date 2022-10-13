@@ -26,7 +26,7 @@ They exist at the `modules.json` file after installation. (`$PYPATH/site-package
 Additionally, it's possible to add, edit or remove modules and namespaces.
 Also, the hardening operation can be automated with the presets that contain a list of modules.
 
-Currently, grapheneX support the hardening sections below. Each of these namespaces contains more than one module.
+Currently, grapheneX supports the hardening sections below. Each of these namespaces contains more than one module.
 
 • Firewall  
 • User  
