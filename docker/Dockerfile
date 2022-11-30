@@ -1,16 +1,22 @@
-FROM python:3.7-slim AS build-image
+FROM python:3.9-slim as python
 LABEL maintainer="graphenex.project@protonmail.com"
 ENV LC_ALL=C.UTF-8
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential gcc curl
-RUN VERSION=$(curl --silent "https://api.github.com/repos/graphenex/grapheneX/releases/latest" | \
-    grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
-    curl -LO https://github.com/grapheneX/grapheneX/archive/$VERSION.tar.gz && \
-    tar -xzf $VERSION.tar.gz && \
-    cd "grapheneX-$VERSION" && \
-    pip install --user .
+ENV PYTHONUNBUFFERED=true
+WORKDIR /app
 
-FROM python:3.7-slim AS runtime-image
-COPY --from=build-image /root/.local /root/.local
-ENV PATH=/root/.local/bin:$PATH
+FROM python as poetry
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential gcc
+ENV POETRY_HOME=/opt/poetry
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+ENV PATH="$POETRY_HOME/bin:$PATH"
+RUN python -c 'from urllib.request import urlopen; print(urlopen("https://install.python-poetry.org").read().decode())' | python -
+COPY . ./
+RUN poetry install --no-interaction --no-ansi -vvv
+
+FROM python as runtime
+ENV PATH="/app/.venv/bin:$PATH"
+COPY --from=poetry /app /app
+EXPOSE 8080
 CMD ["/bin/sh", "-c", "grapheneX"]
+
