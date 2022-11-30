@@ -337,13 +337,13 @@ It's possible to display various system information such as disk usage and netwo
 ### Building the image
 
 ```sh
-docker build -t graphenex .
+docker build -f docker/Dockerfile -t graphenex .
 ```
 
 ### Running the container
 
 ```sh
-docker run --rm --name graphenex -p 8080:8080 --privileged graphenex
+docker run -it --rm --name graphenex -p 8080:8080 --privileged graphenex
 ```
 
 ## Screenshots
@@ -361,8 +361,6 @@ docker run --rm --name graphenex -p 8080:8080 --privileged graphenex
 ## TODO(s)
 
 - Add new modules for Linux and Windows.
-
-- Add `-w` support to Docker image
 
 ## Contributing
 
