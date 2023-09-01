@@ -439,6 +439,20 @@
             "require_superuser": "True",
             "target_os": "linux"
         }
+        {
+            "name": "SSH_Disable_Other_Authentication",
+            "desc": "In most cases SSH will be configured for Pubkey auth, so It's good to disable other Authentication methods",
+            "command": "echo \"ChallengeResponseAuthentication no\" >> /etc/ssh/sshd_config && echo \"KerberosAuthentication no\" >> /etc/ssh/sshd_config && echo \"GSSAPIAuthentication no\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
+        {
+            "name": "SSH_Disable_Banner",
+            "desc": "Disable SSH verbose banner that shows various informations about OS, such as version",
+            "command": "echo \"DebianBanner no\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
     ],
     "presets": [
         {
