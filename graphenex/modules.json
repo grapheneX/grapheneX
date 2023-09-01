@@ -263,6 +263,13 @@
             "require_superuser": "True",
             "target_os": "linux"
         }
+        {
+            "name": "Disable_IPv6_Systemwide",
+            "desc": "Disabling IPv6 Systemwide can reduce the attack surface of a system a lot (assuming you are not using it)",
+            "command": "echo \"net.ipv6.conf.all.disable_ipv6 = 1\" >> /etc/sysctl.conf && echo \"net.ipv6.conf.default.disable_ipv6 = 1\" >> /etc/sysctl.conf && echo \"net.ipv6.conf.lo.disable_ipv6 = 1\"",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
     ],
     "services": [
         {
@@ -394,6 +401,41 @@
             "name": "SSH_Disable_Password_Login",
             "desc": "Disable SSH authentication using passwords and force keys instead",
             "command": "echo \"ChallengeResponseAuthentication no\" >> /etc/ssh/sshd_config && echo \"PasswordAuthentication no\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
+        {
+            "name": "SSH_Disable_Empty_Passwords",
+            "desc": "Disable empty passwords on SSH Authentication",
+            "command": "echo \"PermitEmptyPasswords no\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
+        {
+            "name": "SSH_Change_Default_Port",
+            "desc": "Change default SSH port",
+            "command": "echo \"Port 4567\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
+        {
+            "name": "SSH_Disable_Protocol_1",
+            "desc": "Some older linux distributions might still have Protocol 1 available. It has known vulnerabilities, and shouldn't be used anymore",
+            "command": "echo \"Protocol 2\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
+        {
+            "name": "SSH_Disable_X11_Forwarding",
+            "desc": "The X11 protocol is not security oriented. It should be disabled if not needed",
+            "command": "echo \"X11Forwarding no\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
+        }
+        {
+            "name": "SSH_Disable_IPv6",
+            "desc": "Turn off IPv6 for SSH",
+            "command": "echo \"AddressFamily inet\" >> /etc/ssh/sshd_config",
             "require_superuser": "True",
             "target_os": "linux"
         }
