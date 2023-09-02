@@ -156,6 +156,13 @@
           "require_superuser": "True",
           "target_os": "linux"
         }
+        {
+            "name": "Set_Home_Dir_Permission",
+            "desc": "The default setting allows every user on the system to access the home directory. If there's a guest account, it can also read all the data from the home directory",
+            "command": "chmod 0700 /home/$USER",
+            "require_superuser": "False",
+            "target_os": "linux"
+        }
     ],
     "network": [
         {
@@ -393,7 +400,7 @@
         {
             "name": "SSH_Disable_Root",
             "desc": "Disable the option to login directly as root via SSH, use sudo instead",
-            "command": "echo \"PermitRootLogin no\" >> /etc/ssh/ssh_config",
+            "command": "echo \"PermitRootLogin no\" >> /etc/ssh/sshd_config",
             "require_superuser": "True",
             "target_os": "linux"
         },
@@ -448,7 +455,7 @@
         }
         {
             "name": "SSH_Disable_Banner",
-            "desc": "Disable SSH verbose banner that shows various informations about OS, such as version",
+            "desc": "Disable SSH verbose banner that shows various information about OS, such as version",
             "command": "echo \"DebianBanner no\" >> /etc/ssh/sshd_config",
             "require_superuser": "True",
             "target_os": "linux"
