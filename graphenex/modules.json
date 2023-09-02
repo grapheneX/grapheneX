@@ -455,7 +455,7 @@
         }
         {
             "name": "SSH_Disable_Banner",
-            "desc": "Disable SSH verbose banner that shows various informations about OS, such as version",
+            "desc": "Disable SSH verbose banner that shows various information about OS, such as version",
             "command": "echo \"DebianBanner no\" >> /etc/ssh/sshd_config",
             "require_superuser": "True",
             "target_os": "linux"
