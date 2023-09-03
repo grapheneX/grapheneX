@@ -466,6 +466,13 @@
             "command": "echo \"MaxAuthTries 3\" >> /etc/ssh/sshd_config",
             "require_superuser": "True",
             "target_os": "linux"
+        },
+        {
+            "name": "SSH_Login_Grace_Time",
+            "desc": "Reduce the amout of time (in seconds) a user has to complete authentication after connecting to SSH server",
+            "command": "echo \"LoginGraceTime 30\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "presets": [
