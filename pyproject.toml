@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "GrapheneX"
-version = "1.3.2"
+version = "1.3.3"
 description = "Automated System Hardening Framework for Linux & Windows"
 authors = ["bufgix <ooruc471@yandex.com>"]
 license = "GPL-3.0-or-later"
 homepage = "https://graphenex.github.io"
 repository = "https://github.com/grapheneX/grapheneX"
-readme="README.md"
+readme = "README.md"
 keywords = ["hardening", "hardening-commands", "security"]
 classifiers = [
     "Intended Audience :: Developers",
@@ -20,16 +20,14 @@ classifiers = [
     "Topic :: Security",
     "Topic :: Utilities",
 ]
-packages = [
-    { include = "graphenex" }
-]
+packages = [{ include = "graphenex" }]
 include = [
     "graphenex/modules.json",
     "graphenex/core/web/static/css/*",
     "graphenex/core/web/static/js/*",
     "graphenex/core/web/static/images/*",
     "graphenex/core/web/static/webfonts/*",
-    "graphenex/core/web/templates/*"
+    "graphenex/core/web/templates/*",
 ]
 
 [tool.poetry.dependencies]
