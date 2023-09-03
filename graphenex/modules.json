@@ -473,6 +473,13 @@
             "command": "echo \"LoginGraceTime 30\" >> /etc/ssh/sshd_config",
             "require_superuser": "True",
             "target_os": "linux"
+        },
+        {
+            "name": "SSH_Disable_Misc_Forwarding",
+            "desc": "Disable several options related to tunneling and forwarding if they are not needed",
+            "command": "echo \"AllowAgentForwarding no\" >> /etc/ssh/sshd_config && echo \"AllowTcpForwarding no\" >> /etc/ssh/sshd_config && echo \"PermitTunnel no\" >> /etc/ssh/sshd_config",
+            "require_superuser": "True",
+            "target_os": "linux"
         }
     ],
     "presets": [
