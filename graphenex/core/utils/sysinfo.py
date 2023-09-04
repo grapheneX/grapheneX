@@ -1,4 +1,3 @@
-from typing import Any, Dict
 from collections import namedtuple, OrderedDict
 from unicodedata import normalize
 import platform

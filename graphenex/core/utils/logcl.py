@@ -63,7 +63,7 @@ class GraphenexLogger(logging.Logger):
             import coloredlogs
         except:
             print("coloredlogs module not found.\n" +
-                  "Install requirements.txt with pip.")
+                  "Install using:  pip install coloredlogs")
             sys.exit()
 
     def info(self, msg, extra=None):
