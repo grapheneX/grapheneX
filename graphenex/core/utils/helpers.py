@@ -5,14 +5,12 @@ from graphenex.core.hrd import HardenMethod
 from graphenex.core.utils.logcl import GraphenexLogger
 from colorama import init, Fore, Style
 
-import argparse
 import os
-import importlib.util
-import inspect
-import ctypes
-import platform
+import sys
 import json
+import ctypes
 import pathlib
+import argparse
 
 logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
@@ -57,7 +55,7 @@ def print_header():
     `:ohdddddddddds``sddddds- :.      """+Style.NORMAL+"~ Automated System Hardening Framework"+Style.BRIGHT+"""
     +ddddddddddddddh. /dds- /hdd      """+Style.NORMAL+"+ Created for Linux & Windows."+Style.BRIGHT+"""
     +dddddddddddddddd/ .. /hdddd      """+Style.NORMAL+"> https://github.com/grapheneX"+Style.BRIGHT+"""
-    +ddddddddddddddddo``/hdddddd      """+Style.NORMAL+"- Copyright (C) 2019-2020"+Style.BRIGHT+"""
+    +ddddddddddddddddo``/hdddddd      """+Style.NORMAL+"- Copyright (C) 2019-2023"+Style.BRIGHT+"""
     +ddddddddddddddo.`+ddddddddd
     `-/+oyhddddd+``+dddddddddddd
     :o+/-.` `-` .syddddddddddddd
@@ -155,6 +153,10 @@ def get_presets(os='win' if check_os() else 'linux'):
 def get_mod_json():
     """Read the modules from file"""
 
-    with open(mod_json_file, 'r') as json_file:
-        json_data = json.load(json_file)
-    return json_data
+    try:
+        with open(mod_json_file, 'r') as json_file:
+            json_data = json.load(json_file)
+        return json_data
+    except FileNotFoundError:
+        logger.error(f"{mod_json_file} not found! Exiting grapheneX.")
+        sys.exit(1)
