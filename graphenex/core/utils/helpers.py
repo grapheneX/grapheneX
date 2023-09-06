@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/python3.10
 # -*- coding: utf-8 -*-
 
 from graphenex.core.hrd import HardenMethod
