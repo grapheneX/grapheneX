@@ -1,15 +1,15 @@
 #!/usr/bin/python3.10
-# -*- coding: utf-8 -*-
+
+import re
+import json
+from functools import wraps
+
+from flask import render_template, session, request, redirect, flash
+from flask_socketio import emit, disconnect
 
 from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_modules, mod_json_file
 from graphenex.core.utils.sysinfo import SysInformation
-
-from flask import render_template, session, request, redirect, flash
-from flask_socketio import emit, disconnect
-from functools import wraps
-import json
-import re
 
 module_dict = get_modules()
 current_namespace = list(module_dict.keys())[0]

@@ -1,21 +1,22 @@
 #!/usr/bin/python3.10
-# -*- coding: utf-8 -*-
+
+import os
+import re
+import json
+import random
+import secrets
+import textwrap
+from terminaltables import AsciiTable
+
+from PyInquirer import prompt, Validator, ValidationError
 
 from graphenex.core.utils.helpers import check_os, get_modules, \
     mod_json_file, get_forbidden_namespaces, get_mod_json, get_presets
 from graphenex.core.utils.logcl import GraphenexLogger
 from graphenex.core.cli.help import Help
 
-from terminaltables import AsciiTable
-from PyInquirer import prompt, Validator, ValidationError
-import textwrap
-import secrets
-import random
-import json
-import os
-import re
-
 logger = GraphenexLogger(__name__)
+
 
 class ShellCommands(Help):
     def do_switch(self, arg):
@@ -465,12 +466,14 @@ class ShellCommands(Help):
         self.do_exit(arg)
         return True
 
-    def do_clear(self, arg):
+    @staticmethod
+    def do_clear(arg):
         """Clear the terminal"""
 
         os.system("cls" if check_os() else "clear")
 
-    def default(self, line):
+    @staticmethod
+    def default(line):
         """Default command"""
 
         logger.error("Command not found.")

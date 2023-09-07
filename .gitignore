@@ -55,3 +55,4 @@ venv.bak/
 
 # VSCode files
 .vscode
+.idea/

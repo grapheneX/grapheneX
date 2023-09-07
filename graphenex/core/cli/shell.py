@@ -1,10 +1,10 @@
 #!/usr/bin/python3.10
-# -*- coding: utf-8 -*-
+
+from cmd import Cmd
 
 from graphenex.core.cli.commands import ShellCommands
 from graphenex.core.utils.helpers import get_modules
 
-from cmd import Cmd
 
 class Shell(ShellCommands, Cmd):
     """Interactive Shell constructor class"""
@@ -25,6 +25,7 @@ class Shell(ShellCommands, Cmd):
         if self.module:
             prompt_str = prompt_str + ":" + self.module
         return f"[gX{prompt_str}]> "
+
 
 def start_cli():
     """Start the command line interface"""

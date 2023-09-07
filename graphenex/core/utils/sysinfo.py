@@ -1,8 +1,8 @@
+import re
+import psutil
+import platform
 from collections import namedtuple, OrderedDict
 from unicodedata import normalize
-import platform
-import psutil
-import re
 
 
 class SysInformation:

@@ -1,11 +1,11 @@
 #!/usr/bin/python3.10
-# -*- coding: utf-8 -*-
-
-from graphenex.core.utils.logcl import GraphenexLogger
 
 from terminaltables import AsciiTable
 
+from graphenex.core.utils.logcl import GraphenexLogger
+
 logger = GraphenexLogger(__name__)
+
 
 class Help:
     """

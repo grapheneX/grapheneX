@@ -1,5 +1,6 @@
 from graphenex.core.hrd.exec import WinExec, LinuxExec
 
+
 class HardenMethod:
     """
     Class for retrieving the details of a

@@ -1,15 +1,16 @@
 #!/usr/bin/python3.10
-# -*- coding: utf-8 -*-
 
 import shlex
 import subprocess
 from abc import ABC, abstractmethod
 
+
 class OsExec(ABC):
     @abstractmethod
     def run_cmd(self):
         pass
-  
+
+
 class LinuxExec(OsExec):
     def run_cmd(self, cmd, **kwargs):
         """
@@ -27,7 +28,8 @@ class LinuxExec(OsExec):
             return result.stdout.decode('utf-8')
         except AttributeError:
             return 'stdout was redirected to a file'
-  
+
+
 class WinExec(OsExec):
     def run_cmd(self, cmd, shell=True):
         """
