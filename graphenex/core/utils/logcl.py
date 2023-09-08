@@ -1,8 +1,8 @@
-#!/usr/bin/python3.7
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3.10
 
-import logging
 import sys
+import logging
+
 
 class GraphenexLogger(logging.Logger):
     """
@@ -57,7 +57,8 @@ class GraphenexLogger(logging.Logger):
                             datefmt="%H:%M:%S", logger=self.logger, 
                             field_styles=FIELD_STYLES)
 
-    def import_clogs(self):
+    @staticmethod
+    def import_clogs():
         try:
             global coloredlogs
             import coloredlogs

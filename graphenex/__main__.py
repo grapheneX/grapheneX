@@ -1,5 +1,4 @@
-#!/usr/bin/python3.7
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3.10
 
 from graphenex.core.utils.helpers import parse_cli_args, print_header
 from graphenex.core.utils.logcl import GraphenexLogger
@@ -8,6 +7,7 @@ from graphenex.core.web import run_server
 from graphenex import __version__
 
 logger = GraphenexLogger('Graphenex')
+
 
 def main():
     args = parse_cli_args()
@@ -22,6 +22,7 @@ def main():
             logger.warn("[--open] argument is unnecessary. " +
                     "Use with [-w] or [--web].")
         start_cli()
+
 
 if __name__ == "__main__":
     main()

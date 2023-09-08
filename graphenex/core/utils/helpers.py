@@ -1,9 +1,4 @@
-#!/usr/bin/python3.7
-# -*- coding: utf-8 -*-
-
-from graphenex.core.hrd import HardenMethod
-from graphenex.core.utils.logcl import GraphenexLogger
-from colorama import init, Fore, Style
+#!/usr/bin/python3.10
 
 import os
 import sys
@@ -11,10 +6,15 @@ import json
 import ctypes
 import pathlib
 import argparse
+from colorama import init, Fore, Style
+
+from graphenex.core.hrd import HardenMethod
+from graphenex.core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
 mod_json_file = project_dir / 'modules.json'
+
 
 def parse_cli_args():
     """
@@ -102,6 +102,7 @@ def check_privileges():
         if not is_root():
             logger.warn("Some functions won't work without root access, " +
                         "try running the grapheneX with sudo.")
+
 
 def get_modules():
     """Get hardening modules & namespaces in a dictionary"""
