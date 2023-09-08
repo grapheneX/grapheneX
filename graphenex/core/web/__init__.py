@@ -6,8 +6,6 @@ from flask_socketio import SocketIO
 
 from graphenex.core.cli.shell import Shell
 from graphenex.core.utils.logcl import GraphenexLogger
-from graphenex.core.web.views import *
-from graphenex.core.web.providers import *
 
 
 logger = GraphenexLogger(__name__)
