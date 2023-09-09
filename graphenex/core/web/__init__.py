@@ -56,6 +56,6 @@ def run_server(args=None, exit_shell=True):
             Shell().do_exit(None)
     except socket.error as e:
         if e.errno == 98:
-            logger.error('Looks like the specified addr:port is already in use!')
+            logger.error(f"{server_params[0]}:{server_params[1]} is already in use!")
     except Exception as e:
         logger.error('An error occurred: ' + str(e))
