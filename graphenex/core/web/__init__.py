@@ -1,3 +1,4 @@
+import socket
 import secrets
 import webbrowser
 
@@ -53,5 +54,8 @@ def run_server(args=None, exit_shell=True):
         socketio.stop()
         if exit_shell:
             Shell().do_exit(None)
+    except socket.error as e:
+        if e.errno == 98:
+            logger.error('Looks like the default addr:port - localhost:8080 is already in use!')
     except Exception as e:
         logger.error('An error occurred: ' + str(e))
