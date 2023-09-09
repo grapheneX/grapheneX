@@ -137,7 +137,7 @@
     },
     {
       "name": "Auto_Logout",
-      "desc": "Set auto logout inactive users",
+      "desc": "Configure system to automatically log out users who are inactive for 15 minutes. Additionally users will be unable to modify their command history files.",
       "command": "echo \"readonly TMOUT=900\" >> /etc/profile.d/idle-users.sh&& echo \"readonly HISTFILE\" >> /etc/profile.d/idle-users.sh&& chmod +x /etc/profile.d/idle-users.sh",
       "require_superuser": "True",
       "target_os": "linux"
@@ -151,7 +151,7 @@
     },
     {
       "name": "Set_File_Permissions",
-      "desc": "Set file permissions of the grub file",
+      "desc": "Restrict GRUB configuration files & directories to root, preventing regular users from accessing or modifying them",
       "command": "chown root:root /etc/grub.conf && chown -R root:root /etc/grub.d && chmod og-rwx /etc/grub.conf && chmod og-rwx /etc/grub.conf && chmod -R og-rwx /etc/grub.d",
       "require_superuser": "True",
       "target_os": "linux"
