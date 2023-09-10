@@ -2,7 +2,7 @@
 name = "GrapheneX"
 version = "1.4.0"
 description = "Automated System Hardening Framework for Linux & Windows"
-authors = ["bufgix <ooruc471@yandex.com>"]
+authors = ["grapheneX contributors <graphenex.project@protonmail.com>"]
 license = "GPL-3.0-or-later"
 homepage = "https://graphenex.github.io"
 repository = "https://github.com/grapheneX/grapheneX"
