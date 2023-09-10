@@ -4,13 +4,13 @@
 
 > In computing, hardening is usually the process of securing a system by reducing its surface of vulnerability, which is larger when a system performs more functions; in principle a single-function system is more secure than a multipurpose one. Reducing available ways of attack typically includes changing default passwords, the removal of unnecessary software, unnecessary usernames or logins, and the disabling or removal of unnecessary services.
 
-Although the current technology tries to design systems as safe as possible, security flaws and situations that can lead to vulnerabilities caused by unconscious use and missing configurations still exist.
+Although the current technology tries to design systems as safe as possible, security flaws and situations that can lead to vulnerabilities caused by unconscious use and misconfiguration still exist.
 The user must be knowledgeable about the technical side of system architecture and should be aware of the importance of securing his/her system from vulnerabilities like this.
 Unfortunately, it's not possible to know all the details about hardening and necessary commands for every ordinary user and the hardening remains to be a technical issue due to the difficulty of understanding operating system internals.
-Therefore there are hardening checklists that contain various commands and rules of the specified operating system available such as [trimstray/linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) & [Windows Server Hardening Checklist](https://www.upguard.com/blog/the-windows-server-hardening-checklist) on the internet for providing a set of commands with their sections and of course simplifying the concept for the end user.
-But still, the user must know the commands and apply the hardening manually depending on the system. That's where the `grapheneX` exactly comes in play.
+Therefore, there are hardening checklists that contain various commands and rules of the specified operating system available such as [trimstray/linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) & [Windows Server Hardening Checklist](https://www.upguard.com/blog/the-windows-server-hardening-checklist) on the internet for providing a set of commands with their sections and of course simplifying the concept for the end user.
+But still, the user must know the commands and apply the hardening manually depending on the system. That's where `grapheneX` exactly comes into play.
 
-> The project name is derived from the 'graphene'. Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
+> The project name is derived from 'graphene'. Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
 
 `grapheneX` project aims to provide a framework for securing the system with hardening commands automatically.
 It's designed for the end user as well as the Linux and Windows developers due to the interface options. (interactive shell/web interface)
@@ -191,7 +191,7 @@ Executes the hardening command of the selected module.
 
 ### preset
 
-grapheneX has presets that contain particular modules for automating the hardening operation. Presets can be customized with the `modules.json` file and they can contain any supported module. `preset` command shows the available module presets and `preset [PRESET]` runs the hardening commands in a preset.
+grapheneX has presets that contain particular modules for automating the hardening operation. Presets can be customized with the `modules.json` file, and they can contain any supported module. `preset` command shows the available module presets and `preset [PRESET]` runs the hardening commands in a preset.
 
 ![Show Presets](https://user-images.githubusercontent.com/24392180/60548388-a097c900-9d2a-11e9-8927-bbbd90493430.gif)
 
