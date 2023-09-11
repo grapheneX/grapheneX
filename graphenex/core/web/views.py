@@ -93,7 +93,7 @@ def get_current_namespace(data):
     """Set the current namespace and send modules"""
     modules = list()
     mod_dict = module_dict.get(data)
-    if mod_dict == None:
+    if mod_dict is None:
         logger.warn(f"Non-existent namespace: \"{data}\".")
     else:
         global current_namespace
@@ -145,9 +145,9 @@ def hardening_exec(data):
     except PermissionError:
         err_msg = "Insufficient permissions for hardening."
         if check_os():
-            err_msg += " Get admin rights and rerun the grapheneX."
+            err_msg += " Get admin rights and rerun grapheneX."
         else:
-            err_msg += " Try running the grapheneX with sudo."
+            err_msg += " Try running grapheneX with sudo."
         emit('log_message', {
             'tag': 'warning',
             'content': err_msg,
