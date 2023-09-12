@@ -1,5 +1,6 @@
 #!/usr/bin/python3.10
 
+import os
 import shlex
 import subprocess
 from abc import ABC, abstractmethod
@@ -17,7 +18,8 @@ class LinuxExec(OsExec):
         Executes the Linux command and returns it's output in UTF-8 format.
         Supports passing `kwargs`.
         """
-        
+
+        cmd = cmd.replace("$USER", os.environ["USER"])
         args = shlex.split(cmd)
         out = subprocess.PIPE
         if args[-2] == '>' or args[-2] == '>>':

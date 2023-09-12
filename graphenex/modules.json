@@ -225,28 +225,28 @@
       "name": "Force_SYN",
       "desc": "Make sure new incoming TCP connections are SYN packets",
       "command": "iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP",
-      "require_superuser": "False",
+      "require_superuser": "True",
       "target_os": "linux"
     },
     {
       "name": "Fragment_Drop",
       "desc": "Drop the incoming packets with fragments",
       "command": "iptables -A INPUT -f -j DROP",
-      "require_superuser": "False",
+      "require_superuser": "True",
       "target_os": "linux"
     },
     {
       "name": "XMAS_Drop",
       "desc": "Drop the incoming malformed XMAS packets",
       "command": "iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP",
-      "require_superuser": "False",
+      "require_superuser": "True",
       "target_os": "linux"
     },
     {
       "name": "Drop_Null",
       "desc": "Drop the incoming malformed NULL packets",
       "command": "iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP",
-      "require_superuser": "False",
+      "require_superuser": "True",
       "target_os": "linux"
     },
     {
@@ -355,28 +355,28 @@
       "name": "Logs_Restrict_Access",
       "desc": "Restrict access to kernel logs",
       "command": "echo \"kernel.dmesg_restrict = 1\" > /etc/sysctl.d/50-dmesg-restrict.conf",
-      "require_superuser": "False",
+      "require_superuser": "True",
       "target_os": "linux"
     },
     {
       "name": "Pointers_Restrict_Access",
       "desc": "Restrict access to kernel pointers",
       "command": "echo \"kernel.kptr_restrict = 1\" > /etc/sysctl.d/50-kptr-restrict.conf",
-      "require_superuser": "False",
+      "require_superuser": "True",
       "target_os": "linux"
     },
     {
       "name": "ExecShield_Protection",
       "desc": "Enable the ExecShield protection",
       "command": "echo \"kernel.exec-shield = 2\" > /etc/sysctl.d/50-exec-shield.conf",
-      "require_superuser": "False",
+      "require_superuser": "True",
       "target_os": "linux"
     },
     {
       "name": "Randomise_Memory",
       "desc": "Randomise the memory space",
       "command": "echo \"kernel.randomize_va_space=2\" > /etc/sysctl.d/50-rand-va-space.conf",
-      "require_superuser": "False",
+      "require_superuser": "True",
       "target_os": "linux"
     }
   ],
@@ -469,7 +469,7 @@
     },
     {
       "name": "SSH_Login_Grace_Time",
-      "desc": "Reduce the amout of time (in seconds) a user has to complete authentication after connecting to SSH server",
+      "desc": "Reduce the amount of time (in seconds) a user has to complete authentication after connecting to SSH server",
       "command": "echo \"LoginGraceTime 30\" >> /etc/ssh/sshd_config",
       "require_superuser": "True",
       "target_os": "linux"
