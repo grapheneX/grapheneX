@@ -38,8 +38,8 @@ jobs:
         run: |
           sudo apt install python3-pip
           python -m pip install --upgrade pip
-      
-      - name: 'install 'graphenex'
+
+      - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
   graphenex_actions_linux:
@@ -67,7 +67,7 @@ jobs:
       - name: 'update pip'
         run: python -m pip install --upgrade pip
 
-      - name: 'install 'graphenex'
+      - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
   graphenex_actions_windows:
