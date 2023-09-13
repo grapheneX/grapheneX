@@ -2,19 +2,19 @@ name: CI workflow
 
 on:
   workflow_dispatch:
-    pull_request:
-      branches:
-        - main
-      paths:
-        - 'docker/**'
-        - 'graphenex/**'
-    
-    push:
-      branches:
-        - main
-      paths:
-        - 'docker/**'
-        - 'graphenex/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'docker/**'
+      - 'graphenex/**'
+  
+  push:
+    branches:
+      - main
+    paths:
+      - 'docker/**'
+      - 'graphenex/**'
 
 #defaults:
 #  run:
@@ -42,14 +42,27 @@ jobs:
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
+  linter_linux:
+    name: "Linter check linux"
+    runs-on: ubuntu-latest
+    needs: setup_linux
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: linter check
+        uses: ricardochaves/python-lint@v1.3.0
+
   graphenex_actions_linux:
     name: "Actions on graphenex linux"
     runs-on: ubuntu-latest
-    needs: setup_linux
+    needs: linter_linux
 
     steps: 
     - name: 'run graphenex'
       run: graphenex
+
+
 
   setup_windows:
     name: "Windows setup"
@@ -70,10 +83,21 @@ jobs:
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
+  linter_windows:
+    name: "Linter check windows"
+    runs-on: windows-latest
+    needs: setup_windows
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: linter check
+        uses: ricardochaves/python-lint@v1.3.0
+
   graphenex_actions_windows:
     name: "Actions on graphenex windows"
     runs-on: windows-latest
-    needs: setup_windows 
+    needs: linter_windows 
     steps: 
     - name: 'run graphenex'
       run: graphenex
