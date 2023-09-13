@@ -85,9 +85,9 @@ jobs:
 
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
-        
+
       - name: 'run graphenex'
-        run: python -m graphenex
+        run: graphenex
 
   linter_windows:
     name: "Linter check windows"
@@ -106,6 +106,6 @@ jobs:
     needs: setup_windows 
     steps: 
     - name: 'run graphenex'
-      run: python -m graphenex
+      run: graphenex
 
 
