@@ -49,9 +49,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      
-      - name: linter check
-        uses: ricardochaves/python-lint@v1.3.0
+
+      - name: 'flake8 python linter'
+        uses: py-actions/flake8@v2
 
   graphenex_actions_linux:
     name: "Actions on graphenex linux"
@@ -91,8 +91,8 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       
-      - name: linter check
-        uses: ricardochaves/python-lint@v1.3.0
+      - name: 'flake8 python linter'
+        uses: py-actions/flake8@v2
 
   graphenex_actions_windows:
     name: "Actions on graphenex windows"
