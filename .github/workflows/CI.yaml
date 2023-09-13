@@ -56,7 +56,7 @@ jobs:
   graphenex_actions_linux:
     name: "Actions on graphenex linux"
     runs-on: ubuntu-latest
-    needs: linter_linux
+    needs: setup_linux
 
     steps: 
     - name: 'run graphenex'
@@ -97,7 +97,7 @@ jobs:
   graphenex_actions_windows:
     name: "Actions on graphenex windows"
     runs-on: windows-latest
-    needs: linter_windows 
+    needs: setup_windows 
     steps: 
     - name: 'run graphenex'
       run: python -m graphenex
