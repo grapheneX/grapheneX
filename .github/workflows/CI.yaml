@@ -42,6 +42,9 @@ jobs:
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
+      - name: "python import issue workaround"
+        run: sed -i '/Mapping/s/collections/collections.abc/' ~/.local/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
+
       - name: 'run graphenex'
         run: python -m graphenex
 
@@ -55,15 +58,6 @@ jobs:
 
       - name: 'flake8 python linter'
         uses: py-actions/flake8@v2
-
-  graphenex_actions_linux:
-    name: "Actions on graphenex linux"
-    runs-on: ubuntu-latest
-    needs: setup_linux
-
-    steps: 
-    - name: 'run graphenex'
-      run: python -m graphenex
 
 
 
@@ -86,6 +80,10 @@ jobs:
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
+      - name: 'python import issue workaround'
+        shell: pwsh
+        run: (Get-Content C:\Python310\Lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\Python310\Lib\site-packages\prompt_toolkit\styles\from_dict.py
+
       - name: 'run graphenex'
         run: graphenex
 
@@ -100,12 +98,5 @@ jobs:
       - name: 'flake8 python linter'
         uses: py-actions/flake8@v2
 
-  graphenex_actions_windows:
-    name: "Actions on graphenex windows"
-    runs-on: windows-latest
-    needs: setup_windows 
-    steps: 
-    - name: 'run graphenex'
-      run: graphenex
 
 
