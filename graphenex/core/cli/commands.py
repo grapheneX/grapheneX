@@ -1,5 +1,3 @@
-#!/usr/bin/python3.10
-
 import os
 import re
 import json
@@ -14,6 +12,7 @@ from graphenex.core.utils.helpers import check_os, get_modules, \
     mod_json_file, get_forbidden_namespaces, get_mod_json, get_presets
 from graphenex.core.utils.logcl import GraphenexLogger
 from graphenex.core.cli.help import Help
+
 
 logger = GraphenexLogger(__name__)
 
@@ -492,7 +491,9 @@ class ModuleNameValidation(Validator):
                     cursor_position=len(document.text))
 
 class NamespaceValidation(Validator):
-    def validate(self, document):
+
+    @staticmethod
+    def validate(document):
         """Validate the namespace for the prompt"""
 
         namespaces = get_forbidden_namespaces()

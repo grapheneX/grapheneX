@@ -1,24 +1,23 @@
-#!/usr/bin/python3.10
-
 from terminaltables import AsciiTable
 
 from graphenex.core.utils.logcl import GraphenexLogger
+
 
 logger = GraphenexLogger(__name__)
 
 
 class Help:
     """
-    Help class that will contain help methods for spesific commands
+    Help class that will contain help methods for specific commands
     """
 
     def do_help(self, arg):
-        'List available commands with "help" or show detailed help with "help <cmd>"'
+        """List available commands with 'help' or show detailed help with 'help <cmd>'"""
 
         if arg:
             try:
                 func = getattr(self, f"do_{arg}")
-                if (f"help_{arg}") in dir(self):
+                if f"help_{arg}" in dir(self):
                     getattr(self, f"help_{arg}")()
                 else:  
                     doc = func.__doc__ if func.__doc__ else "No description"
@@ -37,7 +36,8 @@ class Help:
                     help_table.append([getattr(self, name).__name__[3:], doc])
             print(AsciiTable(help_table).table)
 
-    def message(self, syntax, content):
+    @staticmethod
+    def message(syntax, content):
         """Print the commands help message with its syntax"""
 
         print(f"\n\tSyntax: {syntax}\n\t{content}\n")

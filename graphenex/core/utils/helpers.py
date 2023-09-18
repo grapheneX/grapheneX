@@ -1,5 +1,3 @@
-#!/usr/bin/python3.10
-
 import os
 import sys
 import json
@@ -10,6 +8,7 @@ from colorama import init, Fore, Style
 
 from graphenex.core.hrd import HardenMethod
 from graphenex.core.utils.logcl import GraphenexLogger
+
 
 logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
