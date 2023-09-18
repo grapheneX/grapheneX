@@ -1,5 +1,3 @@
-#!/usr/bin/python3.10
-
 import re
 import json
 from functools import wraps
