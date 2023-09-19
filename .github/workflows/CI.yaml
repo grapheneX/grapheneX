@@ -93,43 +93,7 @@ jobs:
       - name: 'testy'
         shell: pwsh
         run: |
-          Set-Location -Path C:\data\instancename
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\Packages\Plugins
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
           Set-Location -Path C:\rtools43
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\rtools43\dev
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\rtools43\etc
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\rtools43\home
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\rtools43\opt
           Get-ChildItem
 
       - name: 'testy'
@@ -148,19 +112,19 @@ jobs:
       - name: 'testy'
         shell: pwsh
         run: |
-          Set-Location -Path C:\vcpkg\toolsrc
+          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64
           Get-ChildItem
 
       - name: 'testy'
         shell: pwsh
         run: |
-          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0
+          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64\lib
           Get-ChildItem
 
       - name: 'testy'
         shell: pwsh
         run: |
-          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.11
+          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages
           Get-ChildItem
 
       - name: 'python import issue workaround'
