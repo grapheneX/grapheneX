@@ -77,11 +77,27 @@ jobs:
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
+      - name: 'testy'
+        shell: pwsh
+        run: Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\Python310
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\Python310\Lib
+          Get-ChildItem
+
       - name: 'python import issue workaround'
         shell: pwsh
-        run: (Get-Content C:\Python310\lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\Python310\Lib\site-packages\prompt_toolkit\styles\from_dict.py
+        run: (Get-Content C:\Python310\Lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\Python310\Lib\site-packages\prompt_toolkit\styles\from_dict.py
 
-      - name: "pip update"
+      - name: "pip update flask_socketio"
         run: puthon3 -m pip install --upgrade flask_socketio
 
       - name: 'run graphenex'
