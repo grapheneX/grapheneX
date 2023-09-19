@@ -447,9 +447,16 @@
       "target_os": "linux"
     },
     {
-      "name": "SSH_Disable_Other_Authentication",
-      "desc": "In most cases SSH will be configured for Pubkey auth, so It's good to disable other Authentication methods",
-      "command": "echo \"ChallengeResponseAuthentication no\" >> /etc/ssh/sshd_config && echo \"KerberosAuthentication no\" >> /etc/ssh/sshd_config && echo \"GSSAPIAuthentication no\" >> /etc/ssh/sshd_config",
+      "name": "SSH_Disable_GSSAPI_Auth",
+      "desc": "Disable GSSAPI authentication",
+      "command": "echo \"GSSAPIAuthentication no\" >> /etc/ssh/sshd_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Kerberos_Auth",
+      "desc": "Disable Kerberos authentication",
+      "command": "echo \"KerberosAuthentication no\" >> /etc/ssh/sshd_config",
       "require_superuser": "True",
       "target_os": "linux"
     },
@@ -475,9 +482,23 @@
       "target_os": "linux"
     },
     {
-      "name": "SSH_Disable_Misc_Forwarding",
-      "desc": "Disable several options related to tunneling and forwarding if they are not needed",
-      "command": "echo \"AllowAgentForwarding no\" >> /etc/ssh/sshd_config && echo \"AllowTcpForwarding no\" >> /etc/ssh/sshd_config && echo \"PermitTunnel no\" >> /etc/ssh/sshd_config",
+      "name": "SSH_Disable_Agent_Forwarding",
+      "desc": "Disable Agent forwarding",
+      "command": "echo \"AllowAgentForwarding no\" >> /etc/ssh/sshd_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Tcp_Forwarding",
+      "desc": "Disable TCP forwarding",
+      "command": "echo \"AllowTcpForwarding no\" >> /etc/ssh/sshd_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Tunnel",
+      "desc": "Disable device forwarding",
+      "command": "echo \"PermitTunnel no\" >> /etc/ssh/sshd_config",
       "require_superuser": "True",
       "target_os": "linux"
     }

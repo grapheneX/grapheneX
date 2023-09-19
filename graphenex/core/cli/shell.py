@@ -1,5 +1,3 @@
-#!/usr/bin/python3.10
-
 from cmd import Cmd
 
 from graphenex.core.cli.commands import ShellCommands

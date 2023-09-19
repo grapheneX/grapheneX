@@ -106,13 +106,13 @@ Execute the `grapheneX` with the `-w` or `--web` argument in order to start the 
 • The default host and port value are `localhost:8080`. It can be changed via the `host:port` argument as shown below.
 
 ```
-python grapheneX.py -w 192.168.1.36:8090
+python3 -m graphenex -w 192.168.1.36:8090
 ```
 
 • Use `--open` argument to open the browser after the server start.
 
 ```
-python grapheneX.py -w --open
+python3 -m graphenex -w --open
 ```
 
 ## CLI Commands

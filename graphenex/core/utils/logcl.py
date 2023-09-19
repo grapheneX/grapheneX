@@ -1,5 +1,3 @@
-#!/usr/bin/python3.10
-
 import sys
 import logging
 
@@ -26,7 +24,6 @@ class GraphenexLogger(logging.Logger):
 
     def __init__(self, name, level='INFO',
                  format="%(asctime)s > %(name)s > %(levelname)s > %(message)s"):
-        # Import coloredlogs
         self.import_clogs()
 
         # Initial construct.
@@ -62,7 +59,7 @@ class GraphenexLogger(logging.Logger):
         try:
             global coloredlogs
             import coloredlogs
-        except:
+        except ImportError:
             print("coloredlogs module not found.\n" +
                   "Install using:  pip install coloredlogs")
             sys.exit()
