@@ -4,17 +4,11 @@
 
 > In computing, hardening is usually the process of securing a system by reducing its surface of vulnerability, which is larger when a system performs more functions; in principle a single-function system is more secure than a multipurpose one. Reducing available ways of attack typically includes changing default passwords, the removal of unnecessary software, unnecessary usernames or logins, and the disabling or removal of unnecessary services.
 
-Although the current technology tries to design systems as safe as possible, security flaws and situations that can lead to vulnerabilities caused by unconscious use and misconfiguration still exist.
-The user must be knowledgeable about the technical side of system architecture and should be aware of the importance of securing his/her system from vulnerabilities like this.
-Unfortunately, it's not possible to know all the details about hardening and necessary commands for every ordinary user and the hardening remains to be a technical issue due to the difficulty of understanding operating system internals.
-Therefore, there are hardening checklists that contain various commands and rules of the specified operating system available such as [trimstray/linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) & [Windows Server Hardening Checklist](https://www.upguard.com/blog/the-windows-server-hardening-checklist) on the internet for providing a set of commands with their sections and of course simplifying the concept for the end user.
-But still, the user must know the commands and apply the hardening manually depending on the system. That's where `grapheneX` exactly comes into play.
-
-> The project name is derived from 'graphene'. Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
-
 `grapheneX` project aims to provide a framework for securing the system with hardening commands automatically.
 It's designed for the end user as well as the Linux and Windows developers due to the interface options. (interactive shell/web interface)
 In addition to that, `grapheneX` can be used to secure a web server/application.
+
+> The project name is derived from 'graphene'. Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
 
 Hardening commands and the scopes of those commands are referred to `modules` and the `namespaces` in the project.
 They exist at the `modules.json` file after installation. (`$PYPATH/site-packages/graphenex/modules.json`)
