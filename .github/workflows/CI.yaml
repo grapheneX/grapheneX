@@ -135,7 +135,7 @@ jobs:
 
       - name: 'python import issue workaround'
         shell: pwsh
-        run: (Get-Content C:\Python310\Lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\Python310\Lib\site-packages\prompt_toolkit\styles\from_dict.py
+        run: (Get-Content C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles\from_dict.py
 
       - name: "pip update flask_socketio"
         run: puthon3 -m pip install --upgrade flask_socketio
