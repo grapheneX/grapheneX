@@ -4,17 +4,11 @@
 
 > In computing, hardening is usually the process of securing a system by reducing its surface of vulnerability, which is larger when a system performs more functions; in principle a single-function system is more secure than a multipurpose one. Reducing available ways of attack typically includes changing default passwords, the removal of unnecessary software, unnecessary usernames or logins, and the disabling or removal of unnecessary services.
 
-Although the current technology tries to design systems as safe as possible, security flaws and situations that can lead to vulnerabilities caused by unconscious use and misconfiguration still exist.
-The user must be knowledgeable about the technical side of system architecture and should be aware of the importance of securing his/her system from vulnerabilities like this.
-Unfortunately, it's not possible to know all the details about hardening and necessary commands for every ordinary user and the hardening remains to be a technical issue due to the difficulty of understanding operating system internals.
-Therefore, there are hardening checklists that contain various commands and rules of the specified operating system available such as [trimstray/linux-hardening-checklist](https://github.com/trimstray/linux-hardening-checklist) & [Windows Server Hardening Checklist](https://www.upguard.com/blog/the-windows-server-hardening-checklist) on the internet for providing a set of commands with their sections and of course simplifying the concept for the end user.
-But still, the user must know the commands and apply the hardening manually depending on the system. That's where `grapheneX` exactly comes into play.
-
-> The project name is derived from 'graphene'. Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
-
 `grapheneX` project aims to provide a framework for securing the system with hardening commands automatically.
 It's designed for the end user as well as the Linux and Windows developers due to the interface options. (interactive shell/web interface)
 In addition to that, `grapheneX` can be used to secure a web server/application.
+
+> The project name is derived from 'graphene'. Graphene is a one-atom-thick layer of carbon atoms arranged in a hexagonal lattice. In proportion to its thickness, it is about 100 times stronger than the strongest steel.
 
 Hardening commands and the scopes of those commands are referred to `modules` and the `namespaces` in the project.
 They exist at the `modules.json` file after installation. (`$PYPATH/site-packages/graphenex/modules.json`)
@@ -98,8 +92,6 @@ Execute the `grapheneX` with the `-w` or `--web` argument in order to start the 
 ![Starting the Web Server](https://user-images.githubusercontent.com/24392180/61898426-f292cf80-af21-11e9-9edc-21f0351bbf5b.gif)
 
 • Web interface has the authentication system that requires an `access token`. Once the user verifies her/his identity with the given token at the shell, grapheneX creates a session for further use.
-
-![GrapheneX Web Interface I](https://user-images.githubusercontent.com/24392180/61898886-fd019900-af22-11e9-9d1e-e2a58bee6651.gif)
 
 ![GrapheneX Web Interface II](https://user-images.githubusercontent.com/24392180/60525198-9bb92200-9cf6-11e9-80c6-9b69b5d10c81.gif)
 
@@ -340,18 +332,6 @@ docker build -f docker/Dockerfile -t graphenex .
 ```sh
 docker run -it --rm --name graphenex -p 8080:8080 --privileged graphenex
 ```
-
-## Screenshots
-
-![Screenshot I](https://user-images.githubusercontent.com/24392180/60615641-47866e80-9dd8-11e9-92fe-dfa8874db8fd.jpg)
-
-![Screenshot II](https://user-images.githubusercontent.com/24392180/60601258-7e4d8c00-9dba-11e9-93e1-96411b76b462.png)
-
-![Screenshot III](https://user-images.githubusercontent.com/24392180/60625283-9be51a80-9de7-11e9-99ea-46875d8b3ed8.JPG)
-
-![Screenshot IV](https://user-images.githubusercontent.com/24392180/60625314-bae3ac80-9de7-11e9-98ef-e5fa69c3be38.JPG)
-
-![Screenshot V](https://user-images.githubusercontent.com/24392180/60625373-eb2b4b00-9de7-11e9-9e9a-ab1869af9b1a.JPG)
 
 ## TODO(s)
 
