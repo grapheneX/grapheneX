@@ -79,18 +79,21 @@ jobs:
 
       - name: 'testy'
         shell: pwsh
-        run: Get-ChildItem
+        run: |
+          Set-Location -Path D:\a\grapheneX\grapheneX\graphenex
+          Get-ChildItem
+
 
       - name: 'testy'
         shell: pwsh
         run: |
-          Set-Location -Path C:\Python310
+          Set-Location -Path C:\
           Get-ChildItem
 
       - name: 'testy'
         shell: pwsh
         run: |
-          Set-Location -Path C:\Python310\Lib
+          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0
           Get-ChildItem
 
       - name: 'python import issue workaround'
