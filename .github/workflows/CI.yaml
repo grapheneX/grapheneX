@@ -16,15 +16,24 @@ on:
       - 'docker/**'
       - 'graphenex/**'
 
-#defaults:
-#  run:
-#    shell: bash
-
 
 jobs:
+
+  linter:
+    name: "Linter check"
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: 'flake8 python linter'
+        uses: py-actions/flake8@v2
+
+
   setup_linux:
     name: "Linux setup"
     runs-on: ubuntu-latest
+    needs: linter
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -42,31 +51,17 @@ jobs:
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
-  linter_linux:
-    name: "Linter check linux"
-    runs-on: ubuntu-latest
-    needs: setup_linux
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
+      - name: "python import issue workaround"
+        run: sed -i '/Mapping/s/collections/collections.abc/' ~/.local/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
 
-      - name: 'flake8 python linter'
-        uses: py-actions/flake8@v2
-
-  graphenex_actions_linux:
-    name: "Actions on graphenex linux"
-    runs-on: ubuntu-latest
-    needs: linter_linux
-
-    steps: 
-    - name: 'run graphenex'
-      run: python -m graphenex
-
+      - name: 'run graphenex'
+        run: python -m graphenex
 
 
   setup_windows:
     name: "Windows setup"
     runs-on: windows-latest
+    needs: linter
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -74,7 +69,7 @@ jobs:
       - name: 'install python' 
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.10.0'
           cache: 'pip'
         
       - name: 'update pip'
@@ -83,23 +78,15 @@ jobs:
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
-  linter_windows:
-    name: "Linter check windows"
-    runs-on: windows-latest
-    needs: setup_windows
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      
-      - name: 'flake8 python linter'
-        uses: py-actions/flake8@v2
+      - name: 'python import issue workaround'
+        shell: pwsh
+        run: (Get-Content C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles\from_dict.py
 
-  graphenex_actions_windows:
-    name: "Actions on graphenex windows"
-    runs-on: windows-latest
-    needs: linter_windows 
-    steps: 
-    - name: 'run graphenex'
-      run: python -m graphenex
+      - name: "pip update flask_socketio"
+        run: python3 -m pip install --upgrade flask_socketio
+
+      - name: 'run graphenex'
+        run: graphenex
+
 
 
