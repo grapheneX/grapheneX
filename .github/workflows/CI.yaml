@@ -93,7 +93,43 @@ jobs:
       - name: 'testy'
         shell: pwsh
         run: |
-          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0
+          Set-Location -Path C:\data
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\Modules
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\Packages
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\rtools43
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\tools
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\vcpkg
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\hostedtoolcache\windows\python\
           Get-ChildItem
 
       - name: 'python import issue workaround'
