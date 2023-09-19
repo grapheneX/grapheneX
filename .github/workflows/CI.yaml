@@ -77,68 +77,12 @@ jobs:
       - name: 'install graphenex'
         run: python3 -m pip install graphenex
 
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path D:\a\grapheneX\grapheneX\graphenex
-          Get-ChildItem
-
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\rtools43
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\rtools43\usr
-          Get-ChildItem
-
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\vcpkg
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64\lib
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64\lib\collections
-          Get-ChildItem
-
-      - name: 'testy'
-        shell: pwsh
-        run: |
-          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles
-          Get-ChildItem
-
       - name: 'python import issue workaround'
         shell: pwsh
         run: (Get-Content C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles\from_dict.py
 
       - name: "pip update flask_socketio"
-        run: puthon3 -m pip install --upgrade flask_socketio
+        run: python3 -m pip install --upgrade flask_socketio
 
       - name: 'run graphenex'
         run: graphenex
