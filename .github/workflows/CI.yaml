@@ -124,7 +124,19 @@ jobs:
       - name: 'testy'
         shell: pwsh
         run: |
+          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64\lib\collections
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
           Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages
+          Get-ChildItem
+
+      - name: 'testy'
+        shell: pwsh
+        run: |
+          Set-Location -Path C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit
           Get-ChildItem
 
       - name: 'python import issue workaround'
