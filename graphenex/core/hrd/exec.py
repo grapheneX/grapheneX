@@ -6,24 +6,22 @@ from abc import ABC, abstractmethod
 
 class OsExec(ABC):
     @abstractmethod
-    def run_cmd(self):
+    def run_cmd(self, cmd):
         pass
 
 
 class LinuxExec(OsExec):
-    def run_cmd(self, cmd, **kwargs):
+    def run_cmd(self, cmd, shell=True, **kwargs):
         """
         Executes the Linux command and returns it's output in UTF-8 format.
         Supports passing `kwargs`.
         """
 
         cmd = cmd.replace("$USER", os.environ["USER"])
-        args = shlex.split(cmd)
-        out = subprocess.PIPE
-        if args[-2] == '>' or args[-2] == '>>':
-            out = open(args[-1], 'w' if args[-2] == '>' else 'a')
-            args = args[:-2]
-        result = subprocess.run(args, stdout=out, **kwargs)
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, shell=shell, **kwargs)
+        if result.returncode != 0:
+            raise PermissionError
+
         try:
             return result.stdout.decode('utf-8')
         except AttributeError:
