@@ -54,7 +54,7 @@ jobs:
         run: sed -i '/Mapping/s/collections/collections.abc/' ~/.local/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
 
       - name: 'run graphenex'
-        run: python -m graphenex
+        run: poetry run grapheneX
 
 
   setup_windows:
