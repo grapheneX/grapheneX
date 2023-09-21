@@ -17,7 +17,6 @@ on:
 
 
 jobs:
-
   linter:
     name: "Linter check"
     runs-on: ubuntu-latest
