@@ -54,22 +54,10 @@ jobs:
         run: ls -a
       - name: 'test'
         run: |
-          cd ~/.local/lib/python3.10
+          cd ~/.local/lib/python3.10/site-packages
           ls -a
-      - name: 'test'
-        run: |
-          cd ~/.local/bin/poetry
-          ls -a
-      - name: 'test'
-        run: |
-          cd ~/.local/bin/pyproject-build
-          ls -a
-      - name: 'test'
-        run: |
-          cd ~/.local/bin/pkginfo
-          ls -a
-      - name: "python import issue workaround"
-        run: sed -i '/Mapping/s/collections/collections.abc/' ~/.local/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
+      #- name: "python import issue workaround"
+      #  run: sed -i '/Mapping/s/collections/collections.abc/' ~/.local/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
 
       - name: 'run graphenex'
         run: poetry run grapheneX
