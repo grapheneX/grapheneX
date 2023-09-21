@@ -60,7 +60,7 @@ jobs:
   setup_windows:
     name: "Windows setup"
     runs-on: windows-latest
-    needs: linter
+    #needs: linter
     steps:
       - name: checkout
         uses: actions/checkout@v3
