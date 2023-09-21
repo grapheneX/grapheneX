@@ -12,8 +12,8 @@ A clear and concise description of what the bug is.
 
 **Log Messages**
 Tell us what make you face this issue.
-Provide log messages if you get them when the error occur.
-Also reproduction steps would be helpful for us to understand the situation.
+Provide log messages if you get them when the error occurs.
+Provide reproduction steps that will help us understand the situation.
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
