@@ -54,7 +54,7 @@ jobs:
         run: ls -a
       - name: 'test'
         run: |
-          cd ~/.local/lib/3.10
+          cd ~/.local/lib/python3.10
           ls -a
       - name: 'test'
         run: |
