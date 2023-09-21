@@ -79,12 +79,12 @@ jobs:
           python3 -m pip install poetry
           poetry install 
 
-      #- name: 'python import issue workaround'
-      #  shell: pwsh
-      #  run: (Get-Content C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\hostedtoolcache\windows\python\3.10.0\x64\lib\site-packages\prompt_toolkit\styles\from_dict.py
+      - name: 'python import issue workaround'
+        shell: pwsh
+        run: (Get-Content C:\Users\runneradmin\AppData\Local\pypoetry\Cache\virtualenvs\graphenex-6fD1lE0z-py3.10\lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\Users\runneradmin\AppData\Local\pypoetry\Cache\virtualenvs\graphenex-6fD1lE0z-py3.10\lib\site-packages\prompt_toolkit\styles\from_dict.py
 
-      #- name: "pip update flask_socketio"
-      #  run: python3 -m pip install --upgrade flask_socketio
+      - name: "pip update flask_socketio"
+        run: python3 -m pip install --upgrade flask_socketio
 
       - name: 'run graphenex'
         run: poetry run grapheneX
