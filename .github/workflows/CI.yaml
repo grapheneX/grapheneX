@@ -50,13 +50,16 @@ jobs:
           python3 -m pip install poetry
           poetry install
 
-      - name: 'install graphenex'
+      - name: 'test'
+        run: ls -a
+      - name: 'test'
         run: |
-          ls -a
           cd ~
           ls -a
-          cd .local
-
+      - name: 'test'
+        run: |
+          cd ~/.local
+          ls -a
 
       - name: "python import issue workaround"
         run: sed -i '/Mapping/s/collections/collections.abc/' ~/.local/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
