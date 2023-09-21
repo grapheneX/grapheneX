@@ -56,9 +56,14 @@ jobs:
         run: |
           cd ~/.local/lib/python3.10/site-packages
           ls -a
+      - name: 'test'
+        run: |
+          cd /home/runner/.cache/pypoetry/virtualenvs/graphenex--sEiZHBC-py3.10/lib/python3.10/site-packages/prompt_toolkit/styles/
+          cat from_dict.py      
       #- name: "python import issue workaround"
       #  run: sed -i '/Mapping/s/collections/collections.abc/' ~/.local/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
-
+      - name: "python import issue workaround"
+        run: sed -i '/Mapping/s/collections/collections.abc/' /home/runner/.cache/pypoetry/virtualenvs/graphenex--sEiZHBC-py3.10/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
       - name: 'run graphenex'
         run: poetry run grapheneX
 
