@@ -54,11 +54,11 @@ jobs:
         run: ls -a
       - name: 'test'
         run: |
-          cd ~
+          cd ~/.local/lib
           ls -a
       - name: 'test'
         run: |
-          cd ~/.local
+          cd ~/.local/bin
           ls -a
 
       - name: "python import issue workaround"
