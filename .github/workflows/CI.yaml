@@ -54,13 +54,20 @@ jobs:
         run: ls -a
       - name: 'test'
         run: |
-          cd ~/.local/lib
+          cd ~/.local/lib/3.10
           ls -a
       - name: 'test'
         run: |
-          cd ~/.local/bin
+          cd ~/.local/bin/poetry
           ls -a
-
+      - name: 'test'
+        run: |
+          cd ~/.local/bin/pyproject-build
+          ls -a
+      - name: 'test'
+        run: |
+          cd ~/.local/bin/pkginfo
+          ls -a
       - name: "python import issue workaround"
         run: sed -i '/Mapping/s/collections/collections.abc/' ~/.local/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
 
