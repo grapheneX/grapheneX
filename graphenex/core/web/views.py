@@ -3,7 +3,7 @@ import json
 from functools import wraps
 
 from flask import render_template, session, request, redirect, flash
-from flask_socketio import emit, disconnect
+from flask_socketio import emit
 
 from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_modules, mod_json_file
