@@ -20,7 +20,7 @@ from graphenex.core.web.providers import *
 
 
 def disable_flask_logs():
-    """Disable the Flask logs"""
+    """Disable Flask logs"""
 
     import logging
     logging.getLogger('werkzeug').setLevel(logging.ERROR)
