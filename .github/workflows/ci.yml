@@ -25,6 +25,8 @@ jobs:
 
       - name: "flake8 python linter"
         uses: py-actions/flake8@v2
+        with:
+          args: "--max-line-length=120 --ignore=E501"
 
   setup_linux:
     name: "Linux setup"
