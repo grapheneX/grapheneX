@@ -439,8 +439,16 @@ class ShellCommands(Help):
             except Exception as e:
                 logger.error("Failed to execute hardening command. " + str(e))
 
-    def do_exit(self, arg):
-        "Exit interactive shell"
+    def do_EOF(self, arg):
+        """EOF exit"""
+
+        print()
+        self.do_exit(arg)
+        return True
+
+    @staticmethod
+    def do_exit(arg):
+        """Exit interactive shell"""
 
         exit_msgs = [
             "Bye!",
@@ -458,13 +466,6 @@ class ShellCommands(Help):
         logger.info(random.choice(exit_msgs))
         return True
 
-    def do_EOF(self, arg):
-        """EOF exit"""
-
-        print()
-        self.do_exit(arg)
-        return True
-
     @staticmethod
     def do_clear(arg):
         """Clear the terminal"""
@@ -477,18 +478,20 @@ class ShellCommands(Help):
 
         logger.error("Command not found.")
 
-class ModuleNameValidation(Validator):
-        def validate(self, document):
-            """Validate the module name for the prompt"""
 
-            if not re.match(r'^\w+$', document.text):
-                raise ValidationError(
-                    message='Enter a valid module name',
-                    cursor_position=len(document.text))
-            elif document.text.lower() in [module.lower() for module in self.modules]:
-                raise ValidationError(
-                    message="Try a different name, this module name is not available.",
-                    cursor_position=len(document.text))
+class ModuleNameValidation(Validator):
+    def validate(self, document):
+        """Validate the module name for the prompt"""
+
+        if not re.match(r'^\w+$', document.text):
+            raise ValidationError(
+                message='Enter a valid module name',
+                cursor_position=len(document.text))
+        elif document.text.lower() in [module.lower() for module in self.modules]:
+            raise ValidationError(
+                message="Try a different name, this module name is not available.",
+                cursor_position=len(document.text))
+
 
 class NamespaceValidation(Validator):
 

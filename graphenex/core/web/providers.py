@@ -7,4 +7,3 @@ from graphenex.core.utils.sysinfo import SysInformation
 def send_network_info():
     masks = SysInformation.get_network_info()
     emit('get_network_info', masks)
-
