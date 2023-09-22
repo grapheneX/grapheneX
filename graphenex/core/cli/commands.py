@@ -236,7 +236,7 @@ class ShellCommands(Help):
                     mod_ns = mod_namespace['mod_ns']
                 except KeyError:
                     pass
-                # Assigning property to the ModuleNameValidation class to 
+                # Assigning property to the ModuleNameValidation class to
                 # access modules within the selected namespace.
                 ModuleNameValidation.modules = self.modules[mod_ns].keys() \
                     if mod_ns in self.modules.keys() else []
@@ -254,7 +254,7 @@ class ShellCommands(Help):
                     data.update({mod_ns.lower(): [mod_dict]})
                 # Write the updated modules.json
                 save_mod_json(data)
-                logger.info("Module added successfully. Use 'list' " + \
+                logger.info("Module added successfully. Use 'list' " +
                             "command to see available modules.")
 
             # EDIT & REMOVE
@@ -330,7 +330,7 @@ class ShellCommands(Help):
 
         presets = get_presets()
         if arg:
-            modules = [preset['modules'] for preset in presets \
+            modules = [preset['modules'] for preset in presets
                        if preset['name'] == arg]
             if len(modules) == 0:
                 logger.error(f"Preset not found: '{arg}'")
