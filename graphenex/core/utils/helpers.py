@@ -90,7 +90,7 @@ def check_privileges():
         try:
             result = ctypes.windll.shell32.IsUserAnAdmin()
             return result
-        except:
+        except Exception:
             return False
 
     if check_os():

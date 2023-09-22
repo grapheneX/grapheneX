@@ -204,7 +204,7 @@ def add_module(mod):
         # Append to json data
         try:
             data[mod_ns].append(mod_dict)
-        except:
+        except KeyError:
             data.update({mod_ns: [mod_dict]})
         # Update the modules.json
         with open(mod_json_file, 'w') as f:

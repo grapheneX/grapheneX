@@ -4,7 +4,6 @@ from graphenex.core.cli.shell import start_cli
 from graphenex.core.web import run_server
 from graphenex import __version__
 
-
 logger = GraphenexLogger('Graphenex')
 
 
@@ -19,7 +18,7 @@ def main():
     else:
         if args['open']:
             logger.warn("[--open] argument is unnecessary. " +
-                    "Use with [-w] or [--web].")
+                        "Use with [-w] or [--web].")
         start_cli()
 
 
