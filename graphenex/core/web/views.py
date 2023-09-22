@@ -3,7 +3,7 @@ import json
 from functools import wraps
 
 from flask import render_template, session, request, redirect, flash
-from flask_socketio import emit, disconnect
+from flask_socketio import emit
 
 from graphenex.core.web import app, logger, socketio
 from graphenex.core.utils.helpers import check_os, get_modules, mod_json_file
@@ -31,7 +31,7 @@ def auth_socketio(f):
             return f(*args, **kwargs)
         else:
             emit('auth', {'text': 'Not authenticated'})
-            
+
     return decorated_function
 
 
@@ -204,7 +204,7 @@ def add_module(mod):
         # Append to json data
         try:
             data[mod_ns].append(mod_dict)
-        except:
+        except KeyError:
             data.update({mod_ns: [mod_dict]})
         # Update the modules.json
         with open(mod_json_file, 'w') as f:

@@ -13,7 +13,6 @@ from graphenex.core.utils.helpers import check_os, get_modules, \
 from graphenex.core.utils.logcl import GraphenexLogger
 from graphenex.core.cli.help import Help
 
-
 logger = GraphenexLogger(__name__)
 
 
@@ -51,6 +50,7 @@ class ShellCommands(Help):
         def select_module_msg():
             logger.info(f"\"{self.module}\" module selected. Use 'harden' command " +
                         "for hardening or use 'info' for more information.")
+
         if not arg:
             logger.warn("'use' command takes 1 argument.")
             return
@@ -86,8 +86,7 @@ class ShellCommands(Help):
         if '/' in mline:
             # title() -> given module string for getting rid of
             # the case sensitivity
-            mline = mline.split('/')[0].lower() + "/" + \
-                mline.split('/')[1].title()
+            mline = mline.split('/')[0].lower() + "/" + mline.split('/')[1].title()
         offs = len(mline) - len(text)
         # Get completed text with namespace
         comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
@@ -108,7 +107,7 @@ class ShellCommands(Help):
         if self.module:
             module = self.modules[self.namespace][self.module]
             print(f"\n\tNamespace: {self.namespace}\n\tModule: {module.name}\n\t" +
-                f"Description: {module.desc}\n" + f"\tCommand: {module.command}\n")
+                  f"Description: {module.desc}\n" + f"\tCommand: {module.command}\n")
         else:
             logger.error('No module selected.')
 
@@ -147,7 +146,7 @@ class ShellCommands(Help):
         max_width = table.column_max_width(1)
 
         if self.namespace:
-            for name, module in self.modules[self.namespace].items(): 
+            for name, module in self.modules[self.namespace].items():
                 wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
                 table.table_data.append(
                     [self.namespace + "/" + name, wrapped])
@@ -157,7 +156,7 @@ class ShellCommands(Help):
                     wrapped = '\n'.join(textwrap.wrap(module.desc, max_width - 40))
                     table.table_data.append(
                         [k + "/" + name, wrapped])
-          
+
         print(table.table)
 
     def do_back(self, arg):
@@ -234,28 +233,28 @@ class ShellCommands(Help):
                     mod_namespace = prompt(mod_question)
                 try:
                     mod_ns = mod_namespace['mod_ns']
-                except:
+                except KeyError:
                     pass
-                # Assigning property to the ModuleNameValidation class to 
+                # Assigning property to the ModuleNameValidation class to
                 # access modules within the selected namespace.
                 ModuleNameValidation.modules = self.modules[mod_ns].keys() \
                     if mod_ns in self.modules.keys() else []
                 mod_details = prompt(mod_questions)
                 mod_dict = {
-                        "name": mod_details['mod_name'].title(),
-                        "desc": mod_details['mod_desc'],
-                        "command":  mod_details['mod_cmd'],
-                        "require_superuser": mod_details['mod_su'],
-                        "target_os": "win" if check_os() else "linux"
-                        }
+                    "name": mod_details['mod_name'].title(),
+                    "desc": mod_details['mod_desc'],
+                    "command": mod_details['mod_cmd'],
+                    "require_superuser": mod_details['mod_su'],
+                    "target_os": "win" if check_os() else "linux"
+                }
                 try:
                     data[mod_ns.lower()].append(mod_dict)
-                except:
+                except KeyError:
                     data.update({mod_ns.lower(): [mod_dict]})
                 # Write the updated modules.json
                 save_mod_json(data)
-                logger.info("Module added successfully. Use 'list' " + \
-                    "command to see available modules.")
+                logger.info("Module added successfully. Use 'list' " +
+                            "command to see available modules.")
 
             # EDIT & REMOVE
             elif choice['option'] == "Edit module" or choice['option'] == "Remove module":
@@ -310,7 +309,7 @@ class ShellCommands(Help):
                     # Write the updated modules.json
                     save_mod_json(data)
                     logger.info("Module updated successfully. (" + selected_ns + "/" +
-                        selected_mod + ":" + selected_prop + ")")
+                                selected_mod + ":" + selected_prop + ")")
 
                 # REMOVE
                 else:
@@ -327,11 +326,11 @@ class ShellCommands(Help):
 
     def do_preset(self, arg):
         """Show/execute the hardening module presets"""
-        
+
         presets = get_presets()
         if arg:
-            modules = [preset['modules'] for preset in presets \
-                if preset['name'] == arg]
+            modules = [preset['modules'] for preset in presets
+                       if preset['name'] == arg]
             if len(modules) == 0:
                 logger.error(f"Preset not found: '{arg}'")
                 return
@@ -345,7 +344,7 @@ class ShellCommands(Help):
             ]
             try:
                 conf_mod = prompt(confirm_prompt)['confirm']
-            except:
+            except KeyError:
                 return
             # Main module loop
             for module in modules:
@@ -356,7 +355,7 @@ class ShellCommands(Help):
                     # Select the module if it equals to the module in
                     # the preset or equals to 'all'
                     if module.split("/")[1].lower() == "all" or \
-                     module.split("/")[1].lower() == name.lower():
+                            module.split("/")[1].lower() == name.lower():
                         # Select the module
                         self.module = str(mod)
                         # Show module information
@@ -367,9 +366,9 @@ class ShellCommands(Help):
                         else:
                             # Ask for permission for executing the command
                             exec_conf = prompt([{
-                                    'type': 'confirm',
-                                    'name': 'confirm',
-                                    'message': 'Execute the hardening command?',
+                                'type': 'confirm',
+                                'name': 'confirm',
+                                'message': 'Execute the hardening command?',
                             }])
                             # Execute the command or cancel
                             try:
@@ -377,9 +376,9 @@ class ShellCommands(Help):
                                     self.do_harden(None)
                                 else:
                                     raise Exception("Cancelled by user.")
-                            except:
-                                logger.info("Hardening cancelled. " + \
-                                f"({self.namespace}/{self.module})")
+                            except Exception:
+                                logger.info("Hardening cancelled. " +
+                                            f"({self.namespace}/{self.module})")
             # Go back from the selected module and namespace
             self.module = ""
             self.namespace = ""
@@ -395,14 +394,14 @@ class ShellCommands(Help):
                 mods = ""
                 for module in preset['modules'][:-1]:
                     mods += '\n'.join(textwrap.wrap(module, max_width - 40)) + '\n'
-                mods += '\n'.join(textwrap.wrap(preset['modules'][-1], max_width-40))
+                mods += '\n'.join(textwrap.wrap(preset['modules'][-1], max_width - 40))
                 table.table_data.append([preset['name'], mods])
             # Show the table
             if len(table.table_data) > 1:
                 print(table.table)
             else:
                 logger.warn(f"No presets found in {mod_json_file}")
-            
+
     def complete_preset(self, text, line, begidx, endidx):
         """Complete preset command"""
 
@@ -416,7 +415,7 @@ class ShellCommands(Help):
 
         from graphenex.core.web import run_server, app
         app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(6)
-        run_server({"host_port":arg} if arg else None, False)
+        run_server({"host_port": arg} if arg else None, False)
 
     def do_harden(self, arg):
         """Execute the hardening command"""
@@ -439,8 +438,16 @@ class ShellCommands(Help):
             except Exception as e:
                 logger.error("Failed to execute hardening command. " + str(e))
 
-    def do_exit(self, arg):
-        "Exit interactive shell"
+    def do_EOF(self, arg):
+        """EOF exit"""
+
+        print()
+        self.do_exit(arg)
+        return True
+
+    @staticmethod
+    def do_exit(arg):
+        """Exit interactive shell"""
 
         exit_msgs = [
             "Bye!",
@@ -458,13 +465,6 @@ class ShellCommands(Help):
         logger.info(random.choice(exit_msgs))
         return True
 
-    def do_EOF(self, arg):
-        """EOF exit"""
-
-        print()
-        self.do_exit(arg)
-        return True
-
     @staticmethod
     def do_clear(arg):
         """Clear the terminal"""
@@ -477,18 +477,20 @@ class ShellCommands(Help):
 
         logger.error("Command not found.")
 
-class ModuleNameValidation(Validator):
-        def validate(self, document):
-            """Validate the module name for the prompt"""
 
-            if not re.match(r'^\w+$', document.text):
-                raise ValidationError(
-                    message='Enter a valid module name',
-                    cursor_position=len(document.text))
-            elif document.text.lower() in [module.lower() for module in self.modules]:
-                raise ValidationError(
-                    message="Try a different name, this module name is not available.",
-                    cursor_position=len(document.text))
+class ModuleNameValidation(Validator):
+    def validate(self, document):
+        """Validate the module name for the prompt"""
+
+        if not re.match(r'^\w+$', document.text):
+            raise ValidationError(
+                message='Enter a valid module name',
+                cursor_position=len(document.text))
+        elif document.text.lower() in [module.lower() for module in self.modules]:
+            raise ValidationError(
+                message="Try a different name, this module name is not available.",
+                cursor_position=len(document.text))
+
 
 class NamespaceValidation(Validator):
 
@@ -499,5 +501,5 @@ class NamespaceValidation(Validator):
         namespaces = get_forbidden_namespaces()
         if document.text.lower() in [namespace.lower() for namespace in namespaces]:
             raise ValidationError(
-                    message="You do not have permission to access this namespace.",
-                    cursor_position=len(document.text))
+                message="You do not have permission to access this namespace.",
+                cursor_position=len(document.text))

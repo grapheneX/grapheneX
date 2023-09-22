@@ -27,7 +27,7 @@ class Shell(ShellCommands, Cmd):
 
 def start_cli():
     """Start the command line interface"""
-    
+
     shell = Shell()
     try:
         shell.cmdloop()
