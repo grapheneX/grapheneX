@@ -31,7 +31,7 @@ def auth_socketio(f):
             return f(*args, **kwargs)
         else:
             emit('auth', {'text': 'Not authenticated'})
-            
+
     return decorated_function
 
 

@@ -86,8 +86,7 @@ class ShellCommands(Help):
         if '/' in mline:
             # title() -> given module string for getting rid of
             # the case sensitivity
-            mline = mline.split('/')[0].lower() + "/" + \
-                    mline.split('/')[1].title()
+            mline = mline.split('/')[0].lower() + "/" + mline.split('/')[1].title()
         offs = len(mline) - len(text)
         # Get completed text with namespace
         comp_text = [s[offs:] for s in avb_modules if s.startswith(mline)]
