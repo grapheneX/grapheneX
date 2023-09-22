@@ -234,7 +234,7 @@ class ShellCommands(Help):
                     mod_namespace = prompt(mod_question)
                 try:
                     mod_ns = mod_namespace['mod_ns']
-                except:
+                except KeyError:
                     pass
                 # Assigning property to the ModuleNameValidation class to 
                 # access modules within the selected namespace.
@@ -250,7 +250,7 @@ class ShellCommands(Help):
                 }
                 try:
                     data[mod_ns.lower()].append(mod_dict)
-                except:
+                except KeyError:
                     data.update({mod_ns.lower(): [mod_dict]})
                 # Write the updated modules.json
                 save_mod_json(data)
@@ -345,7 +345,7 @@ class ShellCommands(Help):
             ]
             try:
                 conf_mod = prompt(confirm_prompt)['confirm']
-            except:
+            except KeyError:
                 return
             # Main module loop
             for module in modules:
@@ -377,8 +377,8 @@ class ShellCommands(Help):
                                     self.do_harden(None)
                                 else:
                                     raise Exception("Cancelled by user.")
-                            except:
-                                logger.info("Hardening cancelled. " + \
+                            except Exception:
+                                logger.info("Hardening cancelled. " +
                                             f"({self.namespace}/{self.module})")
             # Go back from the selected module and namespace
             self.module = ""
