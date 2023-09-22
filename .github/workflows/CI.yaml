@@ -10,7 +10,7 @@ on:
       - 'graphenex/**'
   push:
     branches:
-      - main
+      - master
     paths:
       - 'docker/**'
       - 'graphenex/**'
