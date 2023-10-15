@@ -19,6 +19,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 COPY --from=poetry /app /app
 EXPOSE 8080
 
+# https://github.com/grapheneX/grapheneX/issues/127
 RUN sed -i '/Mapping/s/collections/collections.abc/' /app/.venv/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
 
 CMD ["/bin/sh", "-c", "grapheneX"]
