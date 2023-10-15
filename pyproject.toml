@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "GrapheneX"
-version = "1.4.1"
+version = "1.4.2"
 description = "Automated System Hardening Framework for Linux & Windows"
 authors = ["grapheneX contributors <graphenex.project@protonmail.com>"]
 license = "GPL-3.0-or-later"
