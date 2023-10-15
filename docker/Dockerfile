@@ -18,5 +18,7 @@ FROM python as runtime
 ENV PATH="/app/.venv/bin:$PATH"
 COPY --from=poetry /app /app
 EXPOSE 8080
-CMD ["/bin/sh", "-c", "grapheneX"]
 
+RUN sed -i '/Mapping/s/collections/collections.abc/' /app/.venv/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
+
+CMD ["/bin/sh", "-c", "grapheneX"]
