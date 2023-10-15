@@ -1,4 +1,4 @@
-FROM python:3.9-slim as python
+FROM python:3.10-slim as python
 LABEL maintainer="graphenex.project@protonmail.com"
 ENV LC_ALL=C.UTF-8
 ENV PYTHONUNBUFFERED=true
