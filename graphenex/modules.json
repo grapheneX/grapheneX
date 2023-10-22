@@ -529,6 +529,13 @@
       "command": "echo \"GSSAPIAuthentication no\" >> /etc/ssh/ssh_config",
       "require_superuser": "True",
       "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Client_HostBased_Auth",
+      "desc": "Disable host based authentication",
+      "command": "echo \"HostbasedAuthentication no\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
     }
   ],
   "presets": [
