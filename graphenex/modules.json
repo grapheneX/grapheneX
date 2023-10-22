@@ -501,6 +501,55 @@
       "command": "echo \"PermitTunnel no\" >> /etc/ssh/sshd_config",
       "require_superuser": "True",
       "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Client_X11_Forwarding",
+      "desc": "Disable X11 display forwarding",
+      "command": "echo \"ForwardX11 no\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Client_Tunnel",
+      "desc": "Disable tunneling",
+      "command": "echo \"Tunnel no\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Client_Agent_Forwarding",
+      "desc": "Disable agent forwarding",
+      "command": "echo \"ForwardAgent no\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Client_GSSAPI_Auth",
+      "desc": "Disable GSSAPI authentication",
+      "command": "echo \"GSSAPIAuthentication no\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Client_HostBased_Auth",
+      "desc": "Disable host based authentication",
+      "command": "echo \"HostbasedAuthentication no\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Client_Legacy_Ciphers",
+      "desc": "Disable legacy 'Arcfour ciphers'",
+      "command": "echo \"Ciphers -arcfour*,-*cbc\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
+    },
+    {
+      "name": "SSH_Client_Key_Warn",
+      "desc": "Get warning if key / fingerprint of remote server has changed",
+      "command": "echo \"StrictHostKeyChecking ask\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
     }
   ],
   "presets": [
