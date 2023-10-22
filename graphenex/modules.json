@@ -501,6 +501,13 @@
       "command": "echo \"PermitTunnel no\" >> /etc/ssh/sshd_config",
       "require_superuser": "True",
       "target_os": "linux"
+    },
+    {
+      "name": "SSH_Disable_Client_X11_Forwarding",
+      "desc": "Disable X11 display forwarding",
+      "command": "echo \"ForwardX11 no\" >> /etc/ssh/ssh_config",
+      "require_superuser": "True",
+      "target_os": "linux"
     }
   ],
   "presets": [
