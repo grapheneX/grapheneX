@@ -447,7 +447,7 @@ class ShellCommands(Help):
         else:
             try:
                 hrd = self.modules[self.namespace][self.module]
-                out = hrd.execute_command()
+                hrd.execute_command()
                 logger.info("Hardening command executed successfully.")
             except PermissionError:
                 err_msg = "Insufficient permissions for hardening."
