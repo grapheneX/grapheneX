@@ -431,13 +431,23 @@ class ShellCommands(Help):
     def do_harden(self, arg):
         """Execute the hardening command"""
 
+        namespace_data = get_mod_json()[self.namespace]
+        mod_requires_restart = None
+
+        for module in namespace_data:
+            if module["name"] == self.module:
+                mod_requires_restart = module["require_restart"]
+                break
+
+        if mod_requires_restart:
+            logger.info(f"{self.module} requires restart of OS or the service itself for the changes to apply.")
+
         if not (self.module and self.namespace):
             logger.error('Select a module/namespace.')
         else:
             try:
                 hrd = self.modules[self.namespace][self.module]
                 out = hrd.execute_command()
-                print(out)
                 logger.info("Hardening command executed successfully.")
             except PermissionError:
                 err_msg = "Insufficient permissions for hardening."
