@@ -199,6 +199,7 @@ def add_module(mod):
             "desc": mod['desc'],
             "command": mod['cmd'],
             "require_superuser": str(mod['su']).capitalize(),
+            "require_restart": str(mod['rr']).capitalize(),
             "target_os": "win" if check_os() else "linux"
         }
         # Append to json data

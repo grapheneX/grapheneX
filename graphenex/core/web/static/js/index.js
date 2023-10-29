@@ -85,7 +85,8 @@ saveModal = () => {
         "name": $("#amod_name").val(),
         "desc": $("#amod_desc").val(),
         "cmd": $("#amod_cmd").val(),
-        "su": $('#amod_su').prop("checked")
+        "su": $('#amod_su').prop("checked"),
+        "rr": $('#amod_rr').prop("checked")
     });
 }
 
@@ -208,5 +209,9 @@ function initializePage() {
 
     $('#amod_su_label').click(() => {
         $('#amod_su').click();
+    });
+
+    $('#amod_rr_label').click(() => {
+        $('#amod_rr').click();
     });
 }
