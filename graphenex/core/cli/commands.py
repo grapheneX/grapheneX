@@ -220,7 +220,12 @@ class ShellCommands(Help):
                     {
                         'type': 'confirm',
                         'name': 'mod_su',
-                        'message': 'Does this command requires superuser?',
+                        'message': 'Does this command require superuser?',
+                    },
+                    {
+                        'type': 'confirm',
+                        'name': 'mod_rr',
+                        'message': 'Does this command require OS / Service restart?'
                     }
                 ]
                 if mod_ns == "new":
@@ -233,18 +238,24 @@ class ShellCommands(Help):
                     mod_namespace = prompt(mod_question)
                 try:
                     mod_ns = mod_namespace['mod_ns']
-                except KeyError:
+                except Exception:
                     pass
                 # Assigning property to the ModuleNameValidation class to
                 # access modules within the selected namespace.
                 ModuleNameValidation.modules = self.modules[mod_ns].keys() \
                     if mod_ns in self.modules.keys() else []
                 mod_details = prompt(mod_questions)
+
+                # Convert boolean values to strings
+                require_superuser_str = "True" if mod_details['mod_su'] else "False"
+                require_restart_str = "True" if mod_details['mod_rr'] else "False"
+
                 mod_dict = {
                     "name": mod_details['mod_name'].title(),
                     "desc": mod_details['mod_desc'],
                     "command": mod_details['mod_cmd'],
-                    "require_superuser": mod_details['mod_su'],
+                    "require_superuser": require_superuser_str,
+                    "require_restart": require_restart_str,
                     "target_os": "win" if check_os() else "linux"
                 }
                 try:
