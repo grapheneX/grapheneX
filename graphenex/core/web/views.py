@@ -131,7 +131,6 @@ def hardening_exec(data):
                     current_namespace + "/" + data)
         hrd = module_dict[current_namespace][data]
         out = hrd.execute_command()
-        print(out)
         emit(data + "_log", {"msg": out, "state": "output"})
         success_msg = "Hardening command executed successfully."
         emit('log_message', {
