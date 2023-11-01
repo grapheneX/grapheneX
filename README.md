@@ -250,6 +250,7 @@ grapheneX stores the modules and namespaces in `modules.json` file. It will show
             "desc": "This is the module description.",
             "command": "echo 'hardening command'",
             "require_superuser": "True/False",
+            "require_restart": "True/False",
             "target_os": "linux/win"
         }
     ]
