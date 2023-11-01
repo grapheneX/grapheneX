@@ -131,7 +131,6 @@ def hardening_exec(data):
                     current_namespace + "/" + data)
         hrd = module_dict[current_namespace][data]
         out = hrd.execute_command()
-        print(out)
         emit(data + "_log", {"msg": out, "state": "output"})
         success_msg = "Hardening command executed successfully."
         emit('log_message', {
@@ -199,6 +198,7 @@ def add_module(mod):
             "desc": mod['desc'],
             "command": mod['cmd'],
             "require_superuser": str(mod['su']).capitalize(),
+            "require_restart": str(mod['rr']).capitalize(),
             "target_os": "win" if check_os() else "linux"
         }
         # Append to json data

@@ -50,7 +50,7 @@
                             <li id="proc"><b>Processor: </b><span class="text-muted">{{ general_info.processor }}</span>
                             </li>
                         </ul>
-                        <!-- This button only visible mobile and it will open system block -->
+                        <!-- This button only visible mobile, and it will open system block -->
                         <button class="btn btn-block d-lg-none opensystembtn" style="border-width: 0; margin-top: 1%;"
                             data-toggle="collapse" data-target="#systemdiv" aria-expanded="false"
                             aria-controls="systemdiv"><i class="fas fa-chevron-down" style="font-size: 24px"></i></button>
@@ -186,6 +186,17 @@
                                 </div>
                                 <div class="form-control" id="amod_su_label"><span style="color:#D8D8D8;">
                                         Requires Superuser Privileges</span></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" id="amod_rr">
+                                    </div>
+                                </div>
+                                <div class="form-control" id="amod_rr_label"><span style="color:#D8D8D8;">
+                                        Requires Restart</span></div>
                             </div>
                         </div>
                     </div>
