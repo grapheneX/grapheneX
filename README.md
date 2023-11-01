@@ -365,8 +365,6 @@ Thanks goes to these wonderful people ✨
 
 Made with [contrib.rocks](https://contrib.rocks).
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
 ## Sponsors
 
 We don't have any sponsors yet. Contact us with email if you want to help us improve the project.
