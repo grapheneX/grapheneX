@@ -3,12 +3,12 @@ name: Docker Automated Build
 on:
   push:
     branches:
-      - main
+      - master
     tags:
       - "v*.*.*"
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   build:
