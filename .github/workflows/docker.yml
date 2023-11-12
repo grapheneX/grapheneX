@@ -5,17 +5,18 @@ on:
     branches:
       - master
     tags:
-      - ".*"
+      - "v*.*.*"
   pull_request:
     branches:
       - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  docker:
+    name: Docker Build and Push
+    runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Docker meta
@@ -66,6 +67,7 @@ jobs:
         with:
           context: ./
           file: docker/Dockerfile
+          platforms: linux/amd64,linux/arm64
           builder: ${{ steps.buildx.outputs.name }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
