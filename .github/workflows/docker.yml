@@ -24,7 +24,7 @@ jobs:
         with:
           images: |
             orhunp/grapheneX
-            ghcr.io/${{ github.repository_owner }}/graphenex
+            ghcr.io/${{ github.repository_owner }}/grapheneX
           tags: |
             type=schedule
             type=ref,event=branch
@@ -78,7 +78,7 @@ jobs:
       - name: Scan the image
         uses: anchore/sbom-action@v0
         with:
-          image: ghcr.io/${{ github.repository_owner }}/graphenex
+          image: ghcr.io/${{ github.repository_owner }}/grapheneX
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
