@@ -75,6 +75,8 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
+      - name: Debug Image Availability
+        run: docker pull ghcr.io/grapheneX/grapheneX || true
 
       - name: Scan the image
         uses: anchore/sbom-action@v0
