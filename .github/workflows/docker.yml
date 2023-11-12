@@ -24,7 +24,7 @@ jobs:
         with:
           images: |
             orhunp/grapheneX
-            ghcr.io/${{ github.repository_owner }}/grapheneX
+            ghcr.io/${{ github.repository_owner }}/graphenex
           tags: |
             type=schedule
             type=ref,event=branch
@@ -75,13 +75,10 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
-      - name: Debug Image Availability
-        run: docker pull ghcr.io/grapheneX/grapheneX || true
-
       - name: Scan the image
         uses: anchore/sbom-action@v0
         with:
-          image: ghcr.io/${{ github.repository_owner }}/grapheneX
+          image: ghcr.io/${{ github.repository_owner }}/graphenex
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
