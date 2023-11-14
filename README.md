@@ -372,4 +372,4 @@ We don't have any sponsors yet. Contact us with email if you want to help us imp
 
 ## License
 
-GNU General Public License v3.0 ([gpl](https://www.gnu.org/licenses/gpl.txt))
+[GPL](LICENSE)
