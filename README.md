@@ -372,4 +372,4 @@ We don't have any sponsors yet. Contact us with email if you want to help us imp
 
 ## License
 
-[GPL](LICENSE)
+[GNU General Public License v3.0](./LICENSE)
