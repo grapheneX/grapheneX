@@ -1,0 +1,31 @@
+name: PyPI Automated publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install poetry
+        run: |
+          pip install poetry
+          poetry --version
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Build and publish
+        run: |
+          poetry build
+          poetry publish --username __token__ --password ${{ secrets.PYPI_TOKEN }}
