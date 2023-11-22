@@ -14,13 +14,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup python
+      - name: Setup python and poetry
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-
-      - name: Install poetry
-        uses: poetry/actions/setup@v8
+        uses: Gr1N/setup-poetry@v8
+        run: poetry --version
 
       - name: Install dependencies
         run: poetry install
