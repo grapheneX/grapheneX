@@ -3,6 +3,8 @@ name: PyPI Automated publish
 on:
   release:
     types: [created]
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   deploy:
@@ -23,7 +25,14 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: Build and dry publish
+        if: github.event_name == 'pull_request'
+        run: |
+          poetry build
+          poetry publish --dry-run
+
       - name: Build and publish
+        if: github.event_name != 'pull_request'
         run: |
           poetry build
           poetry publish --username __token__ --password ${{ secrets.PYPI_TOKEN }}
