@@ -1,12 +1,13 @@
 name: PyPI Automated publish
 
 on:
-  workflow_dispatch:
   pull_request:
     branches:
       - master
+  push:
     tags:
-      - ".*"
+      - "*"
+  workflow_dispatch:
 
 jobs:
   deploy:
