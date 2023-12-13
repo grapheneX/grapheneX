@@ -9,4 +9,4 @@ indent-width = 4
 target-version = "py310"
 
 [lint]
-ignore = ["E501", "E226", "W504"]
+ignore = ["E501", "E226"]
