@@ -1,0 +1,14 @@
+name: Ruff
+
+on: [ push, pull_request ]
+jobs:
+  ruff:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ruff
+        uses: chartboost/ruff-action@v1
+        with:
+          args: check .
