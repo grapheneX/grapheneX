@@ -9,4 +9,7 @@ indent-width = 4
 target-version = "py310"
 
 [lint]
-ignore = ["E501", "E226"]
+ignore = [
+    "E501", # line too long
+    "E226" # missing whitespace around arithmetic operator
+]
