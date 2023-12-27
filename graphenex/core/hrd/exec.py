@@ -13,7 +13,7 @@ class OsExec(ABC):
 class LinuxExec(OsExec):
     def run_cmd(self, cmd, shell=True, **kwargs):
         """
-        Executes the Linux command and returns it's output in UTF-8 format.
+        Executes the Linux command and returns its output in UTF-8 format.
         Supports passing `kwargs`.
         """
 
@@ -31,7 +31,7 @@ class LinuxExec(OsExec):
 class WinExec(OsExec):
     def run_cmd(self, cmd, shell=True):
         """
-        Executes the Windows command and returns it's output in UTF-8 format.
+        Executes the Windows command and returns its output in UTF-8 format.
         """
 
         result = subprocess.run(shlex.split(
