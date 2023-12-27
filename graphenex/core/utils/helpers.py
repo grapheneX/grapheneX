@@ -54,7 +54,7 @@ def print_header():
     `:ohdddddddddds``sddddds- :.      """+Style.NORMAL+"~ Automated System Hardening Framework"+Style.BRIGHT+"""
     +ddddddddddddddh. /dds- /hdd      """+Style.NORMAL+"+ Created for Linux & Windows."+Style.BRIGHT+"""
     +dddddddddddddddd/ .. /hdddd      """+Style.NORMAL+"> https://github.com/grapheneX"+Style.BRIGHT+"""
-    +ddddddddddddddddo``/hdddddd      """+Style.NORMAL+"- Copyright (C) 2019-2023"+Style.BRIGHT+"""
+    +ddddddddddddddddo``/hdddddd      """+Style.NORMAL+"- Copyright (C) 2019-2024"+Style.BRIGHT+"""
     +ddddddddddddddo.`+ddddddddd
     `-/+oyhddddd+``+dddddddddddd
     :o+/-.` `-` .syddddddddddddd
