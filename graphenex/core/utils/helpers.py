@@ -172,7 +172,7 @@ def is_valid_port(port):
 
 
 def is_valid_address(address):
-    """"""
+    """Verify the IP address"""
 
     try:
         socket.getaddrinfo(address, None)
