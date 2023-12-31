@@ -1,5 +1,6 @@
 import socket
 import secrets
+import logging
 import webbrowser
 
 from flask import Flask
@@ -9,6 +10,7 @@ from graphenex.core.cli.shell import Shell
 from graphenex.core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
+logging.getLogger('werkzeug').disabled = True
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '77a98d7971ec94c8aae6dd2d'
 app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(6)
@@ -19,17 +21,9 @@ from graphenex.core.web.views import *  # noqa
 from graphenex.core.web.providers import *  # noqa
 
 
-def disable_flask_logs():
-    """Disable Flask logs"""
-
-    import logging
-    logging.getLogger('werkzeug').setLevel(logging.ERROR)
-
-
 def run_server(args=None, exit_shell=True):
     """Run the web server"""
 
-    disable_flask_logs()
     try:
         if args:
             server_params = args['host_port'].split(':') \
@@ -56,4 +50,4 @@ def run_server(args=None, exit_shell=True):
         if e.errno == 98:
             logger.error(f"{server_params[0]}:{server_params[1]} is already in use!")
     except Exception as e:
-        logger.error('An error occurred: ' + str(e))
+        logger.error(f'An error occurred: {e}')
