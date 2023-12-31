@@ -457,7 +457,7 @@ class ShellCommands(Help):
                     err_msg += " Try running the grapheneX with sudo."
                 logger.error(err_msg)
             except Exception as e:
-                logger.error("Failed to execute hardening command. " + str(e))
+                logger.error(f"Failed to execute hardening command: {e}")
 
     def do_EOF(self, arg):
         """EOF exit"""
