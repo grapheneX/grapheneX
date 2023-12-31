@@ -153,14 +153,14 @@ def hardening_exec(data):
         emit(data + "_log", {"state": "error"})
         logger.error(err_msg)
     except Exception as e:
-        fail_msg = "Failed to execute hardening command."
+        fail_msg = "Failed to execute hardening command"
         emit('log_message', {
             'tag': 'danger',
             'content': fail_msg,
             'duration': 2000
         })
         emit(data + "_log", {"msg": str(e), "state": "error"})
-        logger.error(fail_msg + " " + str(e))
+        logger.error(f"{fail_msg}: {e}")
 
 
 @socketio.on('add_module')
@@ -220,7 +220,7 @@ def add_module(mod):
         # Success event with module count
         emit('new_module_added', get_mod_count(module_dict))
     except Exception as e:
-        exception_msg = "Error occurred while adding new module. " + str(e)
+        exception_msg = f"Error occurred while adding new module: {e}"
         emit('log_message', {
             'tag': 'warning',
             'content': exception_msg,
