@@ -75,7 +75,7 @@ def check_os():
     [1] -> Windows
     [0] -> Linux (else)
     """
-    return 1 if __import__('os').name == 'nt' else 0
+    return 1 if os.name == 'nt' else 0
 
 
 def check_privileges():
