@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import ctypes
+import socket
 import pathlib
 import argparse
 from colorama import init, Fore, Style
@@ -160,3 +161,19 @@ def get_mod_json():
     except FileNotFoundError:
         logger.error(f"{mod_json_file} not found! Exiting grapheneX.")
         sys.exit(1)
+
+
+def is_valid_port(port):
+    """Verify the port number"""
+
+    return 1 <= port <= 65535
+
+
+def is_valid_address(address):
+    """Verify the IP address"""
+
+    try:
+        socket.getaddrinfo(address, None)
+        return True
+    except socket.gaierror:
+        return False
