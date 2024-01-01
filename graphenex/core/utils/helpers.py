@@ -166,9 +166,7 @@ def get_mod_json():
 def is_valid_port(port):
     """Verify the port number"""
 
-    if 1 <= port <= 65535:
-        return True
-    return False
+    return 1 <= port <= 65535
 
 
 def is_valid_address(address):
