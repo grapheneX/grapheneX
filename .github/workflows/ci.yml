@@ -3,75 +3,75 @@ name: Continuous Integration
 on:
   workflow_dispatch:
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
     paths:
       - "docker/**"
       - "graphenex/**"
   push:
-    branches:
-      - master
+    branches: [ master ]
     paths:
       - "docker/**"
       - "graphenex/**"
 
 jobs:
   setup_linux:
-    name: "Linux setup"
+    name: Linux setup
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: "Install dependencies"
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            --no-install-recommends \
-            --allow-unauthenticated python3-pip
+      - name: Python setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-      - name: "Install grapheneX"
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+
+      - name: Install grapheneX
         run: |
-          python3 -m pip install poetry
           poetry install
 
-      - name: "Python import issue workaround"
+      - name: Python import issue workaround
         run: |
           sed -i '/Mapping/s/collections/collections.abc/' \
             /home/runner/.cache/pypoetry/virtualenvs/graphenex--sEiZHBC-py3.10/lib/python3.10/site-packages/prompt_toolkit/styles/from_dict.py
 
-      - name: "Run grapheneX"
+      - name: Run grapheneX
         run: poetry run grapheneX
 
   setup_windows:
-    name: "Windows setup"
+    name: Windows setup
     runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: "Install python"
+      - name: Python setup
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-          cache: "pip"
 
-      - name: "Update pip"
-        run: python -m pip install --upgrade pip
+      - name: Install poetry
+        uses: snok/install-poetry@v1
 
-      - name: "Install grapheneX"
+      - name: Install grapheneX
         run: |
-          python3 -m pip install poetry
           poetry install
 
-      - name: "Python import issue workaround"
+      - name: Python import issue workaround
         shell: pwsh
         run: (Get-Content C:\Users\runneradmin\AppData\Local\pypoetry\Cache\virtualenvs\graphenex-6fD1lE0z-py3.10\lib\site-packages\prompt_toolkit\styles\from_dict.py) -Replace 'from collections import Mapping', 'from collections.abc import Mapping' | Set-Content C:\Users\runneradmin\AppData\Local\pypoetry\Cache\virtualenvs\graphenex-6fD1lE0z-py3.10\lib\site-packages\prompt_toolkit\styles\from_dict.py
 
-      - name: "Update Flask-SocketIO"
-        run: python3 -m pip install --upgrade flask_socketio
+      - name: Update Flask-SocketIO
+        run: python -m pip install --upgrade flask_socketio
 
-      - name: "run grapheneX"
+      - name: Run grapheneX
         run: poetry run grapheneX

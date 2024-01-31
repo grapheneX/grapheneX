@@ -2,18 +2,16 @@ name: Docker Automated Build
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
     tags:
       - ".*"
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
 
 jobs:
   docker:
     name: Docker Build and Push
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
