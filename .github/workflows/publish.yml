@@ -2,8 +2,7 @@ name: PyPI Automated publish
 
 on:
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
   push:
     tags:
       - "*"
@@ -11,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
