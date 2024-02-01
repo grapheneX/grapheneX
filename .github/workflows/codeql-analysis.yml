@@ -5,10 +5,12 @@ on:
     branches: [ master ]
     paths:
       - 'grapheneX/**'
+      - '!grapheneX/modules.json'
   pull_request:
     branches: [ master ]
     paths:
       - 'grapheneX/**'
+      - '!grapheneX/modules.json'
 
 jobs:
   analyze:
