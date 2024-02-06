@@ -1,0 +1,42 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'grapheneX/**'
+      - '!grapheneX/modules.json'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'grapheneX/**'
+      - '!grapheneX/modules.json'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python', 'javascript' ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: CodeQL initialize
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: CodeQL autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: CodeQL analysis
+        uses: github/codeql-action/analyze@v3
