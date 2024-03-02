@@ -18,9 +18,13 @@ class LinuxExec(OsExec):
         """
 
         cmd = cmd.replace("$USER", os.environ["USER"])
-        result = subprocess.run(cmd, stdout=subprocess.PIPE, shell=shell, **kwargs)
-        if result.returncode != 0:
-            raise PermissionError
+        try:
+            result = subprocess.run(cmd, stdout=subprocess.PIPE, shell=shell, **kwargs)
+        except subprocess.CalledProcessError as e:
+            raise PermissionError(f"Subprocess err {e} caught while running '{cmd}'")
+        else:
+            if result.returncode != 0:
+                raise PermissionError(f"Command '{cmd}' returned non-zero exit status!")
 
         try:
             return result.stdout.decode('utf-8')
