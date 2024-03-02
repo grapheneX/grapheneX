@@ -16,4 +16,4 @@ body:
     id: related-problem
     attributes:
       label: Describe the problem your feature is related to
-      description: A clear and concise description of waht the problem is. Ex. I'm always frustrated when [...]
+      description: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
