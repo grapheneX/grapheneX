@@ -1,0 +1,33 @@
+name: Bug Report
+description: You have experienced an issue with gX
+title: 'bug: '
+labels: ["bug"]
+
+body:
+ - type: textarea
+   id: bug-description
+   attributes:
+    label: Describe the bug
+    description: A clear and concise description of what the bug is.
+   validations:
+    required: true
+
+ - type: textarea
+   id: expected-behavior
+   attributes:
+    label: Expected behavior
+    description: A clear and concise description of what you expected to happen.
+   validations:
+    required: true
+
+ - type: textarea
+   id: log-msg
+   attributes:
+    label: Provide logs
+    description: Provide log messages / reproduction steps that will help us understand the situation.
+
+ - type: textarea
+   id: desktop-data
+   attributes:
+    label: Desktop information
+    description: Provide information about your OS and its environment (OS / Browser / gX version)
