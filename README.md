@@ -97,7 +97,7 @@ Execute the `grapheneX` with the `-w` or `--web` argument in order to start the 
 
 ![GrapheneX Web Interface II](https://user-images.githubusercontent.com/24392180/60525198-9bb92200-9cf6-11e9-80c6-9b69b5d10c81.gif)
 
-• The default host and port value are `localhost:8080`. It can be changed via the `host:port` argument as shown below.
+• The default host and port value are `0.0.0.0:8080`. It can be changed via the `host:port` argument as shown below.
 
 ```
 python3 -m graphenex -w 192.168.1.36:8090
