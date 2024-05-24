@@ -4,7 +4,8 @@ ENV LC_ALL=C.UTF-8
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     POETRY_HOME=/opt/poetry \
-    POETRY_VIRTUALENVS_IN_PROJECT=1
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_NO_INTERACTION=1
 WORKDIR /app
 
 FROM base as builder
@@ -15,7 +16,7 @@ RUN apt-get update && \
 ENV PATH="$POETRY_HOME/bin:$PATH"
 RUN curl -sSL https://install.python-poetry.org | python -
 COPY . ./
-RUN poetry install --no-interaction --no-ansi -vvv
+RUN poetry install --no-ansi
 
 FROM base as runtime
 ENV PATH="/app/.venv/bin:$PATH"
