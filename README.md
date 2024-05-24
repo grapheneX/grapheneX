@@ -327,7 +327,7 @@ It's possible to display various system information such as disk usage and netwo
 ### Building the image
 
 ```sh
-docker build -f docker/Dockerfile -t graphenex .
+docker build -t graphenex .
 ```
 
 ### Running the container
