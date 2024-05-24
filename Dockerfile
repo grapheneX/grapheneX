@@ -1,22 +1,25 @@
-FROM python:3.10-slim as python
+FROM python:3.10.14-slim as base
 LABEL maintainer="graphenex.project@protonmail.com"
 ENV LC_ALL=C.UTF-8
-ENV PYTHONUNBUFFERED=true
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    POETRY_HOME=/opt/poetry \
+    POETRY_VIRTUALENVS_IN_PROJECT=1
 WORKDIR /app
 
-FROM python as poetry
+FROM base as builder
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential gcc
-ENV POETRY_HOME=/opt/poetry
-ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+    apt-get install --yes --no-install-recommends --no-install-suggests \
+        build-essential \
+        curl
 ENV PATH="$POETRY_HOME/bin:$PATH"
-RUN python -c 'from urllib.request import urlopen; print(urlopen("https://install.python-poetry.org").read().decode())' | python -
+RUN curl -sSL https://install.python-poetry.org | python -
 COPY . ./
 RUN poetry install --no-interaction --no-ansi -vvv
 
-FROM python as runtime
+FROM base as runtime
 ENV PATH="/app/.venv/bin:$PATH"
-COPY --from=poetry /app /app
+COPY --from=builder /app /app
 EXPOSE 8080
 
 # https://github.com/grapheneX/grapheneX/issues/127
