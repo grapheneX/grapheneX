@@ -99,7 +99,7 @@ Execute the `grapheneX` with the `-w` or `--web` argument in order to start the 
 
 • The default host and port values are `0.0.0.0:8080`. It can be changed via the `host:port` argument as shown below.
 The default server address is set to `0.0.0.0` because the docker container is designed to listen on all available network interfaces, allowing it to be accessible from both within the container itself and from the host machine.
-You can also set it to localhost if you aren't planning to containerize gX.
+You can also set it to `localhost` if you aren't planning to containerize grapheneX.
 
 ```
 python3 -m graphenex -w 192.168.1.36:8090
