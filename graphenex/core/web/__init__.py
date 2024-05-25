@@ -6,15 +6,13 @@ import webbrowser
 from flask import Flask
 from flask_socketio import SocketIO
 
-from graphenex.core.utils.helpers import is_valid_port, is_valid_address
+from graphenex.core.utils.helpers import is_valid_port, is_valid_address, get_flask_secret_key
 from graphenex.core.cli.shell import Shell
 from graphenex.core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
 logging.getLogger('werkzeug').disabled = True
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '77a98d7971ec94c8aae6dd2d'
-app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(6)
 socketio = SocketIO(app)
 default_addr = ('localhost', '8080')
 
@@ -24,6 +22,14 @@ from graphenex.core.web.providers import *  # noqa
 
 def run_server(args=None, exit_shell=True):
     """Run the web server"""
+
+    flask_secret_key = get_flask_secret_key()
+    if not flask_secret_key:
+        logger.error("`FLASK_SECRET_KEY` isn't set in `.env` file. Please configure it before running the Web UI.")
+        return
+
+    app.config["SECRET_KEY"] = flask_secret_key
+    app.config["ACCESS_TOKEN"] = secrets.token_urlsafe(8)
 
     if args:
         server_params = args.get('host_port', '').split(':') or default_addr

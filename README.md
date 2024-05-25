@@ -91,7 +91,15 @@ Execute the `grapheneX` with the `-w` or `--web` argument in order to start the 
 
 ![Starting the Web Server](https://user-images.githubusercontent.com/24392180/61898426-f292cf80-af21-11e9-9edc-21f0351bbf5b.gif)
 
-• Web interface has the authentication system that requires an `access token`. Once the user verifies her/his identity with the given token at the shell, grapheneX creates a session for further use.
+• Web interface has the authentication system that requires an `access token`. `FLASK_SECRET_KEY` needs to be set in order to run grapheneX's Web Interface.
+You can use these commands to automatically configure it:
+
+```sh
+mv .env-example .env
+sed -i "s/FLASK_SECRET_KEY=/FLASK_SECRET_KEY=$(python3 -c 'import os; print(os.urandom(24).hex())')/" .env
+```
+
+• Once the user verifies her/his identity with the given token at the shell, grapheneX creates a session for further use.
 
 ![GrapheneX Web Interface I](https://user-images.githubusercontent.com/24392180/61898886-fd019900-af22-11e9-9d1e-e2a58bee6651.gif)
 
