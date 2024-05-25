@@ -6,6 +6,7 @@ import socket
 import pathlib
 import argparse
 from colorama import init, Fore, Style
+from dotenv import load_dotenv
 
 from graphenex.core.hrd import HardenMethod
 from graphenex.core.utils.logcl import GraphenexLogger
@@ -14,6 +15,7 @@ from graphenex.core.utils.logcl import GraphenexLogger
 logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
 mod_json_file = project_dir / 'modules.json'
+environment_file = project_dir.parent / ".env"
 
 
 def parse_cli_args():
@@ -177,3 +179,12 @@ def is_valid_address(address):
         return True
     except socket.gaierror:
         return False
+
+
+def get_flask_secret_key():
+    """Load Flask's Secret key from .env file"""
+
+    load_dotenv(environment_file)
+    flask_secret_key = os.getenv("FLASK_SECRET_KEY")
+
+    return flask_secret_key
