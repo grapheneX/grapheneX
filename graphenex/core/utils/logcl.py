@@ -45,7 +45,7 @@ class GraphenexLogger(logging.Logger):
         FIELD_STYLES = dict(
             asctime=dict(color='green'),
             hostname=dict(color='magenta'),
-            levelname=dict(color='cyan', bold=coloredlogs.CAN_USE_BOLD_FONT),
+            levelname=dict(color='cyan'),
             filename=dict(color='magenta'),
             name=dict(color='blue'),
             threadName=dict(color='green')
