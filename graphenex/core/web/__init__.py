@@ -14,7 +14,7 @@ logger = GraphenexLogger(__name__)
 logging.getLogger('werkzeug').disabled = True
 app = Flask(__name__)
 socketio = SocketIO(app)
-default_addr = ('localhost', '8080')
+default_socket = ('0.0.0.0', '8080')
 
 from graphenex.core.web.views import *  # noqa
 from graphenex.core.web.providers import *  # noqa
@@ -32,15 +32,15 @@ def run_server(args=None, exit_shell=True):
     app.config["ACCESS_TOKEN"] = secrets.token_urlsafe(8)
 
     if args:
-        server_params = args.get('host_port', '').split(':') or default_addr
+        server_params = args.get('host_port', '').split(':') or default_socket
     else:
-        server_params = default_addr
+        server_params = default_socket
 
     try:
         server_addr, server_port = server_params
         server_port = int(server_port)
     except (ValueError, IndexError):
-        logger.error(f"Invalid server parameters: {server_params}")
+        logger.error(f"Invalid socket specified: {server_params}")
         return
 
     if not is_valid_port(server_port):
