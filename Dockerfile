@@ -1,4 +1,4 @@
-FROM python:3.10.14-slim as base
+FROM python:3.10-slim as base
 LABEL maintainer="graphenex.project@protonmail.com"
 ENV LC_ALL=C.UTF-8
 ENV PYTHONUNBUFFERED=1 \
@@ -12,7 +12,8 @@ FROM base as builder
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends --no-install-suggests \
         build-essential \
-        curl
+        curl \
+    && rm -rf /var/lib/apt/lists*
 ENV PATH="$POETRY_HOME/bin:$PATH"
 RUN curl -sSL https://install.python-poetry.org | python -
 COPY . ./

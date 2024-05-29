@@ -1,0 +1,14 @@
+# GitHub files
+LICENSE
+MANIFEST.in
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+
+# Git files / dirs
+.git
+.gitignore
+.gitattributes
+
+# Other
+.bumpversion.cfg
+ruff.toml
