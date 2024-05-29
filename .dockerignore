@@ -1,0 +1,11 @@
+# Git files / dirs
+.git
+.gitignore
+.gitattributes
+
+# GitHub Markdown files
+*.md
+
+# Others
+LICENSE
+MANIFEST.in
