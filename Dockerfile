@@ -1,7 +1,7 @@
-FROM python:3.10-slim as base
+FROM python:3.10-alpine as base
 LABEL maintainer="graphenex.project@protonmail.com"
-ENV LC_ALL=C.UTF-8
-ENV PYTHONUNBUFFERED=1 \
+ENV LC_ALL=C.UTF-8 \
+    PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     POETRY_HOME=/opt/poetry \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
@@ -9,14 +9,16 @@ ENV PYTHONUNBUFFERED=1 \
 WORKDIR /app
 
 FROM base as builder
-RUN apt-get update && \
-    apt-get install --yes --no-install-recommends --no-install-suggests \
-        build-essential \
-        curl \
-    && rm -rf /var/lib/apt/lists*
+RUN apk update \
+    && apk add --no-cache \
+    curl \
+    gcc \
+    linux-headers \
+    musl-dev \
+    python3-dev
 ENV PATH="$POETRY_HOME/bin:$PATH"
 RUN curl -sSL https://install.python-poetry.org | python -
-COPY . ./
+COPY . .
 RUN poetry install --no-ansi
 
 FROM base as runtime
