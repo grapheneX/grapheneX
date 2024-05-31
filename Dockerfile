@@ -17,7 +17,7 @@ RUN apk update \
     musl-dev \
     python3-dev
 ENV PATH="$POETRY_HOME/bin:$PATH"
-RUN curl -sSL https://install.python-poetry.org | python3 -
+RUN curl -sSL https://install.python-poetry.org | python -
 COPY . .
 RUN poetry install --no-ansi
 
