@@ -12,6 +12,7 @@ FROM base as builder
 RUN apk update \
     && apk add --no-cache \
     gcc \
+    libffi-dev \
     linux-headers \
     musl-dev \
     python3-dev
