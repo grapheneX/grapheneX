@@ -11,13 +11,12 @@ WORKDIR /app
 FROM base as builder
 RUN apk update \
     && apk add --no-cache \
-    curl \
     gcc \
     linux-headers \
     musl-dev \
     python3-dev
 ENV PATH="$POETRY_HOME/bin:$PATH"
-RUN curl -sSL https://install.python-poetry.org | python -
+RUN pip install poetry
 COPY . .
 RUN poetry install --no-ansi
 
