@@ -452,9 +452,9 @@ class ShellCommands(Help):
             except PermissionError:
                 err_msg = "Insufficient permissions for hardening."
                 if check_os():
-                    err_msg += " Get admin rights and rerun the grapheneX."
+                    err_msg += " Get admin rights and rerun grapheneX."
                 else:
-                    err_msg += " Try running the grapheneX with sudo."
+                    err_msg += " Try running grapheneX with sudo."
                 logger.error(err_msg)
             except Exception as e:
                 logger.error(f"Failed to execute hardening command: {e}")
