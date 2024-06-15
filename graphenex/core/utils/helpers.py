@@ -97,11 +97,11 @@ def check_privileges():
     if check_os():
         if not is_admin():
             logger.warn("Some functions won't work without admin rights, " +
-                        "try running the graphenex with admin access.")
+                        "try running graphenex with admin access.")
     else:
         if not is_root():
             logger.warn("Some functions won't work without root access, " +
-                        "try running the grapheneX with sudo.")
+                        "try running grapheneX with sudo.")
 
 
 def get_modules():
