@@ -1,4 +1,6 @@
-from graphenex.core.utils.helpers import parse_cli_args, print_header
+import sys
+
+from graphenex.core.utils.helpers import parse_cli_args, print_header, create_env_file
 from graphenex.core.utils.logcl import GraphenexLogger
 from graphenex.core.cli.shell import start_cli
 from graphenex.core.web import run_server
@@ -11,7 +13,10 @@ def main():
     args = parse_cli_args()
     if args['version']:
         print(f"grapheneX v{__version__}")
-        exit()
+        sys.exit(0)
+
+    create_env_file(args["flask_secret_key"])
+
     print_header()
     if args['web']:
         run_server(args)

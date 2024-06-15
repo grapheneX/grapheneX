@@ -6,6 +6,7 @@ import socket
 import pathlib
 import argparse
 from colorama import init, Fore, Style
+from dotenv import load_dotenv, set_key
 
 from graphenex.core.hrd import HardenMethod
 from graphenex.core.utils.logcl import GraphenexLogger
@@ -13,7 +14,8 @@ from graphenex.core.utils.logcl import GraphenexLogger
 
 logger = GraphenexLogger(__name__)
 project_dir = pathlib.Path(__file__).absolute().parent.parent.parent
-mod_json_file = project_dir / 'modules.json'
+mod_json_file = project_dir / "modules.json"
+env_file = project_dir.parent / ".env"
 
 
 def parse_cli_args():
@@ -37,6 +39,9 @@ def parse_cli_args():
                         help="host and port to run the web interface")
     parser.add_argument('--open', action="store_true",
                         help="open browser on web server start")
+    parser.add_argument("--flask-secret-key",
+                        default=None,
+                        help="Secret key to keep the client-side sessions secure.")
     args = vars(parser.parse_args())
     return args
 
@@ -177,3 +182,27 @@ def is_valid_address(address):
         return True
     except socket.gaierror:
         return False
+
+
+def create_env_file(cli_secret_key):
+    """Generate .env file with secret key"""
+
+    env_file_exists = env_file.is_file()
+    if not env_file_exists:
+        env_file.touch()
+        logger.info("`.env` config file created")
+
+    load_dotenv(env_file)
+    flask_secret_key = os.getenv("FLASK_SECRET_KEY")
+
+    if cli_secret_key or not flask_secret_key:
+        set_key(env_file, "FLASK_SECRET_KEY", cli_secret_key or os.urandom(32).hex())
+
+
+def get_flask_secret_key():
+    """Load secret key from .env file"""
+
+    load_dotenv(env_file)
+    flask_secret_key = os.getenv("FLASK_SECRET_KEY")
+
+    return flask_secret_key
