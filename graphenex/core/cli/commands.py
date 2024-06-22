@@ -425,7 +425,7 @@ class ShellCommands(Help):
         """Start the grapheneX web server"""
 
         from graphenex.core.web import run_server, app
-        app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(6)
+        app.config['ACCESS_TOKEN'] = secrets.token_urlsafe(12)
         run_server({"host_port": arg} if arg else None, False)
 
     def do_harden(self, arg):
