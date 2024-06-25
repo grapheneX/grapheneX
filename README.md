@@ -121,7 +121,7 @@ python3 -m graphenex -w --open
 ## CLI Commands
 
 | Command | Description                                                                   |
-| ------- | ----------------------------------------------------------------------------- |
+|---------|-------------------------------------------------------------------------------|
 | back    | Go back from namespace or module                                              |
 | clear   | Clear the terminal                                                            |
 | exit    | Exit interactive shell                                                        |
