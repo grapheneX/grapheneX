@@ -48,6 +48,21 @@ poetry install        # install the dependencies
 poetry run grapheneX  # run grapheneX
 ```
 
+Or you can use the Docker image:
+
+```shell
+docker pull ghcr.io/graphenex/graphenex  # pull the image from GHCR
+alias graphenex="docker run -it --rm -p 8080:8080 --privileged ghcr.io/graphenex/graphenex"  # create an alias
+graphenex  # run it
+```
+
+You can also build and run the Docker image locally:
+
+```shell
+docker build -t graphenex .
+docker run -it --rm --name graphenex -p 8080:8080 --privileged graphenex
+```
+
 ### Dependencies
 
 - [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/)
@@ -121,7 +136,7 @@ python3 -m graphenex -w --open
 ## CLI Commands
 
 | Command | Description                                                                   |
-| ------- | ----------------------------------------------------------------------------- |
+|---------|-------------------------------------------------------------------------------|
 | back    | Go back from namespace or module                                              |
 | clear   | Clear the terminal                                                            |
 | exit    | Exit interactive shell                                                        |
@@ -330,20 +345,6 @@ There's a menu available in the web interface for adding new modules.
 It's possible to display various system information such as disk usage and network state at the Web interface.
 
 ![System Monitor](https://user-images.githubusercontent.com/24392180/64130757-12dd6600-cdcd-11e9-9be8-39395e104974.gif)
-
-## Docker
-
-### Building the image
-
-```shell
-docker build -t graphenex .
-```
-
-### Running the container
-
-```shell
-docker run -it --rm --name graphenex -p 8080:8080 --privileged graphenex
-```
 
 ## Screenshots
 
