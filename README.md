@@ -51,12 +51,12 @@ poetry run grapheneX  # run grapheneX
 Or you can use the Docker image:
 
 ```shell
-docker pull ghcr.io/graphenex/graphenex
-alias graphenex="docker run -it --rm -p 8080:8080 --privileged ghcr.io/graphenex/graphenex"
-graphenex
+docker pull ghcr.io/graphenex/graphenex  # pull the image from GHCR
+alias graphenex="docker run -it --rm -p 8080:8080 --privileged ghcr.io/graphenex/graphenex"  # create an alias
+graphenex  # run it
 ```
 
-You can also build the Docker image locally:
+You can also build and run the Docker image locally:
 
 ```shell
 docker build -t graphenex .
