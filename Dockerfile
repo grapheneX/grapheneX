@@ -1,4 +1,4 @@
-FROM python:3.10-alpine as base
+FROM python:3.10-alpine AS base
 LABEL maintainer="graphenex.project@protonmail.com"
 ENV LC_ALL=C.UTF-8 \
     PYTHONUNBUFFERED=1 \
@@ -8,7 +8,7 @@ ENV LC_ALL=C.UTF-8 \
     POETRY_NO_INTERACTION=1
 WORKDIR /app
 
-FROM base as builder
+FROM base AS builder
 RUN apk update \
     && apk add --no-cache \
     gcc \
@@ -21,7 +21,7 @@ RUN pip install poetry
 COPY . .
 RUN poetry install --no-ansi
 
-FROM base as runtime
+FROM base AS runtime
 ENV PATH="/app/.venv/bin:$PATH"
 COPY --from=builder /app /app
 EXPOSE 8080
